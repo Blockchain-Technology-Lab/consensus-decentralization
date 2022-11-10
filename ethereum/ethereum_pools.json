@@ -1,0 +1,336 @@
+{
+  "partial_links": {
+  },
+  "known_links": {
+  },
+  "coinbase_address_links": {
+      "Nethermind": "Manifold",
+      "eth-pro-hzh-": "SparkPool",
+      "supernode-de": "SparkPool",
+      "supernode-us": "SparkPool",
+      "supernode-jp": "SparkPool",
+      "supernode-hz": "SparkPool",
+      "eth-pro-hzf-": "SparkPool",
+      "eth-pro-hzo-": "SparkPool",
+      "eth-pro-hzi-": "SparkPool",
+      "eth-pro-hzg-": "SparkPool",
+      "eth-pro-sg-": "SparkPool",
+      "us-east": "EtherMine",
+      "us-west": "EtherMine",
+      "europe-west": "EtherMine",
+      "europe-north": "EtherMine",
+      "europe-central": "EtherMine",
+      "australia-southeast": "EtherMine",
+      "asia-east": "EtherMine",
+      "Blocknative": "Manifold",
+      "altpool.pro": "K1Pool.com",
+      "ALTpool.com": "K1Pool.com",
+      "ALTpool.pro": "K1Pool.com"
+  },
+  "coinbase_tags": {
+    "ethermine": {
+      "name": "EtherMine",
+      "link": "https://ethermine.org/"
+    },
+    "flexpool.io": {
+      "name": "Flexpool",
+      "link": "https://www.flexpool.io/"
+    },
+    "Flexpool": {
+      "name": "Flexpool",
+      "link": "https://www.flexpool.io/"
+    },
+    "2miners_": {
+      "name": "2miners",
+      "link": "https://eth.2miners.com/"
+    },
+    "Cruxpool": {
+      "name": "Cruxpool",
+      "link": "https://www.cruxpool.com"
+    },
+    "Huobi": {
+      "name": "Huobi",
+      "link": "https://www.huobi.com"
+    },
+    "HuoBi": {
+      "name": "Huobi",
+      "link": "https://www.huobi.com"
+    },
+    "AntPool": {
+      "name": "AntPool",
+      "link": "https://www.antpool.com/"
+    },
+    "Binance": {
+      "name": "Binance",
+      "link": "https://binance.com"
+    },
+    "binance.com": {
+      "name": "Binance",
+      "link": "https://binance.com"
+    },
+    "七彩神仙鱼": {
+      "name": "F2Pool",
+      "link": "https://www.f2pool.com"
+    },
+    "SBICrypto.com": {
+      "name": "SBICrypto",
+      "link": "https://SBICrypto.com"
+    },
+    "3qpool.com": {
+      "name": "3qpool",
+      "link": "https://3qpool.com"
+    },
+    "ALTpool.com": {
+      "name": "ALTpool.com",
+      "link": ""
+    },
+    "K1Pool.com": {
+      "name": "K1Pool.com",
+      "link": "https://k1pool.com/"
+    },
+    "otherpool.com": {
+      "name": "otherpool.com",
+      "link": "https://otherpool.com/"
+    },
+    "nanopool.org": {
+      "name": "Nanopool",
+      "link": "https://nanopool.org"
+    },
+    "www.bytepool.com": {
+      "name": "BytePool",
+      "link": "https://www.bytepool.com"
+    },
+    "bloXroute": {
+      "name": "bloXroute",
+      "link": "https://bloxroute.com/"
+    },
+    "ethereum.herominers.com": {
+      "name": "ethereum.herominers.com",
+      "link": ""
+    },
+    "wayi_": {
+      "name": "wayi",
+      "link": "https://twitter.com/sh_wayi"
+    },
+    "minerbabe:coin": {
+      "name": "minerbabe",
+      "link": ""
+    },
+    "relayooor.wtf": {
+      "name": "relayooor.wtf",
+      "link": ""
+    },
+    "2009pool.com": {
+      "name": "2009pool.com",
+      "link": "https://2009pool.com"
+    },
+    "okpool.top": {
+      "name": "okpool.top",
+      "link": "https://okpool.top"
+    },
+    "beepool.org": {
+      "name": "Beepool",
+      "link": "https://beepool.org"
+    },
+    "fkpool.cn": {
+      "name": "FKPool",
+      "link": "https://fkpool.cn"
+    },
+    "uupool.cn": {
+      "name": "UUPool",
+      "link": "https://uupool.cn"
+    },
+    "firepool.com": {
+      "name": "Firepool",
+      "link": "https://firepool.com"
+    },
+    "bw.com": {
+      "name": "bw.com",
+      "link": ""
+    },
+    "xnpool.cn": {
+      "name": "xnpool.cn",
+      "link": "https://xnpool.cn"
+    },
+    "zhizhu": {
+      "name": "zhizhu.top",
+      "link": "https://zhizhu.top"
+    },
+    "KuCoinPool": {
+      "name": "KuCoinPool",
+      "link": ""
+    },
+    "digipools.org": {
+      "name": "Digipools",
+      "link": "https://digipools.org"
+    },
+    "poolin": {
+      "name": "Poolin",
+      "link": "https://www.poolin.com"
+    },
+    "Nethermind": {
+      "name": "Nethermind (Unidentified)",
+      "link": ""
+    },
+    "miao?": {
+      "name": "miao? (Unidentified)",
+      "link": ""
+    },
+    "Ezil.me": {
+      "name": "ezil.me",
+      "link": "https://ezil.me"
+    },
+    "panda_pool": {
+      "name": "PandaMiner",
+      "link": ""
+    },
+    "pandaminer": {
+      "name": "PandaMiner",
+      "link": ""
+    },
+    "ezil.me": {
+      "name": "ezil.me",
+      "link": "https://ezil.me"
+    },
+    "pool2mine": {
+      "name": "pool2mine",
+      "link": "https://pool2mine.net"
+    },
+    "Illuminate Dmocratize Dstribute": {
+      "name": "Manifold",
+      "link": "https://manifold.xyz/"
+    },
+    "Manifold": {
+      "name": "Manifold",
+      "link": "https://manifold.xyz/"
+    },
+    "Blocknative": {
+      "name": "Blocknative (Unidentified)",
+      "link": ""
+    },
+    "GaMbLeRs": {
+      "name": "GaMbLeRs (Unidentified)",
+      "link": ""
+    },
+    "77pool": {
+      "name": "77pool (Unidentified)",
+      "link": ""
+    },
+    "CloudPool": {
+      "name": "CloudPool (Unidentified)",
+      "link": ""
+    },
+    "BTPOOL": {
+      "name": "BTPool (Unidentified)",
+      "link": ""
+    },
+    "zh/": {
+      "name": "zh{1...6}/ (Unidentified)",
+      "link": ""
+    },
+    "zh1/": {
+      "name": "zh{1...6}/ (Unidentified)",
+      "link": ""
+    },
+    "zh2/": {
+      "name": "zh{1...6}/ (Unidentified)",
+      "link": ""
+    },
+    "zh3/": {
+      "name": "zh{1...6}/ (Unidentified)",
+      "link": ""
+    },
+    "zh4/": {
+      "name": "zh{1...6}/ (Unidentified)",
+      "link": ""
+    },
+    "zh5/": {
+      "name": "zh{1...6}/ (Unidentified)",
+      "link": ""
+    },
+    "zh6/": {
+      "name": "zh{1...6}/ (Unidentified)",
+      "link": ""
+    },
+    "421/": {
+      "name": "421/ (Unidentified)",
+      "link": ""
+    },
+    "speth0": {
+      "name": "speth0 (Unidentified)",
+      "link": ""
+    },
+    "*_*/": {
+      "name": "*_*/ (Unidentified)",
+      "link": ""
+    },
+    "spider": {
+      "name": "spider (Unidentified)",
+      "link": "https://www.spiderpool.com/"
+    },
+    "pool.express": {
+      "name": "pool.express",
+      "link": ""
+    },
+    "matpool.io": {
+      "name": "matpool",
+      "link": "https://matpool.io"
+    },
+    "ethpool": {
+      "name": "ethpool",
+      "link": "https://ethpool.org/"
+    },
+    "sparkpool": {
+      "name": "SparkPool",
+      "link": "https://www.sparkpool.com/"
+    },
+    "Easy2mine": {
+      "name": "easy2mine",
+      "link": "https://easy2mine.io/"
+    },
+    "Easy2Mine": {
+      "name": "easy2mine",
+      "link": "https://easy2mine.io/"
+    },
+    "BTC.com": {
+      "name": "BTC.COM",
+      "link": "https://pool.btc.com"
+    },
+    "BTC.COM": {
+      "name": "BTC.COM",
+      "link": "https://pool.btc.com"
+    },
+    "ViaBTC": {
+      "name": "ViaBTC",
+      "link": "https://viabtc.com"
+    },
+    "hiveon": {
+      "name": "Hiveon",
+      "link": "https://hiveon.net/"
+    },
+    "Hiveon": {
+      "name": "Hiveon",
+      "link": "https://hiveon.net/"
+    },
+    "xpub/": {
+      "name": "xpub/ (Unidentified)",
+      "link": ""
+    },
+    "awssp0": {
+      "name": "awssp0 (Unidentified)",
+      "link": ""
+    },
+    "cc0": {
+      "name": "cc0 (Unidentified)",
+      "link": ""
+    },
+    "bj0": {
+      "name": "bj0 (Unidentified)",
+      "link": ""
+    },
+    "geth": {
+      "name": "geth (Unidentified)",
+      "link": ""
+    }
+  }
+}
