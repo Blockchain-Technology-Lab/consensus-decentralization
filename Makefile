@@ -6,4 +6,4 @@ parse:
 	cd bitcoin && python3 parse.py
 
 clean:
-	rm -f bitcoin/{parsed_data.json,pool_addresses.json,unmatched_tags}
+	rm -f bitcoin/parsed_data.json bitcoin/pool_addresses.json bitcoin/unmatched_tags
