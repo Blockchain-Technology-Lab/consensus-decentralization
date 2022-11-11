@@ -1,5 +1,5 @@
 ALL:
-	python3 analyse.py
+	python3 analyse.py bitcoin
 
 parse:
 	make clean

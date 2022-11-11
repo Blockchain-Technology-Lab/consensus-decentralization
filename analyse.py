@@ -3,6 +3,7 @@ from collections import defaultdict
 from helpers import compute_gini, compute_nc
 from bitcoin.parse import parse_raw_data as bitcoin_parse_raw_data
 import config
+import sys
 
 parse_functions = {
     'bitcoin': bitcoin_parse_raw_data
@@ -95,4 +96,5 @@ def analyse(project_name):
             f.write('\n'.join(time_series_data))
 
 if __name__ == '__main__':
-    analyse('bitcoin')
+    project_name = sys.argv[1]
+    analyse(project_name)
