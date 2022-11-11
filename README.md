@@ -80,6 +80,7 @@ FROM  `bigquery-public-data.crypto_bitcoin.transactions`
 JOIN  `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
 WHERE is_coinbase is TRUE
 AND block_number > 501960 -- last block of 2017 for Bitcoin
+```
 
 ### Ethereum
 
