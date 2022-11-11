@@ -3,7 +3,7 @@ ALL:
 
 parse:
 	make clean
-	cd bitcoin && python3 parse.py
+	python3 bitcoin/parse.py
 
 clean:
 	rm -f bitcoin/parsed_data.json bitcoin/pool_addresses.json bitcoin/unmatched_tags
