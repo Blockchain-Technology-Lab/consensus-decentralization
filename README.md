@@ -9,9 +9,9 @@ To run an analysis:
 - run `make parse` to generate the parsed data
 - run `make` to analyse the data and output the results
 
-## Directory format
+## Development
 
-Each project should have a separate folder, named as the project (e.g., `bitcoin`, `ethereum`, etc).
+To add a new project, you should create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc).
 
 Each project folder should define the following files.
 
@@ -66,11 +66,13 @@ Each project folder should define the following files.
 ```
 
 
-## Data
+## Example data
 
-Block data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery).
+### Bitcoin
 
-Example queries:
+Bitcoin data between 2018-2022 are available [here](https://drive.google.com/file/d/1-bwOew789plh4L988S_AejGJmmy4Zlrn/view).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT *
@@ -78,14 +80,15 @@ FROM  `bigquery-public-data.crypto_bitcoin.transactions`
 JOIN  `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
 WHERE is_coinbase is TRUE
 AND block_number > 501960 -- last block of 2017 for Bitcoin
-```
+
+### Ethereum
+
+Ethereum data between 2019-2022 are available [here](https://drive.google.com/file/d/1yh0hX_0_VesGxqraPd-qM1aSVNMqH63w/view).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT number, timestamp, miner, extra_data
 FROM  `bigquery-public-data.crypto_ethereum.blocks`
 WHERE number > 6988614 -- last block of 2018
 ```
-
-Sample data are also available in the following links:
-- [Bitcoin](https://drive.google.com/file/d/1-bwOew789plh4L988S_AejGJmmy4Zlrn/view)
-- [Ethereum](https://drive.google.com/file/d/1yh0hX_0_VesGxqraPd-qM1aSVNMqH63w/view)
