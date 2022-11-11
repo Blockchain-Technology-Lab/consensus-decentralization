@@ -11,15 +11,15 @@ def param2ascii(coinbase_param):
     return param
 
 def parse_raw_data():
-    current_dir = pathlib.Path(__file__).parent.resolve()
-    with open(str(current_dir) + '/data.json') as f:
+    current_dir = str(pathlib.Path(__file__).parent.resolve())
+    with open(current_dir + '/data.json') as f:
         data = json.load(f)
 
-    with open(str(current_dir) + '/pools.json') as f:  # Original pool tags: https://github.com/0xB10C/known-mining-pools
+    with open(current_dir + '/pools.json') as f:  # Original pool tags: https://github.com/0xB10C/known-mining-pools
         pool_data = json.load(f)
 
     try:
-        with open(str(current_dir) + '/pool_addresses.json') as f:
+        with open(current_dir + '/pool_addresses.json') as f:
             pool_addresses = json.load(f)
     except FileNotFoundError:
         pool_addresses = {}
@@ -37,7 +37,7 @@ def parse_raw_data():
                         if addr not in pool_addresses[block_year].keys():
                             pool_addresses[block_year][addr] = name
                     break
-        with open(str(current_dir) + '/pool_addresses.json', 'w') as f:
+        with open(current_dir + '/pool_addresses.json', 'w') as f:
             f.write(json.dumps(pool_addresses, indent=4))
 
     unmatched_tags = []
@@ -91,10 +91,10 @@ def parse_raw_data():
         for (address, val) in addresses_in_multiple_pools[year].items():
             addresses_in_multiple_pools[year][address] = list(val)
 
-    with open(str(current_dir) + '/parsed_data.json', 'w') as f:
+    with open(current_dir + '/parsed_data.json', 'w') as f:
         f.write(json.dumps({'block_data': block_data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}, indent=4))
 
-    with open(str(current_dir) + '/unmatched_tags', 'w') as f:
+    with open(current_dir + '/unmatched_tags', 'w') as f:
         f.write('\n'.join([
             ' --- '.join([tag[0], tag[1], tag[2].hex(), param2ascii(tag[2])]) for tag in unmatched_tags
         ]))
