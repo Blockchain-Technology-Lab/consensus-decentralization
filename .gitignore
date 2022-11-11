@@ -6,3 +6,9 @@ bitcoin/parsed_data.json
 bitcoin/pool_addresses.json
 bitcoin/time_series.csv
 bitcoin/unmatched_tags
+ethereum/data.json
+ethereum/output.csv
+ethereum/parsed_data.json
+ethereum/pool_addresses.json
+ethereum/time_series.csv
+ethereum/unmatched_tags

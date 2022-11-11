@@ -1,126 +1,97 @@
 from collections import defaultdict
 import json
-import numpy as np
+import pathlib
 
 
-def gini(x):
-    # (Warning: This is a concise implementation, but it is O(n**2)
-    # in time and memory, where n = len(x).  *Don't* pass in huge
-    # samples!)
+def parse_raw_data():
+    current_dir = str(pathlib.Path(__file__).parent.resolve())
 
-    # Mean absolute difference
-    mad = np.abs(np.subtract.outer(x, x)).mean()
-    # Relative mean absolute difference
-    rmad = mad/np.mean(x)
-    # Gini coefficient
-    g = 0.5 * rmad
-    return g
-
-
-def compute_nc(blocks):
-    nakamoto_coefficient = [0, 0]
-    for (name, value) in sorted(blocks.items(), key=lambda x: x[1], reverse=True):
-        if nakamoto_coefficient[1] < 50:
-            nakamoto_coefficient[0] += 1
-            nakamoto_coefficient[1] += 100 * value / sum([i[1] for i in blocks.items()])
-        else:
-            return nakamoto_coefficient
-
-
-def parse_raw_data(project_name):
-    with open(project_name + '_data.json') as f:
+    with open(current_dir + '/data.json') as f:
         data = json.load(f)
         data = sorted(data, key=lambda x: x['number'])
 
-    with open('{}_pools.json'.format(project_name)) as f:  # Pool tags: https://github.com/0xB10C/known-mining-pools
+    with open(current_dir + '/pools.json') as f:
         pool_data = json.load(f)
 
-    pool_addresses = {}
-    addresses_in_multiple_pools = defaultdict(set)
-    for tx in data:
-        address = tx['miner']
-        try:
-            tag = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
-            if tag:
-                creator = '[pool] ' + tag
+    try:
+        with open(current_dir + '/pool_addresses.json') as f:
+            pool_addresses = json.load(f)
+    except FileNotFoundError:
+        pool_addresses = {}
+        for tx in data:
+            block_year = tx['timestamp'][:4]
+            if block_year not in pool_addresses.keys():
+                pool_addresses[block_year] = {}
 
-                for (partial_tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
-                    if partial_tag in tag:
-                        creator = '[pool] ' + info['name']
-                        break
-                
-                if address in pool_addresses.keys() and pool_addresses[address] != creator:
-                    match = False
-                    for known_link in pool_data['coinbase_address_links'].keys():
-                        if known_link in tag:
-                            creator = '[pool] ' + pool_data['coinbase_address_links'][known_link]
-                            match = True
-                            break
-                    if not match:
-                        addresses_in_multiple_pools[address].add(creator)
-                        addresses_in_multiple_pools[address].add(pool_addresses[address])
+            coinbase_address = tx['miner']
 
-            pool_addresses[address] = creator
-        except UnicodeDecodeError:
-            pass
-    
-    # for (_, val) in addresses_in_multiple_pools.items():
-    #     print(','.join(val))
-
-    # with open('{}_pool_addresses.json'.format(project_name), 'w') as f:
-    #     f.write(json.dumps(pool_addresses, indent=4))
-
-
-    RANGE = 4  # 0: all, 4: years, 7: months, 10: days
-
-    PRINT_DISTRIBUTION = False
-
-    data_range_blocks = defaultdict(list)
-    for block in data:
-        if RANGE > 0:
-            data_range_blocks[block['timestamp'][:RANGE]].append(block)
-        else:
-            data_range_blocks['all available'].append(block)
-
-    for time_window in sorted(data_range_blocks.keys()):
-        blocks_per_creator = defaultdict(int)
-        for tx in data_range_blocks[time_window]:
-            match = False
             try:
-                tag = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
-
-                for (partial_tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
-                    if partial_tag in tag:
-                        tag = info['name']
-                        match = True
-                        break
-
-                if not match:
-                    for (partial_tag, name) in pool_data['coinbase_address_links'].items():  # Check if tag is known associated with pool
-                        if partial_tag in tag:
-                            tag = name
-                            match = True
-                            break
-
-                if not match and tx['miner'] in pool_addresses.keys():  # Check if address is associated with pool
-                    creator = pool_addresses[tx['miner']]
-
-                creator = '[pool] ' + tag
-
+                coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
             except UnicodeDecodeError:
-                creator = '[addr] ' + tx['miner']
+                continue
 
-            blocks_per_creator[creator] += 1
+            for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
+                if tag in coinbase_param:
+                    name = info['name']
+                    if coinbase_address not in pool_addresses[block_year].keys():
+                        pool_addresses[block_year][coinbase_address] = name
+                    break
+        with open(current_dir + '/pool_addresses.json', 'w') as f:
+            f.write(json.dumps(pool_addresses, indent=4))
 
-        if PRINT_DISTRIBUTION:
-            print('[*] Blocks per creator')
-            for (name, blocks) in sorted(blocks_per_creator.items(), key=lambda x: x[1], reverse=True):
-                print('    {0:55} {1:8} blocks ({2:.4f}%)'.format(name, blocks, blocks * 100 / sum([i[1] for i in blocks_per_creator.items()])))
 
-        v = list(blocks_per_creator.values())
-        nc = compute_nc(blocks_per_creator)
-        print('[*] Nakamoto: {} ({:.3f}%), Gini: {:.6f}, Block creators: {}'.format(nc[0], nc[1], gini(v), len(blocks_per_creator.keys())))
+    unmatched_tags = []
+    addresses_in_multiple_pools = {}
+    block_data = []
+    for tx in data:
+        block_year = tx['timestamp'][:4]
+        if block_year not in addresses_in_multiple_pools.keys():
+            addresses_in_multiple_pools[block_year] = defaultdict(set)
+
+        block_data.append({
+            'number': tx['number'],
+            'timestamp': tx['timestamp']
+        })
+
+        coinbase_address = tx['miner']
+        block_data[-1]['coinbase_addresses'] = [coinbase_address]
+
+        try:
+            coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
+        except UnicodeDecodeError:
+            coinbase_param = tx['extra_data']
+
+        pool_match = False
+        for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
+            if tag in coinbase_param:
+                name = info['name']
+
+                block_data[-1]['creator']= '[pool] ' + name
+                pool_match = True
+                if coinbase_address in pool_addresses[block_year].keys() and pool_addresses[block_year][coinbase_address] != name:  # Check if address associated with multiple pools
+                    addresses_in_multiple_pools[block_year][coinbase_address].add(name)
+                    addresses_in_multiple_pools[block_year][coinbase_address].add(pool_addresses[block_year][coinbase_address])
+                break
+
+        if not pool_match:
+            if coinbase_address in pool_addresses[block_year].keys():  # Check if address is associated with pool
+                block_data[-1]['creator']= '[pool] ' + pool_addresses[block_year][coinbase_address]
+            else:
+                unmatched_tags.append([tx['number'], coinbase_address, coinbase_param])
+                block_data[-1]['creator'] = '[addr] ' + coinbase_address
+
+    for year in addresses_in_multiple_pools.keys():
+        for (address, val) in addresses_in_multiple_pools[year].items():
+            addresses_in_multiple_pools[year][address] = list(val)
+
+    with open(current_dir + '/parsed_data.json', 'w') as f:
+        f.write(json.dumps({'block_data': block_data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}, indent=4))
+
+    with open(current_dir + '/unmatched_tags', 'w') as f:
+        f.write('\n'.join([
+            ' --- '.join([tag[0], tag[1], tag[2]]) for tag in unmatched_tags
+        ]))
 
 
 if __name__ == '__main__':
-    parse_raw_data('ethereum')
+    parse_raw_data()

@@ -1,31 +1,11 @@
 {
-  "partial_links": {
-  },
-  "known_links": {
+  "legal_links": {
+      "2018": {
+      }
   },
   "coinbase_address_links": {
-      "Nethermind": "Manifold",
-      "eth-pro-hzh-": "SparkPool",
-      "supernode-de": "SparkPool",
-      "supernode-us": "SparkPool",
-      "supernode-jp": "SparkPool",
-      "supernode-hz": "SparkPool",
-      "eth-pro-hzf-": "SparkPool",
-      "eth-pro-hzo-": "SparkPool",
-      "eth-pro-hzi-": "SparkPool",
-      "eth-pro-hzg-": "SparkPool",
-      "eth-pro-sg-": "SparkPool",
-      "us-east": "EtherMine",
-      "us-west": "EtherMine",
-      "europe-west": "EtherMine",
-      "europe-north": "EtherMine",
-      "europe-central": "EtherMine",
-      "australia-southeast": "EtherMine",
-      "asia-east": "EtherMine",
-      "Blocknative": "Manifold",
-      "altpool.pro": "K1Pool.com",
-      "ALTpool.com": "K1Pool.com",
-      "ALTpool.pro": "K1Pool.com"
+      "2018": {
+      }
   },
   "coinbase_tags": {
     "ethermine": {
