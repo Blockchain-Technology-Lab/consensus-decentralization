@@ -13,6 +13,8 @@ To run an analysis:
 
 To add a new project, you should create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc).
 
+In `analyse.py`, import the project's `parse_raw_data` function and define it in the `parse_functions` dictionary.
+
 Each project folder should define the following files.
 
 ### pools.json
@@ -42,7 +44,7 @@ Each project folder should define the following files.
 
 ### parse.py
 
-`parse.py` should define a function `parse_raw_data` with outputs a json file named `parsed_data.json` as follows:
+`parse.py` should define a function `parse_raw_data` with outputs a json file, in the project directory named `parsed_data.json`, as follows:
 
 ```
 {
