@@ -12,7 +12,7 @@ def parse_raw_data():
     with open('data.json') as f:
         data = json.load(f)
 
-    with open('pools.json') as f:  # Pool tags: https://github.com/0xB10C/known-mining-pools
+    with open('pools.json') as f:  # Original pool tags: https://github.com/0xB10C/known-mining-pools
         pool_data = json.load(f)
 
     try:
