@@ -28,26 +28,15 @@ def compute_nc(blocks_per_pool):
             return nakamoto_coefficient
 
 RANGE = 4  # 0: all, 4: years, 7: months, 10: days
-
-ADDRESS_LINKS = True
-KNOWN_LINKS = True
-PARTIAL_LINKS = False
-
+POOL_CLUSTERING = True  # coinbase tags that identify pools
+LEGAL_LINKS = False  # known legal links (eg. parent company) between pools
+ADDRESS_LINKS = False  # consistently shared coinbase addresses between pools
 PRINT_DISTRIBUTION = False
+
+print('[*] Pool clustering:', POOL_CLUSTERING, 'Legal links:', LEGAL_LINKS, 'Address links:', ADDRESS_LINKS)
 
 with open('bitcoin_pools.json') as f:
     pool_data = json.load(f)
-    pool_links = {}
-    if ADDRESS_LINKS:
-        pool_links.update(pool_data['coinbase_address_links'])
-    if KNOWN_LINKS:
-        pool_links.update(pool_data['known_links'])
-    if PARTIAL_LINKS:
-        pool_links.update(pool_data['partial_links'])
-    for key, val in pool_links.items():
-        while val in pool_links.keys():
-            val = pool_links[val]
-        pool_links[key] = val
 
 try:
     with open('bitcoin_parsed_data.json') as f:
@@ -67,15 +56,46 @@ for block in block_data:
         data_range_blocks['all available'].append(block)
 
 for time_window in sorted(data_range_blocks.keys()):
+    pool_links = {}
+    try:
+        if LEGAL_LINKS:
+            pool_links.update(pool_data['legal_links'][time_window[:4]])
+        if ADDRESS_LINKS:
+            pool_links.update(pool_data['coinbase_address_links'][time_window[:4]])
+
+        for key, val in pool_links.items():  # resolve chain links
+            while val in pool_links.keys():
+                val = pool_links[val]
+            pool_links[key] = val
+    except KeyError:  # if "all available"
+        pass
+
     blocks_per_pool = defaultdict(int)
     for block in data_range_blocks[time_window]:
-        creator = block['creator']
-        if 'pool' in block['creator']:
-            name = block['creator'][7:].strip()
-            if name in pool_links.keys():
-                creator = '[pool] ' + pool_links[name]
+        coinbase_addresses = block['coinbase_addresses']
+        
+        if POOL_CLUSTERING:
+            creator = block['creator']
+            if 'pool' in block['creator']:
+                name = block['creator'][7:].strip()
+                creator = name
+                if name in pool_links.keys():
+                    creator = pool_links[name]
+            elif 'addr' in block['creator']:
+                creator = block['creator'][7:].strip()
+        else:
+            try:
+                creator = coinbase_addresses[0]
+            except IndexError:
+                pass
 
         blocks_per_pool[creator] += 1
+
+    if time_window == '2019':
+        with open('output.csv', 'w') as f:
+            f.write('\n'.join([
+                ','.join([key, str(val)]) for (key, val) in sorted(blocks_per_pool.items(), key=lambda x: x[1], reverse=True)
+            ]))
 
     if PRINT_DISTRIBUTION:
         print()
@@ -87,8 +107,3 @@ for time_window in sorted(data_range_blocks.keys()):
     nc = compute_nc(blocks_per_pool)
 
     print('[{}] Nakamoto: {} ({:.3f}%), Gini: {:.6f}, Block creators: {}'.format(time_window, nc[0], nc[1], gini(v), len(blocks_per_pool.keys())))
-
-
-# addresses_in_multiple_pools = parsed_data['addresses_in_multiple_pools']
-# for (addr, pools) in addresses_in_multiple_pools.items():
-#     print('[!] Address {} in multiple pools: {}'.format(addr, ', '.join(pools)))

@@ -21,28 +21,38 @@ def parse_raw_data(project_name):
     except FileNotFoundError:
         pool_addresses = {}
         for tx in sorted(data, key=lambda x: x['block_number']):
+            block_year = tx['timestamp'][:4]
+            if block_year not in pool_addresses.keys():
+                pool_addresses[block_year] = {}
+
             coinbase_addresses = [i['addresses'][0] for i in tx['outputs'] if (int(i['value']) > 0 and i['type'] != 'nonstandard')]
             coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
             for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
                 if tag in str(coinbase_param):
                     name = info['name']
                     for addr in coinbase_addresses:
-                        if addr not in pool_addresses.keys():
-                            pool_addresses[addr] = name
+                        if addr not in pool_addresses[block_year].keys():
+                            pool_addresses[block_year][addr] = name
                     break
         with open('{}_pool_addresses.json'.format(project_name), 'w') as f:
             f.write(json.dumps(pool_addresses, indent=4))
 
     unmatched_tags = []
-    addresses_in_multiple_pools = defaultdict(set)
+    addresses_in_multiple_pools = {}
     block_data = []
     for tx in sorted(data, key=lambda x: x['block_number']):
+        block_year = tx['timestamp'][:4]
+        if block_year not in addresses_in_multiple_pools.keys():
+            addresses_in_multiple_pools[block_year] = defaultdict(set)
+
         block_data.append({
             'number': tx['block_number'],
             'timestamp': tx['block_timestamp']
         })
 
         coinbase_addresses = [i['addresses'][0] for i in tx['outputs'] if (int(i['value']) > 0 and i['type'] != 'nonstandard')]
+        block_data[-1]['coinbase_addresses'] = list(set(coinbase_addresses))
+
         coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
 
         pool_match = False
@@ -53,15 +63,15 @@ def parse_raw_data(project_name):
                 block_data[-1]['creator']= '[pool] ' + name
                 pool_match = True
                 for addr in coinbase_addresses:
-                    if pool_addresses[addr] != name:  # Check if address associated with multiple pools
-                        addresses_in_multiple_pools[addr].add(name)
-                        addresses_in_multiple_pools[addr].add(pool_addresses[addr])
+                    if pool_addresses[block_year][addr] != name:  # Check if address associated with multiple pools
+                        addresses_in_multiple_pools[block_year][addr].add(name)
+                        addresses_in_multiple_pools[block_year][addr].add(pool_addresses[block_year][addr])
                 break
 
         if not pool_match:
             for addr in coinbase_addresses:  # Check if address is associated with pool
-                if addr in pool_addresses.keys():
-                    block_data[-1]['creator']= '[pool] ' + pool_addresses[addr]
+                if addr in pool_addresses[block_year].keys():
+                    block_data[-1]['creator']= '[pool] ' + pool_addresses[block_year][addr]
                     pool_match = True
                     break
             if not pool_match:
@@ -74,8 +84,9 @@ def parse_raw_data(project_name):
                     ])
                     block_data[-1]['creator'] = '[multi] ' + identifier
 
-    for (key, val) in addresses_in_multiple_pools.items():
-        addresses_in_multiple_pools[key] = list(val)
+    for year in addresses_in_multiple_pools.keys():
+        for (address, val) in addresses_in_multiple_pools[year].items():
+            addresses_in_multiple_pools[year][address] = list(val)
 
     with open('{}_parsed_data.json'.format(project_name), 'w') as f:
         f.write(json.dumps({'block_data': block_data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}, indent=4))

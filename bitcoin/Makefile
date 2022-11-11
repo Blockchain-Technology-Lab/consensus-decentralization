@@ -2,8 +2,8 @@ ALL: *.json
 	python3 analyse.py
 
 parse:
-	rm -f parsed_bitcoin_data.json pool_addresses.json
+	make clean
 	python3 parse.py
 
 clean:
-	rm -f parsed_bitcoin_data.json pool_addresses.json
+	rm -f bitcoin_parsed_data.json bitcoin_pool_addresses.json bitcoin_unmatched_tags

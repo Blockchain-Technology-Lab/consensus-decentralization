@@ -1,45 +1,56 @@
 {
-  "partial_links": {
-      "Bitdeer": "Bitmain affiliate",
-      "Huobi Pool": "Bitmain affiliate",
-      "F2Pool": "Bitdeer"
-  },
-  "known_links": {
-      "AntPool": "Bitmain",
-      "BTC.COM": "Bitmain",
-      "ViaBTC": "Bitmain"
+  "legal_links": {
+      "2018": {
+          "AntPool": "Bitmain",
+          "BTC.COM": "Bitmain",
+          "Bitdeer": "Bitmain"
+      },
+      "2019": {
+          "AntPool": "Bitmain",
+          "BTC.COM": "Bitmain",
+          "Bitdeer": "Bitmain"
+      },
+      "2020": {
+          "AntPool": "Bitmain",
+          "BTC.COM": "Bitmain",
+          "Bitdeer": "Bitmain"
+      },
+      "2021": {
+          "Bitdeer": "BTC.COM",
+          "AntPool": "Bitmain"
+      },
+      "2022": {
+          "AntPool": "Bitmain",
+          "NovaBlock": "Poolin"
+      }
   },
   "coinbase_address_links": {
-      "BTCPool": "Bitdeer",
-      "50BTC": "Bitdeer",
-      "OKExPool": "Bitdeer",
-      "okpool.top": "Bitdeer",
-      "EMCD": "Huobi Pool",
-      "TMSPool": "Huobi Pool",
-      "SpiderPool": "Huobi Pool",
-      "58coin": "AntPool",
-      "1THash": "AntPool",
-      "CanoePool": "AntPool",
-      "BTC.TOP": "Bitdeer",
-      "xxxxxx.com": "Poolin",
-      "pooin.com": "Poolin",
-      "CODEBLACK": "CKPool",
-      "nodeStratum": "CKPool",
-      "Helix": "haominer",
-      "GBMiners": "haominer",
-      "Bitcoin-Ukraine": "Bitcoin-Russia/Ukraine",
-      "Bitcoin-Russia": "Bitcoin-Russia/Ukraine",
-      "UKRPool": "OKKONG"
+      "2018": {
+          "Helix": "haominer",
+          "GBMiners": "haominer",
+          "Bitcoin-Ukraine": "Bitcoin-Russia/Ukraine",
+          "Bitcoin-Russia": "Bitcoin-Russia/Ukraine"
+      },
+      "2019": {
+          "Bitdeer": "BTC.COM"
+      },
+      "2020": {
+          "Bitdeer": "BTC.COM",
+          "UKRPool": "OKKONG"
+      },
+      "2021": {
+          "Bitdeer": "BTC.COM",
+          "pooin.com": "Poolin",
+          "xxxxxx.com": "Poolin",
+          "58coin": "1THash",
+          "CODEBLACK": "CKPool"
+      },
+      "2022": {
+          "xxxxxx.com": "Poolin",
+          "CODEBLACK": "CKPool"
+      }
   },
   "coinbase_tags": {
-    "Bitmain affiliate": {
-      "name": "Bitmain-affiliated",
-      "link": "https://www.bitmain.com/"
-    },
-    "Bitmain": {
-      "name": "Bitmain-owned",
-      "link": "https://www.bitmain.com/"
-    },
     "bitdeer": {
       "name": "Bitdeer",
       "link": "https://www.bitdeer.com/"
