@@ -5,30 +5,22 @@ import numpy as np
 
 
 def gini(x):
-    # (Warning: This is a concise implementation, but it is O(n**2)
-    # in time and memory, where n = len(x).  *Don't* pass in huge
-    # samples!)
-
-    # Mean absolute difference
     mad = np.abs(np.subtract.outer(x, x)).mean()
-    # Relative mean absolute difference
     rmad = mad/np.mean(x)
-    # Gini coefficient
-    g = 0.5 * rmad
-    return g
+    return 0.5 * rmad
 
 
 def compute_nc(blocks_per_pool):
-    nakamoto_coefficient = [0, 0]
+    nc = [0, 0]
     for (name, blocks) in sorted(blocks_per_pool.items(), key=lambda x: x[1], reverse=True):
-        if nakamoto_coefficient[1] < 50:
-            nakamoto_coefficient[0] += 1
-            nakamoto_coefficient[1] += 100 * blocks / sum([i[1] for i in blocks_per_pool.items()])
+        if nc[1] < 0.5:
+            nc[0] += 1
+            nc[1] += 100 * blocks / sum([i[1] for i in blocks_per_pool.items()])
         else:
-            return nakamoto_coefficient
+            return nc
 
 RANGE = 7  # 0: all, 4: years, 7: months, 10: days
-POOL_CLUSTERING = True  # coinbase tags that identify pools
+POOL_CLUSTERING = False  # coinbase tags that identify pools
 LEGAL_LINKS = False  # known legal links (eg. parent company) between pools
 ADDRESS_LINKS = False  # consistently shared coinbase addresses between pools
 PRINT_DISTRIBUTION = False
