@@ -8,15 +8,15 @@ def param2ascii(coinbase_param):
         param += chr(i) if i in range(32, 128) else ' '
     return param
 
-def parse_raw_data(project_name):
-    with open('{}_data.json'.format(project_name)) as f:
+def parse_raw_data():
+    with open('data.json') as f:
         data = json.load(f)
 
-    with open('{}_pools.json'.format(project_name)) as f:  # Pool tags: https://github.com/0xB10C/known-mining-pools
+    with open('pools.json') as f:  # Pool tags: https://github.com/0xB10C/known-mining-pools
         pool_data = json.load(f)
 
     try:
-        with open('{}_pool_addresses.json'.format(project_name)) as f:
+        with open('pool_addresses.json') as f:
             pool_addresses = json.load(f)
     except FileNotFoundError:
         pool_addresses = {}
@@ -34,7 +34,7 @@ def parse_raw_data(project_name):
                         if addr not in pool_addresses[block_year].keys():
                             pool_addresses[block_year][addr] = name
                     break
-        with open('{}_pool_addresses.json'.format(project_name), 'w') as f:
+        with open('pool_addresses.json', 'w') as f:
             f.write(json.dumps(pool_addresses, indent=4))
 
     unmatched_tags = []
@@ -88,13 +88,13 @@ def parse_raw_data(project_name):
         for (address, val) in addresses_in_multiple_pools[year].items():
             addresses_in_multiple_pools[year][address] = list(val)
 
-    with open('{}_parsed_data.json'.format(project_name), 'w') as f:
+    with open('parsed_data.json', 'w') as f:
         f.write(json.dumps({'block_data': block_data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}, indent=4))
 
-    with open('{}_unmatched_tags'.format(project_name), 'w') as f:
+    with open('unmatched_tags', 'w') as f:
         f.write('\n'.join([
             ' --- '.join([tag[0], tag[1], tag[2].hex(), param2ascii(tag[2])]) for tag in unmatched_tags
         ]))
 
 if __name__ == '__main__':
-    parse_raw_data('bitcoin')
+    parse_raw_data()

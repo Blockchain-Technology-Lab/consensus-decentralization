@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from parse import parse_raw_data
+from bitcoin.parse import parse_raw_data as bitcoin_parse_raw_data
 import numpy as np
 
 
@@ -28,15 +28,15 @@ TIME_SERIES_OUTPUT = True
 
 print('[*] Pool clustering:', POOL_CLUSTERING, 'Legal links:', LEGAL_LINKS, 'Address links:', ADDRESS_LINKS)
 
-with open('bitcoin_pools.json') as f:
+with open('bitcoin/pools.json') as f:
     pool_data = json.load(f)
 
 try:
-    with open('bitcoin_parsed_data.json') as f:
+    with open('bitcoin/parsed_data.json') as f:
         parsed_data = json.load(f)
 except FileNotFoundError:
-    parse_raw_data('bitcoin')
-    with open('bitcoin_parsed_data.json') as f:
+    bitcoin_parse_raw_data()
+    with open('bitcoin/parsed_data.json') as f:
         parsed_data = json.load(f)
 
 block_data = parsed_data['block_data']
@@ -88,7 +88,7 @@ for time_window in sorted(data_range_blocks.keys()):
         blocks_per_pool[creator] += 1
 
     if time_window == '2019':
-        with open('output.csv', 'w') as f:
+        with open('bitcoin/output.csv', 'w') as f:
             f.write('\n'.join([
                 ','.join([key, str(val)]) for (key, val) in sorted(blocks_per_pool.items(), key=lambda x: x[1], reverse=True)
             ]))
@@ -107,5 +107,5 @@ for time_window in sorted(data_range_blocks.keys()):
         time_series_data.append('{},{},{:.3f},{:.6f},{}'.format(time_window, nc[0], nc[1], gini(v), len(blocks_per_pool.keys())))
 
 if TIME_SERIES_OUTPUT:
-    with open('time_series.csv', 'w') as f:
+    with open('bitcoin/time_series.csv', 'w') as f:
         f.write('\n'.join(time_series_data))
