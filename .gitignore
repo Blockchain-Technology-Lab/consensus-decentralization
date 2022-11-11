@@ -1,2 +1,8 @@
 *.swp
 *.pyc
+bitcoin/data.json
+bitcoin/output.csv
+bitcoin/parsed_data.json
+bitcoin/pool_addresses.json
+bitcoin/time_series.csv
+bitcoin/unmatched_tags
