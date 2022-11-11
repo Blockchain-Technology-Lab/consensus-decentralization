@@ -27,11 +27,12 @@ def compute_nc(blocks_per_pool):
         else:
             return nakamoto_coefficient
 
-RANGE = 4  # 0: all, 4: years, 7: months, 10: days
+RANGE = 7  # 0: all, 4: years, 7: months, 10: days
 POOL_CLUSTERING = True  # coinbase tags that identify pools
 LEGAL_LINKS = False  # known legal links (eg. parent company) between pools
 ADDRESS_LINKS = False  # consistently shared coinbase addresses between pools
 PRINT_DISTRIBUTION = False
+TIME_SERIES_OUTPUT = True
 
 print('[*] Pool clustering:', POOL_CLUSTERING, 'Legal links:', LEGAL_LINKS, 'Address links:', ADDRESS_LINKS)
 
@@ -54,6 +55,9 @@ for block in block_data:
         data_range_blocks[block['timestamp'][:RANGE]].append(block)
     else:
         data_range_blocks['all available'].append(block)
+
+if TIME_SERIES_OUTPUT:
+    time_series_data = ['Month,NC,NC (%),Gini,Creators']
 
 for time_window in sorted(data_range_blocks.keys()):
     pool_links = {}
@@ -107,3 +111,9 @@ for time_window in sorted(data_range_blocks.keys()):
     nc = compute_nc(blocks_per_pool)
 
     print('[{}] Nakamoto: {} ({:.3f}%), Gini: {:.6f}, Block creators: {}'.format(time_window, nc[0], nc[1], gini(v), len(blocks_per_pool.keys())))
+    if TIME_SERIES_OUTPUT:
+        time_series_data.append('{},{},{:.3f},{:.6f},{}'.format(time_window, nc[0], nc[1], gini(v), len(blocks_per_pool.keys())))
+
+if TIME_SERIES_OUTPUT:
+    with open('time_series.csv', 'w') as f:
+        f.write('\n'.join(time_series_data))
