@@ -11,11 +11,13 @@ To run an analysis:
 
 ## Development
 
-To add a new project, you should create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc).
+To add a new project, you should do the following.
+
+In `Makefile`, add the relevant entries (similar as the existing projects).
 
 In `analyse.py`, import the project's `parse_raw_data` function and define it in the `parse_functions` dictionary.
 
-Each project folder should define the following files.
+Create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc). Each project folder should define the following files.
 
 ### pools.json
 
