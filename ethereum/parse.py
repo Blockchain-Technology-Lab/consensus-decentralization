@@ -42,19 +42,13 @@ def parse_raw_data():
 
     unmatched_tags = []
     addresses_in_multiple_pools = {}
-    block_data = []
     for tx in data:
         block_year = tx['timestamp'][:4]
         if block_year not in addresses_in_multiple_pools.keys():
             addresses_in_multiple_pools[block_year] = defaultdict(set)
 
-        block_data.append({
-            'number': tx['number'],
-            'timestamp': tx['timestamp']
-        })
-
         coinbase_address = tx['miner']
-        block_data[-1]['coinbase_addresses'] = [coinbase_address]
+        tx['coinbase_addresses'] = [coinbase_address]
 
         try:
             coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
@@ -66,7 +60,7 @@ def parse_raw_data():
             if tag in coinbase_param:
                 name = info['name']
 
-                block_data[-1]['creator']= '[pool] ' + name
+                tx['creator'] = '[pool] ' + name
                 pool_match = True
                 if coinbase_address in pool_addresses[block_year].keys() and pool_addresses[block_year][coinbase_address] != name:  # Check if address associated with multiple pools
                     addresses_in_multiple_pools[block_year][coinbase_address].add(name)
@@ -75,17 +69,17 @@ def parse_raw_data():
 
         if not pool_match:
             if coinbase_address in pool_addresses[block_year].keys():  # Check if address is associated with pool
-                block_data[-1]['creator']= '[pool] ' + pool_addresses[block_year][coinbase_address]
+                tx['creator']= '[pool] ' + pool_addresses[block_year][coinbase_address]
             else:
                 unmatched_tags.append([tx['number'], coinbase_address, coinbase_param])
-                block_data[-1]['creator'] = '[addr] ' + coinbase_address
+                tx['creator'] = '[addr] ' + coinbase_address
 
     for year in addresses_in_multiple_pools.keys():
         for (address, val) in addresses_in_multiple_pools[year].items():
             addresses_in_multiple_pools[year][address] = list(val)
 
     with open(current_dir + '/parsed_data.json', 'w') as f:
-        f.write(json.dumps({'block_data': block_data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}, indent=4))
+        f.write(json.dumps({'block_data': data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}))
 
     with open(current_dir + '/unmatched_tags', 'w') as f:
         f.write('\n'.join([
