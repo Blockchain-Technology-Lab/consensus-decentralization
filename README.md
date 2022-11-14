@@ -83,7 +83,7 @@ SELECT *
 FROM  `bigquery-public-data.crypto_bitcoin.transactions`
 JOIN  `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
 WHERE is_coinbase is TRUE
-AND block_number > 501960 -- last block of 2017 for Bitcoin
+AND block_number > 501960 -- last block of 2017
 ```
 
 ### Ethereum
@@ -107,8 +107,7 @@ They can be retrieved using [Google BigQuery](https://console.cloud.google.com/b
 ```
 SELECT *
 FROM  `bigquery-public-data.crypto_bitcoin_cash.transactions`
-JOIN  `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number =
-`bigquery-public-data.crypto_bitcoin_cash.blocks`.number
+JOIN  `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
 WHERE is_coinbase is TRUE
-AND block_number > 563314 -- 563314  last block of 2018
+AND block_number > 563314 -- last block of 2018
 ```
