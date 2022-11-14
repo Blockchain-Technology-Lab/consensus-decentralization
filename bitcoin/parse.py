@@ -92,7 +92,7 @@ def parse_raw_data():
             addresses_in_multiple_pools[year][address] = list(val)
 
     with open(current_dir + '/parsed_data.json', 'w') as f:
-        f.write(json.dumps({'block_data': block_data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}, indent=4))
+        f.write(json.dumps({'block_data': block_data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}))
 
     with open(current_dir + '/unmatched_tags', 'w') as f:
         f.write('\n'.join([
