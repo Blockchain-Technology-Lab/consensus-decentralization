@@ -12,3 +12,9 @@ ethereum/parsed_data.json
 ethereum/pool_addresses.json
 ethereum/time_series.csv
 ethereum/unmatched_tags
+bitcoin_cash/data.json
+bitcoin_cash/output.csv
+bitcoin_cash/parsed_data.json
+bitcoin_cash/pool_addresses.json
+bitcoin_cash/time_series.csv
+bitcoin_cash/unmatched_tags
