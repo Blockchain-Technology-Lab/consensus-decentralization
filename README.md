@@ -74,12 +74,12 @@ Create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc). Each pr
 
 ### Bitcoin
 
-Bitcoin data between 2018-2022 are available [here](https://drive.google.com/file/d/1-bwOew789plh4L988S_AejGJmmy4Zlrn/view).
+Bitcoin data between 2018-2022 are available [here](https://drive.google.com/file/d/1D4Q0o5nARvUvTinSNcIt3yxwjZko-Twn/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT *
+SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
 FROM  `bigquery-public-data.crypto_bitcoin.transactions`
 JOIN  `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
 WHERE is_coinbase is TRUE
@@ -100,12 +100,12 @@ WHERE number > 6988614 -- last block of 2018
 
 ### Bitcoin Cash
 
-Bitcoin Cash data between 2019-2022 are available [here](https://drive.google.com/file/d/1ljCQW3rrHRW-Pp8JlDvtKZHpLDBq62hr/view?usp=sharing).
+Bitcoin Cash data between 2019-2022 are available [here](https://drive.google.com/file/d/1ufi1BikyJ57RAagScayo8F_WcdHqScf8/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT *
+SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
 FROM  `bigquery-public-data.crypto_bitcoin_cash.transactions`
 JOIN  `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
 WHERE is_coinbase is TRUE
@@ -114,12 +114,12 @@ AND block_number > 563314 -- last block of 2018
 
 ### Dogecoin
 
-Dogecoin data between 2019-2022 are available [here](https://drive.google.com/file/d/1TLBOK9m11xJpRSSZq1CBwWhogRfdkPqQ/view?usp=sharing).
+Dogecoin data between 2019-2022 are available [here](https://drive.google.com/file/d/1twiMtddYK7CMFdDUdPuKq5nfcERt_wrd/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT *
+SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
 FROM  `bigquery-public-data.crypto_dogecoin.transactions`
 JOIN  `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.crypto_dogecoin.transactions`.block_number = `bigquery-public-data.crypto_dogecoin.blocks`.number
 WHERE is_coinbase is TRUE

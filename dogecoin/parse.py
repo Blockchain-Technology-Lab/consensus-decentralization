@@ -50,7 +50,7 @@ def parse_raw_data():
 
         block_data.append({
             'number': tx['block_number'],
-            'timestamp': tx['block_timestamp']
+            'timestamp': tx['timestamp']
         })
 
         coinbase_addresses = [i['addresses'][0] for i in tx['outputs'] if (int(i['value']) > 0 and i['type'] != 'nonstandard')]
