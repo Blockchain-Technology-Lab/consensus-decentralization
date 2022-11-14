@@ -18,3 +18,9 @@ bitcoin_cash/parsed_data.json
 bitcoin_cash/pool_addresses.json
 bitcoin_cash/time_series.csv
 bitcoin_cash/unmatched_tags
+dogecoin/data.json
+dogecoin/output.csv
+dogecoin/parsed_data.json
+dogecoin/pool_addresses.json
+dogecoin/time_series.csv
+dogecoin/unmatched_tags

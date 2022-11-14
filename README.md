@@ -111,3 +111,17 @@ JOIN  `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data
 WHERE is_coinbase is TRUE
 AND block_number > 563314 -- last block of 2018
 ```
+
+### Dogecoin
+
+Dogecoin data between 2019-2022 are available [here](https://drive.google.com/file/d/1TLBOK9m11xJpRSSZq1CBwWhogRfdkPqQ/view?usp=sharing).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+
+```
+SELECT *
+FROM  `bigquery-public-data.crypto_dogecoin.transactions`
+JOIN  `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.crypto_dogecoin.transactions`.block_number = `bigquery-public-data.crypto_dogecoin.blocks`.number
+WHERE is_coinbase is TRUE
+AND block_number > 3043796 -- last block of 2019
+```

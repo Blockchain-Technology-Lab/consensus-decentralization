@@ -30,7 +30,18 @@ parse_bitcoin_cash:
 clean_bitcoin_cash:
 	rm -f bitcoin_cash/parsed_data.json bitcoin_cash/pool_addresses.json bitcoin_cash/unmatched_tags
 
+dogecoin: .git
+	python3 analyse.py dogecoin
+
+parse_dogecoin:
+	make clean_dogecoin
+	python3 dogecoin/parse.py
+
+clean_dogecoin:
+	rm -f dogecoin/parsed_data.json dogecoin/pool_addresses.json dogecoin/unmatched_tags
+
 clean:
 	make clean_bitcoin
 	make clean_ethereum
 	make clean_bitcoin_cash
+	make clean_dogecoin
