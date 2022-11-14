@@ -2,6 +2,7 @@ import json
 from collections import defaultdict
 from helpers import compute_gini, compute_nc
 from bitcoin.parse import parse_raw_data as bitcoin_parse_raw_data
+from bitcoin_cash.parse import parse_raw_data as bitcoin_cash_parse_raw_data
 from ethereum.parse import parse_raw_data as ethereum_parse_raw_data
 import config
 import sys
@@ -9,6 +10,7 @@ import sys
 parse_functions = {
     'bitcoin': bitcoin_parse_raw_data,
     'ethereum': ethereum_parse_raw_data,
+    'bitcoin_cash': bitcoin_cash_parse_raw_data,
 }
 
 
