@@ -23,7 +23,7 @@ clean_ethereum:
 bitcoin_cash: .git
 	python3 analyse.py bitcoin_cash
 
-parse_bitcoin:
+parse_bitcoin_cash:
 	make clean_bitcoin_cash
 	python3 bitcoin_cash/parse.py
 
