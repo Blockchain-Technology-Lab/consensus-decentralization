@@ -1,33 +1,34 @@
 import json
 from collections import defaultdict
 from helpers import compute_gini, compute_nc
-from bitcoin.parse import parse_raw_data as bitcoin_parse_raw_data
-from ethereum.parse import parse_raw_data as ethereum_parse_raw_data
-from bitcoin_cash.parse import parse_raw_data as bitcoin_cash_parse_raw_data
-from dogecoin.parse import parse_raw_data as dogecoin_parse_raw_data
+from parsers.bitcoin import parse_raw_data as bitcoin_parse_raw_data
+from parsers.ethereum import parse_raw_data as ethereum_parse_raw_data
 import config
 import sys
+import pathlib
 
 parse_functions = {
     'bitcoin': bitcoin_parse_raw_data,
     'ethereum': ethereum_parse_raw_data,
-    'bitcoin_cash': bitcoin_cash_parse_raw_data,
-    'dogecoin': dogecoin_parse_raw_data,
+    'bitcoin_cash': bitcoin_parse_raw_data,
+    'dogecoin': bitcoin_parse_raw_data,
 }
 
 
 def analyse(project_name):
+    project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/{}'.format(project_name)
+
     print('[{}]'.format(project_name), 'Pool clustering:', config.POOL_CLUSTERING, 'Legal links:', config.LEGAL_LINKS, 'Address links:', config.ADDRESS_LINKS)
 
-    with open('{}/pools.json'.format(project_name)) as f:
+    with open('{}/pools.json'.format(project_dir)) as f:
         pool_data = json.load(f)
 
     try:
-        with open('{}/parsed_data.json'.format(project_name)) as f:
+        with open('{}/parsed_data.json'.format(project_dir)) as f:
             parsed_data = json.load(f)
     except FileNotFoundError:
-        parse_functions[project_name]()
-        with open('{}/parsed_data.json'.format(project_name)) as f:
+        parse_functions[project_name](project_dir)
+        with open('{}/parsed_data.json'.format(project_dir)) as f:
             parsed_data = json.load(f)
 
     block_data = parsed_data['block_data']
@@ -79,7 +80,7 @@ def analyse(project_name):
             blocks_per_pool[creator] += 1
 
         if time_window == '2019':
-            with open('{}/output.csv'.format(project_name), 'w') as f:
+            with open('{}/output.csv'.format(project_dir), 'w') as f:
                 f.write('\n'.join([
                     ','.join([key, str(val)]) for (key, val) in sorted(blocks_per_pool.items(), key=lambda x: x[1], reverse=True)
                 ]))
@@ -98,7 +99,7 @@ def analyse(project_name):
             time_series_data.append('{},{},{:.3f},{:.6f},{}'.format(time_window, nc[0], nc[1], gini, len(blocks_per_pool.keys())))
 
     if config.TIME_SERIES_OUTPUT:
-        with open('{}/time_series.csv'.format(project_name), 'w') as f:
+        with open('{}/time_series.csv'.format(project_dir), 'w') as f:
             f.write('\n'.join(time_series_data))
 
 if __name__ == '__main__':

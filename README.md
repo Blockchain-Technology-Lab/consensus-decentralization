@@ -13,40 +13,7 @@ To run an analysis:
 
 To add a new project, you should do the following.
 
-In `Makefile`, add the relevant entries (similar as the existing projects).
-
-In `analyse.py`, import the project's `parse_raw_data` function and define it in the `parse_functions` dictionary.
-
-Create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc). Each project folder should define the following files.
-
-### pools.json
-
-`pools.json` should be as follows:
-
-```
-{
-  "legal_links": {
-      "<year>": {
-          "<name of pool>": "<name of parent company>"
-      }
-  },
-  "coinbase_address_links": {
-      "<year>": {
-          "<name of secondary pool>": "<name of primary pool>"
-      }
-  },
-  "coinbase_tags": {
-    "<pool tag>": {
-      "name": "<pool name>",
-      "link": "<pool website>"
-    }
-  }
-}
-```
-
-### parse.py
-
-`parse.py` should define a function `parse_raw_data` with outputs a json file, in the project directory named `parsed_data.json`, as follows:
+Create a parser in the `parsers` folder, or reuse an existing one. The parser should define a function `parse_raw_data` with outputs a json file, in the project's directory named `parsed_data.json`, as follows:
 
 ```
 {
@@ -69,6 +36,32 @@ Create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc). Each pr
 }
 ```
 
+In `analyse.py`, import the project's `parse_raw_data` function and define it in the `parse_functions` dictionary.
+
+In `Makefile`, add the relevant entries (similar as the existing projects).
+
+Create a folder named as the project (e.g., `bitcoin`, `ethereum`, etc). The project folder should define a json file, `pools.json`,  with pool information as follows.
+
+```
+{
+  "legal_links": {
+      "<year>": {
+          "<name of pool>": "<name of parent company>"
+      }
+  },
+  "coinbase_address_links": {
+      "<year>": {
+          "<name of secondary pool>": "<name of primary pool>"
+      }
+  },
+  "coinbase_tags": {
+    "<pool tag>": {
+      "name": "<pool name>",
+      "link": "<pool website>"
+    }
+  }
+}
+```
 
 ## Example data
 
