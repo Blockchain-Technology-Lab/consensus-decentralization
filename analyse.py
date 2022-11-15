@@ -18,7 +18,8 @@ parse_functions = {
 def analyse(project_name):
     project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/{}'.format(project_name)
 
-    print('[{}]'.format(project_name), 'Pool clustering:', config.POOL_CLUSTERING, 'Legal links:', config.LEGAL_LINKS, 'Address links:', config.ADDRESS_LINKS)
+    ranges = {0: 'all time', 4: 'yearly', 7: 'monthly', 10: 'daily'}
+    print('[{}]'.format(project_name), 'Time range:', ranges[config.RANGE], 'Pool clustering:', config.POOL_CLUSTERING, 'Legal links:', config.LEGAL_LINKS, 'Address links:', config.ADDRESS_LINKS)
 
     with open('{}/pools.json'.format(project_dir)) as f:
         pool_data = json.load(f)
