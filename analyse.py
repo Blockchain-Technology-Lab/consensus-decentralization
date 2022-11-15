@@ -3,6 +3,7 @@ from collections import defaultdict
 from helpers import compute_gini, compute_nc
 from parsers.bitcoin import parse_raw_data as bitcoin_parse_raw_data
 from parsers.ethereum import parse_raw_data as ethereum_parse_raw_data
+from parsers.cardano import parse_raw_data as cardano_parse_raw_data
 import config
 import sys
 import pathlib
@@ -12,6 +13,7 @@ parse_functions = {
     'ethereum': ethereum_parse_raw_data,
     'bitcoin_cash': bitcoin_parse_raw_data,
     'dogecoin': bitcoin_parse_raw_data,
+    'cardano': cardano_parse_raw_data,
 }
 
 

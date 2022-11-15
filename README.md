@@ -118,3 +118,16 @@ JOIN  `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.cry
 WHERE is_coinbase is TRUE
 AND block_number > 3043796 -- last block of 2019
 ```
+
+### Cardano
+
+Cardano data from April 2021 are available [here](https://drive.google.com/file/d/1pkuciKw0zFsOHpCAP4BURcJg-WM-VdmQ/view?usp=sharing).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+
+```
+SELECT `iog-data-analytics.cardano_mainnet.block`.epoch_no, `iog-data-analytics.cardano_mainnet.block`.slot_no, `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name, `iog-data-analytics.cardano_mainnet.pool_offline_data`.metadata_url, `iog-data-analytics.cardano_mainnet.block`.block_time
+FROM  `iog-data-analytics.cardano_mainnet.block`
+JOIN  `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
+WHERE `iog-data-analytics.cardano_mainnet.block`.epoch_no > 256 -- 31 March 2021 (start of epoch 257) was the first time with 100% decentralized block production: https://twitter.com/InputOutputHK/status/1377376420540735489
+```

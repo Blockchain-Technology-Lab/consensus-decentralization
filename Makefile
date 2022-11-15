@@ -24,8 +24,15 @@ dogecoin: .git
 dogecoin_clean:
 	rm -f dogecoin/parsed_data.json dogecoin/pool_addresses.json dogecoin/unmatched_tags
 
+cardano: .git
+	python3 analyse.py cardano
+
+cardano_clean:
+	rm -f cardano/parsed_data.json
+
 clean:
 	make clean_bitcoin
 	make clean_ethereum
 	make clean_bitcoin_cash
 	make clean_dogecoin
+	make clean_cardano
