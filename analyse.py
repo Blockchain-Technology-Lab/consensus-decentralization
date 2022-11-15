@@ -51,15 +51,18 @@ def analyse(project_name):
         try:
             if config.LEGAL_LINKS:
                 pool_links.update(pool_data['legal_links'][time_window[:4]])
+        except KeyError:
+            pass
+        try:
             if config.ADDRESS_LINKS:
                 pool_links.update(pool_data['coinbase_address_links'][time_window[:4]])
-
-            for key, val in pool_links.items():  # resolve chain links
-                while val in pool_links.keys():
-                    val = pool_links[val]
-                pool_links[key] = val
-        except KeyError:  # if "all available"
+        except KeyError:
             pass
+
+        for key, val in pool_links.items():  # resolve chain links
+            while val in pool_links.keys():
+                val = pool_links[val]
+            pool_links[key] = val
 
         blocks_per_pool = defaultdict(int)
         for block in data_range_blocks[time_window]:
