@@ -85,6 +85,9 @@ def analyse(project_name):
 
             blocks_per_pool[creator] += 1
 
+        if config.RANGE == 4 and config.POOL_PIE:
+            with open('{}/pool_distribution_{}.csv'.format(project_dir, time_window), 'w') as f:
+                f.write('\n'.join([','.join([key, str(val)]) for (key, val) in sorted(blocks_per_pool.items(), key=lambda x: x[1], reverse=True)]))
 
         if config.PRINT_DISTRIBUTION:
             print()

@@ -3,4 +3,5 @@ POOL_CLUSTERING = False  # coinbase tags that identify pools
 LEGAL_LINKS = False  # known legal links (eg. parent company) between pools
 ADDRESS_LINKS = False  # consistently shared coinbase addresses between pools
 PRINT_DISTRIBUTION = False
+POOL_PIE = True
 TIME_SERIES_OUTPUT = True
