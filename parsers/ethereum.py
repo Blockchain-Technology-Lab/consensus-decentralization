@@ -41,6 +41,9 @@ def parse_raw_data(project_dir):
     addresses_in_multiple_pools = {}
     for tx in data:
         block_year = tx['timestamp'][:4]
+        block_month = int(tx['timestamp'][5:7])
+        if block_year == '2022' and block_month > 8:  # 15 Sep 2022 Ethereum moved to PoS
+            continue
         if block_year not in addresses_in_multiple_pools.keys():
             addresses_in_multiple_pools[block_year] = defaultdict(set)
 
