@@ -39,11 +39,12 @@ def parse_raw_data(project_dir):
 
     unmatched_tags = []
     addresses_in_multiple_pools = {}
-    for tx in data:
+    for i, tx in enumerate(data):
         block_year = tx['timestamp'][:4]
         block_month = int(tx['timestamp'][5:7])
-        if block_year == '2022' and block_month > 8:  # 15 Sep 2022 Ethereum moved to PoS
-            continue
+        if int(block_year) > 2021 and block_month > 8:  # Exclude PoS blocks (after Aug 22)
+            data = data[:i]
+            break
         if block_year not in addresses_in_multiple_pools.keys():
             addresses_in_multiple_pools[block_year] = defaultdict(set)
 
