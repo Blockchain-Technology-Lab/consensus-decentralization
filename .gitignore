@@ -24,3 +24,9 @@ dogecoin/parsed_data.json
 dogecoin/pool_addresses.json
 dogecoin/time_series.csv
 dogecoin/unmatched_tags
+cardano/data.json
+cardano/output.csv
+cardano/parsed_data.json
+cardano/pool_addresses.json
+cardano/time_series.csv
+cardano/unmatched_tags
