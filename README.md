@@ -11,6 +11,7 @@ Currently the supported cryptocurrencies are:
 - Ethereum Classic
 - Litecoin
 - Zcash
+- Tezos
 
 ## Execute
 
@@ -180,4 +181,16 @@ FROM  `bigquery-public-data.crypto_zcash.transactions`
 JOIN  `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_zcash.transactions`.block_number = `bigquery-public-data.crypto_zcash.blocks`.number
 WHERE is_coinbase is TRUE
 AND timestamp > '2018-12-31'
+```
+
+### Tezos
+
+Tezos data since 2021 are available [here](https://drive.google.com/file/d/1Wi_mBj5T6YtUgLW4JxuLeV_jJ_221v9R/view?usp=sharing).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+
+```
+SELECT level as number, `public-data-finance.crypto_tezos.blocks`.proto, predecessor, timestamp, context as extra_data, protocol, chain_id, baker as miner, voting_period_kind, cycle, cycle_position, voting_period, voting_period_position
+FROM `public-data-finance.crypto_tezos.blocks`
+WHERE timestamp > '2020-12-31'
 ```

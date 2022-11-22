@@ -48,6 +48,12 @@ zcash: .git
 zcash_clean:
 	rm -f zcash/parsed_data.json zcash/pool_addresses.json
 
+tezos: .git
+	python3 analyse.py tezos
+
+tezos_clean:
+	rm -f tezos/parsed_data.json tezos/pool_addresses.json
+
 clean:
 	make bitcoin_clean
 	make ethereum_clean
@@ -57,3 +63,4 @@ clean:
 	make ethereum_classic_clean
 	make litecoin_clean
 	make zcash_clean
+	make tezos_clean

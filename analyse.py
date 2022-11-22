@@ -17,6 +17,7 @@ parse_functions = {
     'ethereum_classic': ethereum_parse_raw_data,
     'litecoin': bitcoin_parse_raw_data,
     'zcash': bitcoin_parse_raw_data,
+    'tezos': ethereum_parse_raw_data,
 }
 
 
