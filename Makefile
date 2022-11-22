@@ -30,9 +30,16 @@ cardano: .git
 cardano_clean:
 	rm -f cardano/parsed_data.json
 
+ethereum_classic: .git
+	python3 analyse.py ethereum_classic
+
+ethereum_classic_clean:
+	rm -f ethereum_classic/parsed_data.json
+
 clean:
-	make clean_bitcoin
-	make clean_ethereum
-	make clean_bitcoin_cash
-	make clean_dogecoin
-	make clean_cardano
+	make bitcoin_clean
+	make ethereum_clean
+	make bitcoin_cash_clean
+	make dogecoin_clean
+	make cardano_clean
+	make ethereum_classic_clean

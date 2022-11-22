@@ -35,3 +35,10 @@ cardano/pool_addresses.json
 cardano/time_series.csv
 cardano/unmatched_tags
 cardano/pool_distribution_*.csv
+ethereum_classic/data.json
+ethereum_classic/output.csv
+ethereum_classic/parsed_data.json
+ethereum_classic/pool_addresses.json
+ethereum_classic/time_series.csv
+ethereum_classic/unmatched_tags
+ethereum_classic/pool_distribution_*.csv

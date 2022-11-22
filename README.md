@@ -131,3 +131,15 @@ FROM  `iog-data-analytics.cardano_mainnet.block`
 JOIN  `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
 WHERE `iog-data-analytics.cardano_mainnet.block`.epoch_no > 256 -- 31 March 2021 (start of epoch 257) was the first time with 100% decentralized block production: https://twitter.com/InputOutputHK/status/1377376420540735489
 ```
+
+### Ethereum Classic
+
+Ethereum Classic data between 2019-2022 are available [here](https://drive.google.com/file/d/1FbOJT8fMOFC1grm3l1vlNfIHgI6psHnR/view?usp=sharing).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+
+```
+SELECT number, timestamp, miner, extra_data
+FROM  `bigquery-public-data.crypto_ethereum_classic.blocks`
+WHERE timestamp > '2018-12-31'
+```
