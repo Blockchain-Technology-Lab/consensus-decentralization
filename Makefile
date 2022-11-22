@@ -42,6 +42,12 @@ litecoin: .git
 litecoin_clean:
 	rm -f litecoin/parsed_data.json litecoin/pool_addresses.json
 
+zcash: .git
+	python3 analyse.py zcash
+
+zcash_clean:
+	rm -f zcash/parsed_data.json zcash/pool_addresses.json
+
 clean:
 	make bitcoin_clean
 	make ethereum_clean
@@ -50,3 +56,4 @@ clean:
 	make cardano_clean
 	make ethereum_classic_clean
 	make litecoin_clean
+	make zcash_clean

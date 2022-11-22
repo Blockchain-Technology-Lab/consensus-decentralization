@@ -157,3 +157,17 @@ JOIN  `bigquery-public-data.crypto_litecoin.blocks` ON `bigquery-public-data.cry
 WHERE is_coinbase is TRUE
 AND timestamp > '2018-12-31'
 ```
+
+### Zcash
+
+Zcash data between 2019-2022 are available [here](https://drive.google.com/file/d/1ede9TbCbu7eElQzNgBzHUBdAU-vpZVbC/view?usp=sharing).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+
+```
+SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_zcash.transactions`.outputs
+FROM  `bigquery-public-data.crypto_zcash.transactions`
+JOIN  `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_zcash.transactions`.block_number = `bigquery-public-data.crypto_zcash.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp > '2018-12-31'
+```

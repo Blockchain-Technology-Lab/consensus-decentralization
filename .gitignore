@@ -49,3 +49,10 @@ litecoin/pool_addresses.json
 litecoin/time_series.csv
 litecoin/unmatched_tags
 litecoin/pool_distribution_*.csv
+zcash/data.json
+zcash/output.csv
+zcash/parsed_data.json
+zcash/pool_addresses.json
+zcash/time_series.csv
+zcash/unmatched_tags
+zcash/pool_distribution_*.csv
