@@ -26,7 +26,7 @@ def parse_raw_data(project_dir):
             if block_year not in pool_addresses.keys():
                 pool_addresses[block_year] = {}
 
-            coinbase_addresses = [i['addresses'][0] for i in tx['outputs'] if (int(i['value']) > 0 and i['type'] != 'nonstandard')]
+            coinbase_addresses = [i['addresses'][0] for i in tx['outputs'] if (i['addresses'] and int(i['value']) > 0 and i['type'] != 'nonstandard')]
             coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
             for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
                 if tag in str(coinbase_param):
@@ -51,7 +51,7 @@ def parse_raw_data(project_dir):
             'timestamp': tx['timestamp']
         })
 
-        coinbase_addresses = [i['addresses'][0] for i in tx['outputs'] if (int(i['value']) > 0 and i['type'] != 'nonstandard')]
+        coinbase_addresses = [i['addresses'][0] for i in tx['outputs'] if (i['addresses'] and int(i['value']) > 0 and i['type'] != 'nonstandard')]
         block_data[-1]['coinbase_addresses'] = list(set(coinbase_addresses))
 
         coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
