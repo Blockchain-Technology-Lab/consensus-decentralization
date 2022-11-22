@@ -15,6 +15,7 @@ parse_functions = {
     'dogecoin': bitcoin_parse_raw_data,
     'cardano': cardano_parse_raw_data,
     'ethereum_classic': ethereum_parse_raw_data,
+    'litecoin': bitcoin_parse_raw_data,
 }
 
 

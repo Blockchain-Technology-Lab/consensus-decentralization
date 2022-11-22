@@ -4,25 +4,25 @@ bitcoin: .git
 	python3 analyse.py bitcoin
 
 bitcoin_clean:
-	rm -f bitcoin/parsed_data.json bitcoin/pool_addresses.json bitcoin/unmatched_tags
+	rm -f bitcoin/parsed_data.json bitcoin/pool_addresses.json
 
 ethereum: .git
 	python3 analyse.py ethereum
 
 ethereum_clean:
-	rm -f ethereum/parsed_data.json ethereum/pool_addresses.json ethereum/unmatched_tags
+	rm -f ethereum/parsed_data.json ethereum/pool_addresses.json
 
 bitcoin_cash: .git
 	python3 analyse.py bitcoin_cash
 
 bitcoin_cash_clean:
-	rm -f bitcoin_cash/parsed_data.json bitcoin_cash/pool_addresses.json bitcoin_cash/unmatched_tags
+	rm -f bitcoin_cash/parsed_data.json bitcoin_cash/pool_addresses.json
 
 dogecoin: .git
 	python3 analyse.py dogecoin
 
 dogecoin_clean:
-	rm -f dogecoin/parsed_data.json dogecoin/pool_addresses.json dogecoin/unmatched_tags
+	rm -f dogecoin/parsed_data.json dogecoin/pool_addresses.json
 
 cardano: .git
 	python3 analyse.py cardano
@@ -34,7 +34,13 @@ ethereum_classic: .git
 	python3 analyse.py ethereum_classic
 
 ethereum_classic_clean:
-	rm -f ethereum_classic/parsed_data.json
+	rm -f ethereum_classic/parsed_data.json ethereum_classic/pool_addresses.json
+
+litecoin: .git
+	python3 analyse.py litecoin
+
+litecoin_clean:
+	rm -f litecoin/parsed_data.json litecoin/pool_addresses.json
 
 clean:
 	make bitcoin_clean
@@ -43,3 +49,4 @@ clean:
 	make dogecoin_clean
 	make cardano_clean
 	make ethereum_classic_clean
+	make litecoin_clean

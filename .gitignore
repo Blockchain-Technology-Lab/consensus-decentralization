@@ -42,3 +42,10 @@ ethereum_classic/pool_addresses.json
 ethereum_classic/time_series.csv
 ethereum_classic/unmatched_tags
 ethereum_classic/pool_distribution_*.csv
+litecoin/data.json
+litecoin/output.csv
+litecoin/parsed_data.json
+litecoin/pool_addresses.json
+litecoin/time_series.csv
+litecoin/unmatched_tags
+litecoin/pool_distribution_*.csv

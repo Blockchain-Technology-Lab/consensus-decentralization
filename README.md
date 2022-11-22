@@ -143,3 +143,17 @@ SELECT number, timestamp, miner, extra_data
 FROM  `bigquery-public-data.crypto_ethereum_classic.blocks`
 WHERE timestamp > '2018-12-31'
 ```
+
+### Litecoin
+
+Litecoin data between 2019-2022 are available [here](https://drive.google.com/file/d/19UURIwOKM45aLXX3M1lU4VHqGxJ1-NwU/view?usp=sharing).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+
+```
+SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_litecoin.transactions`.outputs
+FROM  `bigquery-public-data.crypto_litecoin.transactions`
+JOIN  `bigquery-public-data.crypto_litecoin.blocks` ON `bigquery-public-data.crypto_litecoin.transactions`.block_number = `bigquery-public-data.crypto_litecoin.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp > '2018-12-31'
+```
