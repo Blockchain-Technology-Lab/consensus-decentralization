@@ -20,11 +20,14 @@ def parse_raw_data(project_dir):
             if block_year not in pool_addresses.keys():
                 pool_addresses[block_year] = {}
 
-            coinbase_address = tx['miner']
+            try:
+                coinbase_address = tx['miner']
+            except KeyError:
+                tx['miner'] = '----- UNDEFINED MINER -----'
 
             try:
                 coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
-            except UnicodeDecodeError:
+            except (UnicodeDecodeError, ValueError):
                 continue
 
             for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
@@ -53,7 +56,7 @@ def parse_raw_data(project_dir):
 
         try:
             coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
-        except UnicodeDecodeError:
+        except (UnicodeDecodeError, ValueError):
             coinbase_param = tx['extra_data']
 
         pool_match = False
