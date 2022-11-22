@@ -20,10 +20,7 @@ def parse_raw_data(project_dir):
             if block_year not in pool_addresses.keys():
                 pool_addresses[block_year] = {}
 
-            try:
-                coinbase_address = tx['miner']
-            except KeyError:
-                tx['miner'] = '----- UNDEFINED MINER -----'
+            coinbase_address = tx['miner']
 
             try:
                 coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
@@ -51,7 +48,10 @@ def parse_raw_data(project_dir):
         if block_year not in addresses_in_multiple_pools.keys():
             addresses_in_multiple_pools[block_year] = defaultdict(set)
 
-        coinbase_address = tx['miner']
+        try:
+            coinbase_address = tx['miner']
+        except KeyError:
+            tx['miner'] = '----- UNDEFINED MINER -----'
         tx['coinbase_addresses'] = [coinbase_address]
 
         try:

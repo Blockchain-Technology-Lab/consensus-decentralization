@@ -59,7 +59,6 @@ zcash/pool_distribution_*.csv
 tezos/data.json
 tezos/output.csv
 tezos/parsed_data.json
-tezos/pool_addresses.json
 tezos/time_series.csv
 tezos/unmatched_tags
 tezos/pool_distribution_*.csv

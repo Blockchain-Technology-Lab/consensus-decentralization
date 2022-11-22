@@ -52,7 +52,7 @@ tezos: .git
 	python3 analyse.py tezos
 
 tezos_clean:
-	rm -f tezos/parsed_data.json tezos/pool_addresses.json
+	rm -f tezos/parsed_data.json
 
 clean:
 	make bitcoin_clean
