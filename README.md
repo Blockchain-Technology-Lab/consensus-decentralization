@@ -76,7 +76,7 @@ SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-pub
 FROM  `bigquery-public-data.crypto_bitcoin.transactions`
 JOIN  `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
 WHERE is_coinbase is TRUE
-AND block_number > 501960 -- last block of 2017
+AND timestamp > '2017-12-31'
 ```
 
 ### Ethereum
@@ -88,7 +88,7 @@ They can be retrieved using [Google BigQuery](https://console.cloud.google.com/b
 ```
 SELECT number, timestamp, miner, extra_data
 FROM  `bigquery-public-data.crypto_ethereum.blocks`
-WHERE number > 6988614 -- last block of 2018
+WHERE timestamp > '2018-12-31'
 ```
 
 ### Bitcoin Cash
@@ -102,7 +102,7 @@ SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-pub
 FROM  `bigquery-public-data.crypto_bitcoin_cash.transactions`
 JOIN  `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
 WHERE is_coinbase is TRUE
-AND block_number > 563314 -- last block of 2018
+AND timestamp > '2018-12-31'
 ```
 
 ### Dogecoin
@@ -116,7 +116,7 @@ SELECT block_number, block_timestamp as timestamp, coinbase_param, `bigquery-pub
 FROM  `bigquery-public-data.crypto_dogecoin.transactions`
 JOIN  `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.crypto_dogecoin.transactions`.block_number = `bigquery-public-data.crypto_dogecoin.blocks`.number
 WHERE is_coinbase is TRUE
-AND block_number > 3043796 -- last block of 2019
+AND timestamp > '2019-12-31'
 ```
 
 ### Cardano
