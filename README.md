@@ -2,6 +2,16 @@
 
 This repository provides scripts for analysing pooling behaviour in various blockchains.
 
+Currently the supported cryptocurrencies are:
+- Bitcoin
+- Ethereum
+- Bitcoin Cash
+- Dogecoin
+- Cardano
+- Ethereum Classic
+- Litecoin
+- Zcash
+
 ## Execute
 
 To run an analysis:
