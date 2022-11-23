@@ -821,6 +821,14 @@
     }
   },
   "pool_addresses": {
-    "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
+    "2020": {
+        "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
+    },
+    "2021": {
+        "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
+    },
+    "2022": {
+        "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
+    }
   }
 }
