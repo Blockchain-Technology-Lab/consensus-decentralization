@@ -9,7 +9,7 @@ def param2ascii(coinbase_param):
         param += chr(i) if i in range(32, 128) else ' '
     return param
 
-def parse_raw_data(project_dir):
+def process(project_dir):
     with open(project_dir + '/data.json') as f:
         data = json.load(f)
 

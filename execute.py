@@ -1,23 +1,23 @@
 import json
 from collections import defaultdict
-from helpers import compute_gini, compute_nc
-from parsers.bitcoin import parse_raw_data as bitcoin_parse_raw_data
-from parsers.ethereum import parse_raw_data as ethereum_parse_raw_data
-from parsers.cardano import parse_raw_data as cardano_parse_raw_data
+from analyzers import compute_gini, compute_nc
+from preprocessors.bitcoin import process as bitcoin_preprocessor
+from preprocessors.ethereum import process as ethereum_preprocessor
+from preprocessors.cardano import process as cardano_preprocessor
 import config
 import sys
 import pathlib
 
 parse_functions = {
-    'bitcoin': bitcoin_parse_raw_data,
-    'ethereum': ethereum_parse_raw_data,
-    'bitcoin_cash': bitcoin_parse_raw_data,
-    'dogecoin': bitcoin_parse_raw_data,
-    'cardano': cardano_parse_raw_data,
-    'ethereum_classic': ethereum_parse_raw_data,
-    'litecoin': bitcoin_parse_raw_data,
-    'zcash': bitcoin_parse_raw_data,
-    'tezos': ethereum_parse_raw_data,
+    'bitcoin': bitcoin_preprocessor,
+    'ethereum': ethereum_preprocessor,
+    'bitcoin_cash': bitcoin_preprocessor,
+    'dogecoin': bitcoin_preprocessor,
+    'cardano': cardano_preprocessor,
+    'ethereum_classic': ethereum_preprocessor,
+    'litecoin': bitcoin_preprocessor,
+    'zcash': bitcoin_preprocessor,
+    'tezos': ethereum_preprocessor,
 }
 
 

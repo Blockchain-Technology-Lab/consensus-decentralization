@@ -1,7 +1,7 @@
 import json
 
 
-def parse_raw_data(project_dir):
+def process(project_dir):
     with open(project_dir + '/data.json') as f:
         data = json.load(f)
 
