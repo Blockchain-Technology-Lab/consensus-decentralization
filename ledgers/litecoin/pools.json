@@ -819,5 +819,8 @@
       "name": "Prohashing",
       "link": "https://prohashing.com/"
     }
+  },
+  "pool_addresses": {
+    "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
   }
 }

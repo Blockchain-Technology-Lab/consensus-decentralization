@@ -805,5 +805,7 @@
       "name": "Prohashing",
       "link": "https://prohashing.com/"
     }
+  },
+  "pool_addresses": {
   }
 }

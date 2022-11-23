@@ -12988,5 +12988,7 @@
             "name": "unknown",
             "ticker": "UNKWN"
         }
+    },
+    "pool_addresses": {
     }
 }

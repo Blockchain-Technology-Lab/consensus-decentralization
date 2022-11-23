@@ -312,5 +312,7 @@
       "name": "geth (Unidentified)",
       "link": ""
     }
+  },
+  "pool_addresses": {
   }
 }
