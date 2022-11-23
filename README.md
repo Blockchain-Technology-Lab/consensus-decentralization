@@ -26,16 +26,14 @@ To add a new project, first create a folder in the `ledgers` directory named as 
 In the ledger project's directory, store a file named `data.json` structured as follows:
 
 ```
-{
-    "blocks": [
-        {
-            "number": "<block's number>",
-            "timestamp": "<block's timestamp of the form: yyyy-mm-dd hh:mm:ss UTC>",
-            "coinbase_addresses": "<address1>,<address2>"
-            "coinbase_param": "<coinbase parameter>"
-        }
-    ]
-}
+[
+    {
+        "number": "<block's number>",
+        "timestamp": "<block's timestamp of the form: yyyy-mm-dd hh:mm:ss UTC>",
+        "coinbase_addresses": "<address1>,<address2>"
+        "coinbase_param": "<coinbase parameter>"
+    }
+]
 ```
 
 ### Data Preprocessing

@@ -9,4 +9,4 @@ for tx in data:
     del tx['outputs']
 
 with open('data.json', 'w') as f:
-    f.write(json.dumps({'blocks': data}, indent=4))
+    f.write('[' + ',\n'.join(json.dumps(i) for i in data) + ']\n')

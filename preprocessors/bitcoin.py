@@ -12,7 +12,7 @@ def param2ascii(coinbase_param):
 def process(project_dir, timeframe):
     with open(project_dir + '/data.json') as f:
         data = json.load(f)
-        data = sorted(data['blocks'], key=lambda x: x['number'])
+        data = sorted(data, key=lambda x: x['number'])
 
     data = [tx for tx in data if tx['timestamp'][:len(timeframe)] == timeframe]
 
@@ -20,8 +20,15 @@ def process(project_dir, timeframe):
         pool_data = json.load(f)
 
     pool_links = {}
-    pool_links.update(pool_data['legal_links'][timeframe[:4]])
-    pool_links.update(pool_data['coinbase_address_links'][timeframe[:4]])
+    try:
+        pool_links.update(pool_data['legal_links'][timeframe[:4]])
+    except KeyError:
+        pass
+    try:
+        pool_links.update(pool_data['coinbase_address_links'][timeframe[:4]])
+    except KeyError:
+        pass
+
     for key, val in pool_links.items():  # resolve chain links
         while val in pool_links.keys():
             val = pool_links[val]
