@@ -80,3 +80,5 @@ def process(project_dir, timeframe):
 
     with open(project_dir + '/' + timeframe + '.csv', 'w') as f:
         f.write('\n'.join(csv_output))
+
+    return blocks_per_entity
