@@ -13,7 +13,6 @@ processor = {
     'bitcoin_cash': bitcoin_preprocessor,
     'dogecoin': bitcoin_preprocessor,
     'cardano': cardano_preprocessor,
-    'ethereum_classic': ethereum_preprocessor,
     'litecoin': bitcoin_preprocessor,
     'zcash': bitcoin_preprocessor,
     'tezos': ethereum_preprocessor,
