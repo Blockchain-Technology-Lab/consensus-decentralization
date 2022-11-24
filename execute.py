@@ -4,6 +4,7 @@ from analyzers.nc import compute_nc
 from preprocessors.bitcoin import process as bitcoin_preprocessor
 from preprocessors.ethereum import process as ethereum_preprocessor
 from preprocessors.cardano import process as cardano_preprocessor
+from preprocessors.tezos import process as tezos_preprocessor
 import sys
 import pathlib
 
@@ -15,7 +16,7 @@ processor = {
     'cardano': cardano_preprocessor,
     'litecoin': bitcoin_preprocessor,
     'zcash': bitcoin_preprocessor,
-    'tezos': ethereum_preprocessor,
+    'tezos': tezos_preprocessor,
 }
 
 
