@@ -2,90 +2,90 @@ from collections import defaultdict
 import json
 
 
-def process(project_dir):
+def process(project_dir, timeframe):
     with open(project_dir + '/data.json') as f:
         data = json.load(f)
         data = sorted(data, key=lambda x: x['number'])
 
-    with open(project_dir + '/pools.json') as f:
-        pool_data = json.load(f)
-
-    try:
-        with open(project_dir + '/pool_addresses.json') as f:
-            pool_addresses = json.load(f)
-    except FileNotFoundError:
-        pool_addresses = {}
-        for tx in data:
-            block_year = tx['timestamp'][:4]
-            if block_year not in pool_addresses.keys():
-                pool_addresses[block_year] = {}
-
-            coinbase_address = tx['miner']
-
-            try:
-                coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
-            except (UnicodeDecodeError, ValueError):
-                continue
-
-            for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
-                if tag in coinbase_param:
-                    name = info['name']
-                    if coinbase_address not in pool_addresses[block_year].keys():
-                        pool_addresses[block_year][coinbase_address] = name
-                    break
-        with open(project_dir + '/pool_addresses.json', 'w') as f:
-            f.write(json.dumps(pool_addresses, indent=4))
-
-
-    unmatched_tags = []
-    addresses_in_multiple_pools = {}
-    for i, tx in enumerate(data):
+    for (idx, tx) in enumerate(data):
         block_year = tx['timestamp'][:4]
         block_month = int(tx['timestamp'][5:7])
         if int(block_year) > 2021 and block_month > 8:  # Exclude PoS blocks (after Aug 22)
-            data = data[:i]
             break
-        if block_year not in addresses_in_multiple_pools.keys():
-            addresses_in_multiple_pools[block_year] = defaultdict(set)
+    data = data[:idx]
 
-        try:
-            coinbase_address = tx['miner']
-        except KeyError:
-            tx['miner'] = '----- UNDEFINED MINER -----'
-        tx['coinbase_addresses'] = [coinbase_address]
+    data = [tx for tx in data if tx['timestamp'][:len(timeframe)] == timeframe]
 
+    with open(project_dir + '/pools.json') as f:
+        pool_data = json.load(f)
+
+    pool_links = {}
+    try:
+        pool_links.update(pool_data['legal_links'][timeframe[:4]])
+    except KeyError:
+        pass
+    try:
+        pool_links.update(pool_data['coinbase_address_links'][timeframe[:4]])
+    except KeyError:
+        pass
+
+    for key, val in pool_links.items():  # resolve chain links
+        while val in pool_links.keys():
+            val = pool_links[val]
+        pool_links[key] = val
+
+    try:
+        pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
+    except KeyError:
+        pool_addresses = {}
+    for tx in data:
         try:
-            coinbase_param = bytes.fromhex(tx['extra_data'][2:]).decode('utf-8')
+            coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
         except (UnicodeDecodeError, ValueError):
-            coinbase_param = tx['extra_data']
+            continue
+
+        for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
+            if tag in str(coinbase_param):
+                name = info['name']
+                for addr in tx['coinbase_addresses']:
+                    if addr not in pool_addresses.keys():
+                        pool_addresses[addr] = name
+                break
+
+    blocks_per_entity = defaultdict(int)
+    for tx in data:
+        block_year = tx['timestamp'][:4]
+
+        try:
+            coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
+        except (UnicodeDecodeError, ValueError):
+            coinbase_param = tx['coinbase_param']
+
+        coinbase_addresses = tx['coinbase_addresses']
 
         pool_match = False
         for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
-            if tag in coinbase_param:
-                name = info['name']
-
-                tx['creator'] = '[pool] ' + name
+            if tag in str(coinbase_param):
+                entity = info['name']
                 pool_match = True
-                if coinbase_address in pool_addresses[block_year].keys() and pool_addresses[block_year][coinbase_address] != name:  # Check if address associated with multiple pools
-                    addresses_in_multiple_pools[block_year][coinbase_address].add(name)
-                    addresses_in_multiple_pools[block_year][coinbase_address].add(pool_addresses[block_year][coinbase_address])
                 break
 
         if not pool_match:
-            if coinbase_address in pool_addresses[block_year].keys():  # Check if address is associated with pool
-                tx['creator']= '[pool] ' + pool_addresses[block_year][coinbase_address]
+            if coinbase_addresses in pool_addresses.keys():
+                entity = pool_addresses[addr]
             else:
-                unmatched_tags.append([tx['number'], coinbase_address, coinbase_param])
-                tx['creator'] = '[addr] ' + coinbase_address
+                entity = coinbase_addresses
 
-    for year in addresses_in_multiple_pools.keys():
-        for (address, val) in addresses_in_multiple_pools[year].items():
-            addresses_in_multiple_pools[year][address] = list(val)
+        if entity in pool_links.keys():
+            entity = pool_links[entity]
 
-    with open(project_dir + '/parsed_data.json', 'w') as f:
-        f.write(json.dumps({'block_data': data, 'addresses_in_multiple_pools': addresses_in_multiple_pools}))
+        blocks_per_entity[entity] += 1
 
-    with open(project_dir + '/unmatched_tags', 'w') as f:
-        f.write('\n'.join([
-            ' --- '.join([tag[0], tag[1], tag[2]]) for tag in unmatched_tags
-        ]))
+    csv_output = ['Entity,Resources']
+    for key, val in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
+        csv_output.append(','.join([key, str(val)]))
+
+    with open(project_dir + '/' + timeframe + '.csv', 'w') as f:
+        f.write('\n'.join(csv_output))
+
+    return blocks_per_entity
