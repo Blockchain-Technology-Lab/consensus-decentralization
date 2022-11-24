@@ -84,7 +84,7 @@ The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash return data tha
 
 ### Bitcoin
 
-Bitcoin data between 2018-2022 are available [here](https://drive.google.com/file/d/1D4Q0o5nARvUvTinSNcIt3yxwjZko-Twn/view?usp=sharing).
+Sample Bitcoin data are available [here](https://drive.google.com/file/d/1IyLNi2_qvxWj0SQ_S0ZKxqMgwuBk6mRF/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -98,7 +98,7 @@ AND timestamp > '2017-12-31'
 
 ### Ethereum
 
-Ethereum data between 2019-2022 are available [here](https://drive.google.com/file/d/1yh0hX_0_VesGxqraPd-qM1aSVNMqH63w/view).
+Sample Ethereum data are available [here](https://drive.google.com/file/d/1UEDsoz1Q2njR-pd6TO0ZLQBXFcV3T--4/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -110,7 +110,7 @@ WHERE timestamp > '2018-12-31'
 
 ### Bitcoin Cash
 
-Bitcoin Cash data between 2019-2022 are available [here](https://drive.google.com/file/d/1ufi1BikyJ57RAagScayo8F_WcdHqScf8/view?usp=sharing).
+Sample Bitcoin Cash data are available [here](https://drive.google.com/file/d/1klKbtWESX4Zga_NoZhPxEEolV6lf02_j/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -124,7 +124,7 @@ AND timestamp > '2018-12-31'
 
 ### Dogecoin
 
-Dogecoin data between 2019-2022 are available [here](https://drive.google.com/file/d/1twiMtddYK7CMFdDUdPuKq5nfcERt_wrd/view?usp=sharing).
+Sample Dogecoin data are available [here](https://drive.google.com/file/d/1m51Zh7hM2nj9qykrzxfN8JEM0-DLqELa/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -138,7 +138,7 @@ AND timestamp > '2019-12-31'
 
 ### Cardano
 
-Cardano data from April 2021 are available [here](https://drive.google.com/file/d/1pkuciKw0zFsOHpCAP4BURcJg-WM-VdmQ/view?usp=sharing).
+Sample Cardano data are available [here](https://drive.google.com/file/d/17aT9Yh-WfmErYHvp1GdffcDmDeHa3Zn3/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -151,7 +151,7 @@ WHERE `iog-data-analytics.cardano_mainnet.block`.epoch_no > 256 -- 31 March 2021
 
 ### Litecoin
 
-Litecoin data between 2019-2022 are available [here](https://drive.google.com/file/d/19UURIwOKM45aLXX3M1lU4VHqGxJ1-NwU/view?usp=sharing).
+Sample Litecoin data are available [here](https://drive.google.com/file/d/1iaK1Pfkvc9EoArOv2vyXiAq7UdbLfXYQ/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -165,7 +165,7 @@ AND timestamp > '2018-12-31'
 
 ### Zcash
 
-Zcash data between 2019-2022 are available [here](https://drive.google.com/file/d/1ede9TbCbu7eElQzNgBzHUBdAU-vpZVbC/view?usp=sharing).
+Sample Zcash data are available [here](https://drive.google.com/file/d/1oMLnCcG4W79wLaMSpCQImp0EvKKWGZ7P/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -179,7 +179,7 @@ AND timestamp > '2018-12-31'
 
 ### Tezos
 
-Tezos data since 2021 are available [here](https://drive.google.com/file/d/1Wi_mBj5T6YtUgLW4JxuLeV_jJ_221v9R/view?usp=sharing).
+Sample Tezos data are available [here](https://drive.google.com/file/d/15_ZPb6l9JC3YilPv6tyzPqIztEAK-iYk/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
