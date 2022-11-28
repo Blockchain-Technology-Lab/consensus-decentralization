@@ -16,6 +16,8 @@ Currently the supported cryptocurrencies are:
 
 To produce a csv of the data for analysis, run `python process.py <project_name> <timeframe>`.
 
+To mass produce and analyze data for various ledgers, run `python analyze.py` (possibly after making relevant changes).
+
 ## Development
 
 To add a new project, first create a folder in the `ledgers` directory named as the project (e.g., `bitcoin`, `ethereum`, etc).
