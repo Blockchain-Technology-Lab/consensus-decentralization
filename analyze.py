@@ -1,5 +1,4 @@
 from execute import execute
-import csv
 from analyzers.gini import compute_gini
 from analyzers.nc import compute_nc
 
@@ -24,9 +23,9 @@ for project_name in PROJECTS:
             print(project_name, timeframe)
             try:
                 with open('ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
-                    reader = csv.reader(f)
-                    for idx, row in enumerate(reader):
+                    for idx, line in enumerate(f.readlines()):
                         if idx > 0:
+                            row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
                             blocks_per_entity[row[0]] = int(row[1])
 
                     if blocks_per_entity.keys():
