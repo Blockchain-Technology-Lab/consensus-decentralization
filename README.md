@@ -14,7 +14,7 @@ Currently the supported cryptocurrencies are:
 
 ## Execute
 
-To produce a csv of the data for analysis, run `python execute.py <project_name> <timeframe>`.
+To produce a csv of the data for analysis, run `python process.py <project_name> <timeframe>`.
 
 ## Development
 

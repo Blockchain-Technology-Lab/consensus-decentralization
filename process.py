@@ -20,18 +20,20 @@ processor = {
 }
 
 
-def execute(project_name, timeframe):
+def process(project_name, timeframe, log=False):
     project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
 
     blocks_per_entity = processor[project_name](project_dir, timeframe)
-    if blocks_per_entity.keys():
-        gini = compute_gini(list(blocks_per_entity.values()))
-        nc = compute_nc(blocks_per_entity)
-        print('[{}, {}] Gini: {}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
-    else:
-        print('[{}, {}] No data'.format(project_name, timeframe))
+
+    if log:
+        if blocks_per_entity.keys():
+            gini = compute_gini(list(blocks_per_entity.values()))
+            nc = compute_nc(blocks_per_entity)
+            print('[{}, {}] Gini: {}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
+        else:
+            print('[{}, {}] No data'.format(project_name, timeframe))
 
 if __name__ == '__main__':
     project_name = sys.argv[1]
     timeframe = sys.argv[2]
-    execute(project_name, timeframe)
+    process(project_name, timeframe, True)

@@ -1,4 +1,4 @@
-from execute import execute
+from process import process
 from metrics.gini import compute_gini
 from metrics.nc import compute_nc
 
@@ -29,7 +29,7 @@ for project_name in PROJECTS:
                             row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
                             yearly_entities[year].add(row[0])
             except FileNotFoundError:
-                execute(project_name, timeframe)
+                process(project_name, timeframe)
 
         for month in range(1, 13):
             timeframe = '{}-{}'.format(year, str(month).zfill(2))
@@ -48,8 +48,8 @@ for project_name in PROJECTS:
 
                         gini = compute_gini(list(blocks_per_entity.values()))
                         nc = compute_nc(blocks_per_entity)
-                        print('[{}, {}] Gini: {:.9f}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
+                        print('[{}, {}] Gini: {:.9f} (population: {}), NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, len(yearly_entities[year]), nc[0], nc[1]))
                     else:
                         print('[{}, {}] No data'.format(project_name, timeframe))
             except FileNotFoundError:
-                execute(project_name, timeframe)
+                process(project_name, timeframe)
