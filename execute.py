@@ -28,6 +28,8 @@ def execute(project_name, timeframe):
         gini = compute_gini(list(blocks_per_entity.values()))
         nc = compute_nc(blocks_per_entity)
         print('[{}, {}] Gini: {}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
+    else:
+        print('[{}, {}] No data'.format(project_name, timeframe))
 
 if __name__ == '__main__':
     project_name = sys.argv[1]

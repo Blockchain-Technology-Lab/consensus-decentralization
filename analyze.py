@@ -20,7 +20,6 @@ for project_name in PROJECTS:
         for month in range(1, 13):
             blocks_per_entity = {}
             timeframe = '{}-{}'.format(year, str(month).zfill(2))
-            print(project_name, timeframe)
             try:
                 with open('ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
                     for idx, line in enumerate(f.readlines()):
@@ -31,6 +30,8 @@ for project_name in PROJECTS:
                     if blocks_per_entity.keys():
                         gini = compute_gini(list(blocks_per_entity.values()))
                         nc = compute_nc(blocks_per_entity)
-                        print('  Gini: {}, NC: {} ({:.2f}%)'.format(gini, nc[0], nc[1]))
+                        print('[{}, {}] Gini: {}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
+                    else:
+                        print('[{}, {}] No data'.format(project_name, timeframe))
             except FileNotFoundError:
                 execute(project_name, timeframe)
