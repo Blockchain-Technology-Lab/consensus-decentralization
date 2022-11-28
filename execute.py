@@ -24,10 +24,10 @@ def execute(project_name, timeframe):
     project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
 
     blocks_per_entity = processor[project_name](project_dir, timeframe)
-
-    gini = compute_gini(list(blocks_per_entity.values()))
-    nc = compute_nc(blocks_per_entity)
-    print('[{}, {}] Gini: {}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
+    if blocks_per_entity.keys():
+        gini = compute_gini(list(blocks_per_entity.values()))
+        nc = compute_nc(blocks_per_entity)
+        print('[{}, {}] Gini: {}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
 
 if __name__ == '__main__':
     project_name = sys.argv[1]
