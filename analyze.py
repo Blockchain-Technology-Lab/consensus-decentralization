@@ -1,6 +1,6 @@
 from execute import execute
-from analyzers.gini import compute_gini
-from analyzers.nc import compute_nc
+from metrics.gini import compute_gini
+from metrics.nc import compute_nc
 
 PROJECTS = [
     'bitcoin',

@@ -1,6 +1,6 @@
 import json
-from analyzers.gini import compute_gini
-from analyzers.nc import compute_nc
+from metrics.gini import compute_gini
+from metrics.nc import compute_nc
 from preprocessors.bitcoin import process as bitcoin_preprocessor
 from preprocessors.ethereum import process as ethereum_preprocessor
 from preprocessors.cardano import process as cardano_preprocessor
