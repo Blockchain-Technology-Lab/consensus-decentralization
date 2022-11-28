@@ -27,7 +27,10 @@ def process(project_dir, timeframe):
             val = pool_links[val]
         pool_links[key] = val
 
-    pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
+    try:
+        pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
+    except KeyError:
+        pool_addresses = {}
 
     blocks_per_entity = defaultdict(int)
     for tx in data:
