@@ -16,12 +16,20 @@ PROJECTS = [
 START_YEAR = 2018
 END_YEAR = 2023
 
+months = []
+gini_series = {}
+nc_series = {}
 for project_name in PROJECTS:
+    gini_series[project_name] = []
+    nc_series[project_name] = []
+
     yearly_entities = {}
-    for year in range(START_YEAR, END_YEAR):
+    for idx, year in enumerate(range(START_YEAR, END_YEAR)):
         yearly_entities[year] = set()
         for month in range(1, 13):
             timeframe = '{}-{}'.format(year, str(month).zfill(2))
+            if timeframe not in months:
+                months.append(timeframe)
             try:
                 with open('ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
                     for idx, line in enumerate(f.readlines()):
@@ -49,7 +57,34 @@ for project_name in PROJECTS:
                         gini = compute_gini(list(blocks_per_entity.values()))
                         nc = compute_nc(blocks_per_entity)
                         print('[{}, {}] Gini: {:.9f} (population: {}), NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, len(yearly_entities[year]), nc[0], nc[1]))
+
+                        gini_series[project_name].append(gini)
+                        nc_series[project_name].append(nc[0])
                     else:
                         print('[{}, {}] No data'.format(project_name, timeframe))
+
+                        gini_series[project_name].append(0)
+                        nc_series[project_name].append(0)
             except FileNotFoundError:
                 process(project_name, timeframe)
+
+gini_csv = ['Month']
+nc_csv = ['Month']
+for month in months:
+    gini_csv.append(month)
+    nc_csv.append(month)
+
+for i, project_name in enumerate(PROJECTS):
+    gini_csv[0] += ',' + project_name
+    nc_csv[0] += ',' + project_name
+
+    for j, data in enumerate(gini_series[project_name]):
+        gini_csv[j+1] += ',{}'.format(data if data else '')
+
+    for j, data in enumerate(nc_series[project_name]):
+        nc_csv[j+1] += ',{}'.format(data if data else '')
+
+with open('gini.csv', 'w') as f:
+    f.write('\n'.join(gini_csv))
+with open('nc.csv', 'w') as f:
+    f.write('\n'.join(nc_csv))
