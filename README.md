@@ -14,6 +14,8 @@ Currently the supported cryptocurrencies are:
 
 ## Execute
 
+First, store the data and pool information files as needed (see below).
+
 To produce a csv of the data for analysis, run `python process.py <project_name> <timeframe>`.
 
 To mass produce and analyze data for various ledgers, run `python analyze.py` (possibly after making relevant changes).
