@@ -1,29 +1,29 @@
 import json
 from metrics.gini import compute_gini
 from metrics.nc import compute_nc
-from preprocessors.bitcoin import process as bitcoin_preprocessor
-from preprocessors.ethereum import process as ethereum_preprocessor
-from preprocessors.cardano import process as cardano_preprocessor
-from preprocessors.tezos import process as tezos_preprocessor
+from mappings.bitcoin import process as bitcoin_mapping
+from mappings.ethereum import process as ethereum_mapping
+from mappings.cardano import process as cardano_mapping
+from mappings.tezos import process as tezos_mapping
 import sys
 import pathlib
 
-processor = {
-    'bitcoin': bitcoin_preprocessor,
-    'ethereum': ethereum_preprocessor,
-    'bitcoin_cash': bitcoin_preprocessor,
-    'dogecoin': bitcoin_preprocessor,
-    'cardano': cardano_preprocessor,
-    'litecoin': bitcoin_preprocessor,
-    'zcash': bitcoin_preprocessor,
-    'tezos': tezos_preprocessor,
+mapping = {
+    'bitcoin': bitcoin_mapping,
+    'ethereum': ethereum_mapping,
+    'bitcoin_cash': bitcoin_mapping,
+    'dogecoin': bitcoin_mapping,
+    'cardano': cardano_mapping,
+    'litecoin': bitcoin_mapping,
+    'zcash': bitcoin_mapping,
+    'tezos': tezos_mapping,
 }
 
 
 def process(project_name, timeframe, log=False):
     project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
 
-    blocks_per_entity = processor[project_name](project_dir, timeframe)
+    blocks_per_entity = mapping[project_name](project_dir, timeframe)
 
     if log:
         if blocks_per_entity.keys():
