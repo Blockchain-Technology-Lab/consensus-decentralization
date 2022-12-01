@@ -1,6 +1,7 @@
 import json
 from metrics.gini import compute_gini
 from metrics.nc import compute_nc
+from metrics.entropy import compute_entropy
 from mappings.bitcoin import process as bitcoin_mapping
 from mappings.ethereum import process as ethereum_mapping
 from mappings.cardano import process as cardano_mapping
@@ -29,7 +30,8 @@ def process(project_name, timeframe, log=False):
         if blocks_per_entity.keys():
             gini = compute_gini(list(blocks_per_entity.values()))
             nc = compute_nc(blocks_per_entity)
-            print('[{}, {}] Gini: {}, NC: {} ({:.2f}%)'.format(project_name, timeframe, gini, nc[0], nc[1]))
+            entropy = compute_entropy(blocks_per_entity)
+            print('[{}, {}] Gini: {}, NC: {} ({:.2f}%), Entropy: {}'.format(project_name, timeframe, gini, nc[0], nc[1], entropy))
         else:
             print('[{}, {}] No data'.format(project_name, timeframe))
 
