@@ -84,7 +84,7 @@ In this file:
 
 ## Example data
 
-The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash return data that should be parsed using the `bitcoin` parser in `parsers`. The rest return data that is already in the necessary parsed form.
+The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash return data that should be parsed using the `bitcoin` parser in `parsers`. The query for Cardano returns data that should be parsed using the `cardano` parser in `parsers`. The rest return data that is already in the necessary parsed form.
 
 ### Bitcoin
 
@@ -142,17 +142,15 @@ AND timestamp > '2019-12-31'
 
 ### Cardano
 
-Sample Cardano data are available [here](https://drive.google.com/file/d/12v8BVnVQIdfo52UR4SKT3_hqcrD9g3RL/view?usp=sharing).
+Sample Cardano data are available [here](https://drive.google.com/file/d/1V97Vy6JMLholargAqSa4yrPsyHxeOf6U/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as coinbase_param, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp, `iog-data-analytics.cardano_mainnet.pool_owner`.addr_hash as coinbase_addresses
-FROM `iog-data-analytics.cardano_mainnet.block`
-JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash AND `iog-data-analytics.cardano_mainnet.block`.epoch_no = `iog-data-analytics.cardano_mainnet.pool_offline_data`.epoch_no
-JOIN `iog-data-analytics.cardano_mainnet.pool_owner` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_owner`.pool_hash AND `iog-data-analytics.cardano_mainnet.block`.epoch_no = `iog-data-analytics.cardano_mainnet.pool_owner`.epoch_no
-WHERE `iog-data-analytics.cardano_mainnet.block`.epoch_no > 256
--- 31 March 2021 (start of epoch 257) was the first time with 100% decentralized block production: https://twitter.com/InputOutputHK/status/1377376420540735489
+SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as coinbase_param, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp, `iog-data-analytics.cardano_mainnet.block`.pool_hash
+FROM `iog-data-analytics.cardano_mainnet.block` 
+LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
+WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 ```
 
 ### Litecoin
