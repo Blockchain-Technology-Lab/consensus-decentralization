@@ -5,9 +5,8 @@ import json
 def process(project_dir, timeframe):
     with open(project_dir + '/data.json') as f:
         data = json.load(f)
+        data = [tx for tx in data if tx['timestamp'][:len(timeframe)] == timeframe]
         data = sorted(data, key=lambda x: x['number'])
-
-    data = [tx for tx in data if tx['timestamp'][:len(timeframe)] == timeframe]
 
     with open(project_dir + '/pools.json') as f:
         pool_data = json.load(f)
