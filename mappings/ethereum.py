@@ -38,19 +38,6 @@ def process(project_dir, timeframe):
         pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
     except KeyError:
         pool_addresses = {}
-    for tx in data:
-        try:
-            coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
-        except (UnicodeDecodeError, ValueError):
-            continue
-
-        for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
-            if tag in str(coinbase_param):
-                name = info['name']
-                for addr in tx['coinbase_addresses']:
-                    if addr not in pool_addresses.keys():
-                        pool_addresses[addr] = name
-                break
 
     blocks_per_entity = defaultdict(int)
     for tx in data:
@@ -67,12 +54,13 @@ def process(project_dir, timeframe):
         for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
             if tag in str(coinbase_param):
                 entity = info['name']
+                pool_addresses[coinbase_addresses] = entity
                 pool_match = True
                 break
 
         if not pool_match:
             if coinbase_addresses in pool_addresses.keys():
-                entity = pool_addresses[addr]
+                entity = pool_addresses[coinbase_addresses]
             else:
                 entity = coinbase_addresses
 
