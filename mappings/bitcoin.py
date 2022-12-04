@@ -58,7 +58,7 @@ def process(project_dir, dataset, timeframe):
                 if addr in pool_addresses.keys():
                     block_pools.add(pool_addresses[addr])
             if block_pools:
-                entity = str(','.join(sorted(block_pools)))
+                entity = str('/'.join(sorted(block_pools)))
                 if len(block_pools) > 1:
                     multi_pool_blocks.add('{}: {}'.format(tx['number'], entity))
             else:
