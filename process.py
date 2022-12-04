@@ -21,10 +21,10 @@ mapping = {
 }
 
 
-def process(project_name, timeframe, log=False):
+def process(project_name, dataset, timeframe, log=False):
     project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
 
-    blocks_per_entity = mapping[project_name](project_dir, timeframe)
+    blocks_per_entity = mapping[project_name](project_dir, dataset, timeframe)
 
     if log:
         if blocks_per_entity.keys():
@@ -38,4 +38,9 @@ def process(project_name, timeframe, log=False):
 if __name__ == '__main__':
     project_name = sys.argv[1]
     timeframe = sys.argv[2]
-    process(project_name, timeframe, True)
+
+    project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
+    with open(project_dir + '/data.json') as f:
+        data = json.load(f)
+
+    process(project_name, data, timeframe, True)

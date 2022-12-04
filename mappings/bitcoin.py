@@ -3,11 +3,9 @@ import json
 import codecs
 
 
-def process(project_dir, timeframe):
-    with open(project_dir + '/data.json') as f:
-        data = json.load(f)
-        data = [tx for tx in data if tx['timestamp'][:len(timeframe)] == timeframe]
-        data = sorted(data, key=lambda x: x['number'])
+def process(project_dir, dataset, timeframe):
+    data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
+    data = sorted(data, key=lambda x: x['number'])
 
     with open(project_dir + '/pools.json') as f:
         pool_data = json.load(f)

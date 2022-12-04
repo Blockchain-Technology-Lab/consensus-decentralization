@@ -44,7 +44,8 @@ In the ledger project's directory, store a file named `data.json` structured as 
 Create a mapping in the `mappings` folder, or reuse an existing one. 
 
 The mapping should define a function `process` that takes as inputs:
-- a json file of parsed data (structured as above)
+- the full path of the project's directory
+- the parsed data (structured as above)
 - a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  '2022-11-12' for the year 12 November 2022, 
 
 The function returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of the form `Entity,Resources` of the distribution of resources to entities in the defined time period.

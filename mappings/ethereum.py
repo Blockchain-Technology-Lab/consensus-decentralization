@@ -2,10 +2,8 @@ from collections import defaultdict
 import json
 
 
-def process(project_dir, timeframe):
-    with open(project_dir + '/data.json') as f:
-        data = json.load(f)
-        data = sorted(data, key=lambda x: x['number'])
+def process(project_dir, dataset, timeframe):
+    data = sorted(dataset, key=lambda x: x['number'])
 
     for (idx, tx) in enumerate(data):
         block_year = tx['timestamp'][:4]
