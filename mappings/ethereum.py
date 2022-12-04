@@ -37,6 +37,7 @@ def process(project_dir, dataset, timeframe):
     except KeyError:
         pool_addresses = {}
 
+    multi_pool_addresses = defaultdict(list)
     blocks_per_entity = defaultdict(int)
     for tx in data:
         block_year = tx['timestamp'][:4]
@@ -54,6 +55,9 @@ def process(project_dir, dataset, timeframe):
                 entity = info['name']
                 pool_addresses[coinbase_addresses] = entity
                 pool_match = True
+                if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
+                    with open(project_dir + '/multi_pool_addresses'.format(timeframe), 'a') as f:
+                        f.write('[{}] {}: {} -> {}\n'.format(tx['timestamp'], coinbase_addresses, pool_addresses[coinbase_addresses], entity))
                 break
 
         if not pool_match:

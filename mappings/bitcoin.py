@@ -30,6 +30,8 @@ def process(project_dir, dataset, timeframe):
     except KeyError:
         pool_addresses = {}
 
+    multi_pool_blocks = set()
+    multi_pool_addresses = defaultdict(list)
     blocks_per_entity = defaultdict(int)
     for tx in data:
         block_year = tx['timestamp'][:4]
@@ -43,6 +45,10 @@ def process(project_dir, dataset, timeframe):
                 entity = info['name']
                 pool_match = True
                 for addr in tx['coinbase_addresses'].split(','):
+                    if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
+                        with open(project_dir + '/multi_pool_addresses'.format(timeframe), 'a') as f:
+                            f.write('[{}] {}: {} -> {}\n'.format(tx['timestamp'], addr, pool_addresses[addr], entity))
+
                     pool_addresses[addr] = entity
                 break
 
@@ -53,6 +59,8 @@ def process(project_dir, dataset, timeframe):
                     block_pools.add(pool_addresses[addr])
             if block_pools:
                 entity = str(','.join(sorted(block_pools)))
+                if len(block_pools) > 1:
+                    multi_pool_blocks.add('{}: {}'.format(tx['number'], entity))
             else:
                 if len(coinbase_addresses) == 1:
                     entity = addr
@@ -72,5 +80,8 @@ def process(project_dir, dataset, timeframe):
 
     with open(project_dir + '/' + timeframe + '.csv', 'w') as f:
         f.write('\n'.join(csv_output))
+
+    with open(project_dir + '/multi_pool_blocks', 'a') as f:
+        f.write('[{}] {}\n'.format(timeframe, '--'.join(multi_pool_blocks)))
 
     return blocks_per_entity
