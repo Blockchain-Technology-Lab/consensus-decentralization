@@ -11,6 +11,7 @@ Currently the supported cryptocurrencies are:
 - Litecoin
 - Zcash
 - Tezos
+- Dash
 
 ## Execute
 
@@ -85,7 +86,7 @@ In this file:
 
 ## Example data
 
-The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash return data that should be parsed using the `bitcoin` parser in `parsers`. The query for Cardano returns data that should be parsed using the `cardano` parser in `parsers`. The rest return data that is already in the necessary parsed form.
+The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that should be parsed using the `bitcoin` parser in `parsers`. The query for Cardano returns data that should be parsed using the `cardano` parser in `parsers`. The rest return data that is already in the necessary parsed form.
 
 ### Bitcoin
 
@@ -192,4 +193,18 @@ They can be retrieved using [Google BigQuery](https://console.cloud.google.com/b
 SELECT level as number, timestamp, baker as coinbase_addresses
 FROM `public-data-finance.crypto_tezos.blocks`
 WHERE timestamp > '2020-12-31'
+```
+
+### Dash
+
+Sample Dash data are available [here](https://drive.google.com/file/d/1atorp5kizjyYdQRrDCf3ps5ybiPGlZL6/view?usp=sharing).
+
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+
+```
+SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dash.transactions`.outputs
+FROM `bigquery-public-data.crypto_dash.transactions`
+JOIN `bigquery-public-data.crypto_dash.blocks` ON `bigquery-public-data.crypto_dash.transactions`.block_number = `bigquery-public-data.crypto_dash.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp > '2018-12-31'
 ```

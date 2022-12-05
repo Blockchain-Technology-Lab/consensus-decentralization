@@ -18,6 +18,7 @@ mapping = {
     'litecoin': bitcoin_mapping,
     'zcash': bitcoin_mapping,
     'tezos': tezos_mapping,
+    'dash': bitcoin_mapping,
 }
 
 
