@@ -25,7 +25,7 @@ To mass produce and analyze data for various ledgers, run `python analyze.py` (p
 
 To add a new project, first create a folder in the `ledgers` directory named as the project (e.g., `bitcoin`, `ethereum`, etc).
 
-### Data Parsing
+### Parsed Data
 
 In the ledger project's directory, store a file named `data.json` structured as follows:
 
@@ -40,18 +40,9 @@ In the ledger project's directory, store a file named `data.json` structured as 
 ]
 ```
 
-### Data Mapping
+### Pool Information
 
-Create a mapping in the `mappings` folder, or reuse an existing one. 
-
-The mapping should define a function `process` that takes as inputs:
-- the full path of the project's directory
-- the parsed data (structured as above)
-- a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  '2022-11-12' for the year 12 November 2022, 
-
-The function returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of the form `Entity,Resources` of the distribution of resources to entities in the defined time period.
-
-To assist the mapping, in the project's directory store a file named `pools.json`, with relevant pool information, structured as follows:
+To assist the mapping, in the directory `helpers/pool_information` createa file named `<project name>.json`, with relevant pool information, structured as follows:
 
 ```
 {
@@ -83,6 +74,17 @@ In this file:
 - `legal_links` refers to well-known links between pools (e.g., owned by the same company)
 - `coinbase_address_links` refers to pools with shared coinbase addresses (i.e., two blocks created by the pools with common coinbase addresses)
 - `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter (to claim a block as being mined by the pool)
+
+### Data Mapping
+
+Create a mapping in the `mappings` folder, or reuse an existing one. 
+
+The mapping should define a function `process` that takes as inputs:
+- the full path of the project's directory
+- the parsed data (structured as above)
+- a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  '2022-11-12' for the year 12 November 2022, 
+
+The function returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of the form `Entity,Resources` of the distribution of resources to entities in the defined time period.
 
 ## Example data
 

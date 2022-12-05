@@ -1,8 +1,11 @@
 from collections import defaultdict
 import json
+import pathlib
 
 
-def process(project_dir, dataset, timeframe):
+def process(project_name, dataset, timeframe):
+    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
+
     data = sorted(dataset, key=lambda x: x['number'])
 
     for (idx, tx) in enumerate(data):
@@ -14,7 +17,8 @@ def process(project_dir, dataset, timeframe):
 
     data = [tx for tx in data if tx['timestamp'][:len(timeframe)] == timeframe]
 
-    with open(project_dir + '/pools.json') as f:
+    pool_info_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers/pool_information/{}.json'.format(project_name)
+    with open(pool_info_path) as f:
         pool_data = json.load(f)
 
     pool_links = {}
