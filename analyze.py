@@ -18,8 +18,6 @@ def analyze(projects):
     entropy_series = defaultdict(list)
     for project_name in projects:
         project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
-        with open(project_dir + '/data.json') as f:
-            data = json.load(f)
 
         yearly_entities = {}
         for idx, year in enumerate(range(START_YEAR, END_YEAR)):
@@ -35,6 +33,8 @@ def analyze(projects):
                                 row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
                                 yearly_entities[year].add(row[0])
                 except FileNotFoundError:
+                    with open(project_dir + '/data.json') as f:
+                        data = json.load(f)
                     process(project_name, data, timeframe)
 
             for month in range(1, 13):
