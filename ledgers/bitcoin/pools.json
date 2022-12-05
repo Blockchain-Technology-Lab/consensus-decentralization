@@ -25,30 +25,6 @@
       }
   },
   "coinbase_address_links": {
-      "2018": {
-          "Helix": "haominer",
-          "GBMiners": "haominer",
-          "Bitcoin-Ukraine": "Bitcoin-Russia/Ukraine",
-          "Bitcoin-Russia": "Bitcoin-Russia/Ukraine"
-      },
-      "2019": {
-          "Bitdeer": "BTC.COM"
-      },
-      "2020": {
-          "Bitdeer": "BTC.COM",
-          "UKRPool": "OKKONG"
-      },
-      "2021": {
-          "Bitdeer": "BTC.COM",
-          "pooin.com": "Poolin",
-          "xxxxxx.com": "Poolin",
-          "58coin": "1THash",
-          "CODEBLACK": "CKPool"
-      },
-      "2022": {
-          "xxxxxx.com": "Poolin",
-          "CODEBLACK": "CKPool"
-      }
   },
   "coinbase_tags": {
     "bitdeer": {
