@@ -63,7 +63,7 @@ def process(project_dir, dataset, timeframe):
                     multi_pool_blocks.add('{}: {}'.format(tx['number'], entity))
             else:
                 if len(coinbase_addresses) == 1:
-                    entity = addr
+                    entity = coinbase_addresses[0]
                 else:
                     entity = ' '.join([
                         addr[:5] + '...' + addr[-5:] for addr in coinbase_addresses
