@@ -86,6 +86,15 @@ The mapping should define a function `process` that takes as inputs:
 
 The function returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of the form `Entity,Resources` of the distribution of resources to entities in the defined time period.
 
+### Data Analysis 
+
+The folder `metrics` contains implementations of various metrics that can be applied on the mapped data. Currently, the implemented metrics are:
+- Nakamoto coefficient
+- Gini coefficient
+- Entropy
+
+To produce a metric for a csv of mapped data, run `python <metric name>.py <path to data file>.csv`.
+
 ## Example data
 
 The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that should be parsed using the `bitcoin` parser in `parsers`. The query for Cardano returns data that should be parsed using the `cardano` parser in `parsers`. The rest return data that is already in the necessary parsed form.
