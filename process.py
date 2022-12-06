@@ -23,9 +23,7 @@ mapping = {
 
 
 def process(project_name, dataset, timeframe, log=False):
-    project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
-
-    blocks_per_entity = mapping[project_name](project_dir, dataset, timeframe)
+    blocks_per_entity = mapping[project_name](project_name, dataset, timeframe)
 
     if log:
         if blocks_per_entity.keys():
