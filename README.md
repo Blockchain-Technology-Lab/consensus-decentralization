@@ -42,15 +42,10 @@ In the ledger project's directory, store a file named `data.json` structured as 
 
 ### Pool Information
 
-To assist the mapping, in the directory `helpers/pool_information` createa file named `<project name>.json`, with relevant pool information, structured as follows:
+To assist the mapping, in the directory `helpers/pool_information` create a file named `<project name>.json`, with relevant pool information, structured as follows:
 
 ```
 {
-  "legal_links": {
-      "<year>": {
-          "<name of pool>": "<name of parent company>"
-      }
-  },
   "coinbase_address_links": {
       "<year>": {
           "<name of secondary pool>": "<name of primary pool>"
@@ -71,9 +66,10 @@ To assist the mapping, in the directory `helpers/pool_information` createa file 
 ```
 
 In this file:
-- `legal_links` refers to well-known links between pools (e.g., owned by the same company)
 - `coinbase_address_links` refers to pools with shared coinbase addresses (i.e., two blocks created by the pools with common coinbase addresses)
 - `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter (to claim a block as being mined by the pool)
+
+Additionally, in the file `helpers/legal_links.json` add any possible legal links between pools and companies, based on off-chain information.
 
 ### Data Mapping
 

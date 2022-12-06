@@ -1,0 +1,25 @@
+{
+  "2018": {
+      "AntPool": "Bitmain",
+      "BTC.COM": "Bitmain",
+      "Bitdeer": "Bitmain"
+  },
+  "2019": {
+      "AntPool": "Bitmain",
+      "BTC.COM": "Bitmain",
+      "Bitdeer": "Bitmain"
+  },
+  "2020": {
+      "AntPool": "Bitmain",
+      "BTC.COM": "Bitmain",
+      "Bitdeer": "Bitmain"
+  },
+  "2021": {
+      "Bitdeer": "BTC.COM",
+      "AntPool": "Bitmain"
+  },
+  "2022": {
+      "AntPool": "Bitmain",
+      "NovaBlock": "Poolin"
+  }
+}

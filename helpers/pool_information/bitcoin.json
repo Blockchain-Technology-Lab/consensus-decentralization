@@ -1,29 +1,4 @@
 {
-  "legal_links": {
-      "2018": {
-          "AntPool": "Bitmain",
-          "BTC.COM": "Bitmain",
-          "Bitdeer": "Bitmain"
-      },
-      "2019": {
-          "AntPool": "Bitmain",
-          "BTC.COM": "Bitmain",
-          "Bitdeer": "Bitmain"
-      },
-      "2020": {
-          "AntPool": "Bitmain",
-          "BTC.COM": "Bitmain",
-          "Bitdeer": "Bitmain"
-      },
-      "2021": {
-          "Bitdeer": "BTC.COM",
-          "AntPool": "Bitmain"
-      },
-      "2022": {
-          "AntPool": "Bitmain",
-          "NovaBlock": "Poolin"
-      }
-  },
   "coinbase_address_links": {
   },
   "coinbase_tags": {
