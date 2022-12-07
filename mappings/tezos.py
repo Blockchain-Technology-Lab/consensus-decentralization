@@ -4,7 +4,7 @@ from .lib import get_pool_data, write_csv_file
 
 
 def process(project_name, dataset, timeframe):
-    pool_data = get_pool_data(project_name, timeframe)
+    pool_data, pool_links = get_pool_data(project_name, timeframe)
     try:
         pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
     except KeyError:

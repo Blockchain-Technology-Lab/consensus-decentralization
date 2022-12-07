@@ -28,7 +28,7 @@ def get_pool_data(project_name, timeframe):
     except KeyError:
         pool_addresses = {}
 
-    return pool_data
+    return pool_data, pool_links
 
 def write_csv_file(project_dir, blocks_per_entity, timeframe):
     with open(project_dir + '/' + timeframe + '.csv', 'w') as f:
