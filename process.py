@@ -9,7 +9,7 @@ from mappings.tezos import process as tezos_mapping
 import sys
 import pathlib
 
-mapping = {
+mapping_dict = {
     'bitcoin': bitcoin_mapping,
     'ethereum': ethereum_mapping,
     'bitcoin_cash': bitcoin_mapping,
@@ -23,11 +23,11 @@ mapping = {
 
 
 def process(project_name, dataset, timeframe, log=False):
-    blocks_per_entity = mapping[project_name](project_name, dataset, timeframe)
+    blocks_per_entity = mapping_dict[project_name](project_name, dataset, timeframe)
 
     if log:
         if blocks_per_entity.keys():
-            gini = compute_gini(list(blocks_per_entity.values()))
+            gini = compute_gini(blocks_per_entity)
             nc = compute_nc(blocks_per_entity)
             entropy = compute_entropy(blocks_per_entity)
             print('[{}, {}] Gini: {}, NC: {} ({:.2f}%), Entropy: {}'.format(project_name, timeframe, gini, nc[0], nc[1], entropy))

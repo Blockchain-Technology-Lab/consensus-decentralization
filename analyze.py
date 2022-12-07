@@ -51,7 +51,7 @@ def analyze(projects):
                             if entity not in blocks_per_entity.keys():
                                 blocks_per_entity[entity] = 0
 
-                        gini = compute_gini(list(blocks_per_entity.values()))
+                        gini = compute_gini(blocks_per_entity)
                         nc = compute_nc(blocks_per_entity)
                         entropy = compute_entropy(blocks_per_entity)
                         print('[{}, {}] Gini: {}, NC: {} ({:.2f}%), Entropy: {}'.format(project_name, timeframe, gini, nc[0], nc[1], entropy))

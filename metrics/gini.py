@@ -2,8 +2,8 @@ import numpy as np
 import sys
 
 
-def compute_gini(lst):
-    array = np.array(lst)
+def compute_gini(blocks_per_entity):
+    array = np.array(list(blocks_per_entity.values()))
 
     """
     Calculate the Gini coefficient of a numpy array.
