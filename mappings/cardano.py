@@ -22,7 +22,7 @@ def process(project_name, dataset, timeframe):
             if pool:
                 entity = pool
             else:
-                entity = '[!] IOG (core nodes, pre-decentralization)'
+                entity = '[!] IOG (core nodes pre-decentralization)'
 
         blocks_per_entity[entity] += 1
 
