@@ -76,10 +76,8 @@ def analyze(projects, timeframe_argument):
             try:
                 with open('ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
                     blocks_per_entity = {}
-                    for idx, line in enumerate(f.readlines()):
-                        if idx > 0:
-                            row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
-                            blocks_per_entity[row[0]] = int(row[1])
+                    for line in f.readlines()[1:]:
+                        blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
             except FileNotFoundError:
                 project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
                 with open(project_dir + '/data.json') as f:
@@ -105,7 +103,7 @@ def analyze(projects, timeframe_argument):
             if gini:
                 print('[{0:12} {1:7}] \t Gini: {2:.6f}   NC: {3:3} ({4:.2f}%)   Entropy: {5:.6f}'.format(project_name, timeframe, gini, nc[0], nc[1], entropy))
             else:
-                print('[{}, {}] No data'.format(project_name, timeframe))
+                print('[{0:12} {1:7}] No data'.format(project_name, timeframe))
 
     with open('gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
