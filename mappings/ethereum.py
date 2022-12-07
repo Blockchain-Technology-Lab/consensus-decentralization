@@ -6,16 +6,8 @@ import pathlib
 def process(project_name, dataset, timeframe):
     project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
 
+    data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
     data = sorted(dataset, key=lambda x: x['number'])
-
-    for (idx, tx) in enumerate(data):
-        block_year = tx['timestamp'][:4]
-        block_month = int(tx['timestamp'][5:7])
-        if int(block_year) > 2021 and block_month > 8:  # Exclude PoS blocks (after Aug 22)
-            break
-    data = data[:idx]
-
-    data = [tx for tx in data if tx['timestamp'][:len(timeframe)] == timeframe]
 
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
