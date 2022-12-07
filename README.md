@@ -86,10 +86,10 @@ To assist the mapping process, the directory `helpers/pool_information` contains
 
 In this file:
 - `coinbase_address_links` refers to pools with shared coinbase addresses:
--- in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to different pools
--- in Cardano, such links exist when two pools share the same metadata
+  - in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to different pools
+  - in Cardano, such links exist when two pools share the same metadata
 - `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool
--- in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool
+  - in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool
 
 #### Pool ownership
 
