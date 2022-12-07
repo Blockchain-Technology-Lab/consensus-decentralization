@@ -105,15 +105,13 @@ Each analyzer is implemented in a separate Python script. Each script defines a 
 
 First, store the parsed data and pool information files as described above.
 
-Run `python process.py <project_name> <timeframe>` to produce a csv of the mapped data; the timeframe argument should be of the form `YYYY-MM-DD` (where month and day can be omitted). The script will also print the output of each implemented analyzer.
+Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented analyzer. 
 
-To mass produce and analyze data for a ledger, run `python analyze.py <argument>`. The argument can be omitted (in which case the script will analyze all available ledgers between 2018-2022), or be one of two types:
-- `<project name>`: the script will analyze the specific project between 2018-2022
-- `timeframe`: the script will analyze all ledgers for the specific timeframe; the argument should be of the form `YYYY-MM-DD` (where month and day can be omitted)
+To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all ledgers will be analyzed for the given timeframe).
 
 ## Development
 
-To add a new project, first create a folder in the `ledgers` directory named as the project (e.g., `bitcoin`, `ethereum`, etc).
+To add a new project, first create a folder in the `ledgers` directory named as the project (e.g., `bitcoin`, `ethereum`).
 
 In the ledger project's directory, store a file named `data.json` that contains the parsed data (see above in `Parser`).
 
@@ -125,11 +123,11 @@ In the directory `mappings` create a mapping script, or reuse an existing one. T
 - a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  '2022-11-12' for the year 12 November 2022, 
 and returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of mapped data (see above `Mapping`).
 
-In the script `process.py`, import the newly created `process` function and assign it to the project's name in the dictionary `mapping_dict`.
+In the script `analyze.py`, import the newly created `process` function and assign it to the project's name in the dictionary `ledger_mapping`.
 
 To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_data_file>.csv`.
 
-To add a new analyzer, create a relevant script in `analyzers` and import the analyzer function in the scripts `process.py` and `analyze.py`.
+To add a new analyzer, create a relevant script in `analyzers` and import the analyzer function in the script `analyze.py`.
 
 ## Example data
 
