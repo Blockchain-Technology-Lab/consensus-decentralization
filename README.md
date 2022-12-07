@@ -35,7 +35,17 @@ The parser obtains raw data from a full node, parses them and outputs a json fil
 ]
 ```
 
-If the ledger does not explicitly define a coinbase address,  the entry `coinbase_addresses` should contain a unique identifier of the entity that created the relevant block (e.g., a pool hash, a public key, an index, etc). Similarly, if the ledger does not permit an explicit coinbase parameter, the entry `coinbase_param` should either be omitted or contain information that can be used to de-anonymize/cluster blocks into pools.
+The entry `coinbase_addresses` is as follows:
+- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: a string of comma-separated addresses in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)
+- `Ethereum`: the `miner` field of the block
+- `Cardano`: the hash of the pool that created the data, if defined, otherwise the empty string
+- `Tezos`: the `baker` field of the block
+
+The entry `coinbase_param` is as follows:
+- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: the field `coinbase_param` of the block's coinbase transaction
+- `Ethereum`: the field `extra_data` of the block
+- `Cardano`: the ticker name of the pool that created the block, if defined, otherwise the empty string
+- `Tezos`: there is no such entry
 
 ### Mapping
 
