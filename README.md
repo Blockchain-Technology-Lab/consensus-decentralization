@@ -36,7 +36,7 @@ The parser obtains raw data from a full node, parses them and outputs a json fil
 ```
 
 The entry `coinbase_addresses` is as follows:
-- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: a string of comma-separated addresses in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)
+- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: a string of comma-separated addresses which appear in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)
 - `Ethereum`: the `miner` field of the block
 - `Cardano`: the hash of the pool that created the data, if defined, otherwise the empty string
 - `Tezos`: the `baker` field of the block
@@ -55,13 +55,13 @@ Entity,Resources
 <name of entity>,<(int) number of blocks>
 ```
 
-The csv file is named as the timeframe over which the mapping was executed and is stored in the project's directory (under `ledgers`).
+The csv file is named as the timeframe over which the mapping was executed (e.g., `2021-04.csv`) and is stored in the project's directory (i.e., `ledgers/<project_name>`).
 
 The logic of the mapping depends on the type of clustering that you want to achieve. So, different mappings will output different results, even if applied on the same data.
 
 #### Pool information
 
-To assist the mapping process, the directory `helpers/pool_information` contains files named `<project name>.json`, with relevant pool information, structured as follows:
+To assist the mapping process, the directory `helpers/pool_information` contains files named `<project_name>.json`, with relevant pool information, structured as follows:
 
 ```
 {
@@ -85,12 +85,15 @@ To assist the mapping process, the directory `helpers/pool_information` contains
 ```
 
 In this file:
-- `coinbase_address_links` refers to pools with shared coinbase addresses (i.e., two blocks created by the pools with common coinbase addresses)
-- `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter (to claim a block as being mined by the pool)
+- `coinbase_address_links` refers to pools with shared coinbase addresses:
+-- in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to different pools
+-- in Cardano, such links exist when two pools share the same metadata
+- `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool
+-- in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool
 
 #### Pool ownership
 
-The file `helpers/legal_links.json` defines legal links between pools and companies, based on off-chain information.
+The file `helpers/legal_links.json` defines legal links between pools and companies, based on off-chain information (e.g., when a company is the major stakeholder in a pool).
 
 ### Analyzer 
 
@@ -115,7 +118,7 @@ To add a new project, first create a folder in the `ledgers` directory named as 
 
 In the ledger project's directory, store a file named `data.json` that contains the parsed data (see above in `Parser`).
 
-In the directory `helpers/pool_information` store a file named `<project name>.json` that contains the relevant pool information (see above `Mapping/Pool information`).
+In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool information (see above `Mapping/Pool information`).
 
 In the directory `mappings` create a mapping script, or reuse an existing one. The script should define a function `process` that takes as inputs:
 - the full path of the project's directory
