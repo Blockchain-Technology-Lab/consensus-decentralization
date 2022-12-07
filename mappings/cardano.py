@@ -24,7 +24,7 @@ def process(project_name, dataset, timeframe):
             else:
                 entity = '[!] IOG (core nodes pre-decentralization)'
 
-        blocks_per_entity[entity] += 1
+        blocks_per_entity[entity.replace(',', '')] += 1
 
     write_csv_file(str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name), blocks_per_entity, timeframe)
 
