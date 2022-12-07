@@ -52,8 +52,8 @@ def process(project_name, dataset, timeframe):
                 pool_match = True
                 for addr in tx['coinbase_addresses'].split(','):
                     if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
-                        with open(project_dir + '/multi_pool_addresses'.format(timeframe), 'a') as f:
-                            f.write('[{}] {}: {} -> {}\n'.format(tx['timestamp'], addr, pool_addresses[addr], entity))
+                        with open(project_dir + '/multi_pool_addresses.csv'.format(timeframe), 'a') as f:
+                            f.write('{},{},{},{}\n'.format(tx['timestamp'], addr, pool_addresses[addr], entity))
 
                     pool_addresses[addr] = entity
                 break
@@ -87,7 +87,7 @@ def process(project_name, dataset, timeframe):
     with open(project_dir + '/' + timeframe + '.csv', 'w') as f:
         f.write('\n'.join(csv_output))
 
-    with open(project_dir + '/multi_pool_blocks', 'a') as f:
-        f.write('[{}] {}\n'.format(timeframe, '--'.join(multi_pool_blocks)))
+    with open(project_dir + '/multi_pool_blocks.csv', 'a') as f:
+        f.write('{},{}\n'.format(timeframe, '--'.join(multi_pool_blocks)))
 
     return blocks_per_entity
