@@ -121,6 +121,7 @@ if __name__ == '__main__':
             projects = [sys.argv[1]]
             timeframe = False
         else:
+            projects = PROJECTS
             timeframe = sys.argv[1]
     else:
         projects = PROJECTS
