@@ -105,9 +105,11 @@ Each analyzer is implemented in a separate Python script. Each script defines a 
 
 First, store the parsed data and pool information files as described above.
 
-Run `python process.py <project_name> <timeframe>` to produce a csv of the mapped data. The script will also print the output of each implemented analyzer.
+Run `python process.py <project_name> <timeframe>` to produce a csv of the mapped data; the timeframe argument should be of the form `YYYY-MM-DD` (where month and day can be omitted). The script will also print the output of each implemented analyzer.
 
-To mass produce and analyze data for a ledger, run `python analyze.py <project name>`; if the argument `<project name>` is omitted, the script will analyze all available ledgers.
+To mass produce and analyze data for a ledger, run `python analyze.py <argument>`. The argument can be omitted (in which case the script will analyze all available ledgers between 2018-2022), or be one of two types:
+- `<project name>`: the script will analyze the specific project between 2018-2022
+- `timeframe`: the script will analyze all ledgers for the specific timeframe; the argument should be of the form `YYYY-MM-DD` (where month and day can be omitted)
 
 ## Development
 

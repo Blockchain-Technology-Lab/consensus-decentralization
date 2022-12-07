@@ -10,8 +10,18 @@ import pathlib
 
 START_YEAR = 2018
 END_YEAR = 2023
+PROJECTS = [
+    'bitcoin',
+    'ethereum',
+    'bitcoin_cash',
+    'dogecoin',
+    'cardano',
+    'litecoin',
+    'tezos',
+    'zcash',
+]
 
-def analyze(projects):
+def analyze(projects, timeframe_argument=False):
     months = []
     gini_series = defaultdict(list)
     nc_series = defaultdict(list)
@@ -20,6 +30,10 @@ def analyze(projects):
         project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
 
         yearly_entities = {}
+        if timeframe_argument:
+            START_YEAR = int(timeframe_argument[:4])
+            END_YEAR = START_YEAR + 1
+
         for idx, year in enumerate(range(START_YEAR, END_YEAR)):
             yearly_entities[year] = set()
             for month in range(1, 13):
@@ -36,8 +50,13 @@ def analyze(projects):
                     with open(project_dir + '/data.json') as f:
                         data = json.load(f)
                     process(project_name, data, timeframe)
+            
+            if timeframe_argument and len(timeframe_argument) > 4:
+                month_lst = [int(timeframe_argument[5:])]
+            else:
+                month_lst = range(1, 13)
 
-            for month in range(1, 13):
+            for month in month_lst:
                 timeframe = '{}-{}'.format(year, str(month).zfill(2))
                 blocks_per_entity = {}
                 with open('ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
@@ -97,17 +116,13 @@ def analyze(projects):
 
 if __name__ == '__main__':
     try:
-        projects = [sys.argv[1]]
+        if sys.argv[1] in PROJECTS:
+            projects = [sys.argv[1]]
+        else:
+            projects = PROJECTS
+            timeframe = sys.argv[1]
     except IndexError:
-        projects = [
-            'bitcoin',
-            'ethereum',
-            'bitcoin_cash',
-            'dogecoin',
-            'cardano',
-            'litecoin',
-            'tezos',
-            'zcash',
-        ]
+        projects = PROJECTS
+        timeframe = False
 
-    analyze(projects)
+    analyze(projects, timeframe)
