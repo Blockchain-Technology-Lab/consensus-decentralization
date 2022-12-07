@@ -108,11 +108,11 @@ Each metric is implemented in a separate Python script in the folder `metrics`. 
 
 Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name>` store the file `data.json` of parsed data (see above).
 
-Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
+Run `python run.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
 
 To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all ledgers will be analyzed for the given timeframe).
 
-Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the last execution of `analyze.py`.
+Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the last execution of `run.py`.
 
 ## Development
 
@@ -128,11 +128,11 @@ In the directory `mappings` create a mapping script, or reuse an existing one. T
 - a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  '2022-11-12' for the year 12 November 2022, 
 and returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of mapped data (see above `Mapping`).
 
-In the script `analyze.py`, import the newly created `process` function and assign it to the project's name in the dictionary `ledger_mapping`.
+In the script `run.py`, import the newly created `process` function and assign it to the project's name in the dictionary `ledger_mapping`.
 
 To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_data_file>.csv`.
 
-To add a new metric, create a relevant script in `metrics` and import the metric function in the script `analyze.py`.
+To add a new metric, create a relevant script in `metrics` and import the metric function in the script `run.py`.
 
 ## Example data
 
