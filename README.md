@@ -55,6 +55,8 @@ Entity,Resources
 <name of entity>,<(int) number of blocks>
 ```
 
+The csv file is named as the timeframe over which the mapping was executed and is stored in the project's directory (under `ledgers`).
+
 The logic of the mapping depends on the type of clustering that you want to achieve. So, different mappings will output different results, even if applied on the same data.
 
 #### Pool information
