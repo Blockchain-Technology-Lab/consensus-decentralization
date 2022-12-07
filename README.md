@@ -127,7 +127,7 @@ All other queries return data already in the necessary parsed form.
 
 ### Bitcoin
 
-Sample Bitcoin data are available [here](https://drive.google.com/file/d/1IyLNi2_qvxWj0SQ_S0ZKxqMgwuBk6mRF/view?usp=sharing).
+Sample parsed Bitcoin data are available [here](https://drive.google.com/file/d/1IyLNi2_qvxWj0SQ_S0ZKxqMgwuBk6mRF/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -141,7 +141,7 @@ AND timestamp > '2017-12-31'
 
 ### Ethereum
 
-Sample Ethereum data are available [here](https://drive.google.com/file/d/1UEDsoz1Q2njR-pd6TO0ZLQBXFcV3T--4/view?usp=sharing).
+Sample parsed Ethereum data are available [here](https://drive.google.com/file/d/1UEDsoz1Q2njR-pd6TO0ZLQBXFcV3T--4/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -153,7 +153,7 @@ WHERE timestamp > '2018-12-31'
 
 ### Bitcoin Cash
 
-Sample Bitcoin Cash data are available [here](https://drive.google.com/file/d/1klKbtWESX4Zga_NoZhPxEEolV6lf02_j/view?usp=sharing).
+Sample parsed Bitcoin Cash data are available [here](https://drive.google.com/file/d/1klKbtWESX4Zga_NoZhPxEEolV6lf02_j/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -167,7 +167,7 @@ AND timestamp > '2018-12-31'
 
 ### Dogecoin
 
-Sample Dogecoin data are available [here](https://drive.google.com/file/d/1m51Zh7hM2nj9qykrzxfN8JEM0-DLqELa/view?usp=sharing).
+Sample parsed Dogecoin data are available [here](https://drive.google.com/file/d/1m51Zh7hM2nj9qykrzxfN8JEM0-DLqELa/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -181,7 +181,7 @@ AND timestamp > '2019-12-31'
 
 ### Cardano
 
-Sample Cardano data are available [here](https://drive.google.com/file/d/1V97Vy6JMLholargAqSa4yrPsyHxeOf6U/view?usp=sharing).
+Sample parsed Cardano data are available [here](https://drive.google.com/file/d/1V97Vy6JMLholargAqSa4yrPsyHxeOf6U/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -194,7 +194,7 @@ WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 
 ### Litecoin
 
-Sample Litecoin data are available [here](https://drive.google.com/file/d/1iaK1Pfkvc9EoArOv2vyXiAq7UdbLfXYQ/view?usp=sharing).
+Sample parsed Litecoin data are available [here](https://drive.google.com/file/d/1iaK1Pfkvc9EoArOv2vyXiAq7UdbLfXYQ/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -208,7 +208,7 @@ AND timestamp > '2018-12-31'
 
 ### Zcash
 
-Sample Zcash data are available [here](https://drive.google.com/file/d/1oMLnCcG4W79wLaMSpCQImp0EvKKWGZ7P/view?usp=sharing).
+Sample parsed Zcash data are available [here](https://drive.google.com/file/d/1oMLnCcG4W79wLaMSpCQImp0EvKKWGZ7P/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -222,7 +222,7 @@ AND timestamp > '2018-12-31'
 
 ### Tezos
 
-Sample Tezos data are available [here](https://drive.google.com/file/d/15_ZPb6l9JC3YilPv6tyzPqIztEAK-iYk/view?usp=sharing).
+Sample parsed Tezos data are available [here](https://drive.google.com/file/d/15_ZPb6l9JC3YilPv6tyzPqIztEAK-iYk/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -234,7 +234,7 @@ WHERE timestamp > '2020-12-31'
 
 ### Dash
 
-Sample Dash data are available [here](https://drive.google.com/file/d/1atorp5kizjyYdQRrDCf3ps5ybiPGlZL6/view?usp=sharing).
+Sample parsed Dash data are available [here](https://drive.google.com/file/d/1atorp5kizjyYdQRrDCf3ps5ybiPGlZL6/view?usp=sharing).
 
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
