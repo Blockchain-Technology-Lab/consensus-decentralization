@@ -59,7 +59,7 @@ The csv file is named as the timeframe over which the mapping was executed (e.g.
 
 The logic of the mapping depends on the type of clustering that you want to achieve. So, different mappings will output different results, even if applied on the same data.
 
-#### Pool information
+#### Pool Information
 
 To assist the mapping process, the directory `helpers/pool_information` contains files named `<project_name>.json`, with relevant pool information, structured as follows:
 
@@ -91,7 +91,7 @@ In this file:
 - `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool
   - in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool
 
-#### Pool ownership
+#### Pool Ownership
 
 The file `helpers/legal_links.json` defines legal links between pools and companies, based on off-chain information (e.g., when a company is the major stakeholder in a pool).
 
@@ -106,7 +106,7 @@ Each analyzer is implemented in a separate Python script in the folder `metrics`
 
 ## Run
 
-Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name> store the file `data.json` of parsed data (see above).
+Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name>` store the file `data.json` of parsed data (see above).
 
 Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented analyzer metric.
 
@@ -118,7 +118,7 @@ To add a new project, first create a folder in the `ledgers` directory named as 
 
 In the ledger project's directory, store a file named `data.json` that contains the parsed data (see above in `Parser`).
 
-In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool information (see above `Mapping/Pool information`).
+In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool information (see above `Pool Information`).
 
 In the directory `mappings` create a mapping script, or reuse an existing one. The script should define a function `process` that takes as inputs:
 - the full path of the project's directory
