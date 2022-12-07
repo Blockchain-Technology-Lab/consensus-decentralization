@@ -1,40 +1,20 @@
 from collections import defaultdict
-import json
 import codecs
 import pathlib
+from .lib import get_pool_data, write_csv_file
 
 
 def process(project_name, dataset, timeframe):
-    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
-
-    data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
-    data = sorted(data, key=lambda x: x['number'])
-
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
-
-    with open(helpers_path + '/pool_information/{}.json'.format(project_name)) as f:
-        pool_data = json.load(f)
-
-    pool_links = {}
-
-    try:
-        pool_links.update(pool_data['coinbase_address_links'][timeframe[:4]])
-    except KeyError:
-        pass
-
-    with open(helpers_path + '/legal_links.json') as f:
-        legal_links = json.load(f)
-    pool_links.update(legal_links[timeframe[:4]])
-
-    for key, val in pool_links.items():  # resolve chain links
-        while val in pool_links.keys():
-            val = pool_links[val]
-        pool_links[key] = val
-
+    pool_data = get_pool_data(project_name, timeframe)
     try:
         pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
     except KeyError:
         pool_addresses = {}
+
+    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
+
+    data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
+    data = sorted(data, key=lambda x: x['number'])
 
     multi_pool_blocks = set()
     multi_pool_addresses = defaultdict(list)
@@ -71,7 +51,7 @@ def process(project_name, dataset, timeframe):
                 if len(coinbase_addresses) == 1:
                     entity = coinbase_addresses[0]
                 else:
-                    entity = ' '.join([
+                    entity = '/'.join([
                         addr[:5] + '...' + addr[-5:] for addr in coinbase_addresses
                     ])
 
@@ -80,12 +60,7 @@ def process(project_name, dataset, timeframe):
 
         blocks_per_entity[entity] += 1
 
-    csv_output = ['Entity,Resources']
-    for key, val in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-        csv_output.append(','.join([key, str(val)]))
-
-    with open(project_dir + '/' + timeframe + '.csv', 'w') as f:
-        f.write('\n'.join(csv_output))
+    write_csv_file(project_dir, blocks_per_entity, timeframe)
 
     with open(project_dir + '/multi_pool_blocks.csv', 'a') as f:
         f.write('{},{}\n'.format(timeframe, '--'.join(multi_pool_blocks)))
