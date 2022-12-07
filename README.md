@@ -97,18 +97,18 @@ The file `helpers/legal_links.json` defines legal links between pools and compan
 
 ### Analyzer 
 
-An analyzer gets the mapped data (see above `Mapping`) and outputs a number. Currently, the implemented analyzers can be found in the folder `metrics` and are:
-- Nakamoto coefficient
-- Gini coefficient
-- Entropy
+An analyzer gets the mapped data (see above `Mapping`). Currently, the implemented analyzers are:
+- Nakamoto coefficient: outputs a tuple of the Nakamoto coefficient and the power percentage that these entities (that form the coefficient) control
+- Gini coefficient: outputs a float in [0, 1]
+- Entropy: outputs a real number
 
-Each analyzer is implemented in a separate Python script. Each script defines a function named `compute_<metric name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` and outputs the relevant metric.
+Each analyzer is implemented in a separate Python script in the folder `metrics`. Each script defines a function named `compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` and outputs the relevant metric values.
 
 ## Run
 
-First, store the parsed data and pool information files as described above.
+Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name> store the file `data.json` of parsed data (see above).
 
-Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented analyzer. 
+Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented analyzer metric.
 
 To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all ledgers will be analyzed for the given timeframe).
 
