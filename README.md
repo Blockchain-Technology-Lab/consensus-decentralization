@@ -112,6 +112,8 @@ Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mappe
 
 To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all ledgers will be analyzed for the given timeframe).
 
+Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the last execution of `analyze.py`.
+
 ## Development
 
 To add a new project, first create a folder in the `ledgers` directory named as the project (e.g., `bitcoin`, `ethereum`).
