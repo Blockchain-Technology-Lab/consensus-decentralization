@@ -18,7 +18,7 @@ Currently the supported cryptocurrencies are:
 The tool consists of the following modules:
 - Parser
 - Mapping
-- Analyzer
+- Metric
 
 ### Parser
 
@@ -95,20 +95,20 @@ In this file:
 
 The file `helpers/legal_links.json` defines legal links between pools and companies, based on off-chain information (e.g., when a company is the major stakeholder in a pool).
 
-### Analyzer 
+### Metric 
 
-An analyzer gets the mapped data (see above `Mapping`). Currently, the implemented analyzers are:
+A metric gets the mapped data (see above `Mapping`) and outputs a relevant value as follows:
 - Nakamoto coefficient: outputs a tuple of the Nakamoto coefficient and the power percentage that these entities (that form the coefficient) control
 - Gini coefficient: outputs a float in [0, 1]
 - Entropy: outputs a real number
 
-Each analyzer is implemented in a separate Python script in the folder `metrics`. Each script defines a function named `compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` and outputs the relevant metric values.
+Each metric is implemented in a separate Python script in the folder `metrics`. Each script defines a function named `compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` and outputs the relevant metric values.
 
 ## Run
 
 Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name>` store the file `data.json` of parsed data (see above).
 
-Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented analyzer metric.
+Run `python analyze.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
 
 To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all ledgers will be analyzed for the given timeframe).
 
@@ -132,7 +132,7 @@ In the script `analyze.py`, import the newly created `process` function and assi
 
 To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_data_file>.csv`.
 
-To add a new analyzer, create a relevant script in `analyzers` and import the analyzer function in the script `analyze.py`.
+To add a new metric, create a relevant script in `metrics` and import the metric function in the script `analyze.py`.
 
 ## Example data
 
