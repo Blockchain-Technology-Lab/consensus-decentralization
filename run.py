@@ -93,17 +93,15 @@ def analyze(projects, timeframe_argument):
                 gini = compute_gini(blocks_per_entity)
                 nc = compute_nc(blocks_per_entity)
                 entropy = compute_entropy(blocks_per_entity)
+                max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]})
+                print('[{0:12} {1:7}] \t Gini: {2:.6f}   NC: {3:3} ({4:.2f}%)   Entropy: {5:.6f} (max: {6:.6f})'.format(project_name, timeframe, gini, nc[0], nc[1], entropy, max_entropy))
             else:
                 gini, nc, entropy = '', ('', ''), ''
+                print('[{0:12} {1:7}] No data'.format(project_name, timeframe))
 
             gini_csv[timeframe] += ',{}'.format(gini)
             nc_csv[timeframe] += ',{}'.format(nc[0])
             entropy_csv[timeframe] += ',{}'.format(entropy)
-
-            if gini:
-                print('[{0:12} {1:7}] \t Gini: {2:.6f}   NC: {3:3} ({4:.2f}%)   Entropy: {5:.6f}'.format(project_name, timeframe, gini, nc[0], nc[1], entropy))
-            else:
-                print('[{0:12} {1:7}] No data'.format(project_name, timeframe))
 
     with open('gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
