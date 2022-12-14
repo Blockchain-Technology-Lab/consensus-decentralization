@@ -2,16 +2,16 @@
 
 This repository provides scripts for analyzing pooling behavior of various blockchains.
 
-Currently the supported cryptocurrencies are:
+Currently, the supported cryptocurrencies are:
 - Bitcoin
-- Ethereum
 - Bitcoin Cash
-- Dogecoin
 - Cardano
-- Litecoin
-- Zcash
-- Tezos
 - Dash
+- Dogecoin
+- Ethereum 
+- Litecoin
+- Tezos
+- Zcash
 
 ## Architecture
 
