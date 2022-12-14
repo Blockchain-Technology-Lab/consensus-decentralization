@@ -1,7 +1,6 @@
 import sys
 import json
 import pathlib
-from collections import defaultdict
 from metrics.gini import compute_gini
 from metrics.nc import compute_nc
 from metrics.entropy import compute_entropy
