@@ -1,8 +1,9 @@
 # Pooling Analysis
 
-This repository provides scripts for analyzing pooling behavior of various blockchains.
+This repository provides a tool for analyzing pooling behavior of various blockchains and measuring their subsequent
+decentralization levels.
 
-Currently, the supported cryptocurrencies are:
+Currently, the supported chains are:
 - Bitcoin
 - Bitcoin Cash
 - Cardano
@@ -18,11 +19,12 @@ Currently, the supported cryptocurrencies are:
 The tool consists of the following modules:
 - Parser
 - Mapping
-- Metric
+- Metrics
 
 ### Parser
 
-The parser obtains raw data from a full node, parses them and outputs a json file that contains a list of entries, each entry corresponding to a block in the chain. Specifically, the file is structured as follows:
+The parser obtains raw data from a full node, parses them and outputs a `json` file that contains a list of entries, each 
+entry corresponding to a block in the chain. Specifically, the file is structured as follows:
 
 ```
 [
@@ -34,34 +36,40 @@ The parser obtains raw data from a full node, parses them and outputs a json fil
     }
 ]
 ```
-
-The entry `coinbase_addresses` is as follows:
-- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: a string of comma-separated addresses which appear in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)
+While `number` and `timestamp` are consistent among different blockchains, the exact information that is included in 
+`coinbase_addresses` and `coinbase_param` may vary. Specifically, the field `coinbase_addresses` corresponds to:
+- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: a string of comma-separated addresses which appear 
+in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)
 - `Ethereum`: the `miner` field of the block
 - `Cardano`: the hash of the pool that created the data, if defined, otherwise the empty string
-- `Tezos`: the `baker` field of the block
+- `Tezos`: the `baker` field of the block.
 
-The entry `coinbase_param` is as follows:
-- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: the field `coinbase_param` of the block's coinbase transaction
+And the field `coinbase_param` corresponds to:
+- `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: the field `coinbase_param` of the block's coinbase 
+transaction
 - `Ethereum`: the field `extra_data` of the block
-- `Cardano`: the ticker name of the pool that created the block, if defined, otherwise the empty string
-- `Tezos`: there is no such entry
+- `Cardano`: the ticker name of the pool that created the block, if defined, otherwise an empty string
+- `Tezos`: there is no such field.
 
 ### Mapping
 
-A mapping obtains the parsed data and outputs a csv file that maps blocks to entities. Specifically, the csv file is structured as follows:
+The mapping obtains the parsed data (`json` file) and outputs a `csv` file that maps blocks to entities. Specifically, 
+the `csv` file is structured as follows:
 ```
 Entity,Resources
 <name of entity>,<(int) number of blocks>
 ```
 
-The csv file is named as the timeframe over which the mapping was executed (e.g., `2021-04.csv`) and is stored in the project's directory (i.e., `ledgers/<project_name>`).
+The `csv` file is named as the timeframe over which the mapping was executed (e.g., `2021-04.csv`) and is stored in the 
+project's directory (i.e., `ledgers/<project_name>`).
 
-The logic of the mapping depends on the type of clustering that you want to achieve. So, different mappings will output different results, even if applied on the same data.
+The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output 
+different results, even if applied on the same data. 
 
 #### Pool Information
 
-To assist the mapping process, the directory `helpers/pool_information` contains files named `<project_name>.json`, with relevant pool information, structured as follows:
+To assist the mapping process, the directory `helpers/pool_information` contains files named `<project_name>.json`, with 
+relevant pool information, structured as follows:
 
 ```
 {
@@ -86,49 +94,76 @@ To assist the mapping process, the directory `helpers/pool_information` contains
 
 In this file:
 - `coinbase_address_links` refers to pools with shared coinbase addresses:
-  - in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to different pools
+  - in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to 
+different pools
   - in Cardano, such links exist when two pools share the same metadata
-- `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool
+- `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined 
+by the pool
   - in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool
 
 #### Pool Ownership
 
-The file `helpers/legal_links.json` defines legal links between pools and companies, based on off-chain information (e.g., when a company is the major stakeholder in a pool).
+The file `helpers/legal_links.json` defines legal links between pools and companies, based on off-chain information 
+(e.g., when a company is the major stakeholder in a pool).
 
-### Metric 
+### Metrics 
 
 A metric gets the mapped data (see above `Mapping`) and outputs a relevant value as follows:
-- Nakamoto coefficient: outputs a tuple of the Nakamoto coefficient and the power percentage that these entities (that form the coefficient) control
-- Gini coefficient: outputs a float in [0, 1]
+- Nakamoto coefficient: outputs a tuple of the Nakamoto coefficient and the power percentage that these entities 
+(that form the coefficient) control
+- Gini coefficient: outputs a decimal number in [0,1]
 - Entropy: outputs a real number
 
-Each metric is implemented in a separate Python script in the folder `metrics`. Each script defines a function named `compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` and outputs the relevant metric values.
+Each metric is implemented in a separate Python script in the folder `metrics`. Each script defines a function named `
+compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` and 
+outputs the relevant metric values.
 
-## Run
+## Installing and running the tool
 
-Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name>` store the file `data.json` of parsed data (see above).
+To install the pooling analysis tool, simply clone this project:
 
-Run `python run.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
+    git clone https://github.com/Blockchain-Technology-Lab/pooling-analysis.git
 
-To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all ledgers will be analyzed for the given timeframe).
+Take note of the [requirements file](requirements.txt), which lists the dependencies of the project, and make
+sure you have all of them installed before running the scripts. To install all of them in one go, you can run the 
+following command from the root directory of the project:
 
-Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the last execution of `run.py`.
+    python -m pip install -r requirements.txt
 
-## Development
+
+Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name>` 
+store the file `data.json` of parsed data (see above).
+
+Run `python run.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of 
+the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
+
+To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a 
+project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all 
+ledgers will be analyzed for the given timeframe).
+
+Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the 
+last execution of `run.py`.
+
+## Contributing
 
 To add a new project, first create a folder in the `ledgers` directory named as the project (e.g., `bitcoin`, `ethereum`).
 
 In the ledger project's directory, store a file named `data.json` that contains the parsed data (see above in `Parser`).
 
-In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool information (see above `Pool Information`).
+In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool 
+information (see above `Pool Information`).
 
-In the directory `mappings` create a mapping script, or reuse an existing one. The script should define a function `process` that takes as inputs:
+In the directory `mappings` create a mapping script, or reuse an existing one. The script should define a function 
+`process` that takes as inputs:
 - the full path of the project's directory
 - the parsed data (structured as above)
-- a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  '2022-11-12' for the year 12 November 2022, 
-and returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of mapped data (see above `Mapping`).
+- a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  
+- '2022-11-12' for the year 12 November 2022, 
+and returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of mapped data 
+- (see above `Mapping`).
 
-In the script `run.py`, import the newly created `process` function and assign it to the project's name in the dictionary `ledger_mapping`.
+In the script `run.py`, import the newly created `process` function and assign it to the project's name in the 
+dictionary `ledger_mapping`.
 
 To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_data_file>.csv`.
 
@@ -136,7 +171,8 @@ To add a new metric, create a relevant script in `metrics` and import the metric
 
 ## Example data
 
-The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that should be parsed using the `bitcoin` parser in `parsers`.
+The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that should be parsed using the 
+`bitcoin` parser in `parsers`.
 
 The query for Cardano returns data that should be parsed using the `cardano` parser in `parsers`. 
 
