@@ -93,7 +93,7 @@ def analyze(projects, timeframe_argument):
                 nc = compute_nc(blocks_per_entity)
                 entropy = compute_entropy(blocks_per_entity)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]})
-                print('[{0:12} {1:7}] \t Gini: {2:.6f}   NC: {3:3} ({4:.2f}%)   Entropy: {5:.6f} (max: {6:.6f})'.format(project_name, timeframe, gini, nc[0], nc[1], entropy, max_entropy))
+                print('[{0:12} {1:7}] \t Gini: {2:.6f}   NC: {3:3} ({4:.2f}%)   Entropy: {5:.6f} ({6:.1f}% out of max {7:.6f})'.format(project_name, timeframe, gini, nc[0], nc[1], entropy, 100*entropy/max_entropy, max_entropy))
             else:
                 gini, nc, entropy = '', ('', ''), ''
                 print('[{0:12} {1:7}] No data'.format(project_name, timeframe))
