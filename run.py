@@ -60,16 +60,16 @@ def analyze(projects, timeframe_argument):
             year = timeframe[:4]
             if year not in yearly_entities.keys():
                 yearly_entities[year] = set()
-                try:
-                    with open('ledgers/{}/{}.csv'.format(project_name, year)) as f:
-                        for line in f.readlines()[1:]:
-                            row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
-                            yearly_entities[year].add(row[0])
-                except FileNotFoundError:
+                mapping_file = pathlib.Path.cwd() / 'ledgers/{}/{}.csv'.format(project_name, year)
+                if not mapping_file.is_file():
                     project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
                     with open(project_dir + '/data.json') as f:
                         data = json.load(f)
                     ledger_mapping[project_name](project_name, data, year)
+                with open(mapping_file) as f:
+                    for line in f.readlines()[1:]:
+                        row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
+                        yearly_entities[year].add(row[0])
 
             # Get mapped data for the defined timeframe.
             try:

@@ -1,6 +1,10 @@
 import pathlib
 import json
 
+#todo rename file to helper or sth? 'lib' is not commonly used in python afaik
+
+YEAR_DIGITS = 4
+
 def get_pool_data(project_name, timeframe):
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
@@ -10,13 +14,13 @@ def get_pool_data(project_name, timeframe):
     pool_links = {}
 
     try:
-        pool_links.update(pool_data['coinbase_address_links'][timeframe[:4]])
+        pool_links.update(pool_data['coinbase_address_links'][timeframe[:YEAR_DIGITS]])
     except KeyError:
         pass
 
     with open(helpers_path + '/legal_links.json') as f:
         legal_links = json.load(f)
-    pool_links.update(legal_links[timeframe[:4]])
+    pool_links.update(legal_links[timeframe[:YEAR_DIGITS]])
 
     for key, val in pool_links.items():  # resolve chain links
         while val in pool_links.keys():
@@ -24,7 +28,7 @@ def get_pool_data(project_name, timeframe):
         pool_links[key] = val
 
     try:
-        pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
+        pool_addresses = pool_data['pool_addresses'][timeframe[:YEAR_DIGITS]] #todo remove unused variable or is it sth we might need in the future?
     except KeyError:
         pool_addresses = {}
 
