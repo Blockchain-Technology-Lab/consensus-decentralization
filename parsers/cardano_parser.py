@@ -5,6 +5,7 @@ with open('raw_data.json') as f:
     data = json.load(f)
     data = sorted(data, key=lambda x: x['number'])
 
+#todo delete unused variables pool_tickers and address_tickers?
 pool_tickers = defaultdict(set)
 address_tickers = defaultdict(set)
 for tx in data:
