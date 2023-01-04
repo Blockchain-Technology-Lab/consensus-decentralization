@@ -172,9 +172,9 @@ To add a new metric, create a relevant script in `metrics` and import the metric
 ## Example data
 
 The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that should be parsed using the 
-`bitcoin` parser in `parsers`.
+`default_parser` script in `parsers`.
 
-The query for Cardano returns data that should be parsed using the `cardano` parser in `parsers`. 
+The query for Cardano returns data that should be parsed using the `cardano_parser` script in `parsers`. 
 
 All other queries return data already in the necessary parsed form.
 
