@@ -1,4 +1,5 @@
 import sys
+import src.helpers.helper as hlp
 
 def compute_nc(blocks_per_entity):
     nc, power_percentage = 0, 0
@@ -13,11 +14,5 @@ def compute_nc(blocks_per_entity):
 
 if __name__ == '__main__':
     filename = sys.argv[1]
-    blocks_per_entity = {}
-    with open(filename) as f:
-        for idx, line in enumerate(f.readlines()):
-            if idx > 0:
-                row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
-                blocks_per_entity[row[0]] = int(row[1])
-
-    print('Nakamoto Coefficient:', compute_nc(blocks_per_entity))
+    blocks_per_entity = hlp.get_blocks_per_entity_from_file(filename)
+    print(f'Nakamoto Coefficient: {compute_nc(blocks_per_entity)}')

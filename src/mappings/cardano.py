@@ -1,6 +1,6 @@
 from collections import defaultdict
 import pathlib
-from .lib import get_pool_data, write_csv_file
+from src.helpers.helper import get_pool_data, write_csv_file
 
 
 def process(project_name, dataset, timeframe):
@@ -26,6 +26,7 @@ def process(project_name, dataset, timeframe):
 
         blocks_per_entity[entity.replace(',', '')] += 1
 
-    write_csv_file(str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name), blocks_per_entity, timeframe)
+    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
+    write_csv_file(project_dir, blocks_per_entity, timeframe)
 
     return blocks_per_entity

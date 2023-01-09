@@ -3,6 +3,8 @@ from collections import defaultdict
 
 with open('raw_data.json') as f:
     data = json.load(f)
+    #contents = f.read() #todo check which one is needed for cardano
+    #data = [json.loads(str(item)) for item in contents.strip().split('\n')]
     data = sorted(data, key=lambda x: x['number'])
 
 #todo delete unused variables pool_tickers and address_tickers?
