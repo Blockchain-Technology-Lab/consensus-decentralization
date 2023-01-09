@@ -1,13 +1,14 @@
 import sys
 
 def compute_nc(blocks_per_entity):
-    nc = [0, 0]
+    nc, power_percentage = 0, 0
+    total_blocks = sum(blocks_per_entity.values())
     for (name, blocks) in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-        if nc[1] < 50:
-            nc[0] += 1
-            nc[1] += 100 * blocks / sum([i[1] for i in blocks_per_entity.items()])
+        if power_percentage < 50:
+            nc += 1
+            power_percentage += 100 * blocks / total_blocks
         else:
-            return nc
+            return nc, power_percentage
 
 
 if __name__ == '__main__':
