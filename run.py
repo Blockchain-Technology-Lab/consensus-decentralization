@@ -1,13 +1,14 @@
 import sys
 import json
 import pathlib
-from metrics.gini import compute_gini
-from metrics.nc import compute_nc
-from metrics.entropy import compute_entropy
-from mappings.bitcoin import process as bitcoin_mapping
-from mappings.ethereum import process as ethereum_mapping
-from mappings.cardano import process as cardano_mapping
-from mappings.tezos import process as tezos_mapping
+from src.metrics.gini import compute_gini
+from src.metrics.nc import compute_nc
+from src.metrics.entropy import compute_entropy
+from src.mappings.bitcoin import process as bitcoin_mapping
+from src.mappings.ethereum import process as ethereum_mapping
+from src.mappings.cardano import process as cardano_mapping
+from src.mappings.tezos import process as tezos_mapping
+
 
 ledger_mapping = {
     'bitcoin': bitcoin_mapping,
@@ -60,9 +61,9 @@ def analyze(projects, timeframe_argument):
             year = timeframe[:4]
             if year not in yearly_entities.keys():
                 yearly_entities[year] = set()
-                mapping_file = pathlib.Path.cwd() / 'ledgers/{}/{}.csv'.format(project_name, year)
+                mapping_file = pathlib.Path.cwd() / 'src/ledgers/{}/{}.csv'.format(project_name, year)
                 if not mapping_file.is_file():
-                    project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
+                    project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/src/ledgers/{}'.format(project_name)
                     with open(project_dir + '/data.json') as f:
                         data = json.load(f)
                     ledger_mapping[project_name](project_name, data, year)
@@ -73,12 +74,12 @@ def analyze(projects, timeframe_argument):
 
             # Get mapped data for the defined timeframe.
             try:
-                with open('ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
+                with open('src/ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
                     blocks_per_entity = {}
                     for line in f.readlines()[1:]:
                         blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
             except FileNotFoundError:
-                project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/ledgers/{}'.format(project_name)
+                project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/src/ledgers/{}'.format(project_name)
                 with open(project_dir + '/data.json') as f:
                     data = json.load(f)
                 blocks_per_entity = ledger_mapping[project_name](project_name, data, timeframe)
