@@ -7,7 +7,7 @@ def test_entropy():
     Ensure that the results of the compute_entropy function are consistent with online calculators,
     such as https://www.omnicalculator.com/statistics/shannon-entropy
     """
-    blocks_per_entity = {'a':1, 'b':2, 'c':3}
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
     ntrp = entropy.compute_entropy(blocks_per_entity)
     assert round(ntrp, 3) == 1.459
 
