@@ -8,7 +8,7 @@ YEAR_DIGITS = 4
 def get_pool_data(project_name, timeframe):
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
-    with open(helpers_path + '/pool_information/{}.json'.format(project_name)) as f:
+    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
         pool_data = json.load(f)
 
     pool_links = {}
