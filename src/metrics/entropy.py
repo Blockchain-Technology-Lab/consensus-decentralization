@@ -1,18 +1,23 @@
-from math import e
-import numpy as np
+from math import log
 import sys
 import src.helpers.helper as hlp
 
 
-# todo failing test so look more into it
-def compute_entropy(blocks_per_entity):  # https://stackoverflow.com/a/45091961
-    labels = []
-    for (key, value) in blocks_per_entity.items():
-        labels += [key] * value
+def compute_entropy(blocks_per_entity):
+    '''
+        Source: https://gist.github.com/yacineMahdid/55041c3bdcc70d1fa3300478a43f153b
+        Custom implementation of shannon entropy with a full non-binarized sequence
+        Formula looks like this: H(S) = −Σ P(Si) log2 (P(Si))
+        P(Si) here is the relative frequency of each itme
+    '''
+    entropy = 0
+    all_blocks = sum(blocks_per_entity.values())
+    for entity in blocks_per_entity.keys():
+        rel_freq = blocks_per_entity[entity] / all_blocks
+        if rel_freq > 0:
+            entropy = entropy + -(rel_freq * log(rel_freq, 2))
 
-    value, counts = np.unique(labels, return_counts=True)
-    norm_counts = counts / counts.sum()
-    return -(norm_counts * np.log(norm_counts)/np.log(e)).sum()
+    return entropy
 
 
 if __name__ == '__main__':
