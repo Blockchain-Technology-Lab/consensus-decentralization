@@ -17,11 +17,8 @@ def process(project_name, dataset, timeframe):
     data = sorted(data, key=lambda x: x['number'])
 
     multi_pool_blocks = set()
-    multi_pool_addresses = defaultdict(list)
     blocks_per_entity = defaultdict(int)
     for tx in data:
-        block_year = tx['timestamp'][:4]
-
         coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
         coinbase_addresses = tx['coinbase_addresses'].split(',')
 
@@ -32,7 +29,7 @@ def process(project_name, dataset, timeframe):
                 pool_match = True
                 for addr in tx['coinbase_addresses'].split(','):
                     if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
-                        with open(project_dir + '/multi_pool_addresses.csv'.format(timeframe), 'a') as f:
+                        with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
                             f.write('{},{},{},{}\n'.format(tx['timestamp'], addr, pool_addresses[addr], entity))
 
                     pool_addresses[addr] = entity

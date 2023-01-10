@@ -15,8 +15,6 @@ def process(project_name, dataset, timeframe):
 
     blocks_per_entity = defaultdict(int)
     for tx in data:
-        block_year = tx['timestamp'][:4]
-
         try:
             coinbase_addresses = tx['coinbase_addresses']
         except KeyError:
