@@ -35,9 +35,9 @@ def analyze(projects, timeframe_argument):
     for project_name in projects:
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv title.
-        gini_csv['0'] += ',' + project_name
-        nc_csv['0'] += ',' + project_name
-        entropy_csv['0'] += ',' + project_name
+        gini_csv['0'] += f',{project_name}'
+        nc_csv['0'] += f',{project_name}'
+        entropy_csv['0'] += f',{project_name}'
 
         yearly_entities = {}
 
@@ -48,7 +48,7 @@ def analyze(projects, timeframe_argument):
             timeframes = []
             for year in range(START_YEAR, END_YEAR):
                 for month in range(1, 13):
-                    timeframes.append('{}-{}'.format(year, str(month).zfill(2)))
+                    timeframes.append(f'{year}-{str(month).zfill(2)}')
 
         for timeframe in timeframes:
             if timeframe not in gini_csv.keys():
@@ -61,9 +61,9 @@ def analyze(projects, timeframe_argument):
             year = timeframe[:4]
             if year not in yearly_entities.keys():
                 yearly_entities[year] = set()
-                mapping_file = pathlib.Path.cwd() / 'src/ledgers/{}/{}.csv'.format(project_name, year)
+                mapping_file = pathlib.Path.cwd() / f'src/ledgers/{project_name}/{year}.csv'
                 if not mapping_file.is_file():
-                    project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/src/ledgers/{}'.format(project_name)
+                    project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
                     with open(project_dir + '/data.json') as f:
                         data = json.load(f)
                     ledger_mapping[project_name](project_name, data, year)
@@ -74,12 +74,12 @@ def analyze(projects, timeframe_argument):
 
             # Get mapped data for the defined timeframe.
             try:
-                with open('src/ledgers/{}/{}.csv'.format(project_name, timeframe)) as f:
+                with open(f'src/ledgers/{project_name}/{timeframe}.csv') as f:
                     blocks_per_entity = {}
                     for line in f.readlines()[1:]:
                         blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
             except FileNotFoundError:
-                project_dir = str(pathlib.Path(__file__).parent.resolve()) + '/src/ledgers/{}'.format(project_name)
+                project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
                 with open(project_dir + '/data.json') as f:
                     data = json.load(f)
                 blocks_per_entity = ledger_mapping[project_name](project_name, data, timeframe)
@@ -94,14 +94,14 @@ def analyze(projects, timeframe_argument):
                 nc = compute_nc(blocks_per_entity)
                 entropy = compute_entropy(blocks_per_entity)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]})
-                print('[{0:12} {1:7}] \t Gini: {2:.6f}   NC: {3:3} ({4:.2f}%)   Entropy: {5:.6f} ({6:.1f}% out of max {7:.6f})'.format(project_name, timeframe, gini, nc[0], nc[1], entropy, 100*entropy/max_entropy, max_entropy))
+                print(f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   Entropy: {entropy:.6f} ({100*entropy/max_entropy:.1f}% out of max {max_entropy:.6f})')
             else:
                 gini, nc, entropy = '', ('', ''), ''
-                print('[{0:12} {1:7}] No data'.format(project_name, timeframe))
+                print(f'[{project_name:12} {timeframe:7}] No data')
 
-            gini_csv[timeframe] += ',{}'.format(gini)
-            nc_csv[timeframe] += ',{}'.format(nc[0])
-            entropy_csv[timeframe] += ',{}'.format(entropy)
+            gini_csv[timeframe] += f',{gini}'
+            nc_csv[timeframe] += f',{nc[0]}'
+            entropy_csv[timeframe] += f',{entropy}'
 
     with open('gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
