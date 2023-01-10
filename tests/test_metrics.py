@@ -1,4 +1,4 @@
-from src.metrics import entropy, gini, nc
+from src.metrics import entropy, gini, nakamoto_coefficient
 import numpy as np
 
 
@@ -38,9 +38,9 @@ def test_gini():
 
 def test_nc():
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
-    coeff, power_percentage = nc.compute_nc(blocks_per_entity)
+    coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 1
 
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3, 'd': 1, 'e': 1, 'f': 1}
-    coeff, power_percentage = nc.compute_nc(blocks_per_entity)
+    coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 2
