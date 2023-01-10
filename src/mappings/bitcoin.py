@@ -11,7 +11,7 @@ def process(project_name, dataset, timeframe):
     except KeyError:
         pool_addresses = {}
 
-    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
+    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{project_name}'
 
     data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
     data = sorted(data, key=lambda x: x['number'])
@@ -30,7 +30,7 @@ def process(project_name, dataset, timeframe):
                 for addr in tx['coinbase_addresses'].split(','):
                     if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
                         with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
-                            f.write('{},{},{},{}\n'.format(tx['timestamp'], addr, pool_addresses[addr], entity))
+                            f.write(f'{tx["timestamp"]},{addr},{pool_addresses[addr]},{entity}\n')
 
                     pool_addresses[addr] = entity
                 break
@@ -43,7 +43,7 @@ def process(project_name, dataset, timeframe):
             if block_pools:
                 entity = str('/'.join(sorted(block_pools)))
                 if len(block_pools) > 1:
-                    multi_pool_blocks.add('{}: {}'.format(tx['number'], entity))
+                    multi_pool_blocks.add(f'{tx["number"]}: {entity}')
             else:
                 if len(coinbase_addresses) == 1:
                     entity = coinbase_addresses[0]
@@ -60,6 +60,6 @@ def process(project_name, dataset, timeframe):
     write_csv_file(project_dir, blocks_per_entity, timeframe)
 
     with open(project_dir + '/multi_pool_blocks.csv', 'a') as f:
-        f.write('{},{}\n'.format(timeframe, '--'.join(multi_pool_blocks)))
+        f.write(f'{timeframe},{"--".join(multi_pool_blocks)}\n')
 
     return blocks_per_entity

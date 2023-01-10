@@ -26,7 +26,7 @@ def process(project_name, dataset, timeframe):
 
         blocks_per_entity[entity.replace(',', '')] += 1
 
-    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
+    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{project_name}'
     write_csv_file(project_dir, blocks_per_entity, timeframe)
 
     return blocks_per_entity

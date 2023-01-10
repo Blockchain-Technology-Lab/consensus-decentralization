@@ -10,7 +10,7 @@ def process(project_name, dataset, timeframe):
     except KeyError:
         pool_addresses = {}
 
-    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + '/ledgers/{}'.format(project_name)
+    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{project_name}'
 
     data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
     data = sorted(data, key=lambda x: x['number'])
@@ -32,7 +32,7 @@ def process(project_name, dataset, timeframe):
                 pool_match = True
                 if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
                     with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
-                        f.write('{},{},{},{}\n'.format(tx['timestamp'], coinbase_addresses, pool_addresses[coinbase_addresses], entity))
+                        f.write(f'{tx["timestamp"]},{coinbase_addresses},{pool_addresses[coinbase_addresses]},{entity}\n')
                 break
 
         if not pool_match:
