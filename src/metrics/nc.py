@@ -1,6 +1,7 @@
 import sys
 import src.helpers.helper as hlp
 
+
 def compute_nc(blocks_per_entity):
     nc, power_percentage = 0, 0
     total_blocks = sum(blocks_per_entity.values())
