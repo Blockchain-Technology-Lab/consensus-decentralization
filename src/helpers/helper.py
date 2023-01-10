@@ -4,6 +4,7 @@ import json
 
 YEAR_DIGITS = 4
 
+
 def get_pool_data(project_name, timeframe):
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
@@ -25,11 +26,6 @@ def get_pool_data(project_name, timeframe):
         while val in pool_links.keys():
             val = pool_links[val]
         pool_links[key] = val
-
-    try:
-        pool_addresses = pool_data['pool_addresses'][timeframe[:YEAR_DIGITS]] #todo remove unused variable or is it sth we might need in the future?
-    except KeyError:
-        pool_addresses = {}
 
     return pool_data, pool_links
 
