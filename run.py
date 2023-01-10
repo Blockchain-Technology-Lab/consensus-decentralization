@@ -110,6 +110,7 @@ def analyze(projects, timeframe_argument):
     with open('entropy.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(entropy_csv.items(), key=lambda x: x[0])]))
 
+
 if __name__ == '__main__':
     if len(sys.argv) == 3:
         projects = [sys.argv[1]]
