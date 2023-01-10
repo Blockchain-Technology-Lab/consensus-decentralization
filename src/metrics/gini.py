@@ -11,6 +11,7 @@ def compute_gini(blocks_per_entity):
     array = np.array(list(blocks_per_entity.values()))
     return gini(array)
 
+
 def gini(array):
     """
     Calculate the Gini coefficient of a numpy array
