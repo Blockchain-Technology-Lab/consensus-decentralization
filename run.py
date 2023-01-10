@@ -2,7 +2,7 @@ import sys
 import json
 import pathlib
 from src.metrics.gini import compute_gini
-from src.metrics.nc import compute_nc
+from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
 from src.mappings.bitcoin import process as bitcoin_mapping
 from src.mappings.ethereum import process as ethereum_mapping
@@ -91,7 +91,7 @@ def analyze(projects, timeframe_argument):
                         blocks_per_entity[entity] = 0
 
                 gini = compute_gini(blocks_per_entity)
-                nc = compute_nc(blocks_per_entity)
+                nc = compute_nakamoto_coefficient(blocks_per_entity)
                 entropy = compute_entropy(blocks_per_entity)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]})
                 print(f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   Entropy: {entropy:.6f} ({100*entropy/max_entropy:.1f}% out of max {max_entropy:.6f})')

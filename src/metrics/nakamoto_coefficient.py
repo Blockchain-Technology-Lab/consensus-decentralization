@@ -2,7 +2,7 @@ import sys
 import src.helpers.helper as hlp
 
 
-def compute_nc(blocks_per_entity):
+def compute_nakamoto_coefficient(blocks_per_entity):
     nc, power_percentage = 0, 0
     total_blocks = sum(blocks_per_entity.values())
     for (name, blocks) in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
@@ -16,4 +16,4 @@ def compute_nc(blocks_per_entity):
 if __name__ == '__main__':
     filename = sys.argv[1]
     blocks_per_entity = hlp.get_blocks_per_entity_from_file(filename)
-    print(f'Nakamoto Coefficient: {compute_nc(blocks_per_entity)}')
+    print(f'Nakamoto Coefficient: {compute_nakamoto_coefficient(blocks_per_entity)}')
