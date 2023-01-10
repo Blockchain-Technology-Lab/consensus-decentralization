@@ -15,10 +15,8 @@ def process(project_name, dataset, timeframe):
     data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
     data = sorted(data, key=lambda x: x['number'])
 
-    multi_pool_addresses = defaultdict(list)
     blocks_per_entity = defaultdict(int)
     for tx in data:
-        block_year = tx['timestamp'][:4]
         try:
             coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
         except (UnicodeDecodeError, ValueError):
@@ -33,7 +31,7 @@ def process(project_name, dataset, timeframe):
                 pool_addresses[coinbase_addresses] = entity
                 pool_match = True
                 if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
-                    with open(project_dir + '/multi_pool_addresses.csv'.format(timeframe), 'a') as f:
+                    with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
                         f.write('{},{},{},{}\n'.format(tx['timestamp'], coinbase_addresses, pool_addresses[coinbase_addresses], entity))
                 break
 
