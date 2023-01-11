@@ -4,22 +4,22 @@ import pathlib
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
-from src.mappings.bitcoin import process as bitcoin_mapping
-from src.mappings.ethereum import process as ethereum_mapping
-from src.mappings.cardano import process as cardano_mapping
-from src.mappings.tezos import process as tezos_mapping
+from src.mappings.bitcoin import BitcoinMapping
+from src.mappings.ethereum import EthereumMapping
+from src.mappings.cardano import CardanoMapping
+from src.mappings.tezos import TezosMapping
 
 
 ledger_mapping = {
-    'bitcoin': bitcoin_mapping,
-    'ethereum': ethereum_mapping,
-    'bitcoin_cash': bitcoin_mapping,
-    'dogecoin': bitcoin_mapping,
-    'cardano': cardano_mapping,
-    'litecoin': bitcoin_mapping,
-    'zcash': bitcoin_mapping,
-    'tezos': tezos_mapping,
-    'dash': bitcoin_mapping,
+    'bitcoin': BitcoinMapping,
+    'ethereum': EthereumMapping,
+    'bitcoin_cash': BitcoinMapping,
+    'dogecoin': BitcoinMapping,
+    'cardano': CardanoMapping,
+    'litecoin': BitcoinMapping,
+    'zcash': BitcoinMapping,
+    'tezos': TezosMapping,
+    'dash': BitcoinMapping,
 }
 
 START_YEAR = 2018
@@ -66,7 +66,8 @@ def analyze(projects, timeframe_argument):
                     project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
                     with open(project_dir + '/data.json') as f:
                         data = json.load(f)
-                    ledger_mapping[project_name](project_name, data, year)
+                    mapping = ledger_mapping[project_name](project_name, data)
+                    mapping.process(year)
                 with open(mapping_file) as f:
                     for line in f.readlines()[1:]:
                         row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
@@ -82,7 +83,8 @@ def analyze(projects, timeframe_argument):
                 project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
                 with open(project_dir + '/data.json') as f:
                     data = json.load(f)
-                blocks_per_entity = ledger_mapping[project_name](project_name, data, timeframe)
+                mapping = ledger_mapping[project_name](project_name, data)
+                blocks_per_entity = mapping.process(timeframe)
 
             # If the project data exist for the given timeframe, compute the metrics on them.
             if blocks_per_entity.keys():

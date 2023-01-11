@@ -1,51 +1,57 @@
 from collections import defaultdict
 import pathlib
 from src.helpers.helper import get_pool_data, write_csv_file
+from src.mappings.mapping import Mapping
 
 
-def process(project_name, dataset, timeframe):
-    pool_data, pool_links = get_pool_data(project_name, timeframe)
-    try:
-        pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
-    except KeyError:
-        pool_addresses = {}
+class EthereumMapping(Mapping):
 
-    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{project_name}'
+    def __init__(self, project_name, dataset):
+        super().__init__(project_name, dataset)
 
-    data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
-    data = sorted(data, key=lambda x: x['number'])
-
-    blocks_per_entity = defaultdict(int)
-    for tx in data:
+    def process(self, timeframe):
+        pool_data, pool_links = get_pool_data(self.project_name, timeframe)
         try:
-            coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
-        except (UnicodeDecodeError, ValueError):
-            coinbase_param = tx['coinbase_param']
+            pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
+        except KeyError:
+            pool_addresses = {}
 
-        coinbase_addresses = tx['coinbase_addresses']
+        project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{self.project_name}'
 
-        pool_match = False
-        for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
-            if tag in str(coinbase_param):
-                entity = info['name']
-                pool_addresses[coinbase_addresses] = entity
-                pool_match = True
-                if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
-                    with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
-                        f.write(f'{tx["timestamp"]},{coinbase_addresses},{pool_addresses[coinbase_addresses]},{entity}\n')
-                break
+        data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
+        data = sorted(data, key=lambda x: x['number'])
 
-        if not pool_match:
-            if coinbase_addresses in pool_addresses.keys():
-                entity = pool_addresses[coinbase_addresses]
-            else:
-                entity = coinbase_addresses
+        blocks_per_entity = defaultdict(int)
+        for tx in data:
+            try:
+                coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
+            except (UnicodeDecodeError, ValueError):
+                coinbase_param = tx['coinbase_param']
 
-        if entity in pool_links.keys():
-            entity = pool_links[entity]
+            coinbase_addresses = tx['coinbase_addresses']
 
-        blocks_per_entity[entity.replace(',', '')] += 1
+            pool_match = False
+            for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
+                if tag in str(coinbase_param):
+                    entity = info['name']
+                    pool_addresses[coinbase_addresses] = entity
+                    pool_match = True
+                    if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
+                        with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
+                            f.write(f'{tx["timestamp"]},{coinbase_addresses},{pool_addresses[coinbase_addresses]},{entity}\n')
+                    break
 
-    write_csv_file(project_dir, blocks_per_entity, timeframe)
+            if not pool_match:
+                if coinbase_addresses in pool_addresses.keys():
+                    entity = pool_addresses[coinbase_addresses]
+                else:
+                    entity = coinbase_addresses
 
-    return blocks_per_entity
+            if entity in pool_links.keys(): #todo check if possible for entity not to have a value here
+                entity = pool_links[entity]
+
+            blocks_per_entity[entity.replace(',', '')] += 1
+
+        write_csv_file(project_dir, blocks_per_entity, timeframe)
+
+        return blocks_per_entity
