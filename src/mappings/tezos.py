@@ -1,36 +1,42 @@
 from collections import defaultdict
 import pathlib
 from src.helpers.helper import get_pool_data, write_csv_file
+from src.mappings.mapping import Mapping
 
 
-def process(project_name, dataset, timeframe):
-    pool_data, pool_links = get_pool_data(project_name, timeframe)
-    try:
-        pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
-    except KeyError:
-        pool_addresses = {}
+class TezosMapping(Mapping):
 
-    data = [tx for tx in dataset if tx['timestamp'][:len(timeframe)] == timeframe]
-    data = sorted(data, key=lambda x: x['number'])
+    def __init__(self, project_name, dataset):
+        super().__init__(project_name, dataset)
 
-    blocks_per_entity = defaultdict(int)
-    for tx in data:
+    def process(self, timeframe):
+        pool_data, pool_links = get_pool_data(self.project_name, timeframe)
         try:
-            coinbase_addresses = tx['coinbase_addresses']
+            pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
         except KeyError:
-            coinbase_addresses = '----- UNDEFINED MINER -----'
+            pool_addresses = {}
 
-        if coinbase_addresses in pool_addresses.keys():
-            entity = pool_addresses[coinbase_addresses]
-        else:
-            entity = coinbase_addresses
+        data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
+        data = sorted(data, key=lambda x: x['number'])
 
-        if entity in pool_links.keys():
-            entity = pool_links[entity]
+        blocks_per_entity = defaultdict(int)
+        for tx in data:
+            try:
+                coinbase_addresses = tx['coinbase_addresses']
+            except KeyError:
+                coinbase_addresses = '----- UNDEFINED MINER -----'
 
-        blocks_per_entity[entity.replace(',', '')] += 1
+            if coinbase_addresses in pool_addresses.keys():
+                entity = pool_addresses[coinbase_addresses]
+            else:
+                entity = coinbase_addresses
 
-    project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{project_name}'
-    write_csv_file(project_dir, blocks_per_entity, timeframe)
+            if entity in pool_links.keys():
+                entity = pool_links[entity]
 
-    return blocks_per_entity
+            blocks_per_entity[entity.replace(',', '')] += 1
+
+        project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{self.project_name}'
+        write_csv_file(project_dir, blocks_per_entity, timeframe)
+
+        return blocks_per_entity
