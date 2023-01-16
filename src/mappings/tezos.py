@@ -1,5 +1,4 @@
 from collections import defaultdict
-import pathlib
 from src.helpers.helper import get_pool_data, write_csv_file
 from src.mappings.mapping import Mapping
 
