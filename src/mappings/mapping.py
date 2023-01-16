@@ -7,13 +7,17 @@ class Mapping:
     def __init__(self, project_name, io_dir):
         self.project_name = project_name
         self.io_dir = io_dir
-        self.dataset = self.read_project_data()
+        self.dataset = None
+
+    def perform_mapping(self, timeframe):
+        if self.dataset is None:
+            self.dataset = self.read_project_data()
+        self.process(timeframe)
 
     def read_project_data(self):
         with open(self.io_dir + '/data.json') as f:
             data = json.load(f)
         return data
-    # todo maybe enclose in try statement and print case-specific message for FileNotFound exceptions
 
     def process(self, timeframe):
         raise NotImplementedError

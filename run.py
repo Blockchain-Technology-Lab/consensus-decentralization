@@ -71,7 +71,7 @@ def analyze(projects, timeframe_argument):
                 yearly_entities[year] = set()
                 mapping_file = pathlib.Path(f'{mapping.io_dir}/{year}.csv')
                 if not mapping_file.is_file():
-                    mapping.process(year)
+                    mapping.perform_mapping(year)
                 with open(mapping_file) as f:
                     for line in f.readlines()[1:]:
                         row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
@@ -84,7 +84,7 @@ def analyze(projects, timeframe_argument):
                     for line in f.readlines()[1:]:
                         blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
             except FileNotFoundError:
-                blocks_per_entity = mapping.process(timeframe)
+                blocks_per_entity = mapping.perform_mapping(timeframe)
 
             # If the project data exist for the given timeframe, compute the metrics on them.
             if blocks_per_entity.keys():
