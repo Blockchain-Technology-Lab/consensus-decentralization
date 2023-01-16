@@ -1,5 +1,4 @@
 import sys
-import json
 import pathlib
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
@@ -28,6 +27,12 @@ PROJECTS = ledger_mapping.keys()
 
 
 def analyze(projects, timeframe_argument):
+    """
+    todo complete function docstring
+
+    :param projects:
+    :param timeframe_argument:
+    """
     gini_csv = {'0': 'timeframe'}
     nc_csv = {'0': 'timeframe'}
     entropy_csv = {'0': 'timeframe'}
@@ -50,6 +55,9 @@ def analyze(projects, timeframe_argument):
                 for month in range(1, 13):
                     timeframes.append(f'{year}-{str(month).zfill(2)}')
 
+        project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
+        mapping = ledger_mapping[project_name](project_name, project_dir)
+
         for timeframe in timeframes:
             if timeframe not in gini_csv.keys():
                 gini_csv[timeframe] = timeframe
@@ -61,12 +69,8 @@ def analyze(projects, timeframe_argument):
             year = timeframe[:4]
             if year not in yearly_entities.keys():
                 yearly_entities[year] = set()
-                mapping_file = pathlib.Path.cwd() / f'src/ledgers/{project_name}/{year}.csv'
+                mapping_file = pathlib.Path(f'{mapping.io_dir}/{year}.csv')
                 if not mapping_file.is_file():
-                    project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
-                    with open(project_dir + '/data.json') as f:
-                        data = json.load(f)
-                    mapping = ledger_mapping[project_name](project_name, data)
                     mapping.process(year)
                 with open(mapping_file) as f:
                     for line in f.readlines()[1:]:
@@ -80,10 +84,6 @@ def analyze(projects, timeframe_argument):
                     for line in f.readlines()[1:]:
                         blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
             except FileNotFoundError:
-                project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
-                with open(project_dir + '/data.json') as f:
-                    data = json.load(f)
-                mapping = ledger_mapping[project_name](project_name, data)
                 blocks_per_entity = mapping.process(timeframe)
 
             # If the project data exist for the given timeframe, compute the metrics on them.
