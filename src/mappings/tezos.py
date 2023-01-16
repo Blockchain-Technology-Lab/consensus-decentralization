@@ -36,7 +36,6 @@ class TezosMapping(Mapping):
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
-        project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{self.project_name}'
-        write_csv_file(project_dir, blocks_per_entity, timeframe)
+        write_csv_file(self.io_dir, blocks_per_entity, timeframe)
 
         return blocks_per_entity

@@ -16,8 +16,6 @@ class EthereumMapping(Mapping):
         except KeyError:
             pool_addresses = {}
 
-        project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{self.project_name}'
-
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
         data = sorted(data, key=lambda x: x['number'])
 
@@ -37,7 +35,7 @@ class EthereumMapping(Mapping):
                     pool_addresses[coinbase_addresses] = entity
                     pool_match = True
                     if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
-                        with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
+                        with open(f'{self.io_dir}/multi_pool_addresses.csv', 'a') as f:
                             f.write(f'{tx["timestamp"]},{coinbase_addresses},{pool_addresses[coinbase_addresses]},{entity}\n')
                     break
 
@@ -52,6 +50,6 @@ class EthereumMapping(Mapping):
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
-        write_csv_file(project_dir, blocks_per_entity, timeframe)
+        write_csv_file(self.io_dir, blocks_per_entity, timeframe)
 
         return blocks_per_entity
