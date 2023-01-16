@@ -18,8 +18,6 @@ class BitcoinMapping(Mapping):
         except KeyError:
             pool_addresses = {}
 
-        project_dir = str(pathlib.Path(__file__).parent.parent.resolve()) + f'/ledgers/{self.project_name}'
-
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
         data = sorted(data, key=lambda x: x['number'])
 
@@ -36,7 +34,7 @@ class BitcoinMapping(Mapping):
                     pool_match = True
                     for addr in tx['coinbase_addresses'].split(','):
                         if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
-                            with open(project_dir + '/multi_pool_addresses.csv', 'a') as f:
+                            with open(f'{self.io_dir}/multi_pool_addresses.csv', 'a') as f:
                                 f.write(f'{tx["timestamp"]},{addr},{pool_addresses[addr]},{entity}\n')
 
                         pool_addresses[addr] = entity
@@ -64,9 +62,9 @@ class BitcoinMapping(Mapping):
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
-        write_csv_file(project_dir, blocks_per_entity, timeframe)
+        write_csv_file(self.io_dir, blocks_per_entity, timeframe)
 
-        with open(project_dir + '/multi_pool_blocks.csv', 'a') as f:
+        with open(f'{self.io_dir}/multi_pool_blocks.csv', 'a') as f:
             f.write(f'{timeframe},{"--".join(multi_pool_blocks)}\n')
 
         return blocks_per_entity
