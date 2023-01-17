@@ -12,7 +12,7 @@ class Mapping:
     def perform_mapping(self, timeframe):
         if self.dataset is None:
             self.dataset = self.read_project_data()
-        self.process(timeframe)
+        return self.process(timeframe)
 
     def read_project_data(self):
         with open(self.io_dir + '/data.json') as f:
