@@ -1,25 +1,39 @@
 {
   "2018": {
-      "AntPool": "Bitmain",
-      "BTC.COM": "Bitmain",
-      "Bitdeer": "Bitmain"
+      "Bitmain": [
+          ["AntPool", "<source needed>"],
+          ["BTC.COM", "<source needed>"],
+          ["Bitdeer", "<source needed>"]
+      ]
   },
   "2019": {
-      "AntPool": "Bitmain",
-      "BTC.COM": "Bitmain",
-      "Bitdeer": "Bitmain"
+      "Bitmain": [
+          ["AntPool", "<source needed>"],
+          ["BTC.COM", "<source needed>"],
+          ["Bitdeer", "<source needed>"]
+      ]
   },
   "2020": {
-      "AntPool": "Bitmain",
-      "BTC.COM": "Bitmain",
-      "Bitdeer": "Bitmain"
+      "Bitmain": [
+          ["AntPool", "<source needed>"],
+          ["BTC.COM", "<source needed>"],
+          ["Bitdeer", "<source needed>"]
+      ]
   },
   "2021": {
-      "Bitdeer": "BTC.COM",
-      "AntPool": "Bitmain"
+      "Bitmain": [
+          ["AntPool", "<source needed>"]
+      ],
+      "BTC.COM": [
+          ["Bitdeer", "<source needed>"]
+      ]
   },
   "2022": {
-      "AntPool": "Bitmain",
-      "NovaBlock": "Poolin"
+      "Bitmain": [
+          ["AntPool", "<source needed>"]
+      ],
+      "Poolin": [
+          ["NovaBlock", "<source needed>"]
+      ]
   }
 }

@@ -73,10 +73,12 @@ relevant pool information, structured as follows:
 
 ```
 {
-  "coinbase_address_links": {
-      "<year>": {
-          "<name of secondary pool>": "<name of primary pool>"
-      }
+  "clusters": {
+    "<year>": {
+      "<cluster name>": [
+        ["<pool name>", "<source of information>"]
+      ]
+    }
   },
   "coinbase_tags": {
     "<pool tag>": {
@@ -93,10 +95,12 @@ relevant pool information, structured as follows:
 ```
 
 In this file:
-- `coinbase_address_links` refers to pools with shared coinbase addresses:
+- `clusters` refers to pools with shared coinbase addresses:
+  - instead of `<year>`, use the keyword `all` for clusters across years
   - in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to 
 different pools
   - in Cardano, such links exist when two pools share the same metadata
+  - the `<source of information>` should be comma-separated keywords (e.g., "homepage", "shared block", etc) or a url with the clustering information; this information should be reprodusible (a link to a community or company with information that cannot be verified independently is not acceptable)
 - `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined 
 by the pool
   - in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool

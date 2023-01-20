@@ -8,22 +8,31 @@ YEAR_DIGITS = 4
 def get_pool_data(project_name, timeframe):
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
-    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
-        pool_data = json.load(f)
-
     pool_links = {}
 
-    try:
-        pool_links.update(pool_data['coinbase_address_links'][timeframe[:YEAR_DIGITS]])
-    except KeyError:
-        pass
+    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
+        pool_data = json.load(f)
+        clusters = {}
+        if 'all' in pool_data['clusters']:
+            clusters.update(pool_data['clusters']['all'])
+        if timeframe[:YEAR_DIGITS] in pool_data['clusters']:
+            clusters.update(pool_data['clusters'][timeframe[:YEAR_DIGITS]])
+        for cluster, pools in clusters.items():
+            for (pool, _) in pools:
+                pool_links[pool] = cluster
 
     with open(helpers_path + '/legal_links.json') as f:
         legal_links = json.load(f)
-    pool_links.update(legal_links[timeframe[:YEAR_DIGITS]])
+        try:
+            for cluster, pools in legal_links[timeframe[:YEAR_DIGITS]].items():
+                for (pool, _) in pools:
+                    pool_links[pool] = cluster
+        except KeyError:
+            pass
 
     for key, val in pool_links.items():  # resolve chain links
-        while val in pool_links.keys():
+        while val in pool_links.keys() and key != val:
+            key = val
             val = pool_links[val]
         pool_links[key] = val
 
