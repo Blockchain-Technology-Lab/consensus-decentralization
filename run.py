@@ -7,7 +7,10 @@ from src.mappings.bitcoin import BitcoinMapping
 from src.mappings.ethereum import EthereumMapping
 from src.mappings.cardano import CardanoMapping
 from src.mappings.tezos import TezosMapping
-
+from src.parsers.default_parser import DefaultParser
+from src.parsers.cardano_parser import CardanoParser
+from src.parsers.dummy_parser import DummyParser
+from src.helpers.helper import OUTPUT_DIR
 
 ledger_mapping = {
     'bitcoin': BitcoinMapping,
@@ -19,6 +22,18 @@ ledger_mapping = {
     'zcash': BitcoinMapping,
     'tezos': TezosMapping,
     'dash': BitcoinMapping,
+}
+
+ledger_parser = {
+    'bitcoin': DefaultParser,
+    'ethereum': DummyParser,
+    'bitcoin_cash': DefaultParser,
+    'dogecoin': DefaultParser,
+    'cardano': CardanoParser,
+    'litecoin': DefaultParser,
+    'zcash': DefaultParser,
+    'tezos': DummyParser,
+    'dash': DefaultParser,
 }
 
 START_YEAR = 2018
@@ -55,7 +70,7 @@ def analyze(projects, timeframe_argument):
                 for month in range(1, 13):
                     timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-        project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/src/ledgers/{project_name}'
+        project_dir = str(pathlib.Path(__file__).parent.resolve()) + f'/output/{project_name}'
         mapping = ledger_mapping[project_name](project_name, project_dir)
 
         for timeframe in timeframes:
@@ -79,7 +94,7 @@ def analyze(projects, timeframe_argument):
 
             # Get mapped data for the defined timeframe.
             try:
-                with open(f'src/ledgers/{project_name}/{timeframe}.csv') as f:
+                with open(f'output/{project_name}/{timeframe}.csv') as f:
                     blocks_per_entity = {}
                     for line in f.readlines()[1:]:
                         blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
@@ -113,6 +128,20 @@ def analyze(projects, timeframe_argument):
         f.write('\n'.join([i[1] for i in sorted(entropy_csv.items(), key=lambda x: x[0])]))
 
 
+def parse(projects, force_parse=False):
+    """
+    Parse raw data, unless already parsed
+    :param projects: the ledgers whose data should be parsed
+    :param force_parse: if True, then raw data will be parsed, regardless of whether parsed data for the some or all of
+     the projects already exist
+    """
+    for project in projects:
+        parsed_data_file = OUTPUT_DIR / project / 'parsed_data.json'
+        if force_parse or not parsed_data_file.is_file():
+            parser = ledger_parser[project](project)
+            parser.parse()
+
+
 if __name__ == '__main__':
     if len(sys.argv) == 3:
         projects = [sys.argv[1]]
@@ -128,4 +157,5 @@ if __name__ == '__main__':
         projects = PROJECTS
         timeframe = False
 
-    analyze(projects, timeframe)
+    parse(projects)
+    analyze(projects, timeframe) #todo separate into different map + analyze functions

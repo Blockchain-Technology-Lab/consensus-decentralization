@@ -15,7 +15,7 @@ class Mapping:
         return self.process(timeframe)
 
     def read_project_data(self):
-        with open(self.io_dir + '/data.json') as f:
+        with open(self.io_dir + '/parsed_data.json') as f:
             data = json.load(f)
         return data
 

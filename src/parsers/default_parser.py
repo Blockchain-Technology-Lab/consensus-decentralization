@@ -1,15 +1,42 @@
 import json
+from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 MIN_TX_VALUE = 0
 
-with open('raw_data.json') as f:
-    data = json.load(f)
-data = sorted(data, key=lambda x: x['number'])
+#todo update readme (mainly io dirs + just run required)
 
-for block in data:
-    block['coinbase_addresses'] = ','.join(set([tx['addresses'][0] for tx in block['outputs']
-                                                if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
-    del block['outputs']
+class DefaultParser:
+    """
+    The default parser, used for Bitcoin, Litecoin, Zcash and others
+    """
+    def __init__(self, project_name):
+        self.project_name = project_name
 
-with open('data.json', 'w') as f:
-    f.write('[' + ',\n'.join(json.dumps(i) for i in data) + ']\n')
+    def read_raw_data(self):
+        filename = f'{self.project_name}_raw_data.json'
+        filepath = INPUT_DIR / filename
+        with open(filepath) as f:
+            data = json.load(f)
+        return data
+
+    def parse(self):
+        data = self.read_raw_data()
+        data = sorted(data, key=lambda x: x['number'])
+
+        for block in data:
+            block['coinbase_addresses'] = ','.join(set([tx['addresses'][0] for tx in block['outputs']
+                                                        if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
+            del block['outputs']
+
+        self.write_parsed_data(data)
+
+    def write_parsed_data(self, data):
+        path = OUTPUT_DIR / self.project_name
+        path.mkdir(parents=True, exist_ok=True)  # create project output directory if it doesn't already exist
+        filename = 'parsed_data.json'
+        with open(path / filename, 'w') as f:
+            f.write('[' + ',\n'.join(json.dumps(i) for i in data) + ']\n')
+
+
+
+
