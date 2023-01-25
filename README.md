@@ -23,8 +23,10 @@ The tool consists of the following modules:
 
 ### Parser
 
-The parser obtains raw data from a full node, parses them and outputs a `json` file that contains a list of entries, each 
-entry corresponding to a block in the chain. Specifically, the file is structured as follows:
+The parser obtains raw data from a full node, parses them and outputs a `json` file that contains a list of entries, 
+each entry corresponding to a block in the chain. Specifically, the input file should be placed in the `input` directory 
+and named as `<project_name>_raw_data.json` and the output file is saved under `output/<project_name>/parsed_data.json`, 
+and it is structured as follows:
 
 ```
 [
@@ -53,15 +55,15 @@ transaction
 
 ### Mapping
 
-The mapping obtains the parsed data (`json` file) and outputs a `csv` file that maps blocks to entities. Specifically, 
-the `csv` file is structured as follows:
+The mapping obtains the parsed data (from `output/<project_name>/parsed_data.json`) and outputs a `csv` file that maps 
+blocks to entities. Specifically, the `csv` file is structured as follows:
 ```
 Entity,Resources
 <name of entity>,<(int) number of blocks>
 ```
 
 The `csv` file is named as the timeframe over which the mapping was executed (e.g., `2021-04.csv`) and is stored in the 
-project's directory (i.e., `ledgers/<project_name>`).
+project's output directory (i.e., `output/<project_name>`).
 
 The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output 
 different results, even if applied on the same data. 
@@ -135,8 +137,9 @@ following command from the root directory of the project:
     python -m pip install -r requirements.txt
 
 
-Create a directory `ledgers`; in it, create a directory `<project_name>` for each project. In `ledgers/<project_name>` 
-store the file `data.json` of parsed data (see above).
+Place all raw data (which could be collected from BigQuery for example) in the `input` directory, each file named as 
+`<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there is a (very small) sample input file 
+for each supported project, which should be replaced with the complete data before running the tool.
 
 Run `python run.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of 
 the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
@@ -150,24 +153,24 @@ last execution of `run.py`.
 
 ## Contributing
 
-To add a new project, first create a folder in the `ledgers` directory named as the project (e.g., `bitcoin`, `ethereum`).
-
-In the ledger project's directory, store a file named `data.json` that contains the parsed data (see above in `Parser`).
+To add a new project, first store the raw data under `input/<project_name>_raw_data.json`. 
 
 In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool 
 information (see above `Pool Information`).
 
-In the directory `mappings` create a mapping script, or reuse an existing one. The script should define a function 
-`process` that takes as inputs:
-- the full path of the project's directory
-- the parsed data (structured as above)
-- a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month November 2022,  
-- '2022-11-12' for the year 12 November 2022, 
-and returns a dictionary of the form `{'<entity name>': <number of resources>}` and outputs a csv file of mapped data 
-- (see above `Mapping`).
+In the directory `parsers` create a file named `<project_name>_parser.py` and a corresponding class, or reuse an 
+existing parser if it is fit for purpose. The class should inherit from the `DefaultParser` class of `default_parser.py`
+and override its `parse` method.
 
-In the script `run.py`, import the newly created `process` function and assign it to the project's name in the 
-dictionary `ledger_mapping`.
+In the directory `mappings` create a file named `<project_name>_mapping.py` and a corresponding class, or reuse an 
+existing mapping. The class should inherit from the `Mapping` class of `mapping.py` and override its `process` method, 
+which takes as input a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month 
+November 2022, '2022-11-12' for the year 12 November 2022, and returns a dictionary of the form 
+`{'<entity name>': <number of resources>}` and outputs a csv file of mapped data - (see above `Mapping`).
+
+In the script `run.py`, import the newly created parser and mapping classes and assign them to the project's name in the 
+dictionary `ledger_mapping` and `ledger_parser`. Note that you should provide an entry in the `ledger_mapping` and
+`ledger_parser` regardless of whether you are using a new or existing mapping or parser.
 
 To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_data_file>.csv`.
 
@@ -175,18 +178,21 @@ To add a new metric, create a relevant script in `metrics` and import the metric
 
 ## Example data
 
-The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that should be parsed using the 
+The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that are parsed using the 
 `default_parser` script in `parsers`.
 
-The query for Cardano returns data that should be parsed using the `cardano_parser` script in `parsers`. 
+The query for Cardano returns data that is parsed using the `cardano_parser` script in `parsers`. 
 
-All other queries return data already in the necessary parsed form.
+All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser.
+
+Note that when saving results from BigQuery you should select the option "JSONL (newline delimited)".
+
 
 ### Bitcoin
 
 Sample parsed Bitcoin data are available [here](https://drive.google.com/file/d/1IyLNi2_qvxWj0SQ_S0ZKxqMgwuBk6mRF/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
@@ -200,7 +206,7 @@ AND timestamp > '2017-12-31'
 
 Sample parsed Ethereum data are available [here](https://drive.google.com/file/d/1UEDsoz1Q2njR-pd6TO0ZLQBXFcV3T--4/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT number, timestamp, miner as coinbase_addresses, extra_data as coinbase_param
@@ -212,7 +218,7 @@ WHERE timestamp > '2018-12-31'
 
 Sample parsed Bitcoin Cash data are available [here](https://drive.google.com/file/d/1klKbtWESX4Zga_NoZhPxEEolV6lf02_j/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
@@ -226,7 +232,7 @@ AND timestamp > '2018-12-31'
 
 Sample parsed Dogecoin data are available [here](https://drive.google.com/file/d/1m51Zh7hM2nj9qykrzxfN8JEM0-DLqELa/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
@@ -240,7 +246,7 @@ AND timestamp > '2019-12-31'
 
 Sample parsed Cardano data are available [here](https://drive.google.com/file/d/1V97Vy6JMLholargAqSa4yrPsyHxeOf6U/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as coinbase_param, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp, `iog-data-analytics.cardano_mainnet.block`.pool_hash
@@ -253,7 +259,7 @@ WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 
 Sample parsed Litecoin data are available [here](https://drive.google.com/file/d/1iaK1Pfkvc9EoArOv2vyXiAq7UdbLfXYQ/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_litecoin.transactions`.outputs
@@ -267,7 +273,7 @@ AND timestamp > '2018-12-31'
 
 Sample parsed Zcash data are available [here](https://drive.google.com/file/d/1oMLnCcG4W79wLaMSpCQImp0EvKKWGZ7P/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_zcash.transactions`.outputs
@@ -281,7 +287,7 @@ AND timestamp > '2018-12-31'
 
 Sample parsed Tezos data are available [here](https://drive.google.com/file/d/15_ZPb6l9JC3YilPv6tyzPqIztEAK-iYk/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT level as number, timestamp, baker as coinbase_addresses
@@ -293,7 +299,7 @@ WHERE timestamp > '2020-12-31'
 
 Sample parsed Dash data are available [here](https://drive.google.com/file/d/1atorp5kizjyYdQRrDCf3ps5ybiPGlZL6/view?usp=sharing).
 
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dash.transactions`.outputs
