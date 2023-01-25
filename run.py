@@ -106,12 +106,12 @@ def analyze(projects, timeframe_argument):
                 for entity in yearly_entities[timeframe[:4]]:
                     if entity not in blocks_per_entity.keys():
                         blocks_per_entity[entity] = 0
-
                 gini = compute_gini(blocks_per_entity)
                 nc = compute_nakamoto_coefficient(blocks_per_entity)
                 entropy = compute_entropy(blocks_per_entity)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]})
-                print(f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   Entropy: {entropy:.6f} ({100*entropy/max_entropy:.1f}% out of max {max_entropy:.6f})')
+                entropy_percentage = 100*entropy/max_entropy if max_entropy != 0 else 0
+                print(f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})')
             else:
                 gini, nc, entropy = '', ('', ''), ''
                 print(f'[{project_name:12} {timeframe:7}] No data')
@@ -141,7 +141,7 @@ def parse(projects, force_parse=False):
             parser = ledger_parser[project](project)
             parser.parse()
 
-
+# todo add argument for force parsing
 if __name__ == '__main__':
     if len(sys.argv) == 3:
         projects = [sys.argv[1]]

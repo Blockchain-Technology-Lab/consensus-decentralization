@@ -11,6 +11,7 @@ def compute_nakamoto_coefficient(blocks_per_entity):
             power_percentage += 100 * blocks / total_blocks
         else:
             return nc, power_percentage
+    return nc, power_percentage
 
 
 if __name__ == '__main__':
