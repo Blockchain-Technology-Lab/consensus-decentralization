@@ -3,8 +3,6 @@ from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 MIN_TX_VALUE = 0
 
-#todo update readme (mainly io dirs + just run required)
-
 class DefaultParser:
     """
     The default parser, used for Bitcoin, Litecoin, Zcash and others
@@ -16,7 +14,8 @@ class DefaultParser:
         filename = f'{self.project_name}_raw_data.json'
         filepath = INPUT_DIR / filename
         with open(filepath) as f:
-            data = json.load(f)
+            contents = f.read()
+        data = [json.loads(item) for item in contents.strip().split('\n')]
         return data
 
     def parse(self):

@@ -1,7 +1,5 @@
-import json
 from collections import defaultdict
 from src.parsers.default_parser import DefaultParser
-from src.helpers.helper import INPUT_DIR
 
 class CardanoParser(DefaultParser):
     """
@@ -11,13 +9,8 @@ class CardanoParser(DefaultParser):
         super().__init__(project_name)
 
     def parse(self):
-        filename = f'{self.project_name}_raw_data.json'
-        filepath = INPUT_DIR / filename
-        with open(filepath) as f:
-            contents = f.read()
-            data = [json.loads(str(item)) for item in contents.strip().split('\n')]
-            data = sorted(data, key=lambda x: x['number'])
-
+        data = self.read_raw_data()
+        data = sorted(data, key=lambda x: x['number'])
         # todo delete unused variables pool_tickers and address_tickers?
         pool_tickers = defaultdict(set)
         address_tickers = defaultdict(set)
