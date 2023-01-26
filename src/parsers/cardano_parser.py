@@ -9,8 +9,7 @@ class CardanoParser(DefaultParser):
         super().__init__(project_name)
 
     def parse(self):
-        data = self.read_raw_data()
-        data = sorted(data, key=lambda x: x['number'])
+        data = self.read_and_sort_data()
         # todo delete unused variables pool_tickers and address_tickers?
         pool_tickers = defaultdict(set)
         address_tickers = defaultdict(set)

@@ -12,7 +12,6 @@ class CardanoMapping(Mapping):
         pool_data, pool_links = get_pool_data(self.project_name, timeframe)
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
-        data = sorted(data, key=lambda x: x['number'])
 
         blocks_per_entity = defaultdict(int)
         for tx in data:

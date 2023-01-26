@@ -18,7 +18,6 @@ class BitcoinMapping(Mapping):
             pool_addresses = {}
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
-        data = sorted(data, key=lambda x: x['number'])
 
         multi_pool_blocks = set()
         blocks_per_entity = defaultdict(int)

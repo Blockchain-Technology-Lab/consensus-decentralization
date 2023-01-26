@@ -8,6 +8,5 @@ class DummyParser(DefaultParser):
         super().__init__(project_name)
 
     def parse(self):
-        data = self.read_raw_data()
-        data = sorted(data, key=lambda x: x['number'])
+        data = self.read_and_sort_data()
         self.write_parsed_data(data)

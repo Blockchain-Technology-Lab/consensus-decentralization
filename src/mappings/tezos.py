@@ -16,7 +16,6 @@ class TezosMapping(Mapping):
             pool_addresses = {}
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
-        data = sorted(data, key=lambda x: x['number'])
 
         blocks_per_entity = defaultdict(int)
         for tx in data:

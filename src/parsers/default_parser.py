@@ -10,17 +10,17 @@ class DefaultParser:
     def __init__(self, project_name):
         self.project_name = project_name
 
-    def read_raw_data(self):
+    def read_and_sort_data(self):
         filename = f'{self.project_name}_raw_data.json'
         filepath = INPUT_DIR / filename
         with open(filepath) as f:
             contents = f.read()
         data = [json.loads(item) for item in contents.strip().split('\n')]
+        data = sorted(data, key=lambda x: x['number'])
         return data
 
     def parse(self):
-        data = self.read_raw_data()
-        data = sorted(data, key=lambda x: x['number'])
+        data = self.read_and_sort_data()
 
         for block in data:
             block['coinbase_addresses'] = ','.join(set([tx['addresses'][0] for tx in block['outputs']
