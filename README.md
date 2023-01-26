@@ -165,7 +165,7 @@ and override its `parse` method.
 In the directory `mappings` create a file named `<project_name>_mapping.py` and a corresponding class, or reuse an 
 existing mapping. The class should inherit from the `Mapping` class of `mapping.py` and override its `process` method, 
 which takes as input a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month 
-November 2022, '2022-11-12' for the year 12 November 2022, and returns a dictionary of the form 
+November 2022, '2022-11-12' for the day 12 November 2022, and returns a dictionary of the form 
 `{'<entity name>': <number of resources>}` and outputs a csv file of mapped data - (see above `Mapping`).
 
 In the script `run.py`, import the newly created parser and mapping classes and assign them to the project's name in the 
