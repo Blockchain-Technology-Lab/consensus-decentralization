@@ -44,3 +44,7 @@ def test_nc():
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3, 'd': 1, 'e': 1, 'f': 1}
     coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 2
+
+    blocks_per_entity = {'a': 1}
+    coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
+    assert coeff == 1
