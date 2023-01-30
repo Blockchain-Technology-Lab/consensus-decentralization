@@ -190,7 +190,8 @@ Note that when saving results from BigQuery you should select the option "JSONL 
 
 ### Bitcoin
 
-Sample parsed Bitcoin data are available [here](https://drive.google.com/file/d/1IyLNi2_qvxWj0SQ_S0ZKxqMgwuBk6mRF/view?usp=sharing).
+Sample parsed Bitcoin data are available
+[here](https://drive.google.com/file/d/12sd6xn8aZE5yBrUFoxE6vVPFIuE_Sw4F/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -204,7 +205,8 @@ AND timestamp > '2017-12-31'
 
 ### Ethereum
 
-Sample parsed Ethereum data are available [here](https://drive.google.com/file/d/1UEDsoz1Q2njR-pd6TO0ZLQBXFcV3T--4/view?usp=sharing).
+Sample parsed Ethereum data are available
+[here](https://drive.google.com/file/d/1i9veHVB8nuitXMXWxk3oTOXY6rI_Ex8a/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -216,7 +218,8 @@ WHERE timestamp > '2018-12-31'
 
 ### Bitcoin Cash
 
-Sample parsed Bitcoin Cash data are available [here](https://drive.google.com/file/d/1klKbtWESX4Zga_NoZhPxEEolV6lf02_j/view?usp=sharing).
+Sample parsed Bitcoin Cash data are available
+[here](https://drive.google.com/file/d/1560i6dbicv5h8bqcYMIPNKZTMgT44qNE/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -230,7 +233,8 @@ AND timestamp > '2018-12-31'
 
 ### Dogecoin
 
-Sample parsed Dogecoin data are available [here](https://drive.google.com/file/d/1m51Zh7hM2nj9qykrzxfN8JEM0-DLqELa/view?usp=sharing).
+Sample parsed Dogecoin data are available
+[here](https://drive.google.com/file/d/1eVHop4ciT0f8veLiy2nEd61AeC1iyd-1/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -244,7 +248,8 @@ AND timestamp > '2019-12-31'
 
 ### Cardano
 
-Sample parsed Cardano data are available [here](https://drive.google.com/file/d/1V97Vy6JMLholargAqSa4yrPsyHxeOf6U/view?usp=sharing).
+Sample parsed Cardano data are available
+[here](https://drive.google.com/file/d/1qetBLr7sHccnoTbVTD_t_bCOeWfIjH3D/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -257,7 +262,8 @@ WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 
 ### Litecoin
 
-Sample parsed Litecoin data are available [here](https://drive.google.com/file/d/1iaK1Pfkvc9EoArOv2vyXiAq7UdbLfXYQ/view?usp=sharing).
+Sample parsed Litecoin data are available
+[here](https://drive.google.com/file/d/1XR8t0NZ9IfuBBzCGyBw8c_nFyFjSsxd7/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -271,7 +277,8 @@ AND timestamp > '2018-12-31'
 
 ### Zcash
 
-Sample parsed Zcash data are available [here](https://drive.google.com/file/d/1oMLnCcG4W79wLaMSpCQImp0EvKKWGZ7P/view?usp=sharing).
+Sample parsed Zcash data are available
+[here](https://drive.google.com/file/d/1WEkUAaIaRsGXuemAZj_DbNIlhkWtOn5A/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -285,7 +292,8 @@ AND timestamp > '2018-12-31'
 
 ### Tezos
 
-Sample parsed Tezos data are available [here](https://drive.google.com/file/d/15_ZPb6l9JC3YilPv6tyzPqIztEAK-iYk/view?usp=sharing).
+Sample parsed Tezos data are available
+[here](https://drive.google.com/file/d/1Jn4A2hxanwniiexzHySFa6CFU8aS03mB/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
@@ -297,7 +305,8 @@ WHERE timestamp > '2020-12-31'
 
 ### Dash
 
-Sample parsed Dash data are available [here](https://drive.google.com/file/d/1atorp5kizjyYdQRrDCf3ps5ybiPGlZL6/view?usp=sharing).
+Sample parsed Dash data are available
+[here](https://drive.google.com/file/d/1DkjAZ7hq45zIan278NA6KVv3B45OG9GU/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
