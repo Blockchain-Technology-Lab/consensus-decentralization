@@ -37,7 +37,7 @@ ledger_parser = {
 }
 
 START_YEAR = 2018
-END_YEAR = 2023
+END_YEAR = 2024
 PROJECTS = ledger_mapping.keys()
 
 
