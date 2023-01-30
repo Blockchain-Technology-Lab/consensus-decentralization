@@ -141,6 +141,7 @@ def parse(projects, force_parse=False):
             parser = ledger_parser[project](project)
             parser.parse()
 
+
 # todo add argument for force parsing
 if __name__ == '__main__':
     if len(sys.argv) == 3:
@@ -158,4 +159,4 @@ if __name__ == '__main__':
         timeframe = False
 
     parse(projects)
-    analyze(projects, timeframe) #todo separate into different map + analyze functions
+    analyze(projects, timeframe)  # todo separate into different map + analyze functions
