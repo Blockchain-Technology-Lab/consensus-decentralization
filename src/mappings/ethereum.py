@@ -43,7 +43,7 @@ class EthereumMapping(Mapping):
                 else:
                     entity = coinbase_addresses
 
-            if entity in pool_links.keys(): #todo check if possible for entity not to have a value here
+            if entity in pool_links.keys():  # todo check if possible for entity not to have a value here
                 entity = pool_links[entity]
 
             blocks_per_entity[entity.replace(',', '')] += 1
