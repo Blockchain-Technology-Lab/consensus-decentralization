@@ -190,7 +190,7 @@ Note that when saving results from BigQuery you should select the option "JSONL 
 
 ### Bitcoin
 
-Sample parsed Bitcoin data are available
+Sample raw Bitcoin data are available
 [here](https://drive.google.com/file/d/12sd6xn8aZE5yBrUFoxE6vVPFIuE_Sw4F/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -205,7 +205,7 @@ AND timestamp > '2017-12-31'
 
 ### Ethereum
 
-Sample parsed Ethereum data are available
+Sample raw Ethereum data are available
 [here](https://drive.google.com/file/d/1i9veHVB8nuitXMXWxk3oTOXY6rI_Ex8a/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -218,7 +218,7 @@ WHERE timestamp > '2018-12-31'
 
 ### Bitcoin Cash
 
-Sample parsed Bitcoin Cash data are available
+Sample raw Bitcoin Cash data are available
 [here](https://drive.google.com/file/d/1560i6dbicv5h8bqcYMIPNKZTMgT44qNE/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -233,7 +233,7 @@ AND timestamp > '2018-12-31'
 
 ### Dogecoin
 
-Sample parsed Dogecoin data are available
+Sample raw Dogecoin data are available
 [here](https://drive.google.com/file/d/1eVHop4ciT0f8veLiy2nEd61AeC1iyd-1/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -248,7 +248,7 @@ AND timestamp > '2019-12-31'
 
 ### Cardano
 
-Sample parsed Cardano data are available
+Sample raw Cardano data are available
 [here](https://drive.google.com/file/d/1qetBLr7sHccnoTbVTD_t_bCOeWfIjH3D/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -262,7 +262,7 @@ WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 
 ### Litecoin
 
-Sample parsed Litecoin data are available
+Sample raw Litecoin data are available
 [here](https://drive.google.com/file/d/1XR8t0NZ9IfuBBzCGyBw8c_nFyFjSsxd7/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -277,7 +277,7 @@ AND timestamp > '2018-12-31'
 
 ### Zcash
 
-Sample parsed Zcash data are available
+Sample raw Zcash data are available
 [here](https://drive.google.com/file/d/1WEkUAaIaRsGXuemAZj_DbNIlhkWtOn5A/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -292,7 +292,7 @@ AND timestamp > '2018-12-31'
 
 ### Tezos
 
-Sample parsed Tezos data are available
+Sample raw Tezos data are available
 [here](https://drive.google.com/file/d/1Jn4A2hxanwniiexzHySFa6CFU8aS03mB/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
@@ -305,7 +305,7 @@ WHERE timestamp > '2020-12-31'
 
 ### Dash
 
-Sample parsed Dash data are available
+Sample raw Dash data are available
 [here](https://drive.google.com/file/d/1DkjAZ7hq45zIan278NA6KVv3B45OG9GU/view?usp=sharing).
 
 The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
