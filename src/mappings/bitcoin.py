@@ -34,7 +34,7 @@ class BitcoinMapping(Mapping):
                     for addr in tx['coinbase_addresses'].split(','):
                         if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
                             with open(f'{self.io_dir}/multi_pool_addresses.csv', 'a') as f:
-                                f.write(f'{tx["timestamp"]},{addr},{pool_addresses[addr]},{entity}\n')
+                                f.write(f'{tx["number"]},{tx["timestamp"]},{addr},{entity}\n')
 
                         pool_addresses[addr] = entity
                     break
