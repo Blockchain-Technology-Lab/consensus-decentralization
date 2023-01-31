@@ -139,7 +139,7 @@ following command from the root directory of the project:
 
 Place all raw data (which could be collected from BigQuery for example) in the `input` directory, each file named as 
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there is a (very small) sample input file 
-for each supported project, which should be replaced with the complete data before running the tool.
+for some supported projects; to use it, remove the prefix `sample_`. For more extended raw data see the links below.
 
 Run `python run.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of 
 the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
