@@ -17,6 +17,7 @@ class EthereumMapping(Mapping):
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
+        multi_pool_addresses = list()
         blocks_per_entity = defaultdict(int)
         for tx in data:
             try:
@@ -33,8 +34,7 @@ class EthereumMapping(Mapping):
                     pool_addresses[coinbase_addresses] = entity
                     pool_match = True
                     if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
-                        with open(f'{self.io_dir}/multi_pool_addresses.csv', 'a') as f:
-                            f.write(f'{tx["timestamp"]},{coinbase_addresses},{entity}\n')
+                        multi_pool_addresses.append(f'{tx["number"]},{tx["timestamp"]},{coinbase_addresses},{entity}')
                     break
 
             if not pool_match:
@@ -49,5 +49,9 @@ class EthereumMapping(Mapping):
             blocks_per_entity[entity.replace(',', '')] += 1
 
         write_csv_file(self.io_dir, blocks_per_entity, timeframe)
+
+        if len(timeframe) == 4 and multi_pool_addresses:
+            with open(f'{self.io_dir}/multi_pool_addresses_{timeframe}.csv', 'w') as f:
+                f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(multi_pool_addresses))
 
         return blocks_per_entity
