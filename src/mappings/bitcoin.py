@@ -5,6 +5,7 @@ from src.mappings.mapping import Mapping
 
 YEAR_DIGITS = 4
 
+
 class BitcoinMapping(Mapping):
 
     def __init__(self, project_name, dataset):
