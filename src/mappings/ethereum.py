@@ -34,7 +34,7 @@ class EthereumMapping(Mapping):
                     pool_match = True
                     if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
                         with open(f'{self.io_dir}/multi_pool_addresses.csv', 'a') as f:
-                            f.write(f'{tx["timestamp"]},{coinbase_addresses},{pool_addresses[coinbase_addresses]},{entity}\n')
+                            f.write(f'{tx["timestamp"]},{coinbase_addresses},{entity}\n')
                     break
 
             if not pool_match:
