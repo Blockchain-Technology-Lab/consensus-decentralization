@@ -4,12 +4,12 @@ import src.helpers.helper as hlp
 
 
 def compute_entropy(blocks_per_entity):
-    '''
+    """
         Source: https://gist.github.com/yacineMahdid/55041c3bdcc70d1fa3300478a43f153b
         Custom implementation of shannon entropy with a full non-binarized sequence
         Formula looks like this: H(S) = −Σ P(Si) log2 (P(Si))
         P(Si) here is the relative frequency of each itme
-    '''
+    """
     entropy = 0
     all_blocks = sum(blocks_per_entity.values())
     for entity in blocks_per_entity.keys():

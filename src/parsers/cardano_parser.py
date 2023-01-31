@@ -1,10 +1,12 @@
 from collections import defaultdict
 from src.parsers.default_parser import DefaultParser
 
+
 class CardanoParser(DefaultParser):
     """
     Parser used for Cardano
     """
+
     def __init__(self, project_name):
         super().__init__(project_name)
 

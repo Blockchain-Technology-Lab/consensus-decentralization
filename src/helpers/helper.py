@@ -6,6 +6,7 @@ YEAR_DIGITS = 4
 INPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'input'
 OUTPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'output'
 
+
 def get_pool_data(project_name, timeframe):
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
