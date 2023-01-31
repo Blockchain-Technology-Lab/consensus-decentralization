@@ -20,7 +20,7 @@ class BitcoinMapping(Mapping):
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
-        multi_pool_blocks = set()
+        multi_pool_blocks = list()
         blocks_per_entity = defaultdict(int)
         for tx in data:
             coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
@@ -43,11 +43,12 @@ class BitcoinMapping(Mapping):
                 block_pools = set()
                 for addr in coinbase_addresses:  # Check if address is associated with pool
                     if addr in pool_addresses.keys():
-                        block_pools.add(pool_addresses[addr])
+                        block_pools.add((addr, pool_addresses[addr]))
                 if block_pools:
-                    entity = str('/'.join(sorted(block_pools)))
+                    entity = str('/'.join(sorted([i[1] for i in block_pools])))
                     if len(block_pools) > 1:
-                        multi_pool_blocks.add(f'{tx["number"]}: {entity}')
+                        multi_pool_info = '/'.join([f'{i[0]}({i[1]})' for i in block_pools])
+                        multi_pool_blocks.append(f'{tx["number"]},{multi_pool_info}')
                 else:
                     if len(coinbase_addresses) == 1:
                         entity = coinbase_addresses[0]
@@ -63,7 +64,8 @@ class BitcoinMapping(Mapping):
 
         write_csv_file(self.io_dir, blocks_per_entity, timeframe)
 
-        with open(f'{self.io_dir}/multi_pool_blocks.csv', 'a') as f:
-            f.write(f'{timeframe},{"--".join(multi_pool_blocks)}\n')
+        if multi_pool_blocks and len(timeframe) == 4:
+            with open(f'{self.io_dir}/multi_pool_blocks_{timeframe}.csv', 'w') as f:
+                f.write('Block No,Entities\n' + '\n'.join(multi_pool_blocks))
 
         return blocks_per_entity
