@@ -3,10 +3,12 @@ from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 MIN_TX_VALUE = 0
 
+
 class DefaultParser:
     """
     The default parser, used for Bitcoin, Litecoin, Zcash and others
     """
+
     def __init__(self, project_name):
         self.project_name = project_name
 
@@ -35,7 +37,3 @@ class DefaultParser:
         filename = 'parsed_data.json'
         with open(path / filename, 'w') as f:
             f.write('[' + ',\n'.join(json.dumps(i) for i in data) + ']\n')
-
-
-
-

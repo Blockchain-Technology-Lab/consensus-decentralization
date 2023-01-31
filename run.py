@@ -111,7 +111,10 @@ def analyze(projects, timeframe_argument):
                 entropy = compute_entropy(blocks_per_entity)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]})
                 entropy_percentage = 100*entropy/max_entropy if max_entropy != 0 else 0
-                print(f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})')
+                print(
+                    f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   '
+                    f'Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})'
+                )
             else:
                 gini, nc, entropy = '', ('', ''), ''
                 print(f'[{project_name:12} {timeframe:7}] No data')

@@ -193,7 +193,7 @@ Note that when saving results from BigQuery you should select the option "JSONL 
 Sample raw Bitcoin data are available
 [here](https://drive.google.com/file/d/12sd6xn8aZE5yBrUFoxE6vVPFIuE_Sw4F/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
@@ -208,7 +208,7 @@ AND timestamp > '2017-12-31'
 Sample raw Ethereum data are available
 [here](https://drive.google.com/file/d/1i9veHVB8nuitXMXWxk3oTOXY6rI_Ex8a/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT number, timestamp, miner as coinbase_addresses, extra_data as coinbase_param
@@ -221,7 +221,7 @@ WHERE timestamp > '2018-12-31'
 Sample raw Bitcoin Cash data are available
 [here](https://drive.google.com/file/d/1560i6dbicv5h8bqcYMIPNKZTMgT44qNE/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
@@ -236,7 +236,7 @@ AND timestamp > '2018-12-31'
 Sample raw Dogecoin data are available
 [here](https://drive.google.com/file/d/1eVHop4ciT0f8veLiy2nEd61AeC1iyd-1/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
@@ -251,7 +251,7 @@ AND timestamp > '2019-12-31'
 Sample raw Cardano data are available
 [here](https://drive.google.com/file/d/1qetBLr7sHccnoTbVTD_t_bCOeWfIjH3D/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as coinbase_param, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp, `iog-data-analytics.cardano_mainnet.block`.pool_hash
@@ -265,7 +265,7 @@ WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 Sample raw Litecoin data are available
 [here](https://drive.google.com/file/d/1XR8t0NZ9IfuBBzCGyBw8c_nFyFjSsxd7/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_litecoin.transactions`.outputs
@@ -280,7 +280,7 @@ AND timestamp > '2018-12-31'
 Sample raw Zcash data are available
 [here](https://drive.google.com/file/d/1WEkUAaIaRsGXuemAZj_DbNIlhkWtOn5A/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_zcash.transactions`.outputs
@@ -295,7 +295,7 @@ AND timestamp > '2018-12-31'
 Sample raw Tezos data are available
 [here](https://drive.google.com/file/d/1Jn4A2hxanwniiexzHySFa6CFU8aS03mB/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT level as number, timestamp, baker as coinbase_addresses
@@ -308,7 +308,7 @@ WHERE timestamp > '2020-12-31'
 Sample raw Dash data are available
 [here](https://drive.google.com/file/d/1DkjAZ7hq45zIan278NA6KVv3B45OG9GU/view?usp=sharing).
 
-The raw data can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
+They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
 SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dash.transactions`.outputs
