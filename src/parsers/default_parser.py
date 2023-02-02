@@ -18,7 +18,7 @@ class DefaultParser:
         with open(filepath) as f:
             contents = f.read()
         data = [json.loads(item) for item in contents.strip().split('\n')]
-        data = sorted(data, key=lambda x: x['number'])
+        data = sorted(data, key=lambda x: x['timestamp'])
         return data
 
     def parse(self):
