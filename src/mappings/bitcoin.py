@@ -45,9 +45,9 @@ class BitcoinMapping(Mapping):
                         block_pools.add((addr, pool_addresses[addr]))
                 if block_pools:
                     entity = str('/'.join(sorted([i[1] for i in block_pools])))
-                    if len(block_pools) > 1:
+                    if len(set([i[1] for i in block_pools])) > 1:
                         multi_pool_info = '/'.join([f'{i[0]}({i[1]})' for i in block_pools])
-                        multi_pool_blocks.append(f'{tx["number"]},{multi_pool_info}')
+                        multi_pool_blocks.append(f'{tx["number"]},{tx["timestamp"]},{multi_pool_info}')
                 else:
                     if len(coinbase_addresses) == 1:
                         entity = coinbase_addresses[0]
@@ -70,6 +70,6 @@ class BitcoinMapping(Mapping):
 
             if multi_pool_blocks:
                 with open(f'{self.io_dir}/multi_pool_blocks_{timeframe}.csv', 'w') as f:
-                    f.write('Block No,Entities\n' + '\n'.join(multi_pool_blocks))
+                    f.write('Block No,Timestamp,Entities\n' + '\n'.join(multi_pool_blocks))
 
         return blocks_per_entity
