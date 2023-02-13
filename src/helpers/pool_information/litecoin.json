@@ -442,14 +442,6 @@
       "name": "Poolin",
       "link": "https://www.poolin.com"
     },
-    "pooin.com": {
-      "name": "pooin.com",
-      "link": "Unknown"
-    },
-    "xxxxxx.com": {
-      "name": "xxxxxx.com",
-      "link": "Unknown"
-    },
     "/slush/": {
       "name": "SlushPool",
       "link": "https://slushpool.com/"
@@ -718,10 +710,6 @@
       "name": "Mining Dutch",
       "link": "https://www.mining-dutch.nl/"
     },
-    "mine.nu": {
-      "name": "mine.nu (Unidentified)",
-      "link": "Unknown"
-    },
     "ZULUPooL-BTC": {
       "name": "Zulu Pool",
       "link": "https://beta.zulupool.com/"
@@ -734,37 +722,9 @@
       "name": "Titan.io",
       "link": "https://titan.io/"
     },
-    "This block was mined with a carbon negative power source": {
-      "name": "Carbon negative (Unidentified)",
-      "link": "Unknown"
-    },
-    "nodeStratum": {
-      "name": "nodeStratum",
-      "link": "Unknown"
-    },
-    "AAOPOOL": {
-      "name": "AAOPOOL (Unidentified)",
-      "link": "Unknown"
-    },
     "taal.com": {
       "name": "taal.com",
       "link": "https://www.taal.com/"
-    },
-    "CN/TT": {
-      "name": "CN/TT (Unidentified)",
-      "link": "Unknown"
-    },
-    "DPBCH": {
-      "name": "DPBCH (Unidentified)",
-      "link": "Unknown"
-    },
-    "BCHN": {
-      "name": "Binance pool (BCHN)",
-      "link": ""
-    },
-    "Hath": {
-      "name": "Hath (Unidentified)",
-      "link": "Unknown"
     },
     "prohashing.com": {
       "name": "Prohashing",

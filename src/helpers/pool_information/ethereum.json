@@ -142,14 +142,6 @@
       "name": "Poolin",
       "link": "https://www.poolin.com"
     },
-    "Nethermind": {
-      "name": "Nethermind (Unidentified)",
-      "link": ""
-    },
-    "miao?": {
-      "name": "miao? (Unidentified)",
-      "link": ""
-    },
     "Ezil.me": {
       "name": "ezil.me",
       "link": "https://ezil.me"
@@ -177,70 +169,6 @@
     "Manifold": {
       "name": "Manifold",
       "link": "https://manifold.xyz/"
-    },
-    "Blocknative": {
-      "name": "Blocknative (Unidentified)",
-      "link": ""
-    },
-    "GaMbLeRs": {
-      "name": "GaMbLeRs (Unidentified)",
-      "link": ""
-    },
-    "77pool": {
-      "name": "77pool (Unidentified)",
-      "link": ""
-    },
-    "CloudPool": {
-      "name": "CloudPool (Unidentified)",
-      "link": ""
-    },
-    "BTPOOL": {
-      "name": "BTPool (Unidentified)",
-      "link": ""
-    },
-    "zh/": {
-      "name": "zh{1...6}/ (Unidentified)",
-      "link": ""
-    },
-    "zh1/": {
-      "name": "zh{1...6}/ (Unidentified)",
-      "link": ""
-    },
-    "zh2/": {
-      "name": "zh{1...6}/ (Unidentified)",
-      "link": ""
-    },
-    "zh3/": {
-      "name": "zh{1...6}/ (Unidentified)",
-      "link": ""
-    },
-    "zh4/": {
-      "name": "zh{1...6}/ (Unidentified)",
-      "link": ""
-    },
-    "zh5/": {
-      "name": "zh{1...6}/ (Unidentified)",
-      "link": ""
-    },
-    "zh6/": {
-      "name": "zh{1...6}/ (Unidentified)",
-      "link": ""
-    },
-    "421/": {
-      "name": "421/ (Unidentified)",
-      "link": ""
-    },
-    "speth0": {
-      "name": "speth0 (Unidentified)",
-      "link": ""
-    },
-    "*_*/": {
-      "name": "*_*/ (Unidentified)",
-      "link": ""
-    },
-    "spider": {
-      "name": "spider (Unidentified)",
-      "link": "https://www.spiderpool.com/"
     },
     "pool.express": {
       "name": "pool.express",
@@ -285,26 +213,6 @@
     "Hiveon": {
       "name": "Hiveon",
       "link": "https://hiveon.net/"
-    },
-    "xpub/": {
-      "name": "xpub/ (Unidentified)",
-      "link": ""
-    },
-    "awssp0": {
-      "name": "awssp0 (Unidentified)",
-      "link": ""
-    },
-    "cc0": {
-      "name": "cc0 (Unidentified)",
-      "link": ""
-    },
-    "bj0": {
-      "name": "bj0 (Unidentified)",
-      "link": ""
-    },
-    "geth": {
-      "name": "geth (Unidentified)",
-      "link": ""
     }
   },
   "pool_addresses": {
