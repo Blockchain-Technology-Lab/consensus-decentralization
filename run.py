@@ -1,5 +1,5 @@
-import sys
 import pathlib
+import argparse
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
@@ -147,21 +147,18 @@ def parse(projects, force_parse=False):
             parser.parse()
 
 
-# todo add argument for force parsing
 if __name__ == '__main__':
-    if len(sys.argv) == 3:
-        projects = [sys.argv[1]]
-        timeframe = sys.argv[2]
-    elif len(sys.argv) == 2:
-        if sys.argv[1] in PROJECTS:
-            projects = [sys.argv[1]]
-            timeframe = False
-        else:
-            projects = PROJECTS
-            timeframe = sys.argv[1]
-    else:
-        projects = PROJECTS
-        timeframe = False
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--timeframe', type=str, required=False)
+    parser.add_argument('--project', type=str, required=False)
 
+    args = parser.parse_args()
+
+    timeframe = args.timeframe
+    projects = [args.project]
+    if not projects[0]:
+        projects = PROJECTS
+
+    print(projects)
     parse(projects)
     analyze(projects, timeframe)  # todo separate into different map + analyze functions
