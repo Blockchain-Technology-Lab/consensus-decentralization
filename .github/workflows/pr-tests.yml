@@ -1,0 +1,14 @@
+name: pull-request-tests
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - run: pip install -r requirements.txt
+    - run: pytest
