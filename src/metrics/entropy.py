@@ -3,19 +3,32 @@ import sys
 import src.helpers.helper as hlp
 
 
-def compute_entropy(blocks_per_entity):
+def compute_entropy(blocks_per_entity, alpha):
     """
-        Source: https://gist.github.com/yacineMahdid/55041c3bdcc70d1fa3300478a43f153b
-        Custom implementation of shannon entropy with a full non-binarized sequence
-        Formula looks like this: H(S) = −Σ P(Si) log2 (P(Si))
-        P(Si) here is the relative frequency of each itme
+        Pi is the relative frequency of each entity.
+        Renyi entropy: 1/(1-alpha) * log2 (sum (Pi**alpha))
+        Shannon entropy (alpha=1): −sum P(Si) log2 (Pi)
+        Min entropy (alpha=-1): -log max Pi
     """
-    entropy = 0
-    all_blocks = sum(blocks_per_entity.values())
-    for entity in blocks_per_entity.keys():
-        rel_freq = blocks_per_entity[entity] / all_blocks
-        if rel_freq > 0:
-            entropy = entropy + -(rel_freq * log(rel_freq, 2))
+    if alpha == 1:
+        entropy = 0
+        all_blocks = sum(blocks_per_entity.values())
+        for entity in blocks_per_entity.keys():
+            rel_freq = blocks_per_entity[entity] / all_blocks
+            if rel_freq > 0:
+                entropy = entropy + -(rel_freq * log(rel_freq, 2))
+    else:
+        all_blocks = sum(blocks_per_entity.values())
+        probs = [
+            blocks / all_blocks for blocks in blocks_per_entity.values()
+        ]
+        if alpha == -1:
+            entropy = - log(max(probs))
+        else:
+            sum_freqs = sum([
+                prob ** alpha for prob in probs
+            ])
+            entropy = log(sum_freqs, 2) / (1 - alpha)
 
     return entropy
 
