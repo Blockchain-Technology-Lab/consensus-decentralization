@@ -40,6 +40,8 @@ START_YEAR = 2018
 END_YEAR = 2024
 PROJECTS = ledger_mapping.keys()
 
+ENTROPY_ALPHA = 1  # -1: min entropy, 1: Shannon entropy, 2: collision entropy, 0: Hartley entropy
+
 
 def analyze(projects, timeframe_argument):
     """
@@ -108,8 +110,8 @@ def analyze(projects, timeframe_argument):
                         blocks_per_entity[entity] = 0
                 gini = compute_gini(blocks_per_entity)
                 nc = compute_nakamoto_coefficient(blocks_per_entity)
-                entropy = compute_entropy(blocks_per_entity)
-                max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]})
+                entropy = compute_entropy(blocks_per_entity, ENTROPY_ALPHA)
+                max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]}, ENTROPY_ALPHA)
                 entropy_percentage = 100*entropy/max_entropy if max_entropy != 0 else 0
                 print(
                     f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   '
