@@ -6,10 +6,12 @@ def test_entropy():
     """
     Ensure that the results of the compute_entropy function are consistent with online calculators,
     such as https://www.omnicalculator.com/statistics/shannon-entropy
+
+    TODO: add tests for other entropies (alpha = {0, 2, -1}
     """
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
-    ntrp = entropy.compute_entropy(blocks_per_entity)
-    assert round(ntrp, 3) == 1.459
+    shannon_ntrp = entropy.compute_entropy(blocks_per_entity, 1)
+    assert round(shannon_ntrp, 3) == 1.459
 
 
 def test_gini():
