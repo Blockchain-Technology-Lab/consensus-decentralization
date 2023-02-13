@@ -141,12 +141,13 @@ Place all raw data (which could be collected from BigQuery for example) in the `
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there is a (very small) sample input file 
 for some supported projects; to use it, remove the prefix `sample_`. For more extended raw data see the links below.
 
-Run `python run.py <project_name> <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of 
+Run `python run.py --project <project_name> --timeframe <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of 
 the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
 
-To mass produce and analyze data, you can omit one or both arguments. If only one argument is given, it can be either a 
-project's name (so all data between 2018-2022 for the given project will be analyzed) or a timeframe (so data for all 
-ledgers will be analyzed for the given timeframe).
+To mass produce and analyze data, you can omit one or both arguments. If only
+the project argument is given, all data between 2018-2023 for the given project will be analyzed. If only a timeframe is given,
+all ledgers will be analyzed for the given timeframe. If no arguments are given,
+all ledgers will be analyzed for all months between 2018-2023.
 
 Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the 
 last execution of `run.py`.
