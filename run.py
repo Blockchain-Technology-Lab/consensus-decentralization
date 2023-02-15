@@ -149,13 +149,26 @@ def parse(projects, force_parse=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--timeframe', type=str, required=False)
-    parser.add_argument('--project', type=str, required=False)
 
+    parser.add_argument(
+        '--ledgers',
+        nargs = "*",
+        type = str.lower,
+        default = PROJECTS,
+        choices = [ledger for ledger in PROJECTS],
+        help = 'The ledgers that will be analyzed.'
+    )
+    parser.add_argument(
+        '--timeframe',
+        nargs = "?",
+        type = str, #todo make sure given date is valid
+        default = None,
+        help = 'The timeframe that will be analyzed.'
+    )
     args = parser.parse_args()
 
     timeframe = args.timeframe
-    projects = [args.project]
+    projects = args.ledgers
     if not projects[0]:
         projects = PROJECTS
 
