@@ -1,14 +1,7 @@
 # Data collection
 
 Currently, the data for the analysis of the different ledgers is collected through 
-[Google BigQuery](https://console.cloud.google.com/bigquery) . 
-
-The queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that are parsed using the 
-`default_parser` script in `parsers`.
-
-The query for Cardano returns data that is parsed using the `cardano_parser` script in `parsers`. 
-
-All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser.
+[Google BigQuery](https://console.cloud.google.com/bigquery) .
 
 Note that when saving results from BigQuery you should select the option "JSONL (newline delimited)".
 
