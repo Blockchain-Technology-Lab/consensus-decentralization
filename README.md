@@ -121,8 +121,8 @@ A metric gets the mapped data (see above `Mapping`) and outputs a relevant value
 - Entropy: outputs a real number
 
 Each metric is implemented in a separate Python script in the folder `metrics`. Each script defines a function named `
-compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` and 
-outputs the relevant metric values.
+compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` (and 
+possibly other relevant arguments) and outputs the corresponding metric values.
 
 ## Installing and running the tool
 
@@ -141,13 +141,23 @@ Place all raw data (which could be collected from BigQuery for example) in the `
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there is a (very small) sample input file 
 for some supported projects; to use it, remove the prefix `sample_`. For more extended raw data see the links below.
 
-Run `python run.py --project <project_name> --timeframe <timeframe>` to produce a csv of the mapped data. The timeframe argument should be of 
-the form `YYYY-MM-DD` (month and day can be omitted). The script will also print the output of each implemented metric.
+Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data. 
+Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values 
+will be used). Specifically:
+- The `ledgers` argument accepts any number of the supported ledgers (case-insensitive). For example, `--ledgers bitcoin` 
+would run the analysis for Bitcoin, while `--ledgers Bitcoin Ethereum Cardano` would run the analysis for Bitcoin, 
+Ethereum and Cardano. If the `ledgers` argument is omitted, then all supported ledgers are used. 
+- The `timeframe` argument should be of the form `YYYY-MM-DD` (month and day can be omitted). For example, 
+`--timeframe 2022` would run the analysis for the year 2022, while `--timeframe 2022-02` would do it for the month of 
+February 2022. If the `timeframe` argument is omitted then a monthly analysis is performed for each month between 
+January 2018 and the current month.
+
+The script will also print the output of each implemented metric for the specified ledgers and timeframe.
 
 To mass produce and analyze data, you can omit one or both arguments. If only
-the project argument is given, all data between 2018-2023 for the given project will be analyzed. If only a timeframe is given,
-all ledgers will be analyzed for the given timeframe. If no arguments are given,
-all ledgers will be analyzed for all months between 2018-2023.
+the project argument is given, all data between 2018-2023 for the given project will be analyzed. If only a timeframe is 
+given, all ledgers will be analyzed for the given timeframe. If no arguments are given, all ledgers will be analyzed for 
+all months between 2018-2023.
 
 Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the 
 last execution of `run.py`.
