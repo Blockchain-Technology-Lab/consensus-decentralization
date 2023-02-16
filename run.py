@@ -113,7 +113,7 @@ def analyze(projects, timeframe_argument):
                 nc = compute_nakamoto_coefficient(blocks_per_entity)
                 entropy = compute_entropy(blocks_per_entity, ENTROPY_ALPHA)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities[year]}, ENTROPY_ALPHA)
-                entropy_percentage = 100*entropy/max_entropy if max_entropy != 0 else 0
+                entropy_percentage = 100 * entropy / max_entropy if max_entropy != 0 else 0
                 print(
                     f'[{project_name:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   '
                     f'Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})'
@@ -147,34 +147,36 @@ def parse(projects, force_parse=False):
             parser = ledger_parser[project](project)
             parser.parse()
 
+
 def valid_date(date_string):
     # note: this regex assumes that all months have 31 days, so a few invalid dates get accepted (but most don't)
-    pattern = '\d{4}(\-(0[1-9]|1[012]))?(\-(0[1-9]|[12][0-9]|3[01]))?'
+    pattern = r'\d{4}(\-(0[1-9]|1[012]))?(\-(0[1-9]|[12][0-9]|3[01]))?'
     match = re.fullmatch(pattern, date_string)
     if match is None:
         raise argparse.ArgumentTypeError(f"Please use the format YYYY-MM-DD for the timeframe argument "
                                          f"(day and / or month can be omitted).")
     return date_string
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
         '--ledgers',
-        nargs = "*",
-        type = str.lower,
-        default = PROJECTS,
-        choices = [ledger for ledger in PROJECTS],
-        help = 'The ledgers that will be analyzed.'
+        nargs="*",
+        type=str.lower,
+        default=PROJECTS,
+        choices=[ledger for ledger in PROJECTS],
+        help='The ledgers that will be analyzed.'
     )
     parser.add_argument(  # todo allow user to input custom range for timeframe argument
         '--timeframe',
-        nargs = "?",
-        type = valid_date,
-        default = None,
-        help = 'The timeframe that will be analyzed.'
+        nargs="?",
+        type=valid_date,
+        default=None,
+        help='The timeframe that will be analyzed.'
     )
-    args = parser.parse_args()  #todo update README for args
+    args = parser.parse_args()
 
     timeframe = args.timeframe
     projects = args.ledgers
