@@ -1,5 +1,6 @@
-import pathlib
 import argparse
+import pathlib
+import re
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
@@ -146,6 +147,14 @@ def parse(projects, force_parse=False):
             parser = ledger_parser[project](project)
             parser.parse()
 
+def valid_date(date_string):
+    # note: this regex assumes that all months have 31 days, so a few invalid dates get accepted (but most don't)
+    pattern = '\d{4}(\-(0[1-9]|1[012]))?(\-(0[1-9]|[12][0-9]|3[01]))?'
+    match = re.fullmatch(pattern, date_string)
+    if match is None:
+        raise argparse.ArgumentTypeError(f"Please use the format YYYY-MM-DD for the timeframe argument "
+                                         f"(day and / or month can be omitted).")
+    return date_string
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -158,20 +167,18 @@ if __name__ == '__main__':
         choices = [ledger for ledger in PROJECTS],
         help = 'The ledgers that will be analyzed.'
     )
-    parser.add_argument(
+    parser.add_argument(  # todo allow user to input custom range for timeframe argument
         '--timeframe',
         nargs = "?",
-        type = str, #todo make sure given date is valid
+        type = valid_date,
         default = None,
         help = 'The timeframe that will be analyzed.'
     )
-    args = parser.parse_args()
+    args = parser.parse_args()  #todo update README for args
 
     timeframe = args.timeframe
     projects = args.ledgers
-    if not projects[0]:
-        projects = PROJECTS
 
-    print(projects)
+    print(f"The ledgers that will be analyzed are: {','.join(projects)}")
     parse(projects)
     analyze(projects, timeframe)  # todo separate into different map + analyze functions
