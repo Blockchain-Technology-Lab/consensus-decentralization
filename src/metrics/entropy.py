@@ -16,7 +16,7 @@ def compute_entropy(blocks_per_entity, alpha):
         for entity in blocks_per_entity.keys():
             rel_freq = blocks_per_entity[entity] / all_blocks
             if rel_freq > 0:
-                entropy = entropy + -(rel_freq * log(rel_freq, 2))
+                entropy -= rel_freq * log(rel_freq, 2)
     else:
         all_blocks = sum(blocks_per_entity.values())
         probs = [
