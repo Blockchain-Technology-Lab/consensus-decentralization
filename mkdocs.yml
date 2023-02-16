@@ -1,6 +1,7 @@
 site_name: Blockchain Pooling Analysis - Docs
 nav:
         - Home: index.md
+        - Data Collection: data.md
         - Parsers: parsers.md
         - Mappings: mappings.md
         - Metrics: metrics.md
