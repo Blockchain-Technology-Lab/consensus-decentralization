@@ -29,6 +29,7 @@ recommended to use larger datasets).
 Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data. 
 Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values 
 will be used). Specifically:
+
 - The `ledgers` argument accepts any number of the supported ledgers (case-insensitive). For example, `--ledgers bitcoin` 
 would run the analysis for Bitcoin, while `--ledgers Bitcoin Ethereum Cardano` would run the analysis for Bitcoin, 
 Ethereum and Cardano. If the `ledgers` argument is omitted, then all supported ledgers are used. 

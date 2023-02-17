@@ -42,6 +42,7 @@ relevant pool information, structured as follows:
 ```
 
 In this file:
+
 - `clusters` refers to pools with shared coinbase addresses:
   - instead of `<year>`, use the keyword `all` for clusters across years
   - in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to 

@@ -17,6 +17,7 @@ The output file is saved under `output/<project_name>/parsed_data.json`, and it 
 ```
 While `number` and `timestamp` are consistent among different blockchains, the exact information that is included in 
 `coinbase_addresses` and `coinbase_param` may vary. Specifically, the field `coinbase_addresses` corresponds to:
+
 - `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: a string of comma-separated addresses which appear 
 in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)
 - `Ethereum`: the `miner` field of the block
@@ -24,6 +25,7 @@ in the block's coinbase transaction with non-negative value (i.e., which are giv
 - `Tezos`: the `baker` field of the block.
 
 And the field `coinbase_param` corresponds to:
+
 - `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: the field `coinbase_param` of the block's coinbase 
 transaction
 - `Ethereum`: the field `extra_data` of the block
