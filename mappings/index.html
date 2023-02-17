@@ -45,12 +45,22 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data/">Data Collection</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../parsers/">Parsers</a>
                 </li>
               </ul>
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Mappings</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pool-information">Pool Information</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pool-ownership">Pool Ownership</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -86,6 +96,52 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="mappings">Mappings</h1>
+<p>The mapping obtains the parsed data (from <code>output/&lt;project_name&gt;/parsed_data.json</code>) and outputs a <code>csv</code> file that maps 
+blocks to entities. Specifically, the <code>csv</code> file is structured as follows:</p>
+<pre><code>Entity,Resources
+&lt;name of entity&gt;,&lt;(int) number of blocks&gt;
+</code></pre>
+<p>The <code>csv</code> file is named as the timeframe over which the mapping was executed (e.g., <code>2021-04.csv</code>) and is stored in the 
+project's output directory (i.e., <code>output/&lt;project_name&gt;</code>).</p>
+<p>The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output 
+different results, even if applied on the same data. </p>
+<h2 id="pool-information">Pool Information</h2>
+<p>To assist the mapping process, the directory <code>helpers/pool_information</code> contains files named <code>&lt;project_name&gt;.json</code>, with 
+relevant pool information, structured as follows:</p>
+<pre><code>{
+  &quot;clusters&quot;: {
+    &quot;&lt;year&gt;&quot;: {
+      &quot;&lt;cluster name&gt;&quot;: [
+        [&quot;&lt;pool name&gt;&quot;, &quot;&lt;source of information&gt;&quot;]
+      ]
+    }
+  },
+  &quot;coinbase_tags&quot;: {
+    &quot;&lt;pool tag&gt;&quot;: {
+      &quot;name&quot;: &quot;&lt;pool name&gt;&quot;,
+      &quot;link&quot;: &quot;&lt;pool website&gt;&quot;
+    }
+  },
+  &quot;pool_addresses: {
+      &quot;&lt;year&gt;&quot; {
+          &quot;&lt;address&gt;&quot;: &quot;&lt;pool name&gt;&quot;
+      }
+  }
+}
+</code></pre>
+<p>In this file:
+- <code>clusters</code> refers to pools with shared coinbase addresses:
+  - instead of <code>&lt;year&gt;</code>, use the keyword <code>all</code> for clusters across years
+  - in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to 
+different pools
+  - in Cardano, such links exist when two pools share the same metadata
+  - the <code>&lt;source of information&gt;</code> should be comma-separated keywords (e.g., "homepage", "shared block", etc) or a url with the clustering information; this information should be reprodusible (a link to a community or company with information that cannot be verified independently is not acceptable)
+- <code>&lt;pool tag&gt;</code> is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined 
+by the pool
+  - in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool</p>
+<h4 id="pool-ownership">Pool Ownership</h4>
+<p>The file <code>helpers/legal_links.json</code> defines legal links between pools and companies, based on off-chain information 
+(e.g., when a company is the major stakeholder in a pool).</p>
               
             </div>
           </div><footer>

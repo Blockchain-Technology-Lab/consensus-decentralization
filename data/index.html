@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Data Collection - Blockchain Pooling Analysis - Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Data Collection";
+        var mkdocs_page_input_path = "data.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Blockchain Pooling Analysis - Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Data Collection</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sample-data">Sample data</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#bitcoin">Bitcoin</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bitcoin-cash">Bitcoin Cash</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cardano">Cardano</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dash">Dash</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dogecoin">Dogecoin</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ethereum">Ethereum</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#litecoin">Litecoin</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tezos">Tezos</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#zcash">Zcash</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../parsers/">Parsers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mappings/">Mappings</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../output/">Output</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Blockchain Pooling Analysis - Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Data Collection</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="data-collection">Data collection</h1>
+<p>Currently, the data for the analysis of the different ledgers is collected through 
+<a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> .</p>
+<p>Note that when saving results from BigQuery you should select the option "JSONL (newline delimited)".</p>
+<h2 id="sample-data">Sample data</h2>
+<h3 id="bitcoin">Bitcoin</h3>
+<p>Sample raw Bitcoin data are available
+<a href="https://drive.google.com/file/d/12sd6xn8aZE5yBrUFoxE6vVPFIuE_Sw4F/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
+FROM `bigquery-public-data.crypto_bitcoin.transactions`
+JOIN `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp &gt; '2017-12-31'
+</code></pre>
+<h3 id="bitcoin-cash">Bitcoin Cash</h3>
+<p>Sample raw Bitcoin Cash data are available
+<a href="https://drive.google.com/file/d/1560i6dbicv5h8bqcYMIPNKZTMgT44qNE/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
+FROM `bigquery-public-data.crypto_bitcoin_cash.transactions`
+JOIN `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp &gt; '2018-12-31'
+</code></pre>
+<h3 id="cardano">Cardano</h3>
+<p>Sample raw Cardano data are available
+<a href="https://drive.google.com/file/d/1qetBLr7sHccnoTbVTD_t_bCOeWfIjH3D/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as coinbase_param, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp, `iog-data-analytics.cardano_mainnet.block`.pool_hash
+FROM `iog-data-analytics.cardano_mainnet.block` 
+LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
+WHERE `iog-data-analytics.cardano_mainnet.block`.block_time &gt; '2020-12-31'
+</code></pre>
+<h3 id="dash">Dash</h3>
+<p>Sample raw Dash data are available
+<a href="https://drive.google.com/file/d/1DkjAZ7hq45zIan278NA6KVv3B45OG9GU/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dash.transactions`.outputs
+FROM `bigquery-public-data.crypto_dash.transactions`
+JOIN `bigquery-public-data.crypto_dash.blocks` ON `bigquery-public-data.crypto_dash.transactions`.block_number = `bigquery-public-data.crypto_dash.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp &gt; '2018-12-31'
+</code></pre>
+<h3 id="dogecoin">Dogecoin</h3>
+<p>Sample raw Dogecoin data are available
+<a href="https://drive.google.com/file/d/1eVHop4ciT0f8veLiy2nEd61AeC1iyd-1/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
+FROM `bigquery-public-data.crypto_dogecoin.transactions`
+JOIN `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.crypto_dogecoin.transactions`.block_number = `bigquery-public-data.crypto_dogecoin.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp &gt; '2019-12-31'
+</code></pre>
+<h3 id="ethereum">Ethereum</h3>
+<p>Sample raw Ethereum data are available
+<a href="https://drive.google.com/file/d/1i9veHVB8nuitXMXWxk3oTOXY6rI_Ex8a/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT number, timestamp, miner as coinbase_addresses, extra_data as coinbase_param
+FROM `bigquery-public-data.crypto_ethereum.blocks`
+WHERE timestamp &gt; '2018-12-31'
+</code></pre>
+<h3 id="litecoin">Litecoin</h3>
+<p>Sample raw Litecoin data are available
+<a href="https://drive.google.com/file/d/1XR8t0NZ9IfuBBzCGyBw8c_nFyFjSsxd7/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_litecoin.transactions`.outputs
+FROM `bigquery-public-data.crypto_litecoin.transactions`
+JOIN `bigquery-public-data.crypto_litecoin.blocks` ON `bigquery-public-data.crypto_litecoin.transactions`.block_number = `bigquery-public-data.crypto_litecoin.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp &gt; '2018-12-31'
+</code></pre>
+<h3 id="tezos">Tezos</h3>
+<p>Sample raw Tezos data are available
+<a href="https://drive.google.com/file/d/1Jn4A2hxanwniiexzHySFa6CFU8aS03mB/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT level as number, timestamp, baker as coinbase_addresses
+FROM `public-data-finance.crypto_tezos.blocks`
+WHERE timestamp &gt; '2020-12-31'
+</code></pre>
+<h3 id="zcash">Zcash</h3>
+<p>Sample raw Zcash data are available
+<a href="https://drive.google.com/file/d/1WEkUAaIaRsGXuemAZj_DbNIlhkWtOn5A/view?usp=sharing">here</a>.</p>
+<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
+<pre><code>SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_zcash.transactions`.outputs
+FROM `bigquery-public-data.crypto_zcash.transactions`
+JOIN `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_zcash.transactions`.block_number = `bigquery-public-data.crypto_zcash.blocks`.number
+WHERE is_coinbase is TRUE
+AND timestamp &gt; '2018-12-31'
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../parsers/" class="btn btn-neutral float-right" title="Parsers">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../parsers/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
