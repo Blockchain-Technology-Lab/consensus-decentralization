@@ -126,11 +126,11 @@ def analyze(projects, timeframe_argument):
             nc_csv[timeframe] += f',{nc[0]}'
             entropy_csv[timeframe] += f',{entropy}'
 
-    with open('gini.csv', 'w') as f:
+    with open(OUTPUT_DIR / 'gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
-    with open('nc.csv', 'w') as f:
+    with open(OUTPUT_DIR / 'nc.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(nc_csv.items(), key=lambda x: x[0])]))
-    with open('entropy.csv', 'w') as f:
+    with open(OUTPUT_DIR / 'entropy.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(entropy_csv.items(), key=lambda x: x[0])]))
 
 
