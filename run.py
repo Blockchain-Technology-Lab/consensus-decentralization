@@ -153,8 +153,8 @@ def valid_date(date_string):
     pattern = r'\d{4}(\-(0[1-9]|1[012]))?(\-(0[1-9]|[12][0-9]|3[01]))?'
     match = re.fullmatch(pattern, date_string)
     if match is None:
-        raise argparse.ArgumentTypeError(f"Please use the format YYYY-MM-DD for the timeframe argument "
-                                         f"(day and / or month can be omitted).")
+        raise argparse.ArgumentTypeError("Please use the format YYYY-MM-DD for the timeframe argument "
+                                         "(day and / or month can be omitted).")
     return date_string
 
 
