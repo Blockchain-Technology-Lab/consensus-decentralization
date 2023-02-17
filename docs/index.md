@@ -8,6 +8,7 @@ The relevant source code is available on [GitHub](https://github.com/Blockchain-
 
 ## Overview
 The tool consists of the following modules:
+
 - Parser
 - Mapping
 - Metrics
@@ -22,6 +23,7 @@ More details about the different modules can be found in the corresponding [Pars
 and [Metrics](metrics.md) pages.
 
 Currently, the supported ledgers are:
+
 - Bitcoin
 - Bitcoin Cash
 - Cardano
