@@ -1,4 +1,3 @@
-from collections import defaultdict
 from src.parsers.default_parser import DefaultParser
 
 
@@ -12,9 +11,6 @@ class CardanoParser(DefaultParser):
 
     def parse(self):
         data = self.read_and_sort_data()
-        # todo delete unused variables pool_tickers and address_tickers?
-        pool_tickers = defaultdict(set)
-        address_tickers = defaultdict(set)
         for tx in data:
             try:
                 tx['coinbase_addresses'] = tx['pool_hash']
@@ -23,7 +19,7 @@ class CardanoParser(DefaultParser):
                 tx['coinbase_addresses'] = ''
 
             try:
-                ticker = tx['coinbase_param']
+                tx['coinbase_param']
             except KeyError:
                 tx['coinbase_param'] = ''
 
