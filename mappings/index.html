@@ -45,6 +45,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../setup/">How to use</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../data/">Data Collection</a>
                 </li>
               </ul>
@@ -129,16 +133,18 @@ relevant pool information, structured as follows:</p>
   }
 }
 </code></pre>
-<p>In this file:
-- <code>clusters</code> refers to pools with shared coinbase addresses:
-  - instead of <code>&lt;year&gt;</code>, use the keyword <code>all</code> for clusters across years
-  - in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to 
-different pools
-  - in Cardano, such links exist when two pools share the same metadata
-  - the <code>&lt;source of information&gt;</code> should be comma-separated keywords (e.g., "homepage", "shared block", etc) or a url with the clustering information; this information should be reprodusible (a link to a community or company with information that cannot be verified independently is not acceptable)
-- <code>&lt;pool tag&gt;</code> is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined 
-by the pool
-  - in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool</p>
+<p>In this file:</p>
+<ul>
+<li><code>clusters</code> refers to pools with shared coinbase addresses:</li>
+<li>instead of <code>&lt;year&gt;</code>, use the keyword <code>all</code> for clusters across years</li>
+<li>in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to 
+different pools</li>
+<li>in Cardano, such links exist when two pools share the same metadata</li>
+<li>the <code>&lt;source of information&gt;</code> should be comma-separated keywords (e.g., "homepage", "shared block", etc) or a url with the clustering information; this information should be reprodusible (a link to a community or company with information that cannot be verified independently is not acceptable)</li>
+<li><code>&lt;pool tag&gt;</code> is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined 
+by the pool</li>
+<li>in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool</li>
+</ul>
 <h4 id="pool-ownership">Pool Ownership</h4>
 <p>The file <code>helpers/legal_links.json</code> defines legal links between pools and companies, based on off-chain information 
 (e.g., when a company is the major stakeholder in a pool).</p>

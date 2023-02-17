@@ -51,6 +51,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="setup/">How to use</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="data/">Data Collection</a>
                 </li>
               </ul>
@@ -99,10 +103,12 @@ Technology Lab. The tool is responsible for analyzing pooling behavior of variou
 subsequent decentralization levels.</p>
 <p>The relevant source code is available on <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis">GitHub</a>.</p>
 <h2 id="overview">Overview</h2>
-<p>The tool consists of the following modules:
-- Parser
-- Mapping
-- Metrics</p>
+<p>The tool consists of the following modules:</p>
+<ul>
+<li>Parser</li>
+<li>Mapping</li>
+<li>Metrics</li>
+</ul>
 <p>In short, the Parser is responsible for pre-processing the raw data that comes from a full node; it produces a file 
 with all the information that is needed for the Mapping. The Mapping takes the output of the parser and combines it with 
 some other sources of information to produce a file that reveals the distribution of resources to different entities
@@ -110,16 +116,18 @@ some other sources of information to produce a file that reveals the distributio
 the Metrics module, which tracks various decentralization-related metrics and produces a file with the results. </p>
 <p>More details about the different modules can be found in the corresponding <a href="parsers/">Parser</a>, <a href="mappings/">Mapping</a> 
 and <a href="metrics/">Metrics</a> pages.</p>
-<p>Currently, the supported ledgers are:
-- Bitcoin
-- Bitcoin Cash
-- Cardano
-- Dash
-- Dogecoin
-- Ethereum 
-- Litecoin
-- Tezos
-- Zcash</p>
+<p>Currently, the supported ledgers are:</p>
+<ul>
+<li>Bitcoin</li>
+<li>Bitcoin Cash</li>
+<li>Cardano</li>
+<li>Dash</li>
+<li>Dogecoin</li>
+<li>Ethereum </li>
+<li>Litecoin</li>
+<li>Tezos</li>
+<li>Zcash</li>
+</ul>
 <p>We intend add more ledgers to this list in the future. </p>
 <h2 id="contributing">Contributing</h2>
 <p>This is an open source project licensed  under the terms and conditions of the <a href="LICENSE">MIT license</a>. Everyone 
@@ -136,7 +144,7 @@ and ideas can be brought up in the project's
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="data/" class="btn btn-neutral float-right" title="Data Collection">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="setup/" class="btn btn-neutral float-right" title="How to use">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -160,7 +168,7 @@ and ideas can be brought up in the project's
     
     
     
-      <span><a href="data/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="setup/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
@@ -179,5 +187,5 @@ and ideas can be brought up in the project's
 
 <!--
 MkDocs version : 1.4.2
-Build Date UTC : 2023-02-17 11:32:58.069160+00:00
+Build Date UTC : 2023-02-17 14:00:44.670377+00:00
 -->

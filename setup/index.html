@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Setup - Blockchain Pooling Analysis - Docs</title>
+    <title>How to use - Blockchain Pooling Analysis - Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Setup";
+        var mkdocs_page_name = "How to use";
         var mkdocs_page_input_path = "setup.md";
         var mkdocs_page_url = null;
       </script>
@@ -42,6 +42,16 @@
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">How to use</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a>
+    </li>
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -78,7 +88,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-      <li>Setup</li>
+      <li>How to use</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -109,20 +119,26 @@ there is a (very small) sample input file for some supported projects; to use it
 recommended to use larger datasets).</p>
 <p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt;</code> to produce a csv of the mapped data. 
 Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values 
-will be used). Specifically:
-- The <code>ledgers</code> argument accepts any number of the supported ledgers (case-insensitive). For example, <code>--ledgers bitcoin</code> 
+will be used). Specifically:</p>
+<ul>
+<li>The <code>ledgers</code> argument accepts any number of the supported ledgers (case-insensitive). For example, <code>--ledgers bitcoin</code> 
 would run the analysis for Bitcoin, while <code>--ledgers Bitcoin Ethereum Cardano</code> would run the analysis for Bitcoin, 
-Ethereum and Cardano. If the <code>ledgers</code> argument is omitted, then all supported ledgers are used. 
-- The <code>timeframe</code> argument should be of the form <code>YYYY-MM-DD</code> (month and day can be omitted). For example, 
+Ethereum and Cardano. If the <code>ledgers</code> argument is omitted, then all supported ledgers are used. </li>
+<li>The <code>timeframe</code> argument should be of the form <code>YYYY-MM-DD</code> (month and day can be omitted). For example, 
 <code>--timeframe 2022</code> would run the analysis for the year 2022, while <code>--timeframe 2022-02</code> would do it for the month of 
 February 2022. If the <code>timeframe</code> argument is omitted then a monthly analysis is performed for each month between 
-January 2018 and the current month.</p>
+January 2018 and the current month.</li>
+</ul>
 <p>The script will print the output of each implemented metric for the specified ledgers and timeframe.
 All output files can then be found under the "Output" directory (which is automatically created the first time the tool 
 is run).</p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../data/" class="btn btn-neutral float-right" title="Data Collection">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -144,6 +160,10 @@ is run).</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../data/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

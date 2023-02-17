@@ -45,6 +45,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../setup/">How to use</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../data/">Data Collection</a>
                 </li>
               </ul>
@@ -104,18 +108,22 @@ The output file is saved under <code>output/&lt;project_name&gt;/parsed_data.jso
 ]
 </code></pre>
 <p>While <code>number</code> and <code>timestamp</code> are consistent among different blockchains, the exact information that is included in 
-<code>coinbase_addresses</code> and <code>coinbase_param</code> may vary. Specifically, the field <code>coinbase_addresses</code> corresponds to:
-- <code>Bitcoin</code>, <code>Bitcoin Cash</code>, <code>Dogecoin</code>, <code>Litecoin</code>, <code>Zcash</code>, <code>Dash</code>: a string of comma-separated addresses which appear 
-in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)
-- <code>Ethereum</code>: the <code>miner</code> field of the block
-- <code>Cardano</code>: the hash of the pool that created the data, if defined, otherwise the empty string
-- <code>Tezos</code>: the <code>baker</code> field of the block.</p>
-<p>And the field <code>coinbase_param</code> corresponds to:
-- <code>Bitcoin</code>, <code>Bitcoin Cash</code>, <code>Dogecoin</code>, <code>Litecoin</code>, <code>Zcash</code>, <code>Dash</code>: the field <code>coinbase_param</code> of the block's coinbase 
-transaction
-- <code>Ethereum</code>: the field <code>extra_data</code> of the block
-- <code>Cardano</code>: the ticker name of the pool that created the block, if defined, otherwise an empty string
-- <code>Tezos</code>: there is no such field.</p>
+<code>coinbase_addresses</code> and <code>coinbase_param</code> may vary. Specifically, the field <code>coinbase_addresses</code> corresponds to:</p>
+<ul>
+<li><code>Bitcoin</code>, <code>Bitcoin Cash</code>, <code>Dogecoin</code>, <code>Litecoin</code>, <code>Zcash</code>, <code>Dash</code>: a string of comma-separated addresses which appear 
+in the block's coinbase transaction with non-negative value (i.e., which are given some part of the block's fees)</li>
+<li><code>Ethereum</code>: the <code>miner</code> field of the block</li>
+<li><code>Cardano</code>: the hash of the pool that created the data, if defined, otherwise the empty string</li>
+<li><code>Tezos</code>: the <code>baker</code> field of the block.</li>
+</ul>
+<p>And the field <code>coinbase_param</code> corresponds to:</p>
+<ul>
+<li><code>Bitcoin</code>, <code>Bitcoin Cash</code>, <code>Dogecoin</code>, <code>Litecoin</code>, <code>Zcash</code>, <code>Dash</code>: the field <code>coinbase_param</code> of the block's coinbase 
+transaction</li>
+<li><code>Ethereum</code>: the field <code>extra_data</code> of the block</li>
+<li><code>Cardano</code>: the ticker name of the pool that created the block, if defined, otherwise an empty string</li>
+<li><code>Tezos</code>: there is no such field.</li>
+</ul>
 <p>If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash, Dash return data that are parsed 
 with the <code>default_parser</code> script in <code>parsers</code>. 
 The query for Cardano returns data that is parsed using the <code>cardano_parser</code> script in <code>parsers</code>. 
