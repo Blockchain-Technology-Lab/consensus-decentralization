@@ -59,26 +59,25 @@ last execution of `run.py`.
 
 ## Contributing
 
-To add a new project, first store the raw data under `input/<project_name>_raw_data.json`. 
-
 In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool 
 information (see the [mapping documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/) 
 for details on the file's structure).
 
 In the directory `parsers` create a file named `<project_name>_parser.py` and a corresponding class, or reuse an 
-existing parser if it is fit for purpose. The class should inherit from the `DefaultParser` class of `default_parser.py`
+existing parser if fit for purpose. The class should inherit from the `DefaultParser` class of `default_parser.py`
 and override its `parse` method.
 
 In the directory `mappings` create a file named `<project_name>_mapping.py` and a corresponding class, or reuse an 
 existing mapping. The class should inherit from the `Mapping` class of `mapping.py` and override its `process` method, 
-which takes as input a time period in the form `yyyy-mm-dd`, e.g., '2022' for the year 2022, '2022-11' for the month 
-November 2022, '2022-11-12' for the day 12 November 2022, and returns a dictionary of the form 
+which takes as input a time period in the form `yyyy-mm-dd` (e.g., '2022' for the year 2022, '2022-11' for the month 
+November 2022, '2022-11-12' for the day 12 November 2022) and returns a dictionary of the form 
 `{'<entity name>': <number of resources>}` and outputs a csv file of mapped data.
 
-In the script `run.py`, import the newly created parser and mapping classes and assign them to the project's name in the 
+
+In the script `run.py`, import the parser and mapping classes of the new project and assign them to the project's name in the 
 dictionary `ledger_mapping` and `ledger_parser`. Note that you should provide an entry in the `ledger_mapping` and
 `ledger_parser` regardless of whether you are using a new or existing mapping or parser.
 
-To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_data_file>.csv`.
+To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_csv_data_file>`.
 
 To add a new metric, create a relevant script in `metrics` and import the metric function in the script `run.py`.
