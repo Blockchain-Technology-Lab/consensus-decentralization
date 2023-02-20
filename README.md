@@ -81,3 +81,8 @@ dictionary `ledger_mapping` and `ledger_parser`. Note that you should provide an
 To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_csv_data_file>`.
 
 To add a new metric, create a relevant script in `metrics` and import the metric function in the script `run.py`.
+
+## License
+
+The code of this repository is released under the [MIT License](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/LICENSE). The documentation
+pages are released under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
