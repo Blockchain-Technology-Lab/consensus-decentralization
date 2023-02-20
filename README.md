@@ -40,18 +40,19 @@ Note that both arguments are optional, so it's possible to omit one or both of t
 will be used). Specifically:
 - The `ledgers` argument accepts any number of the supported ledgers (case-insensitive). For example, `--ledgers bitcoin` 
 would run the analysis for Bitcoin, while `--ledgers Bitcoin Ethereum Cardano` would run the analysis for Bitcoin, 
-Ethereum and Cardano. If the `ledgers` argument is omitted, then all supported ledgers are used. 
-- The `timeframe` argument should be of the form `YYYY-MM-DD` (month and day can be omitted). For example, 
+Ethereum and Cardano. If the `ledgers` argument is omitted, then all supported ledgers are used. (Note that ledgers with 
+more words should be defined with an underscore, for example Bitcoin Cash should be set as `bitcoin_cash`.)
+- The `timeframe` argument should be of the form `yyyy-mm-dd` (month and day can be omitted). For example, 
 `--timeframe 2022` would run the analysis for the year 2022, while `--timeframe 2022-02` would do it for the month of 
-February 2022. If the `timeframe` argument is omitted then a monthly analysis is performed for each month between 
-January 2018 and the current month.
+February 2022. If the `timeframe` argument is omitted then a monthly analysis is performed for each month since 
+January 2018.
 
 The script will also print the output of each implemented metric for the specified ledgers and timeframe.
 
 To mass produce and analyze data, you can omit one or both arguments. If only
-the project argument is given, all data between 2018-2023 for the given project will be analyzed. If only a timeframe is 
-given, all ledgers will be analyzed for the given timeframe. If no arguments are given, all ledgers will be analyzed for 
-all months between 2018-2023.
+the project argument is given, all data since 2018 for the given project will be analyzed. If only the timeframe is 
+specified, all ledgers will be analyzed for the given timeframe. If no arguments are given, all ledgers will be analyzed for 
+all months since 2018.
 
 Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the root directory, containing the data from the 
 last execution of `run.py`.
@@ -81,4 +82,3 @@ dictionary `ledger_mapping` and `ledger_parser`. Note that you should provide an
 To analyze a csv of mapped data using an existing metric, run `python <metric_name>.py <path_to_mapped_data_file>.csv`.
 
 To add a new metric, create a relevant script in `metrics` and import the metric function in the script `run.py`.
-
