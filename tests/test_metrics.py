@@ -21,21 +21,21 @@ def test_gini():
     """
     decimals = 5
 
-    x1 = np.array([1, 2, 3, 4, 5])
-    g1 = gini.gini(x1)
+    x1 = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
+    g1 = gini.compute_gini(x1)
     assert round(g1, decimals) == 0.26667
 
     x2 = np.array([368, 156, 20, 7, 10, 49, 22, 1])
     g2 = gini.gini(x2)
     assert round(g2, decimals) == 0.67792
 
-    x3 = np.array([11, 2, 1])
+    x3 = np.array([11, 2, -1])
     g3 = gini.gini(x3)
-    assert round(g3, decimals) == 0.47619
+    assert round(g3, decimals) == 0.53333
 
-    x5 = np.array([1, 1, 3, 0, 0])
-    g5 = gini.gini(x5)
-    assert round(g5, decimals) == 0.56000
+    x4 = np.array([1, 1, 3, 0, 0])
+    g4 = gini.gini(x4)
+    assert round(g4, decimals) == 0.56000
 
 
 def test_nc():
