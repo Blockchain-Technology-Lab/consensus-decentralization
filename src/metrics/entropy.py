@@ -23,7 +23,7 @@ def compute_entropy(blocks_per_entity, alpha):
             blocks / all_blocks for blocks in blocks_per_entity.values()
         ]
         if alpha == -1:
-            entropy = - log(max(probs))
+            entropy = - log(max(probs), 2)
         else:
             sum_freqs = sum([
                 prob ** alpha for prob in probs
