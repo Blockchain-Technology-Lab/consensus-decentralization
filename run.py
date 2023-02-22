@@ -20,10 +20,10 @@ def valid_date(date_string):
     return date_string
 
 
-def main(projects, timeframes):
+def main(projects, timeframes, force_parse):
     print(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
-        parse(project)
+        parse(project, force_parse)
         for timeframe in timeframes:
             apply_mapping(project, timeframe)
             analyze(project, timeframe)
@@ -47,6 +47,11 @@ if __name__ == '__main__':
         default=None,
         help='The timeframe that will be analyzed.'
     )
+    parser.add_argument(
+        '--force-parse',
+        action='store_true',
+        help='Flag to specify whether to parse the raw data, regardless if the parsed data file exists.'
+    )
     args = parser.parse_args()
 
     projects = args.ledgers
@@ -60,4 +65,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    main(projects, timeframes)
+    main(projects, timeframes, args.force_parse)
