@@ -42,7 +42,7 @@ def get_pool_data(project_name, timeframe):
 
 
 def write_csv_file(project_dir, blocks_per_entity, timeframe):
-    with open(project_dir + '/' + timeframe + '.csv', 'w') as f:
+    with open(project_dir / f'{timeframe}.csv', 'w') as f:
         csv_output = ['Entity,Resources']
         for key, val in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
             csv_output.append(','.join([key, str(val)]))
