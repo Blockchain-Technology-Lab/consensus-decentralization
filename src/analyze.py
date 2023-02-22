@@ -3,10 +3,8 @@ from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
 from src.helpers.helper import OUTPUT_DIR
 
-ENTROPY_ALPHA = 1  # -1: min entropy, 1: Shannon entropy, 2: collision entropy, 0: Hartley entropy
 
-
-def analyze(project, timeframe):
+def analyze(project, timeframe, entropy_alpha):
     """
     :param project: the ledger whose data should be analyzed
     :param timeframe: the timeframe (of the form yyyy-mm-dd) over which data should be analyzed
@@ -48,8 +46,8 @@ def analyze(project, timeframe):
                 blocks_per_entity[entity] = 0
         gini = compute_gini(blocks_per_entity)
         nc = compute_nakamoto_coefficient(blocks_per_entity)
-        entropy = compute_entropy(blocks_per_entity, ENTROPY_ALPHA)
-        max_entropy = compute_entropy({entity: 1 for entity in yearly_entities}, ENTROPY_ALPHA)
+        entropy = compute_entropy(blocks_per_entity, entropy_alpha)
+        max_entropy = compute_entropy({entity: 1 for entity in yearly_entities}, entropy_alpha)
         entropy_percentage = 100 * entropy / max_entropy if max_entropy != 0 else 0
         print(
             f'[{project:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   '
