@@ -1,28 +1,28 @@
 {
   "2018": {
       "Bitmain": [
-          ["AntPool", "<source needed>"],
-          ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
+          ["AntPool", "https://www.investopedia.com/news/top-bitcoin-mining-pools/"],
+          ["BTC.COM", "https://www.investopedia.com/news/top-bitcoin-mining-pools/"],
           ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
       ]
   },
   "2019": {
       "Bitmain": [
-          ["AntPool", "<source needed>"],
+          ["AntPool", "https://www.coindesk.com/company/antpool/"],
           ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
           ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
       ]
   },
   "2020": {
       "Bitmain": [
-          ["AntPool", "<source needed>"],
+          ["AntPool", "https://www.coindesk.com/company/antpool/"],
           ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
           ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
       ]
   },
   "2021": {
       "Bitmain": [
-          ["AntPool", "<source needed>"]
+          ["AntPool", "https://www.coindesk.com/company/antpool/"]
       ],
       "BTC.COM": [
           ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
@@ -30,7 +30,7 @@
   },
   "2022": {
       "Bitmain": [
-          ["AntPool", "<source needed>"]
+          ["AntPool", "https://www.coindesk.com/company/antpool/"]
       ],
       "Poolin": [
           ["NovaBlock", "https://bitcoinmagazine.com/business/chinese-mining-pool-poolin-acquires-north-american-competitor-novablock"]
