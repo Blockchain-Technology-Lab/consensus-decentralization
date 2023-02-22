@@ -4,10 +4,9 @@ import numpy as np
 
 def test_entropy():
     """
-    Ensure that the results of the compute_entropy function are consistent with online calculators,
-    such as https://www.omnicalculator.com/statistics/shannon-entropy
-
-    TODO: add tests for other entropies (alpha = {0, 2, -1}
+    Ensure that the results of the compute_entropy function are consistent with online calculators.
+    Shannon entropy: https://www.omnicalculator.com/statistics/shannon-entropy
+    Renyi entropy: https://github.com/dit/dit
     """
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
 
@@ -16,6 +15,14 @@ def test_entropy():
 
     min_entropy = entropy.compute_entropy(blocks_per_entity, -1)
     assert round(min_entropy, 3) == 1.0
+
+    blocks_per_entity = {'a': 216, 'b': 432, 'c': 288, 'd': 64}
+
+    hartley_entropy = entropy.compute_entropy(blocks_per_entity, 0)
+    assert round(hartley_entropy, 3) == 2.0
+
+    collision_entropy = entropy.compute_entropy(blocks_per_entity, 2)
+    assert round(collision_entropy, 3) == 1.642
 
 
 def test_gini():
