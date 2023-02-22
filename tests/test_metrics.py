@@ -10,8 +10,12 @@ def test_entropy():
     TODO: add tests for other entropies (alpha = {0, 2, -1}
     """
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
-    shannon_ntrp = entropy.compute_entropy(blocks_per_entity, 1)
-    assert round(shannon_ntrp, 3) == 1.459
+
+    shannon_entropy = entropy.compute_entropy(blocks_per_entity, 1)
+    assert round(shannon_entropy, 3) == 1.459
+
+    min_entropy = entropy.compute_entropy(blocks_per_entity, -1)
+    assert round(min_entropy, 3) == 1.0
 
 
 def test_gini():
