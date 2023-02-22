@@ -34,7 +34,6 @@ def get_pool_data(project_name, timeframe):
 
     for key, val in pool_links.items():  # resolve chain links
         while val in pool_links.keys() and key != val:
-            key = val
             val = pool_links[val]
         pool_links[key] = val
 
