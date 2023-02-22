@@ -6,3 +6,4 @@ multi_pool_addresses*
 multi_pool_blocks
 output
 input/*_raw_data.json
+.coverage
