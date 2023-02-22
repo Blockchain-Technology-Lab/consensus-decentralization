@@ -8,10 +8,8 @@ from src.mappings.bitcoin import BitcoinMapping
 from src.mappings.ethereum import EthereumMapping
 from src.mappings.cardano import CardanoMapping
 from src.mappings.tezos import TezosMapping
-from src.parsers.default_parser import DefaultParser
-from src.parsers.cardano_parser import CardanoParser
-from src.parsers.dummy_parser import DummyParser
 from src.helpers.helper import OUTPUT_DIR
+from src.parse import parse
 
 ledger_mapping = {
     'bitcoin': BitcoinMapping,
@@ -23,18 +21,6 @@ ledger_mapping = {
     'zcash': BitcoinMapping,
     'tezos': TezosMapping,
     'dash': BitcoinMapping,
-}
-
-ledger_parser = {
-    'bitcoin': DefaultParser,
-    'ethereum': DummyParser,
-    'bitcoin_cash': DefaultParser,
-    'dogecoin': DefaultParser,
-    'cardano': CardanoParser,
-    'litecoin': DefaultParser,
-    'zcash': DefaultParser,
-    'tezos': DummyParser,
-    'dash': DefaultParser,
 }
 
 START_YEAR = 2018
@@ -134,20 +120,6 @@ def analyze(projects, timeframe_argument):
         f.write('\n'.join([i[1] for i in sorted(entropy_csv.items(), key=lambda x: x[0])]))
 
 
-def parse(projects, force_parse=False):
-    """
-    Parse raw data, unless already parsed
-    :param projects: the ledgers whose data should be parsed
-    :param force_parse: if True, then raw data will be parsed, regardless of whether parsed data for the some or all of
-     the projects already exist
-    """
-    for project in projects:
-        parsed_data_file = OUTPUT_DIR / project / 'parsed_data.json'
-        if force_parse or not parsed_data_file.is_file():
-            parser = ledger_parser[project](project)
-            parser.parse()
-
-
 def valid_date(date_string):
     # note: this regex assumes that all months have 31 days, so a few invalid dates get accepted (but most don't)
     pattern = r'\d{4}(\-(0[1-9]|1[012]))?(\-(0[1-9]|[12][0-9]|3[01]))?'
@@ -182,5 +154,6 @@ if __name__ == '__main__':
     projects = args.ledgers
 
     print(f"The ledgers that will be analyzed are: {','.join(projects)}")
-    parse(projects)
+    for project in projects:
+        parse(project)
     analyze(projects, timeframe)  # todo separate into different map + analyze functions
