@@ -1,3 +1,4 @@
+import argparse
 from src.mappings.bitcoin import BitcoinMapping
 from src.mappings.ethereum import EthereumMapping
 from src.mappings.cardano import CardanoMapping
@@ -35,3 +36,26 @@ def apply_mapping(project, timeframe):
         year_file = project_output_dir / f'{year}.csv'
         if not year_file.is_file():
             mapping.perform_mapping(year)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        '--ledger',
+        nargs="*",
+        type=str.lower,
+        default=None,
+        choices=[ledger for ledger in ledger_mapping],
+        help='The ledgers that will be analyzed.'
+    )
+    parser.add_argument(
+        '--timeframe',
+        nargs="?",
+        type=str,
+        default=None,
+        help='The timeframe that will be analyzed.'
+    )
+    args = parser.parse_args()
+
+    apply_mapping(args.ledger, args.timeframe)
