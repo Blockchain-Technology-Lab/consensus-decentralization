@@ -11,5 +11,5 @@ jobs:
       with:
         python-version: '3.8'
     - run: pip install -r requirements.txt
-    - run: pytest
+    - run: coverage run --source=. -m pytest -v tests && coverage report -m
     - run: flake8
