@@ -2,22 +2,22 @@
   "2018": {
       "Bitmain": [
           ["AntPool", "<source needed>"],
-          ["BTC.COM", "<source needed>"],
-          ["Bitdeer", "<source needed>"]
+          ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
+          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
       ]
   },
   "2019": {
       "Bitmain": [
           ["AntPool", "<source needed>"],
-          ["BTC.COM", "<source needed>"],
-          ["Bitdeer", "<source needed>"]
+          ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
+          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
       ]
   },
   "2020": {
       "Bitmain": [
           ["AntPool", "<source needed>"],
-          ["BTC.COM", "<source needed>"],
-          ["Bitdeer", "<source needed>"]
+          ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
+          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
       ]
   },
   "2021": {
@@ -25,7 +25,7 @@
           ["AntPool", "<source needed>"]
       ],
       "BTC.COM": [
-          ["Bitdeer", "<source needed>"]
+          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
       ]
   },
   "2022": {
