@@ -20,6 +20,15 @@ def valid_date(date_string):
     return date_string
 
 
+def main(projects, timeframes):
+    print(f"The ledgers that will be analyzed are: {','.join(projects)}")
+    for project in projects:
+        parse(project)
+        for timeframe in timeframes:
+            apply_mapping(project, timeframe)
+            analyze(project, timeframe)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
@@ -51,9 +60,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    print(f"The ledgers that will be analyzed are: {','.join(projects)}")
-    for project in projects:
-        parse(project)
-        for timeframe in timeframes:
-            apply_mapping(project, timeframe)
-            analyze(project, timeframe)
+    main(projects, timeframes)
