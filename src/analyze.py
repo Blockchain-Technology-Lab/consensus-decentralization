@@ -1,3 +1,4 @@
+import argparse
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
@@ -67,3 +68,25 @@ def analyze(project, timeframe, entropy_alpha):
         f.write('\n'.join([i[1] for i in sorted(nc_csv.items(), key=lambda x: x[0])]))
     with open(OUTPUT_DIR / 'entropy.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(entropy_csv.items(), key=lambda x: x[0])]))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        '--ledger',
+        nargs="*",
+        type=str.lower,
+        default=None,
+        help='The ledgers that will be analyzed.'
+    )
+    parser.add_argument(
+        '--timeframe',
+        nargs="?",
+        type=str,
+        default=None,
+        help='The timeframe that will be analyzed.'
+    )
+    args = parser.parse_args()
+
+    analyze(args.ledger, args.timeframe)
