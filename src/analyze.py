@@ -9,6 +9,7 @@ def analyze(project, timeframe, entropy_alpha):
     """
     :param project: the ledger whose data should be analyzed
     :param timeframe: the timeframe (of the form yyyy-mm-dd) over which data should be analyzed
+    :param entropy_alpha: the alpha parameter for the entropy calculation
     """
     gini_csv = {'0': 'timeframe'}
     nc_csv = {'0': 'timeframe'}
@@ -87,6 +88,15 @@ if __name__ == '__main__':
         default=None,
         help='The timeframe that will be analyzed.'
     )
+    parser.add_argument(
+        '--entropy-alpha',
+        nargs="?",
+        type=int,
+        default=1,
+        help='The alpha parameter for entropy computation. Default Shannon entropy. Examples: -1: min, 0: Hartley, '
+             '1: Shannon, 2: collision.'
+    )
+
     args = parser.parse_args()
 
-    analyze(args.ledger, args.timeframe)
+    analyze(args.ledger, args.timeframe, args.entropy_alpha)

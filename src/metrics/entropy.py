@@ -35,5 +35,6 @@ def compute_entropy(blocks_per_entity, alpha):
 
 if __name__ == '__main__':
     filename = sys.argv[1]
+    entropy_alpha = sys.argv[2] if len(sys.argv) > 2 else 1
     blocks_per_entity = hlp.get_blocks_per_entity_from_file(filename)
-    print(f'Entropy: {compute_entropy(blocks_per_entity)}')
+    print(f'Entropy: {compute_entropy(blocks_per_entity, entropy_alpha)}')
