@@ -1,8 +1,9 @@
 import json
+from src.parse import parse, ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
 from src.parsers.cardano_parser import CardanoParser
-from src.helpers.helper import OUTPUT_DIR
+from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 
 def compare_parsed_samples(correct_data, parsed_file):
@@ -85,3 +86,46 @@ def test_cardano_parser():
     assert parsed_file.is_file()
 
     compare_parsed_samples(sample_parsed_data, parsed_file)
+
+
+def test_parse():
+    sample_block = {"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "coinbase_param": "03f06a0a202f5669614254432f4d696e6564206279206a617669647361656964373037332f2cfabe6d6d6e43ef2e06f7137b897180388403ee5019b8ff0ca4a045ea3cd82e3e41620fe91000000000000000105462a20fc21591f70e691905660b0000", "coinbase_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX"}
+
+    project = 'sample_bitcoin'
+    ledger_parser[project] = DefaultParser
+
+    parsed_file = OUTPUT_DIR / f'{project}/parsed_data.json'
+    input_file = INPUT_DIR / f'{project}_raw_data.json'
+
+    parse(project)
+    with open(parsed_file) as f:
+        test_data = json.load(f)
+        for item in test_data:
+            if item['number'] == '682736':
+                assert item['coinbase_addresses'] == sample_block['coinbase_addresses']
+
+    with open(input_file) as f:
+        sample_data = f.read()
+    sample_data = sample_data.replace("18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX", "----------------------------------")
+    with open(input_file, 'w') as f:
+        f.write(sample_data)
+
+    parse(project)
+    with open(parsed_file) as f:
+        test_data = json.load(f)
+        for item in test_data:
+            if item['number'] == '682736':
+                assert item['coinbase_addresses'] == sample_block['coinbase_addresses']
+
+    parse(project, True)
+    with open(parsed_file) as f:
+        test_data = json.load(f)
+        for item in test_data:
+            if item['number'] == '682736':
+                assert item['coinbase_addresses'] == "----------------------------------"
+
+    with open(input_file) as f:
+        sample_data = f.read()
+    sample_data = sample_data.replace("----------------------------------", "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX")
+    with open(input_file, 'w') as f:
+        f.write(sample_data)
