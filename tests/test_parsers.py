@@ -74,7 +74,7 @@ def test_cardano_parser():
     sample_parsed_data = [
         {"number": "17809932", "coinbase_param": "CFLOW", "timestamp": "2020-12-31T00:57:03", "coinbase_addresses": "e7b605b72af41d6e8e6894274dedd18114f1759fea500b6d07031535"},
         {"number": "55555555555", "coinbase_param": "1PCT5", "timestamp": "2020-12-31T06:42:01", "coinbase_addresses": ""},
-        {"number": "66666666666", "coinbase_param": "", "timestamp": "2020-12-31T06:42:01", "coinbase_addresses": "1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53"}
+        {"number": "66666666666", "coinbase_param": "", "timestamp": "2020-12-31T04:42:01", "coinbase_addresses": "1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53"}
     ]
 
     project_name = 'sample_cardano'

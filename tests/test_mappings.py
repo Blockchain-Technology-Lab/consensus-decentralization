@@ -154,7 +154,40 @@ def test_ethereum_mapping():
 
 
 def test_cardano_mapping():
-    pass
+    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
+
+    project = 'sample_cardano'
+
+    shutil.copy2(str(pool_info_dir / 'cardano.json'), str(pool_info_dir / f'{project}.json'))
+
+    ledger_mapping[project] = CardanoMapping
+    ledger_parser[project] = CardanoParser
+
+    timeframes = ['2020-12']
+
+    parse(project)
+    apply_mapping(project, timeframes)
+
+    expected_output = [
+        'Entity,Resources\n',
+        'CFLOW,1\n',
+        '1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53,1\n',
+        '[!] IOG (core nodes pre-decentralization),1\n',
+        'Arrakis,1\n',
+        '1percentpool,1'
+    ]
+
+    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    with open(output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    with open(yearly_output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    os.remove(str(pool_info_dir / f'{project}.json'))
 
 
 def test_tezos_mapping():
