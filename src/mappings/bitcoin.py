@@ -53,7 +53,7 @@ class BitcoinMapping(Mapping):
                         entity = coinbase_addresses[0]
                     else:
                         entity = '/'.join([
-                            addr[:5] + '...' + addr[-5:] for addr in coinbase_addresses
+                            addr[:5] + '...' + addr[-5:] for addr in sorted(coinbase_addresses)
                         ])
 
             if entity in pool_links.keys():
