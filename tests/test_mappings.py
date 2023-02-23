@@ -104,4 +104,57 @@ def test_cardano_mapping():
 
 
 def test_tezos_mapping():
-    pass
+    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
+
+    project = 'sample_tezos'
+
+    shutil.copy2(str(pool_info_dir / 'tezos.json'), str(pool_info_dir / f'{project}.json'))
+    with open(str(pool_info_dir / f'{project}.json')) as f:
+        pool_info = json.load(f)
+    pool_info['clusters']['2021'] = {}
+    pool_info['clusters']['2021']['TEST'] = [['TzNode', 'homepage']]
+    with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
+        f.write(json.dumps(pool_info))
+
+    ledger_mapping[project] = TezosMapping
+    ledger_parser[project] = DummyParser
+
+    timeframes = ['2021-08']
+
+    parse(project)
+    apply_mapping(project, timeframes)
+
+    expected_output = [
+        'Entity,Resources\n',
+        'Tezos Seoul,2\n',
+        'tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP,1\n',
+        'TEST,1\n',
+        '----- UNDEFINED MINER -----,1'
+    ]
+
+    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    with open(output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    with open(yearly_output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    timeframes = ['2018']
+
+    parse(project)
+    apply_mapping(project, timeframes)
+
+    expected_output = [
+        'Entity,Resources\n',
+        'tz0000000000000000000000000000000000,1'
+    ]
+
+    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    with open(output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    os.remove(str(pool_info_dir / f'{project}.json'))
