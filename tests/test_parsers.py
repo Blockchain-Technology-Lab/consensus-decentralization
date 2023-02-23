@@ -49,7 +49,7 @@ def test_dummy_parser():
     sample_parsed_data = [
         {"number": "11181062", "timestamp": "2020-11-03 00:56:48 UTC", "coinbase_addresses": "0xe9b54a47e3f401d37798fc4e22f14b78475c2afc", "coinbase_param": "0x36"},
         {"number": "11183702", "timestamp": "2020-11-03 10:37:32 UTC", "coinbase_addresses": "0xe9b54a47e3f401d37798fc4e22f14b78475c2afc", "coinbase_param": "0x36"},
-        {"number": "11183739", "timestamp": "2020-11-03 10:44:14 UTC", "coinbase_addresses": "0xe9b54a47e3f401d37798fc4e22f14b78475c2afc", "coinbase_param": "0x36"},
+        {"number": "11183739", "timestamp": "2020-11-03 10:44:14 UTC", "coinbase_addresses": "0xe9b54a47e3f401d37798fc4e22f14b78475c2afc", "coinbase_param": "0x3"},
         {"number": "11183793", "timestamp": "2020-11-03 10:56:07 UTC", "coinbase_addresses": "0x8595dd9e0438640b5e1254f9df579ac12a86865f", "coinbase_param": "0x657a696c2e6d65"},
         {"number": "11183969", "timestamp": "2020-11-03 11:33:44 UTC", "coinbase_addresses": "0x8595dd9e0438640b5e1254f9df579ac12a86865f", "coinbase_param": "0x657a696c2e6d65"},
         {"number": "11184329", "timestamp": "2020-11-03 12:56:41 UTC", "coinbase_addresses": "0x8595dd9e0438640b5e1254f9df579ac12a86865f", "coinbase_param": "0x657a696c2e6d65"},
