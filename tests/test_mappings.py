@@ -38,7 +38,61 @@ def test_map():
 
 
 def test_bitcoin_mapping():
-    pass
+    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
+
+    project = 'sample_bitcoin'
+
+    shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))
+    with open(str(pool_info_dir / f'{project}.json')) as f:
+        pool_info = json.load(f)
+    pool_info['pool_addresses']['2020'] = {}
+    pool_info['pool_addresses']['2020']['0000000000000000000000000000000000000000'] = 'TEST2'
+    with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
+        f.write(json.dumps(pool_info))
+
+    ledger_mapping[project] = BitcoinMapping
+    ledger_parser[project] = DefaultParser
+
+    timeframes = ['2018-02']
+
+    parse(project)
+    apply_mapping(project, timeframes)
+
+    expected_output = [
+        'Entity,Resources\n',
+        '1AM2f...9pJUx/3G7y1...gPPWb,4\n',
+        'BTC.TOP,2\n',
+        'GBMiners,2\n',
+        '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
+    ]
+
+    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    with open(output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    with open(yearly_output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    timeframes = ['2020']
+
+    parse(project)
+    apply_mapping(project, timeframes)
+
+    expected_output = [
+        'Entity,Resources\n',
+        'TEST2,1\n',
+        'Bitmain,1'
+    ]
+
+    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    with open(output_file) as f:
+        for idx, line in enumerate(f.readlines()):
+            assert expected_output[idx] == line
+
+    os.remove(str(pool_info_dir / f'{project}.json'))
 
 
 def test_ethereum_mapping():
