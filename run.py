@@ -57,7 +57,8 @@ if __name__ == '__main__':
         nargs="?",
         type=int,
         default=1,
-        help='The alpha parameter for entropy computation. Default Shannon entropy. Examples: -1: min, 0: Hartley, 1: Shannon, 2: collision.'
+        help='The alpha parameter for entropy computation. Default Shannon entropy. Examples: -1: min, 0: Hartley, '
+             '1: Shannon, 2: collision.'
     )
     args = parser.parse_args()
 
