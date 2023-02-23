@@ -24,9 +24,8 @@ def main(projects, timeframes, force_parse, entropy_alpha):
     print(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
         parse(project, force_parse)
-        for timeframe in timeframes:
-            apply_mapping(project, timeframe)
             analyze(project, timeframe, entropy_alpha)
+        apply_mapping(project, timeframes)
 
 
 if __name__ == '__main__':

@@ -5,6 +5,9 @@ from src.mappings.cardano import CardanoMapping
 from src.mappings.tezos import TezosMapping
 from src.helpers.helper import OUTPUT_DIR
 
+START_YEAR = 2018
+END_YEAR = 2024
+
 ledger_mapping = {
     'bitcoin': BitcoinMapping,
     'ethereum': EthereumMapping,
@@ -18,31 +21,35 @@ ledger_mapping = {
 }
 
 
-def apply_mapping(project, timeframe):
+def apply_mapping(project, timeframes):
     """
     :param project: the ledger whose data should be mapped
-    :param timeframe: the timeframe (of the form yyyy-mm-dd) over which data should be mapped
+    :param timeframes: the timeframes (of the form yyyy-mm-dd) over which data should be mapped
+
+    Using multiple timeframes is more efficient here, since every new mapping has a heavy I/O
+    operation for retrieving the parsed data.
     """
     project_output_dir = OUTPUT_DIR / f'{project}'
     mapping = ledger_mapping[project](project, project_output_dir)
 
-    output_file = project_output_dir / f'{timeframe}.csv'
-    if not output_file.is_file():
-        mapping.perform_mapping(timeframe)
+    for timeframe in timeframes:
+        output_file = project_output_dir / f'{timeframe}.csv'
+        if not output_file.is_file():
+            mapping.perform_mapping(timeframe)
 
-        # Get mapped data for the year that corresponds to the timeframe.
-        # This is needed because the Gini coefficient is computed over all entities per each year.
-        year = timeframe[:4]
-        year_file = project_output_dir / f'{year}.csv'
-        if not year_file.is_file():
-            mapping.perform_mapping(year)
+            # Get mapped data for the year that corresponds to the timeframe.
+            # This is needed because the Gini coefficient is computed over all entities per each year.
+            year = timeframe[:4]
+            year_file = project_output_dir / f'{year}.csv'
+            if not year_file.is_file():
+                mapping.perform_mapping(year)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '--ledger',
+        '--ledgers',
         nargs="*",
         type=str.lower,
         default=None,
@@ -58,4 +65,13 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    apply_mapping(args.ledger, args.timeframe)
+    timeframe = args.timeframe
+    if timeframe:
+        timeframes = [timeframe]
+    else:
+        timeframes = []
+        for year in range(START_YEAR, END_YEAR):
+            for month in range(1, 13):
+                timeframes.append(f'{year}-{str(month).zfill(2)}')
+
+    apply_mapping(args.ledgers, timeframes)
