@@ -32,10 +32,17 @@ def get_pool_data(project_name, timeframe):
         except KeyError:
             pass
 
-    for key, val in pool_links.items():  # resolve chain links
-        while val in pool_links.keys() and key != val:
-            val = pool_links[val]
-        pool_links[key] = val
+    for parent, child in pool_links.items():  # resolve chain links
+        while child in pool_links.keys():
+            next_child = pool_links[child]
+            if next_child == child:
+                # Cluster's name is the same as the primary pool's name
+                break
+            elif next_child == parent:
+                raise ValueError(f'Circular dependency: {parent}, {child}')
+            else:
+                child = next_child
+        pool_links[parent] = child
 
     return pool_data, pool_links
 
