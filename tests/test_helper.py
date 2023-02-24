@@ -1,5 +1,4 @@
 import pathlib
-import os
 from src.helpers.helper import get_pool_data, write_csv_file, get_blocks_per_entity_from_file
 
 
@@ -57,8 +56,6 @@ def test_pool_data():
 
 def test_write_read_blocks_per_entity():
     output_dir = pathlib.Path(__file__).resolve().parent.parent / 'output'
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
 
     blocks_per_entity = {'Entity 1': 1, 'Entity 2': 2}
 
