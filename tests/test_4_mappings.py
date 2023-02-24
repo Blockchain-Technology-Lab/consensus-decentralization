@@ -21,7 +21,7 @@ def test_map():
 
     shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))
 
-    timeframes = '2018-02'
+    timeframes = ['2010', '2018-02', '2018-03']
     ledger_mapping[project] = BitcoinMapping
     ledger_parser[project] = DefaultParser
 
@@ -62,14 +62,21 @@ def test_bitcoin_mapping():
         'Entity,Resources\n',
         '1AM2f...9pJUx/3G7y1...gPPWb,4\n',
         'BTC.TOP,2\n',
-        'GBMiners,2\n',
-        '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
+        'GBMiners,2'
     ]
 
     output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
+
+    expected_output = [
+        'Entity,Resources\n',
+        '1AM2f...9pJUx/3G7y1...gPPWb,4\n',
+        'BTC.TOP,2\n',
+        'GBMiners,2\n',
+        '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
+    ]
 
     yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
