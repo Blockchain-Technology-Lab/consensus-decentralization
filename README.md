@@ -59,6 +59,27 @@ last execution of `run.py`.
 
 ## Contributing
 
+### Pooling information
+
+You can update and/or add clustering information for any ledger as follows. In
+all cases, the information should be submitted via a Github PR.
+
+Information about legal links between entities is defined in
+`src/helpers/legal_links.json`. This file defines information for all supported
+ledgers. For a specific description on how to add information see
+[here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/src/helpers).
+
+Information about entities of a specific ledger is defined in
+`src/helpers/pool_information`. For every supported ledger, there exists a
+distinct file `src/helpers/pool_information/<project name>.json`. For a
+specific description on how to add information see
+[here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/src/helpers/pool_information).
+
+### Support for ledgers  
+
+You can add support for an extra ledger, which is not already supported, as
+follows.
+
 In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool 
 information (see the [mapping documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/) 
 for details on the file's structure).
