@@ -39,7 +39,7 @@ def get_pool_data(project_name, timeframe):
                 # Cluster's name is the same as the primary pool's name
                 break
             elif next_child == parent:
-                raise ValueError(f'Circular dependency: {parent}, {child}')
+                raise AssertionError(f'Circular dependency: {parent}, {child}')
             else:
                 child = next_child
         pool_links[parent] = child
