@@ -57,17 +57,7 @@ def get_time_period(frm, to):
         start = datetime.date.min
 
     if to:
-        time_list = [int(i) for i in to.split('-')]
-        if len(time_list) == 3:
-            end = datetime.date(time_list[0], time_list[1], time_list[2]) - datetime.timedelta(1)
-        elif len(time_list) == 2:
-            if time_list[1] == 1:
-                end = datetime.date(time_list[0] - 1, 12, 31)
-            else:
-                end = datetime.date(time_list[0], time_list[1] - 1,
-                                    calendar.monthrange(time_list[0], time_list[1] - 1)[1])
-        elif len(time_list) == 1:
-            end = datetime.date(time_list[0] - 1, 12, 31)
+        end = get_start_date(to) - datetime.timedelta(1)
     else:
         end = datetime.date.max
 
