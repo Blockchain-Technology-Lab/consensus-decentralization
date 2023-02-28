@@ -52,8 +52,7 @@ def test_bitcoin_mapping():
 
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
-    pool_info['pool_addresses']['2020'] = {}
-    pool_info['pool_addresses']['2020']['0000000000000000000000000000000000000000'] = 'TEST2'
+    pool_info['pool_addresses']['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'from': '2020-01-02', 'to': '2020-09-20', 'source': ''}
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
 
@@ -113,10 +112,8 @@ def test_ethereum_mapping():
 
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
-    pool_info['clusters']['all'] = {}
-    pool_info['clusters']['all']['TEST'] = [['ezil.me', 'homepage']]
-    pool_info['pool_addresses']['2020'] = {}
-    pool_info['pool_addresses']['2020']['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = 'TEST2'
+    pool_info['clusters']['TEST'] = [{'name': 'ezil.me', 'from': '', 'to': '', 'source': 'homepage'}]
+    pool_info['pool_addresses']['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'from': '2020', 'to': '2021', 'source': ''}
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
 
@@ -201,8 +198,7 @@ def test_tezos_mapping():
     shutil.copy2(str(pool_info_dir / 'tezos.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
-    pool_info['clusters']['2021'] = {}
-    pool_info['clusters']['2021']['TEST'] = [['TzNode', 'homepage']]
+    pool_info['clusters']['TEST'] = [{'name': 'TzNode', 'from': '2021', 'to': '2022', 'source': 'homepage'}]
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
 
