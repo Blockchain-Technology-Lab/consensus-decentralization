@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_csv_file
+from src.helpers.helper import get_pool_data, write_csv_file, get_pool_addresses
 from src.mappings.mapping import Mapping
 
 
@@ -13,8 +13,22 @@ class CardanoMapping(Mapping):
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
+        daily_helper_data = {}
         blocks_per_entity = defaultdict(int)
         for tx in data:
+            day = tx['timestamp'][:10]
+            try:
+                pool_data = daily_helper_data[day]['pool_data']
+                pool_links = daily_helper_data[day]['pool_links']
+                pool_addresses = daily_helper_data[day]['pool_addresses']
+            except KeyError:
+                pool_data, pool_links = get_pool_data(self.project_name, day)
+                pool_addresses = get_pool_addresses(self.project_name, day)
+                daily_helper_data[day] = {}
+                daily_helper_data[day]['pool_data'] = pool_data
+                daily_helper_data[day]['pool_links'] = pool_links
+                daily_helper_data[day]['pool_addresses'] = pool_addresses
+
             entity = tx['coinbase_param']
             if entity:
                 if entity in pool_links.keys():

@@ -12,15 +12,26 @@ class BitcoinMapping(Mapping):
         super().__init__(project_name, dataset)
 
     def process(self, timeframe):
-        pool_data, pool_links = get_pool_data(self.project_name, timeframe)
-        pool_addresses = get_pool_addresses(self.project_name, timeframe)
-
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
+        daily_helper_data = {}
         multi_pool_blocks = list()
         multi_pool_addresses = list()
         blocks_per_entity = defaultdict(int)
         for tx in data:
+            day = tx['timestamp'][:10]
+            try:
+                pool_data = daily_helper_data[day]['pool_data']
+                pool_links = daily_helper_data[day]['pool_links']
+                pool_addresses = daily_helper_data[day]['pool_addresses']
+            except KeyError:
+                pool_data, pool_links = get_pool_data(self.project_name, day)
+                pool_addresses = get_pool_addresses(self.project_name, day)
+                daily_helper_data[day] = {}
+                daily_helper_data[day]['pool_data'] = pool_data
+                daily_helper_data[day]['pool_links'] = pool_links
+                daily_helper_data[day]['pool_addresses'] = pool_addresses
+
             coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
             coinbase_addresses = tx['coinbase_addresses'].split(',')
 
