@@ -13,34 +13,28 @@ OUTPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'output'
 
 
 def valid_date(date_string):
+    """
+    Validates the given string if it corresponds to a correct date and is in YYYY-MM-DD, YYYY-MM or YYYY format
+    :param date_string: a string representation of a date
+    :returns: the string as it was given, if it corresponds to a valid date in the specified format
+    :raises: argparse.ArgumentTypeError if the wrong format is used or if the date_string doesn't correspond to a valid
+    date
+    """
     try:
-        time_list = [int(i) for i in date_string.split('-')]
-        if len(time_list) == 3:
-            datetime.date(time_list[0], time_list[1], time_list[2])
-        elif len(time_list) == 2:
-            datetime.date(time_list[0], time_list[1], 1)
-        elif len(time_list) == 1:
-            datetime.date(time_list[0], 1, 1)
+        get_timeframe_beginning(date_string)
     except ValueError:
         raise argparse.ArgumentTypeError("Please use the format YYYY-MM-DD for the timeframe argument "
-                                         "(day and / or month can be omitted).")
+                                         "(day and month can be omitted).")
     return date_string
 
 
-def get_start_date(timeframe):
+def get_timeframe_beginning(timeframe):
     """
     Determines the first day of a given timeframe
     :param timeframe: a string representation of the timeframe in YYYY-MM-DD, YYYY-MM or YYYY format
     :returns: a date object corresponding to the first day of the timeframe
     """
-    time_list = [int(i) for i in timeframe.split('-')]
-    if len(time_list) == 3:
-        start = datetime.date(time_list[0], time_list[1], time_list[2])
-    elif len(time_list) == 2:
-        start = datetime.date(time_list[0], time_list[1], 1)
-    elif len(time_list) == 1:
-        start = datetime.date(time_list[0], 1, 1)
-    return start
+    return datetime.date.fromisoformat(timeframe.ljust(10, 'x').replace('xxx', '-01'))
 
 
 def get_timeframe_end(timeframe):
@@ -49,14 +43,11 @@ def get_timeframe_end(timeframe):
     :param timeframe: a string representation of the timeframe in YYYY-MM-DD, YYYY-MM or YYYY format
     :returns: a date object corresponding to the last day of the timeframe
     """
-    time_list = [int(i) for i in timeframe.split('-')]
-    if len(time_list) == 3:
-        end = datetime.date(time_list[0], time_list[1], time_list[2])
-    elif len(time_list) == 2:
-        end = datetime.date(time_list[0], time_list[1], calendar.monthrange(time_list[0], time_list[1])[1])
-    elif len(time_list) == 1:
-        end = datetime.date(time_list[0], 12, 31)
-    return end
+    timeframe_with_month = timeframe.ljust(7, 'x').replace('xxx', '-12')
+    year, month = [int(i) for i in timeframe_with_month.split('-')][:2]
+    days_in_month = calendar.monthrange(year, month)[1]
+    timeframe_with_day = timeframe_with_month.ljust(10, 'x').replace('xxx', f'-{days_in_month}')
+    return datetime.date.fromisoformat(timeframe_with_day)
 
 
 def get_time_period(frm, to):
@@ -67,23 +58,15 @@ def get_time_period(frm, to):
     string
     :returns: a tuple of date objects with the first and last day of the time period
     """
-    if frm:
-        start = get_start_date(frm)
-    else:
-        start = datetime.date.min
-
-    if to:
-        end = get_start_date(to) - datetime.timedelta(1)
-    else:
-        end = datetime.date.max
-
+    start = get_timeframe_beginning(frm) if frm else datetime.date.min
+    end = get_timeframe_beginning(to) - datetime.timedelta(1) if to else datetime.date.max
     return start, end
 
 
 def get_pool_data(project_name, timeframe):
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
-    start = get_start_date(timeframe)
+    start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)
 
     pool_links = {}
@@ -125,7 +108,7 @@ def get_pool_data(project_name, timeframe):
 def get_pool_addresses(project_name, timeframe):
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
-    start = get_start_date(timeframe)
+    start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)
 
     with open(helpers_path + f'/pool_information/{project_name}.json') as f:

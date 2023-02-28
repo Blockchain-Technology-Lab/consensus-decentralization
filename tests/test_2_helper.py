@@ -2,7 +2,7 @@ import pathlib
 import datetime
 import argparse
 import pytest
-from src.helpers.helper import get_pool_data, write_csv_file, get_blocks_per_entity_from_file, get_start_date, \
+from src.helpers.helper import get_pool_data, write_csv_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, valid_date
 
 
@@ -64,11 +64,7 @@ def test_valid_date():
     for d in [
         '2022',
         '2022-01',
-        '2022-01-01',
-        '2022-01-1',
-        '2022-1-1',
-        '2022-1-01',
-        '2022-1',
+        '2022-01-01'
     ]:
         assert valid_date(d)
 
@@ -83,6 +79,10 @@ def test_valid_date():
         '2022.01',
         'blah',
         '2022-',
+        '2022-1-1',
+        '2022-1-01',
+        '2022-1',
+        '2022-01-1',
         '2022-02-29'
     ]:
         with pytest.raises(argparse.ArgumentTypeError) as e_info:
@@ -97,7 +97,7 @@ def test_get_start_date():  # currently not testing for invalid dates
         '2022-03-29': datetime.date(2022, 3, 29)
     }
     for date, start_date in dates.items():
-        assert get_start_date(date) == start_date
+        assert get_timeframe_beginning(date) == start_date
 
 
 def test_get_timeframe_end():  # currently not testing for invalid dates
