@@ -11,17 +11,15 @@ produced blocks. The value for each key is a dictionary of pool-related
 information, specifically its name, a url to its homepage, etc.
 
 `clusters` defines information about pool clusters. This information is
-organized in years (or, if the keyword "all" is used, across all years of
-analysis). For each year, a dictionary is defined. Here, each key is the name of
-the cluster. Each value is an array of tuples; the first tuple element is the
-tag of the pool that belongs in the cluster; the second tuple element is the
-_publicly available_ source of information, via which the link between the pool
-and the cluster is established.
+organized per cluster. For each cluster, an array of pool-related information is
+defined. Each item in the array defines the pool's name, the time window during
+which the pool belonged to the cluster (from the beginning of `from` until the
+beginning of `to` _excluding_), and the _publicly available_ source of
+information, via which the link between the pool and the cluster is established.
 
 `pool_addresses` defines ownership information about addresses. As with
-clusters, the information is organized per year. For each year a dictionary is
-defined; each key is the address, which is present in the created blocks, and
-each value is the name of the pool which controls the address.
+clusters, for each address the pool ownership information defines the pool's
+name, the time window of the ownership, and a public source of information about the ownership.
 
 ## Example
 
@@ -29,16 +27,12 @@ Consider the following example file:
 ```
 {
   "clusters": {
-      "all": {
-          "cluster A": [
-              ["P1", "example.com/link1"]
-          ]
-      },
-      "2020": {
-          "cluster B": [
-              ["--P2--", "example.com/link2"]
-          ]
-      }
+      "cluster A": [
+          {"name": "P1", "from": "", "to": "2023", "source": "example.com/link1"}
+      ],
+      "cluster B": [
+          {"name": "--P2--", "from": "", "to": "", "source": "example.com/link2"}
+      ]
   },
   "coinbase_tags": {
       "P1": {
@@ -51,17 +45,16 @@ Consider the following example file:
       }
   },
   "pool_addresses": {
-      "2021": {
-          "address1": "Pool P2"
-      }
+    "address1": {"name": "Pool P2", "from": "2019", "to": "", "source": ""},
   }
 }
 ```
 
-This example defines the following information. There exist two pools, P1
-and P2, identifiable by the tags `P1` and `--P2--` respectively. Throughout all
-years, P1 belonged to a cluster named "cluster A" and P2 belonged to a cluster
-named "cluster B". Also, the address "address1" is known to be controlled by P2.
+This example defines the following information. There exist two pools, P1 and
+P2, identifiable by the tags `P1` and `--P2--` respectively. Since its
+beginning and until the end of 2022, P1 belonged to a cluster named "cluster A".
+Throughout all years, P2 belonged to a cluster named "cluster B". Also, the
+address "address1" is known to be controlled by P2 since the beginning of 2019.
 
 ## Contributing
 
