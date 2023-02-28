@@ -1,4 +1,6 @@
-# module with helper functions
+"""
+Module with helper functions
+"""
 import pathlib
 import json
 import datetime
@@ -10,6 +12,11 @@ OUTPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'output'
 
 
 def get_start_date(timeframe):
+    """
+    Determines the first day of a given timeframe
+    :param timeframe: a string representation of the timeframe in YYYY-MM-DD, YYYY-MM or YYYY format
+    :returns: a date object corresponding to the first day of the timeframe
+    """
     time_list = [int(i) for i in timeframe.split('-')]
     if len(time_list) == 3:
         start = datetime.date(time_list[0], time_list[1], time_list[2])
@@ -21,6 +28,11 @@ def get_start_date(timeframe):
 
 
 def get_timeframe_end(timeframe):
+    """
+    Determines the last day of a given timeframe
+    :param timeframe: a string representation of the timeframe in YYYY-MM-DD, YYYY-MM or YYYY format
+    :returns: a date object corresponding to the last day of the timeframe
+    """
     time_list = [int(i) for i in timeframe.split('-')]
     if len(time_list) == 3:
         end = datetime.date(time_list[0], time_list[1], time_list[2])
@@ -32,10 +44,17 @@ def get_timeframe_end(timeframe):
 
 
 def get_time_period(frm, to):
+    """
+    Determines the first day and last day of a time period defined by frm and to
+    :param frm: a string representation of the starting date in YYYY-MM-DD, YYYY-MM or YYYY format, or the empty string
+    :param to: a string representation of the end date plus one day in YYYY-MM-DD, YYYY-MM or YYYY format, or the empty
+    string
+    :returns: a tuple of date objects with the first and last day of the time period
+    """
     if frm:
         start = get_start_date(frm)
     else:
-        start = datetime.date(2000, 1, 1)
+        start = datetime.date.min
 
     if to:
         time_list = [int(i) for i in to.split('-')]
@@ -43,13 +62,14 @@ def get_time_period(frm, to):
             end = datetime.date(time_list[0], time_list[1], time_list[2]) - datetime.timedelta(1)
         elif len(time_list) == 2:
             if time_list[1] == 1:
-                end = datetime.date(time_list[0]-1, 12, 31)
+                end = datetime.date(time_list[0] - 1, 12, 31)
             else:
-                end = datetime.date(time_list[0], time_list[1]-1, calendar.monthrange(time_list[0], time_list[1]-1)[1])
+                end = datetime.date(time_list[0], time_list[1] - 1,
+                                    calendar.monthrange(time_list[0], time_list[1] - 1)[1])
         elif len(time_list) == 1:
-            end = datetime.date(time_list[0]-1, 12, 31)
+            end = datetime.date(time_list[0] - 1, 12, 31)
     else:
-        end = datetime.date(2100, 1, 1)
+        end = datetime.date.max
 
     return start, end
 
