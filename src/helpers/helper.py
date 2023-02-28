@@ -3,8 +3,9 @@ import pathlib
 import json
 
 YEAR_DIGITS = 4
-INPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'input'
-OUTPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'output'
+ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
+INPUT_DIR = ROOT_DIR / 'input'
+OUTPUT_DIR = ROOT_DIR / 'output'
 
 
 def get_pool_data(project_name, timeframe):
