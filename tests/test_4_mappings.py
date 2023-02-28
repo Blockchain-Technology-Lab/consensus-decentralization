@@ -14,16 +14,24 @@ from src.mappings.tezos import TezosMapping
 from src.helpers.helper import OUTPUT_DIR
 
 
-def test_map():
-    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
+pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
 
+ledger_mapping['sample_bitcoin'] = BitcoinMapping
+ledger_parser['sample_bitcoin'] = DefaultParser
+ledger_mapping['sample_ethereum'] = EthereumMapping
+ledger_parser['sample_ethereum'] = DummyParser
+ledger_mapping['sample_cardano'] = CardanoMapping
+ledger_parser['sample_cardano'] = CardanoParser
+ledger_mapping['sample_tezos'] = TezosMapping
+ledger_parser['sample_tezos'] = DummyParser
+
+
+def test_map():
     project = 'sample_bitcoin'
 
-    shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
 
     timeframes = ['2010', '2018-02', '2018-03']
-    ledger_mapping[project] = BitcoinMapping
-    ledger_parser[project] = DefaultParser
 
     parse(project)
     apply_mapping(project, timeframes)
@@ -34,24 +42,20 @@ def test_map():
     yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
     assert yearly_output_file.is_file()
 
-    os.remove(str(pool_info_dir / f'{project}.json'))
+    os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
 def test_bitcoin_mapping():
-    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
-
     project = 'sample_bitcoin'
 
-    shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
+
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
     pool_info['pool_addresses']['2020'] = {}
     pool_info['pool_addresses']['2020']['0000000000000000000000000000000000000000'] = 'TEST2'
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
-
-    ledger_mapping[project] = BitcoinMapping
-    ledger_parser[project] = DefaultParser
 
     timeframes = ['2018-02']
 
@@ -99,15 +103,14 @@ def test_bitcoin_mapping():
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    os.remove(str(pool_info_dir / f'{project}.json'))
+    os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
 def test_ethereum_mapping():
-    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
-
     project = 'sample_ethereum'
 
-    shutil.copy2(str(pool_info_dir / 'ethereum.json'), str(pool_info_dir / f'{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'ethereum.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
+
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
     pool_info['clusters']['all'] = {}
@@ -116,9 +119,6 @@ def test_ethereum_mapping():
     pool_info['pool_addresses']['2020']['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = 'TEST2'
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
-
-    ledger_mapping[project] = EthereumMapping
-    ledger_parser[project] = DummyParser
 
     timeframes = ['2020-11']
 
@@ -157,15 +157,13 @@ def test_ethereum_mapping():
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    os.remove(str(pool_info_dir / f'{project}.json'))
+    os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
 def test_cardano_mapping():
-    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
-
     project = 'sample_cardano'
 
-    shutil.copy2(str(pool_info_dir / 'cardano.json'), str(pool_info_dir / f'{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'cardano.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
 
     ledger_mapping[project] = CardanoMapping
     ledger_parser[project] = CardanoParser
@@ -194,15 +192,13 @@ def test_cardano_mapping():
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    os.remove(str(pool_info_dir / f'{project}.json'))
+    os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
 def test_tezos_mapping():
-    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
-
     project = 'sample_tezos'
 
-    shutil.copy2(str(pool_info_dir / 'tezos.json'), str(pool_info_dir / f'{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'tezos.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
     pool_info['clusters']['2021'] = {}
@@ -251,4 +247,4 @@ def test_tezos_mapping():
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    os.remove(str(pool_info_dir / f'{project}.json'))
+    os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
