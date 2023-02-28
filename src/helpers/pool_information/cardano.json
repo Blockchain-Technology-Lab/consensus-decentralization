@@ -1,862 +1,847 @@
 {
     "clusters": {
-        "all": {
             "Binance": [
-                ["BNP", "homepage"]
+                {"name": "BNP", "from": "", "to": "", "source": "homepage"}
             ],
             "1percentpool": [
-                ["1PCT", "homepage"],
-                ["1PCT0", "homepage"],
-                ["1PCT1", "homepage"],
-                ["1PCT2", "homepage"],
-                ["1PCT3", "homepage"],
-                ["1PCT4", "homepage"],
-                ["1PCT5", "homepage"],
-                ["1PCT6", "homepage"],
-                ["1PCT7", "homepage"],
-                ["1PCT8", "homepage"],
-                ["1PCT9", "homepage"]
+                {"name": "1PCT", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT0", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT1", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT2", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT3", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT4", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT5", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT6", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT7", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT8", "from": "", "to": "", "source": "homepage"},
+                {"name": "1PCT9", "from": "", "to": "", "source": "homepage"}
             ],
             "JOEY": [
-                ["JOEY", "homepage"],
-                ["JOEY2", "homepage"]
+                {"name": "JOEY", "from": "", "to": "", "source": "homepage"},
+                {"name": "JOEY2", "from": "", "to": "", "source": "homepage"}
             ],
             "TERA": [
-                ["TERA", "homepage"],
-                ["TERA2", "homepage"],
-                ["TERA3", "homepage"]
+                {"name": "TERA", "from": "", "to": "", "source": "homepage"},
+                {"name": "TERA2", "from": "", "to": "", "source": "homepage"},
+                {"name": "TERA3", "from": "", "to": "", "source": "homepage"}
             ],
             "staking-fm.site": [
-                ["LEO2", "homepage"],
-                ["LEO3", "homepage"],
-                ["LEO4", "homepage"],
-                ["LEO5", "homepage"],
-                ["LEO6", "homepage"],
-                ["LEO7", "homepage"],
-                ["LEO8", "homepage"],
-                ["LEO9", "homepage"],
-                ["WILL", "homepage"],
-                ["GAGA", "homepage"],
-                ["GAGA2", "homepage"]
+                {"name": "LEO2", "from": "", "to": "", "source": "homepage"},
+                {"name": "LEO3", "from": "", "to": "", "source": "homepage"},
+                {"name": "LEO4", "from": "", "to": "", "source": "homepage"},
+                {"name": "LEO5", "from": "", "to": "", "source": "homepage"},
+                {"name": "LEO6", "from": "", "to": "", "source": "homepage"},
+                {"name": "LEO7", "from": "", "to": "", "source": "homepage"},
+                {"name": "LEO8", "from": "", "to": "", "source": "homepage"},
+                {"name": "LEO9", "from": "", "to": "", "source": "homepage"},
+                {"name": "WILL", "from": "", "to": "", "source": "homepage"},
+                {"name": "GAGA", "from": "", "to": "", "source": "homepage"},
+                {"name": "GAGA2", "from": "", "to": "", "source": "homepage"}
             ],
             "COOL": [
-                ["COOL", "homepage"],
-                ["COOL2", "homepage"],
-                ["COOL3", "homepage"],
-                ["COOL4", "homepage"],
-                ["COOL5", "homepage"]
+                {"name": "COOL", "from": "", "to": "", "source": "homepage"},
+                {"name": "COOL2", "from": "", "to": "", "source": "homepage"},
+                {"name": "COOL3", "from": "", "to": "", "source": "homepage"},
+                {"name": "COOL4", "from": "", "to": "", "source": "homepage"},
+                {"name": "COOL5", "from": "", "to": "", "source": "homepage"}
             ],
             "ATADA": [
-                ["ATADA", "homepage"],
-                ["ATAD1", "homepage"],
-                ["ATAD2", "homepage"],
-                ["ATAD3", "homepage"]
+                {"name": "ATADA", "from": "", "to": "", "source": "homepage"},
+                {"name": "ATAD1", "from": "", "to": "", "source": "homepage"},
+                {"name": "ATAD2", "from": "", "to": "", "source": "homepage"},
+                {"name": "ATAD3", "from": "", "to": "", "source": "homepage"}
             ],
             "Moonstake": [
-                ["MS1", "homepage"],
-                ["MS2", "homepage"],
-                ["MS3", "homepage"],
-                ["MS4", "homepage"],
-                ["MS5", "homepage"],
-                ["MS6", "homepage"],
-                ["MS7", "homepage"],
-                ["MS8", "homepage"],
-                ["MS9", "homepage"],
-                ["MS10", "homepage"]
+                {"name": "MS1", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS2", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS3", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS4", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS5", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS6", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS7", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS8", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS9", "from": "", "to": "", "source": "homepage"},
+                {"name": "MS10", "from": "", "to": "", "source": "homepage"}
             ],
             "AZUR": [
-                ["AZUR", "homepage"],
-                ["AZUR3", "homepage"],
-                ["TSS", "homepage"]
+                {"name": "AZUR", "from": "", "to": "", "source": "homepage"},
+                {"name": "AZUR3", "from": "", "to": "", "source": "homepage"},
+                {"name": "TSS", "from": "", "to": "", "source": "homepage"}
             ],
             "coinzzz.jp": [
-                ["ZZZ2", "homepage"],
-                ["ZZZ3", "homepage"],
-                ["ZZZ4", "homepage"],
-                ["ZZZ5", "homepage"]
+                {"name": "ZZZ2", "from": "", "to": "", "source": "homepage"},
+                {"name": "ZZZ3", "from": "", "to": "", "source": "homepage"},
+                {"name": "ZZZ4", "from": "", "to": "", "source": "homepage"},
+                {"name": "ZZZ5", "from": "", "to": "", "source": "homepage"}
             ],
             "eToro": [
-                ["ETO1", "homepage"],
-                ["ETO2", "homepage"],
-                ["ETO3", "homepage"],
-                ["ETO4", "homepage"],
-                ["ETO5", "homepage"],
-                ["ETO6", "homepage"],
-                ["ETO7", "homepage"],
-                ["ETO8", "homepage"],
-                ["ETO9", "homepage"],
-                ["ETO10", "homepage"],
-                ["ETO11", "homepage"],
-                ["ETO12", "homepage"],
-                ["ETO13", "homepage"],
-                ["ETO14", "homepage"]
+                {"name": "ETO1", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO2", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO3", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO4", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO5", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO6", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO7", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO8", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO9", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO10", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO11", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO12", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO13", "from": "", "to": "", "source": "homepage"},
+                {"name": "ETO14", "from": "", "to": "", "source": "homepage"}
             ],
             "NETA": [
-                ["NETA1", "homepage"],
-                ["NETA2", "homepage"],
-                ["NETA3", "homepage"]
+                {"name": "NETA1", "from": "", "to": "", "source": "homepage"},
+                {"name": "NETA2", "from": "", "to": "", "source": "homepage"},
+                {"name": "NETA3", "from": "", "to": "", "source": "homepage"}
             ],
             "JAZZ": [
-                ["JAZZ", "homepage"],
-                ["JAZZ1", "homepage"],
-                ["JAZZ2", "homepage"],
-                ["JAZZ3", "homepage"],
-                ["JAZZ4", "homepage"],
-                ["JAZZ5", "homepage"]
+                {"name": "JAZZ", "from": "", "to": "", "source": "homepage"},
+                {"name": "JAZZ1", "from": "", "to": "", "source": "homepage"},
+                {"name": "JAZZ2", "from": "", "to": "", "source": "homepage"},
+                {"name": "JAZZ3", "from": "", "to": "", "source": "homepage"},
+                {"name": "JAZZ4", "from": "", "to": "", "source": "homepage"},
+                {"name": "JAZZ5", "from": "", "to": "", "source": "homepage"}
             ],
             "nu.fi": [
-                ["NUFI", "homepage"],
-                ["NUFI1", "homepage"],
-                ["NUFI2", "homepage"],
-                ["NUFI3", "homepage"],
-                ["NUFI4", "homepage"],
-                ["NUFI5", "homepage"],
-                ["NUFI6", "homepage"],
-                ["NUFI7", "homepage"],
-                ["NUFI8", "homepage"],
-                ["NUFI9", "homepage"],
-                ["NUFIK", "homepage"],
-                ["NUFIB", "homepage"],
-                ["NUFII", "homepage"],
-                ["NUFIA", "homepage"],
-                ["NUFIH", "homepage"],
-                ["NUFIE", "homepage"],
-                ["NUFI0", "homepage"],
-                ["NUFIG", "homepage"],
-                ["NUFID", "homepage"],
-                ["NUFIF", "homepage"],
-                ["NUFIC", "homepage"]
+                {"name": "NUFI", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI1", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI2", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI3", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI4", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI5", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI6", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI7", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI8", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI9", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIK", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIB", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFII", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIA", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIH", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIE", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFI0", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIG", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFID", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIF", "from": "", "to": "", "source": "homepage"},
+                {"name": "NUFIC", "from": "", "to": "", "source": "homepage"}
             ],
             "WIRA": [
-                ["WIRA", "homepage"],
-                ["WIRA\ud83c\udf0e", "homepage"],
-                ["WIRA\ud83d\udc51", "homepage"],
-                ["WIRA\ud83c\udfc6", "homepage"],
-                ["WIRA\ud83c\udf0f", "homepage"],
-                ["WIRA\ud83c\udf0d", "homepage"],
-                ["WIRA\ud83c\udf1f", "homepage"],
-                ["WIRA\ud83d\udc8e", "homepage"],
-                ["WIRA\ud83c\udf20", "homepage"],
-                ["WIRA\ud83d\udd25", "homepage"]
+                {"name": "WIRA", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83c\udf0e", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83d\udc51", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83c\udfc6", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83c\udf0f", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83c\udf0d", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83c\udf1f", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83d\udc8e", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83c\udf20", "from": "", "to": "", "source": "homepage"},
+                {"name": "WIRA\ud83d\udd25", "from": "", "to": "", "source": "homepage"}
             ],
             "AAA": [
-                ["AAA", "homepage"],
-                ["AAA2", "homepage"]
+                {"name": "AAA", "from": "", "to": "", "source": "homepage"},
+                {"name": "AAA2", "from": "", "to": "", "source": "homepage"}
             ],
             "STI": [
-                ["STI", "homepage"],
-                ["STI2", "homepage"],
-                ["STI3", "homepage"]
+                {"name": "STI", "from": "", "to": "", "source": "homepage"},
+                {"name": "STI2", "from": "", "to": "", "source": "homepage"},
+                {"name": "STI3", "from": "", "to": "", "source": "homepage"},
+                {"name": "SWIC", "from": "", "to": "", "source": "homepage"},
+                {"name": "STI4", "from": "", "to": "", "source": "homepage"}
             ],
             "wavegp.com": [
-                ["WAV2", "homepage"],
-                ["WAV3", "homepage"],
-                ["WAV4", "homepage"],
-                ["WAV5", "homepage"],
-                ["WAV6", "homepage"],
-                ["WAV7", "homepage"],
-                ["WAV8", "homepage"],
-                ["WAV9", "homepage"],
-                ["WAV10", "homepage"],
-                ["WAV11", "homepage"],
-                ["WAV12", "homepage"],
-                ["WAV13", "homepage"]
+                {"name": "WAV2", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV3", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV4", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV5", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV6", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV7", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV8", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV9", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV10", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV11", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV12", "from": "", "to": "", "source": "homepage"},
+                {"name": "WAV13", "from": "", "to": "", "source": "homepage"}
             ],
             "AMZ": [
-                ["AMZ", "homepage"],
-                ["AMZ1", "homepage"]
+                {"name": "AMZ", "from": "", "to": "", "source": "homepage"},
+                {"name": "AMZ1", "from": "", "to": "", "source": "homepage"}
             ],
             "Input Output (iohk.io)": [
-                ["IOGP", "homepage"],
-                ["IOG1", "homepage"]
+                {"name": "IOGP", "from": "", "to": "", "source": "homepage"},
+                {"name": "IOG1", "from": "", "to": "", "source": "homepage"}
             ],
             "stakepoolservice.com": [
-                ["SPS", "homepage"],
-                ["SPS1", "homepage"],
-                ["SPS2", "homepage"],
-                ["SPS3", "homepage"],
-                ["SPS4", "homepage"],
-                ["SPS5", "homepage"],
-                ["SPS6", "homepage"]
+                {"name": "SPS", "from": "", "to": "", "source": "homepage"},
+                {"name": "SPS1", "from": "", "to": "", "source": "homepage"},
+                {"name": "SPS2", "from": "", "to": "", "source": "homepage"},
+                {"name": "SPS3", "from": "", "to": "", "source": "homepage"},
+                {"name": "SPS4", "from": "", "to": "", "source": "homepage"},
+                {"name": "SPS5", "from": "", "to": "", "source": "homepage"},
+                {"name": "SPS6", "from": "", "to": "", "source": "homepage"}
             ],
             "Emurgo": [
-                ["EMUR2", "homepage"],
-                ["EMURA", "homepage"],
-                ["EMURE", "homepage"],
-                ["EMURD", "homepage"],
-                ["EMURG", "homepage"],
-                ["EMURF", "homepage"],
-                ["EMUR4", "homepage"],
-                ["EMUR1", "homepage"],
-                ["EMURB", "homepage"],
-                ["EMURC", "homepage"],
-                ["EMUR3", "homepage"]
+                {"name": "EMUR2", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMURA", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMURE", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMURD", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMURG", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMURF", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMUR4", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMUR1", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMURB", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMURC", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMUR3", "from": "", "to": "", "source": "homepage"}
             ],
             "GOAT": [
-                ["GOAT", "homepage"],
-                ["GOAT2", "homepage"],
-                ["GOAT3", "homepage"],
-                ["GOAT4", "homepage"],
-                ["GOAT5", "homepage"],
-                ["GOAT6", "homepage"]
+                {"name": "GOAT", "from": "", "to": "", "source": "homepage"},
+                {"name": "GOAT2", "from": "", "to": "", "source": "homepage"},
+                {"name": "GOAT3", "from": "", "to": "", "source": "homepage"},
+                {"name": "GOAT4", "from": "", "to": "", "source": "homepage"},
+                {"name": "GOAT5", "from": "", "to": "", "source": "homepage"},
+                {"name": "GOAT6", "from": "", "to": "", "source": "homepage"}
             ],
             "CFLOW": [
-                ["CFLOW", "homepage"],
-                ["CFLO2", "homepage"]
+                {"name": "CFLOW", "from": "", "to": "", "source": "homepage"},
+                {"name": "CFLO2", "from": "", "to": "", "source": "homepage"}
             ],
             "CCJ": [
-                ["CCJ", "homepage"],
-                ["CCJ2", "homepage"],
-                ["CCJ3", "homepage"],
-                ["CCJ4", "homepage"],
-                ["CCJ5", "homepage"]
+                {"name": "CCJ", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCJ2", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCJ3", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCJ4", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCJ5", "from": "", "to": "", "source": "homepage"}
             ],
             "DIGI": [
-                ["DIGI", "homepage"],
-                ["DIGI2", "homepage"],
-                ["DIGI3", "homepage"],
-                ["DIGI4", "homepage"],
-                ["DIGI5", "homepage"],
-                ["DIGI6", "homepage"],
-                ["DIGI7", "homepage"],
-                ["DIGI8", "homepage"]
+                {"name": "DIGI", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIGI2", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIGI3", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIGI4", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIGI5", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIGI6", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIGI7", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIGI8", "from": "", "to": "", "source": "homepage"}
             ],
             "OCEAN": [
-                ["OCEAN", "homepage"],
-                ["OCEA1", "homepage"],
-                ["OCEA2", "homepage"],
-                ["OCEA3", "homepage"],
-                ["OCEA4", "homepage"],
-                ["OCEA5", "homepage"],
-                ["OCEA6", "homepage"],
-                ["OCEA7", "homepage"]
+                {"name": "OCEAN", "from": "", "to": "", "source": "homepage"},
+                {"name": "OCEA1", "from": "", "to": "", "source": "homepage"},
+                {"name": "OCEA2", "from": "", "to": "", "source": "homepage"},
+                {"name": "OCEA3", "from": "", "to": "", "source": "homepage"},
+                {"name": "OCEA4", "from": "", "to": "", "source": "homepage"},
+                {"name": "OCEA5", "from": "", "to": "", "source": "homepage"},
+                {"name": "OCEA6", "from": "", "to": "", "source": "homepage"},
+                {"name": "OCEA7", "from": "", "to": "", "source": "homepage"}
             ],
             "EVE": [
-                ["EVE", "homepage"],
-                ["ESTK", "homepage"],
-                ["VRSTK", "homepage"],
-                ["ESTK", "homepage"],
-                ["EVE2", "homepage"],
-                ["RSTK", "homepage"],
-                ["EVERS", "homepage"],
-                ["EVE3", "homepage"],
-                ["EVE1", "homepage"],
-                ["EVE4", "homepage"],
-                ["EVE5", "homepage"],
-                ["EVE7", "homepage"]
+                {"name": "EVE", "from": "", "to": "", "source": "homepage"},
+                {"name": "ESTK", "from": "", "to": "", "source": "homepage"},
+                {"name": "VRSTK", "from": "", "to": "", "source": "homepage"},
+                {"name": "ESTK", "from": "", "to": "", "source": "homepage"},
+                {"name": "EVE2", "from": "", "to": "", "source": "homepage"},
+                {"name": "RSTK", "from": "", "to": "", "source": "homepage"},
+                {"name": "EVERS", "from": "", "to": "", "source": "homepage"},
+                {"name": "EVE3", "from": "", "to": "", "source": "homepage"},
+                {"name": "EVE1", "from": "", "to": "", "source": "homepage"},
+                {"name": "EVE4", "from": "", "to": "", "source": "homepage"},
+                {"name": "EVE5", "from": "", "to": "", "source": "homepage"},
+                {"name": "EVE7", "from": "", "to": "", "source": "homepage"}
             ],
             "BCSH": [
-                ["BCSH", "homepage"],
-                ["BCSH1", "homepage"],
-                ["BCSH2", "homepage"],
-                ["BCSH0", "homepage"],
-                ["BCSH3", "homepage"],
-                ["BCSH4", "homepage"],
-                ["BCSH2", "homepage"],
-                ["BCSH6", "homepage"]
+                {"name": "BCSH", "from": "", "to": "", "source": "homepage"},
+                {"name": "BCSH1", "from": "", "to": "", "source": "homepage"},
+                {"name": "BCSH2", "from": "", "to": "", "source": "homepage"},
+                {"name": "BCSH0", "from": "", "to": "", "source": "homepage"},
+                {"name": "BCSH3", "from": "", "to": "", "source": "homepage"},
+                {"name": "BCSH4", "from": "", "to": "", "source": "homepage"},
+                {"name": "BCSH2", "from": "", "to": "", "source": "homepage"},
+                {"name": "BCSH6", "from": "", "to": "", "source": "homepage"}
             ],
             "CCV": [
-                ["CCV", "homepage"],
-                ["CCV1", "homepage"],
-                ["CCV2", "homepage"],
-                ["CCV3", "homepage"],
-                ["CCV4", "homepage"],
-                ["CCV5", "homepage"]
+                {"name": "CCV", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCV1", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCV2", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCV3", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCV4", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCV5", "from": "", "to": "", "source": "homepage"}
             ],
             "ITC": [
-                ["ITC", "homepage"],
-                ["ITC2", "homepage"],
-                ["ITC3", "homepage"],
-                ["ITC4", "homepage"]
+                {"name": "ITC", "from": "", "to": "", "source": "homepage"},
+                {"name": "ITC2", "from": "", "to": "", "source": "homepage"},
+                {"name": "ITC3", "from": "", "to": "", "source": "homepage"},
+                {"name": "ITC4", "from": "", "to": "", "source": "homepage"}
             ],
             "JAPAN": [
-                ["JAPAN", "homepage"],
-                ["JP2", "homepage"],
-                ["JP3", "homepage"],
-                ["JP4", "homepage"],
-                ["JP5", "homepage"]
+                {"name": "JAPAN", "from": "", "to": "", "source": "homepage"},
+                {"name": "JP2", "from": "", "to": "", "source": "homepage"},
+                {"name": "JP3", "from": "", "to": "", "source": "homepage"},
+                {"name": "JP4", "from": "", "to": "", "source": "homepage"},
+                {"name": "JP5", "from": "", "to": "", "source": "homepage"}
             ],
             "POP": [
-                ["POP", "homepage"],
-                ["POP2", "homepage"],
-                ["POP3", "homepage"],
-                ["POP4", "homepage"]
+                {"name": "POP", "from": "", "to": "", "source": "homepage"},
+                {"name": "POP2", "from": "", "to": "", "source": "homepage"},
+                {"name": "POP3", "from": "", "to": "", "source": "homepage"},
+                {"name": "POP4", "from": "", "to": "", "source": "homepage"}
             ],
             "CRDN": [
-                ["CRDN", "homepage"],
-                ["CRDNS", "homepage"],
-                ["CRDN1", "homepage"],
-                ["CRDN2", "homepage"],
-                ["CRDN3", "homepage"]
+                {"name": "CRDN", "from": "", "to": "", "source": "homepage"},
+                {"name": "CRDNS", "from": "", "to": "", "source": "homepage"},
+                {"name": "CRDN1", "from": "", "to": "", "source": "homepage"},
+                {"name": "CRDN2", "from": "", "to": "", "source": "homepage"},
+                {"name": "CRDN3", "from": "", "to": "", "source": "homepage"}
             ],
             "MAL": [
-                ["MAL", "homepage"],
-                ["DRMAL", "homepage"],
-                ["XMAL", "homepage"],
-                ["MAL2", "homepage"],
-                ["MAL3", "homepage"],
-                ["MALX", "homepage"],
-                ["ANMAL", "homepage"]
+                {"name": "MAL", "from": "", "to": "", "source": "homepage"},
+                {"name": "DRMAL", "from": "", "to": "", "source": "homepage"},
+                {"name": "XMAL", "from": "", "to": "", "source": "homepage"},
+                {"name": "MAL2", "from": "", "to": "", "source": "homepage"},
+                {"name": "MAL3", "from": "", "to": "", "source": "homepage"},
+                {"name": "MALX", "from": "", "to": "", "source": "homepage"},
+                {"name": "ANMAL", "from": "", "to": "", "source": "homepage"}
             ],
             "STBL1": [
-                ["STBL1", "homepage"],
-                ["STBL2", "homepage"],
-                ["STBL4", "homepage"],
-                ["STBL5", "homepage"],
-                ["SBP1", "homepage"],
-                ["SBP2", "homepage"]
+                {"name": "STBL1", "from": "", "to": "", "source": "homepage"},
+                {"name": "STBL2", "from": "", "to": "", "source": "homepage"},
+                {"name": "STBL4", "from": "", "to": "", "source": "homepage"},
+                {"name": "STBL5", "from": "", "to": "", "source": "homepage"},
+                {"name": "SBP1", "from": "", "to": "", "source": "homepage"},
+                {"name": "SBP2", "from": "", "to": "", "source": "homepage"}
             ],
             "stakebowl.io": [
-                ["STBL1", "homepage"]
+                {"name": "STBL1", "from": "", "to": "", "source": "homepage"}
             ],
             "blockdaemon.com": [
-                ["BD0", "homepage"],
-                ["BD1", "homepage"],
-                ["BD2", "homepage"],
-                ["BD3", "homepage"],
-                ["BD4", "homepage"],
-                ["BD5", "homepage"],
-                ["BD6", "homepage"]
+                {"name": "BD0", "from": "", "to": "", "source": "homepage"},
+                {"name": "BD1", "from": "", "to": "", "source": "homepage"},
+                {"name": "BD2", "from": "", "to": "", "source": "homepage"},
+                {"name": "BD3", "from": "", "to": "", "source": "homepage"},
+                {"name": "BD4", "from": "", "to": "", "source": "homepage"},
+                {"name": "BD5", "from": "", "to": "", "source": "homepage"},
+                {"name": "BD6", "from": "", "to": "", "source": "homepage"}
             ],
             "raidpools.com": [
-                ["RAID", "homepage"],
-                ["RAID2", "homepage"],
-                ["RAID3", "homepage"],
-                ["RAID1", "homepage"],
-                ["RAID5", "homepage"],
-                ["RAID4", "homepage"],
-                ["RAID6", "homepage"]
+                {"name": "RAID", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAID2", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAID3", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAID1", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAID5", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAID4", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAID6", "from": "", "to": "", "source": "homepage"}
             ],
             "raynetwork.io": [
-                ["RAY", "homepage"],
-                ["RAY3", "homepage"],
-                ["RAY2", "homepage"],
-                ["RAY4", "homepage"],
-                ["RAY5", "homepage"],
-                ["RAY7", "homepage"],
-                ["RAY8", "homepage"]
+                {"name": "RAY", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAY3", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAY2", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAY4", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAY5", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAY7", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAY8", "from": "", "to": "", "source": "homepage"}
             ],
             "VINCE": [
-                ["VINCE", "homepage"],
-                ["VINCI", "homepage"],
-                ["VINC2", "homepage"]
+                {"name": "VINCE", "from": "", "to": "", "source": "homepage"},
+                {"name": "VINCI", "from": "", "to": "", "source": "homepage"},
+                {"name": "VINC2", "from": "", "to": "", "source": "homepage"}
             ],
             "ALPS": [
-                ["ALPS", "homepage"],
-                ["ALPS2", "homepage"],
-                ["ENVIR", "homepage"]
+                {"name": "ALPS", "from": "", "to": "", "source": "homepage"},
+                {"name": "ALPS2", "from": "", "to": "", "source": "homepage"},
+                {"name": "ENVIR", "from": "", "to": "", "source": "homepage"}
             ],
             "TNTM": [
-                ["TNTM", "homepage"],
-                ["OPTIM", "homepage"]
+                {"name": "TNTM", "from": "", "to": "", "source": "homepage"},
+                {"name": "OPTIM", "from": "", "to": "", "source": "homepage"}
             ],
             "KIWI": [
-                ["KIWI", "homepage"],
-                ["RAMEN", "homepage"],
-                ["KIWI1", "homepage"],
-                ["TRUFL", "homepage"]
+                {"name": "KIWI", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAMEN", "from": "", "to": "", "source": "homepage"},
+                {"name": "KIWI1", "from": "", "to": "", "source": "homepage"},
+                {"name": "TRUFL", "from": "", "to": "", "source": "homepage"}
             ],
             "ACL": [
-                ["ACL", "homepage"],
-                ["LAND", "homepage"]
+                {"name": "ACL", "from": "", "to": "", "source": "homepage"},
+                {"name": "LAND", "from": "", "to": "", "source": "homepage"}
             ],
             "skylightpool.com": [
-                ["SKY2", "homepage"],
-                ["SKY3", "homepage"],
-                ["SKY4", "homepage"]
+                {"name": "SKY2", "from": "", "to": "", "source": "homepage"},
+                {"name": "SKY3", "from": "", "to": "", "source": "homepage"},
+                {"name": "SKY4", "from": "", "to": "", "source": "homepage"}
             ],
             "DIVY": [
-                ["DIVY", "homepage"],
-                ["DIVY2", "homepage"]
+                {"name": "DIVY", "from": "", "to": "", "source": "homepage"},
+                {"name": "DIVY2", "from": "", "to": "", "source": "homepage"}
             ],
             "ADALO": [
-                ["ADALO", "homepage"],
-                ["NOTEG", "homepage"],
-                ["NOTEA", "homepage"]
+                {"name": "ADALO", "from": "", "to": "", "source": "homepage"},
+                {"name": "NOTEG", "from": "", "to": "", "source": "homepage"},
+                {"name": "NOTEA", "from": "", "to": "", "source": "homepage"}
             ],
             "CANUK": [
-                ["CANUK", "homepage"],
-                ["CNUK2", "homepage"],
-                ["CNUK3", "homepage"]
+                {"name": "CANUK", "from": "", "to": "", "source": "homepage"},
+                {"name": "CNUK2", "from": "", "to": "", "source": "homepage"},
+                {"name": "CNUK3", "from": "", "to": "", "source": "homepage"}
             ],
             "CAPEX": [
-                ["CAPEX", "homepage"],
-                ["CAPEY", "homepage"]
+                {"name": "CAPEX", "from": "", "to": "", "source": "homepage"},
+                {"name": "CAPEY", "from": "", "to": "", "source": "homepage"}
             ],
             "PAUL": [
-                ["PAUL", "homepage"],
-                ["PAUL1", "homepage"]
+                {"name": "PAUL", "from": "", "to": "", "source": "homepage"},
+                {"name": "PAUL1", "from": "", "to": "", "source": "homepage"}
             ],
             "LONDN": [
-                ["LONDN", "homepage"],
-                ["UK1", "homepage"]
+                {"name": "LONDN", "from": "", "to": "", "source": "homepage"},
+                {"name": "UK1", "from": "", "to": "", "source": "homepage"}
             ],
             "CNODE": [
-                ["CNODE", "homepage"],
-                ["FUND", "homepage"],
-                ["FUND2", "homepage"]
+                {"name": "CNODE", "from": "", "to": "", "source": "homepage"},
+                {"name": "FUND", "from": "", "to": "", "source": "homepage"},
+                {"name": "FUND2", "from": "", "to": "", "source": "homepage"}
             ],
             "LOVE": [
-                ["LOVE", "homepage"],
-                ["AIJOU", "homepage"]
+                {"name": "LOVE", "from": "", "to": "", "source": "homepage"},
+                {"name": "AIJOU", "from": "", "to": "", "source": "homepage"}
             ],
             "NAP": [
-                ["NAP", "homepage"],
-                ["NAP2", "homepage"]
+                {"name": "NAP", "from": "", "to": "", "source": "homepage"},
+                {"name": "NAP2", "from": "", "to": "", "source": "homepage"}
             ],
             "P2P": [
-                ["P2P", "homepage"],
-                ["P2P3", "homepage"],
-                ["P2PCX", "homepage"]
-            ],
-            "STI": [
-                ["STI", "homepage"],
-                ["STI2", "homepage"],
-                ["STI3", "homepage"],
-                ["SWIC", "homepage"],
-                ["STI4", "homepage"]
+                {"name": "P2P", "from": "", "to": "", "source": "homepage"},
+                {"name": "P2P3", "from": "", "to": "", "source": "homepage"},
+                {"name": "P2PCX", "from": "", "to": "", "source": "homepage"}
             ],
             "KYSN": [
-                ["KYSN", "homepage"],
-                ["KYSN2", "homepage"]
+                {"name": "KYSN", "from": "", "to": "", "source": "homepage"},
+                {"name": "KYSN2", "from": "", "to": "", "source": "homepage"}
             ],
             "PPCX1": [
-                ["PPCX1", "homepage"],
-                ["PPCX2", "homepage"]
+                {"name": "PPCX1", "from": "", "to": "", "source": "homepage"},
+                {"name": "PPCX2", "from": "", "to": "", "source": "homepage"}
             ],
             "DAN": [
-                ["DAN", "homepage"],
-                ["DAN2", "homepage"]
+                {"name": "DAN", "from": "", "to": "", "source": "homepage"},
+                {"name": "DAN2", "from": "", "to": "", "source": "homepage"}
             ],
             "NOUT": [
-                ["NOUT", "homepage"],
-                ["NOUT2", "homepage"]
+                {"name": "NOUT", "from": "", "to": "", "source": "homepage"},
+                {"name": "NOUT2", "from": "", "to": "", "source": "homepage"}
             ],
             "KTN": [
-                ["KTN", "homepage"],
-                ["KTN3", "homepage"],
-                ["KTN4", "homepage"],
-                ["KTN2", "homepage"]
-            ],
-            "ATADA": [
-                ["ATADA", "homepage"],
-                ["ATAD1", "homepage"],
-                ["ATAD2", "homepage"],
-                ["ATAD3", "homepage"]
+                {"name": "KTN", "from": "", "to": "", "source": "homepage"},
+                {"name": "KTN3", "from": "", "to": "", "source": "homepage"},
+                {"name": "KTN4", "from": "", "to": "", "source": "homepage"},
+                {"name": "KTN2", "from": "", "to": "", "source": "homepage"}
             ],
             "RAT1": [
-                ["RAT1", "homepage"],
-                ["RAT2", "homepage"],
-                ["RAT3", "homepage"],
-                ["RAT4", "homepage"]
+                {"name": "RAT1", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAT2", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAT3", "from": "", "to": "", "source": "homepage"},
+                {"name": "RAT4", "from": "", "to": "", "source": "homepage"}
             ],
             "FUN": [
-                ["FUN", "homepage"],
-                ["FUN1", "homepage"]
+                {"name": "FUN", "from": "", "to": "", "source": "homepage"},
+                {"name": "FUN1", "from": "", "to": "", "source": "homepage"}
             ],
             "CAFE": [
-                ["CAFE", "homepage"],
-                ["CAFE2", "homepage"],
-                ["CAFE3", "homepage"]
+                {"name": "CAFE", "from": "", "to": "", "source": "homepage"},
+                {"name": "CAFE2", "from": "", "to": "", "source": "homepage"},
+                {"name": "CAFE3", "from": "", "to": "", "source": "homepage"}
             ],
             "ZETE": [
-                ["ZETE", "homepage"],
-                ["ZETE2", "homepage"]
+                {"name": "ZETE", "from": "", "to": "", "source": "homepage"},
+                {"name": "ZETE2", "from": "", "to": "", "source": "homepage"}
             ],
             "adafrog.io": [
-                ["FROG", "homepage"],
-                ["FROG2", "homepage"],
-                ["WOLF", "homepage"],
-                ["WOLF2", "homepage"]
+                {"name": "FROG", "from": "", "to": "", "source": "homepage"},
+                {"name": "FROG2", "from": "", "to": "", "source": "homepage"},
+                {"name": "WOLF", "from": "", "to": "", "source": "homepage"},
+                {"name": "WOLF2", "from": "", "to": "", "source": "homepage"}
             ],
             "POLY": [
-                ["POLY", "homepage"],
-                ["POLY2", "homepage"]
+                {"name": "POLY", "from": "", "to": "", "source": "homepage"},
+                {"name": "POLY2", "from": "", "to": "", "source": "homepage"}
             ],
             "stake.love": [
-                ["THC2", "homepage"],
-                ["THCB", "homepage"],
-                ["THCA", "homepage"],
-                ["THCP", "homepage"],
-                ["THCS", "homepage"]
+                {"name": "THC2", "from": "", "to": "", "source": "homepage"},
+                {"name": "THCB", "from": "", "to": "", "source": "homepage"},
+                {"name": "THCA", "from": "", "to": "", "source": "homepage"},
+                {"name": "THCP", "from": "", "to": "", "source": "homepage"},
+                {"name": "THCS", "from": "", "to": "", "source": "homepage"}
             ],
             "GENSX": [
-                ["GENSX", "homepage"],
-                ["GENS1", "homepage"],
-                ["GENS2", "homepage"],
-                ["GENS3", "homepage"]
+                {"name": "GENSX", "from": "", "to": "", "source": "homepage"},
+                {"name": "GENS1", "from": "", "to": "", "source": "homepage"},
+                {"name": "GENS2", "from": "", "to": "", "source": "homepage"},
+                {"name": "GENS3", "from": "", "to": "", "source": "homepage"}
             ],
             "memepools.io": [
-                ["PUNKS", "homepage"],
-                ["VANGO", "homepage"],
-                ["DALI", "homepage"],
-                ["BAYC", "homepage"],
-                ["JEDI", "homepage"]
+                {"name": "PUNKS", "from": "", "to": "", "source": "homepage"},
+                {"name": "VANGO", "from": "", "to": "", "source": "homepage"},
+                {"name": "DALI", "from": "", "to": "", "source": "homepage"},
+                {"name": "BAYC", "from": "", "to": "", "source": "homepage"},
+                {"name": "JEDI", "from": "", "to": "", "source": "homepage"}
             ],
             "SCAR": [
-                ["SCAR", "homepage"],
-                ["SCAR3", "homepage"],
-                ["SCAR2", "homepage"]
+                {"name": "SCAR", "from": "", "to": "", "source": "homepage"},
+                {"name": "SCAR3", "from": "", "to": "", "source": "homepage"},
+                {"name": "SCAR2", "from": "", "to": "", "source": "homepage"}
             ],
             "QQQ": [
-                ["QQQ", "homepage"],
-                ["QQQ2", "homepage"]
+                {"name": "QQQ", "from": "", "to": "", "source": "homepage"},
+                {"name": "QQQ2", "from": "", "to": "", "source": "homepage"}
             ],
             "NERD": [
-                ["NERD", "homepage"],
-                ["NERD2", "homepage"]
+                {"name": "NERD", "from": "", "to": "", "source": "homepage"},
+                {"name": "NERD2", "from": "", "to": "", "source": "homepage"}
             ],
             "MELD": [
-                ["MELD", "homepage"],
-                ["MELD4", "homepage"]
+                {"name": "MELD", "from": "", "to": "", "source": "homepage"},
+                {"name": "MELD4", "from": "", "to": "", "source": "homepage"}
             ],
             "CLS1": [
-                ["CLS1", "homepage"],
-                ["CLS3", "homepage"],
-                ["CLS2", "homepage"]
+                {"name": "CLS1", "from": "", "to": "", "source": "homepage"},
+                {"name": "CLS3", "from": "", "to": "", "source": "homepage"},
+                {"name": "CLS2", "from": "", "to": "", "source": "homepage"}
             ],
             "NETA1": [
-                ["NETA1", "homepage"],
-                ["NETA3", "homepage"],
-                ["NETA2", "homepage"]
+                {"name": "NETA1", "from": "", "to": "", "source": "homepage"},
+                {"name": "NETA3", "from": "", "to": "", "source": "homepage"},
+                {"name": "NETA2", "from": "", "to": "", "source": "homepage"}
             ],
             "EMP1": [
-                ["EMP1", "homepage"],
-                ["EMP2", "homepage"]
+                {"name": "EMP1", "from": "", "to": "", "source": "homepage"},
+                {"name": "EMP2", "from": "", "to": "", "source": "homepage"}
             ],
             "ISPO": [
-                ["ISPO", "homepage"],
-                ["ISPO2", "homepage"]
+                {"name": "ISPO", "from": "", "to": "", "source": "homepage"},
+                {"name": "ISPO2", "from": "", "to": "", "source": "homepage"}
             ],
             "ZPNG1": [
-                ["ZPNG1", "homepage"],
-                ["ZPNG2", "homepage"]
+                {"name": "ZPNG1", "from": "", "to": "", "source": "homepage"},
+                {"name": "ZPNG2", "from": "", "to": "", "source": "homepage"}
             ],
             "CROW": [
-                ["CROW", "homepage"],
-                ["CROW2", "homepage"]
+                {"name": "CROW", "from": "", "to": "", "source": "homepage"},
+                {"name": "CROW2", "from": "", "to": "", "source": "homepage"}
             ],
             "SWAG": [
-                ["SWAG", "homepage"],
-                ["SWAG2", "homepage"]
+                {"name": "SWAG", "from": "", "to": "", "source": "homepage"},
+                {"name": "SWAG2", "from": "", "to": "", "source": "homepage"}
             ],
             "nedscave.io": [
-                ["NEDS2", "homepage"],
-                ["NEDS1", "homepage"],
-                ["NEDS3", "homepage"],
-                ["NEDS4", "homepage"]
+                {"name": "NEDS2", "from": "", "to": "", "source": "homepage"},
+                {"name": "NEDS1", "from": "", "to": "", "source": "homepage"},
+                {"name": "NEDS3", "from": "", "to": "", "source": "homepage"},
+                {"name": "NEDS4", "from": "", "to": "", "source": "homepage"}
             ],
             "CTEC": [
-                ["CTEC", "homepage"],
-                ["CTEC2", "homepage"]
+                {"name": "CTEC", "from": "", "to": "", "source": "homepage"},
+                {"name": "CTEC2", "from": "", "to": "", "source": "homepage"}
             ],
             "TOPO": [
-                ["TOPO", "homepage"],
-                ["TOPO\u26a1", "homepage"]
+                {"name": "TOPO", "from": "", "to": "", "source": "homepage"},
+                {"name": "TOPO\u26a1", "from": "", "to": "", "source": "homepage"}
             ],
             "FRCAN": [
-                ["FRCAN", "homepage"],
-                ["FRCA\ud83c\udf41", "homepage"]
+                {"name": "FRCAN", "from": "", "to": "", "source": "homepage"},
+                {"name": "FRCA\ud83c\udf41", "from": "", "to": "", "source": "homepage"}
             ],
             "LUCKY": [
-                ["LUCKY", "homepage"],
-                ["LUCK2", "homepage"]
+                {"name": "LUCKY", "from": "", "to": "", "source": "homepage"},
+                {"name": "LUCK2", "from": "", "to": "", "source": "homepage"}
             ],
             "EPYC": [
-                ["EPYC", "homepage"],
-                ["EPYC2", "homepage"]
+                {"name": "EPYC", "from": "", "to": "", "source": "homepage"},
+                {"name": "EPYC2", "from": "", "to": "", "source": "homepage"}
             ],
             "GIFT1": [
-                ["GIFT1", "homepage"],
-                ["GIFT2", "homepage"]
+                {"name": "GIFT1", "from": "", "to": "", "source": "homepage"},
+                {"name": "GIFT2", "from": "", "to": "", "source": "homepage"}
             ],
             "KOREA": [
-                ["KOREA", "homepage"],
-                ["KOR", "homepage"]
+                {"name": "KOREA", "from": "", "to": "", "source": "homepage"},
+                {"name": "KOR", "from": "", "to": "", "source": "homepage"}
             ],
             "GFIN1": [
-                ["GFIN1", "homepage"],
-                ["GFIN2", "homepage"]
+                {"name": "GFIN1", "from": "", "to": "", "source": "homepage"},
+                {"name": "GFIN2", "from": "", "to": "", "source": "homepage"}
             ],
             "IAMX": [
-                ["IAMX", "homepage"],
-                ["IAMX3", "homepage"],
-                ["IAMX2", "homepage"]
+                {"name": "IAMX", "from": "", "to": "", "source": "homepage"},
+                {"name": "IAMX3", "from": "", "to": "", "source": "homepage"},
+                {"name": "IAMX2", "from": "", "to": "", "source": "homepage"}
             ],
             "DSHIN": [
-                ["DSHIN", "homepage"],
-                ["DSHN2", "homepage"]
+                {"name": "DSHIN", "from": "", "to": "", "source": "homepage"},
+                {"name": "DSHN2", "from": "", "to": "", "source": "homepage"}
             ],
             "FALCO": [
-                ["FALCO", "homepage"],
-                ["F₳LCO", "homepage"]
+                {"name": "FALCO", "from": "", "to": "", "source": "homepage"},
+                {"name": "F₳LCO", "from": "", "to": "", "source": "homepage"}
             ],
             "WEED": [
-                ["WEED", "homepage"],
-                ["420", "homepage"]
+                {"name": "WEED", "from": "", "to": "", "source": "homepage"},
+                {"name": "420", "from": "", "to": "", "source": "homepage"}
             ],
             "IBEX": [
-                ["IBEX", "homepage"],
-                ["IBEX2", "homepage"]
+                {"name": "IBEX", "from": "", "to": "", "source": "homepage"},
+                {"name": "IBEX2", "from": "", "to": "", "source": "homepage"}
             ],
             "AWP2": [
-                ["AWP2", "homepage"],
-                ["AWP3", "homepage"]
+                {"name": "AWP2", "from": "", "to": "", "source": "homepage"},
+                {"name": "AWP3", "from": "", "to": "", "source": "homepage"}
             ],
             "NODE": [
-                ["NODE", "homepage"],
-                ["NODE2", "homepage"]
+                {"name": "NODE", "from": "", "to": "", "source": "homepage"},
+                {"name": "NODE2", "from": "", "to": "", "source": "homepage"}
             ],
             "THC": [
-                ["THC", "homepage"],
-                ["THC3", "homepage"],
-                ["THCV", "homepage"]
+                {"name": "THC", "from": "", "to": "", "source": "homepage"},
+                {"name": "THC3", "from": "", "to": "", "source": "homepage"},
+                {"name": "THCV", "from": "", "to": "", "source": "homepage"}
             ],
             "0PCT": [
-                ["0PCT", "homepage"],
-                ["0PCT1", "homepage"]
+                {"name": "0PCT", "from": "", "to": "", "source": "homepage"},
+                {"name": "0PCT1", "from": "", "to": "", "source": "homepage"}
             ],
             "HOPE": [
-                ["HOPE", "homepage"],
-                ["HOPE2", "homepage"]
+                {"name": "HOPE", "from": "", "to": "", "source": "homepage"},
+                {"name": "HOPE2", "from": "", "to": "", "source": "homepage"}
             ],
             "JOY": [
-                ["JOY", "homepage"],
-                ["JOY2", "homepage"],
-                ["HOPE", "homepage"]
+                {"name": "JOY", "from": "", "to": "", "source": "homepage"},
+                {"name": "JOY2", "from": "", "to": "", "source": "homepage"},
+                {"name": "HOPE", "from": "", "to": "", "source": "homepage"}
             ],
             "BULPF": [
-                ["BULPF", "homepage"],
-                ["BULPR", "homepage"]
+                {"name": "BULPF", "from": "", "to": "", "source": "homepage"},
+                {"name": "BULPR", "from": "", "to": "", "source": "homepage"}
             ],
             "XSP": [
-                ["XSP", "homepage"],
-                ["XSP2", "homepage"]
+                {"name": "XSP", "from": "", "to": "", "source": "homepage"},
+                {"name": "XSP2", "from": "", "to": "", "source": "homepage"}
             ],
             "SIPO": [
-                ["SIPO", "homepage"],
-                ["SIPO3", "homepage"],
-                ["SIPO2", "homepage"]
+                {"name": "SIPO", "from": "", "to": "", "source": "homepage"},
+                {"name": "SIPO3", "from": "", "to": "", "source": "homepage"},
+                {"name": "SIPO2", "from": "", "to": "", "source": "homepage"}
             ],
             "BSSP": [
-                ["BSSP", "homepage"],
-                ["BSSP2", "homepage"]
+                {"name": "BSSP", "from": "", "to": "", "source": "homepage"},
+                {"name": "BSSP2", "from": "", "to": "", "source": "homepage"}
             ],
             "CSN1": [
-                ["CSN1", "homepage"],
-                ["CSN2", "homepage"]
+                {"name": "CSN1", "from": "", "to": "", "source": "homepage"},
+                {"name": "CSN2", "from": "", "to": "", "source": "homepage"}
             ],
             "CL1": [
-                ["CL1", "homepage"],
-                ["CL3", "homepage"]
+                {"name": "CL1", "from": "", "to": "", "source": "homepage"},
+                {"name": "CL3", "from": "", "to": "", "source": "homepage"}
             ],
             "fimi.vn/ada": [
-                ["FISUN", "homepage"],
-                ["ELLY7", "homepage"],
-                ["BOOM", "homepage"],
-                ["FIMI", "homepage"],
-                ["GRAB", "homepage"],
-                ["KIRIN", "homepage"]
+                {"name": "FISUN", "from": "", "to": "", "source": "homepage"},
+                {"name": "ELLY7", "from": "", "to": "", "source": "homepage"},
+                {"name": "BOOM", "from": "", "to": "", "source": "homepage"},
+                {"name": "FIMI", "from": "", "to": "", "source": "homepage"},
+                {"name": "GRAB", "from": "", "to": "", "source": "homepage"},
+                {"name": "KIRIN", "from": "", "to": "", "source": "homepage"}
             ],
             "NLD": [
-                ["NLD", "homepage"],
-                ["DUTCH", "homepage"]
+                {"name": "NLD", "from": "", "to": "", "source": "homepage"},
+                {"name": "DUTCH", "from": "", "to": "", "source": "homepage"}
             ],
             "NAVY": [
-                ["NAVY", "homepage"],
-                ["USMC", "homepage"]
+                {"name": "NAVY", "from": "", "to": "", "source": "homepage"},
+                {"name": "USMC", "from": "", "to": "", "source": "homepage"}
             ],
             "GINO": [
-                ["GINO", "homepage"],
-                ["DINO", "homepage"]
+                {"name": "GINO", "from": "", "to": "", "source": "homepage"},
+                {"name": "DINO", "from": "", "to": "", "source": "homepage"}
             ],
             "LAKE": [
-                ["LAKE", "homepage"],
-                ["L\u20b3KE", "homepage"]
+                {"name": "LAKE", "from": "", "to": "", "source": "homepage"},
+                {"name": "L₳KE", "from": "", "to": "", "source": "homepage"}
             ],
             "VEGAS": [
-                ["VEGAS", "homepage"],
-                ["CRAZY", "homepage"]
+                {"name": "VEGAS", "from": "", "to": "", "source": "homepage"},
+                {"name": "CRAZY", "from": "", "to": "", "source": "homepage"}
             ],
             "HRMS": [
-                ["HRMS", "homepage"],
-                ["HRMS2", "homepage"]
+                {"name": "HRMS", "from": "", "to": "", "source": "homepage"},
+                {"name": "HRMS2", "from": "", "to": "", "source": "homepage"}
             ],
             "ANGEL": [
-                ["ANGEL", "homepage"],
-                ["SION", "homepage"]
+                {"name": "ANGEL", "from": "", "to": "", "source": "homepage"},
+                {"name": "SION", "from": "", "to": "", "source": "homepage"}
             ],
             "SWIM": [
-                ["SWIM", "homepage"],
-                ["SWIM2", "homepage"]
+                {"name": "SWIM", "from": "", "to": "", "source": "homepage"},
+                {"name": "SWIM2", "from": "", "to": "", "source": "homepage"}
             ],
             "blockngine.io": [
-                ["NGINE", "homepage"],
-                ["CRYPT", "homepage"],
-                ["HODL", "homepage"],
-                ["CODE", "homepage"],
-                ["XEON", "homepage"]
+                {"name": "NGINE", "from": "", "to": "", "source": "homepage"},
+                {"name": "CRYPT", "from": "", "to": "", "source": "homepage"},
+                {"name": "HODL", "from": "", "to": "", "source": "homepage"},
+                {"name": "CODE", "from": "", "to": "", "source": "homepage"},
+                {"name": "XEON", "from": "", "to": "", "source": "homepage"}
             ],
             "KAKA": [
-                ["KAKA", "homepage"],
-                ["KAPO", "homepage"]
+                {"name": "KAKA", "from": "", "to": "", "source": "homepage"},
+                {"name": "KAPO", "from": "", "to": "", "source": "homepage"}
             ],
             "EVER": [
-                ["EVER", "homepage"],
-                ["ESP", "homepage"]
+                {"name": "EVER", "from": "", "to": "", "source": "homepage"},
+                {"name": "ESP", "from": "", "to": "", "source": "homepage"}
             ],
             "DOW": [
-                ["DOW", "homepage"],
-                ["EXPO", "homepage"]
+                {"name": "DOW", "from": "", "to": "", "source": "homepage"},
+                {"name": "EXPO", "from": "", "to": "", "source": "homepage"}
             ],
             "IAGON": [
-                ["IAGON", "homepage"],
-                ["IAG1", "homepage"]
+                {"name": "IAGON", "from": "", "to": "", "source": "homepage"},
+                {"name": "IAG1", "from": "", "to": "", "source": "homepage"}
             ],
             "ACP1": [
-                ["ACP1", "homepage"],
-                ["ACP2", "homepage"]
+                {"name": "ACP1", "from": "", "to": "", "source": "homepage"},
+                {"name": "ACP2", "from": "", "to": "", "source": "homepage"}
             ],
             "ADAX1": [
-                ["ADAX1", "homepage"],
-                ["ONE\u2764\ufe0f", "homepage"]
+                {"name": "ADAX1", "from": "", "to": "", "source": "homepage"},
+                {"name": "ONE\u2764\ufe0f", "from": "", "to": "", "source": "homepage"}
             ],
             "SADA": [
-                ["SADA", "homepage"],
-                ["ADACH", "homepage"]
+                {"name": "SADA", "from": "", "to": "", "source": "homepage"},
+                {"name": "ADACH", "from": "", "to": "", "source": "homepage"}
             ],
             "TOP": [
-                ["TOP", "homepage"],
-                ["2GTHR", "homepage"]
+                {"name": "TOP", "from": "", "to": "", "source": "homepage"},
+                {"name": "2GTHR", "from": "", "to": "", "source": "homepage"}
             ],
             "ANEW": [
-                ["ANEW", "homepage"],
-                ["PAPER", "homepage"]
+                {"name": "ANEW", "from": "", "to": "", "source": "homepage"},
+                {"name": "PAPER", "from": "", "to": "", "source": "homepage"}
             ],
             "HUBS": [
-                ["HUBS", "homepage"],
-                ["ARCH", "homepage"]
+                {"name": "HUBS", "from": "", "to": "", "source": "homepage"},
+                {"name": "ARCH", "from": "", "to": "", "source": "homepage"}
             ],
             "AJG10": [
-                ["AJG10", "homepage"],
-                ["AJGUK", "homepage"],
-                ["KING1", "homepage"]
+                {"name": "AJG10", "from": "", "to": "", "source": "homepage"},
+                {"name": "AJGUK", "from": "", "to": "", "source": "homepage"},
+                {"name": "KING1", "from": "", "to": "", "source": "homepage"}
             ],
             "adapools.org": [
-                ["POOLS", "homepage"],
-                ["FIX", "homepage"],
-                ["KNYN", "homepage"],
-                ["SWIFT", "homepage"]
+                {"name": "POOLS", "from": "", "to": "", "source": "homepage"},
+                {"name": "FIX", "from": "", "to": "", "source": "homepage"},
+                {"name": "KNYN", "from": "", "to": "", "source": "homepage"},
+                {"name": "SWIFT", "from": "", "to": "", "source": "homepage"}
             ],
             "kaizencrypto.com": [
-                ["KAIZN", "homepage"],
-                ["KRONO", "homepage"],
-                ["KRSNA", "homepage"],
-                ["KOBE", "homepage"]
+                {"name": "KAIZN", "from": "", "to": "", "source": "homepage"},
+                {"name": "KRONO", "from": "", "to": "", "source": "homepage"},
+                {"name": "KRSNA", "from": "", "to": "", "source": "homepage"},
+                {"name": "KOBE", "from": "", "to": "", "source": "homepage"}
             ],
             "VERSE": [
-                ["VERSE", "homepage"],
-                ["BIRD", "homepage"]
+                {"name": "VERSE", "from": "", "to": "", "source": "homepage"},
+                {"name": "BIRD", "from": "", "to": "", "source": "homepage"}
             ],
             "AFCH2": [
-                ["AFCH2", "homepage"],
-                ["POA", "homepage"]
+                {"name": "AFCH2", "from": "", "to": "", "source": "homepage"},
+                {"name": "POA", "from": "", "to": "", "source": "homepage"}
             ],
             "FOFA": [
-                ["FOFA", "homepage"],
-                ["BTCAO", "homepage"]
+                {"name": "FOFA", "from": "", "to": "", "source": "homepage"},
+                {"name": "BTCAO", "from": "", "to": "", "source": "homepage"}
             ],
             "GG63": [
-                ["GG63", "homepage"],
-                ["SS63", "homepage"]
+                {"name": "GG63", "from": "", "to": "", "source": "homepage"},
+                {"name": "SS63", "from": "", "to": "", "source": "homepage"}
             ],
             "MMTR": [
-                ["MMTR", "homepage"],
-                ["YYG", "homepage"]
+                {"name": "MMTR", "from": "", "to": "", "source": "homepage"},
+                {"name": "YYG", "from": "", "to": "", "source": "homepage"}
             ],
             "ADAMS": [
-                ["ADAMS", "homepage"],
-                ["TESLA", "homepage"]
+                {"name": "ADAMS", "from": "", "to": "", "source": "homepage"},
+                {"name": "TESLA", "from": "", "to": "", "source": "homepage"}
             ],
             "MANGO": [
-                ["MANGO", "homepage"],
-                ["_Q_", "homepage"]
+                {"name": "MANGO", "from": "", "to": "", "source": "homepage"},
+                {"name": "_Q_", "from": "", "to": "", "source": "homepage"}
             ],
             "DEX": [
-                ["DEX", "homepage"],
-                ["BPOOL", "homepage"]
+                {"name": "DEX", "from": "", "to": "", "source": "homepage"},
+                {"name": "BPOOL", "from": "", "to": "", "source": "homepage"}
             ],
             "SHELL": [
-                ["SHELL", "homepage"],
-                ["NTLS", "homepage"]
+                {"name": "SHELL", "from": "", "to": "", "source": "homepage"},
+                {"name": "NTLS", "from": "", "to": "", "source": "homepage"}
             ],
             "RPSP": [
-                ["RPSP", "homepage"],
-                ["JSP", "homepage"]
+                {"name": "RPSP", "from": "", "to": "", "source": "homepage"},
+                {"name": "JSP", "from": "", "to": "", "source": "homepage"}
             ],
             "PIRAT": [
-                ["PIRAT", "homepage"],
-                ["MADA1", "homepage"]
+                {"name": "PIRAT", "from": "", "to": "", "source": "homepage"},
+                {"name": "MADA1", "from": "", "to": "", "source": "homepage"}
             ],
             "USAGI": [
-                ["USAGI", "homepage"],
-                ["CREST", "homepage"]
+                {"name": "USAGI", "from": "", "to": "", "source": "homepage"},
+                {"name": "CREST", "from": "", "to": "", "source": "homepage"}
             ],
             "WEN_K": [
-                ["WEN_K", "homepage"],
-                ["CODER", "homepage"]
+                {"name": "WEN_K", "from": "", "to": "", "source": "homepage"},
+                {"name": "CODER", "from": "", "to": "", "source": "homepage"}
             ],
             "HAPPY": [
-                ["HAPPY", "homepage"],
-                ["AZUL", "homepage"]
+                {"name": "HAPPY", "from": "", "to": "", "source": "homepage"},
+                {"name": "AZUL", "from": "", "to": "", "source": "homepage"}
             ],
             "MORH": [
-                ["MORH", "homepage"],
-                ["CRBN", "homepage"]
+                {"name": "MORH", "from": "", "to": "", "source": "homepage"},
+                {"name": "CRBN", "from": "", "to": "", "source": "homepage"}
             ],
             "PSPJ": [
-                ["PSPJ", "homepage"],
-                ["RANKT", "homepage"]
+                {"name": "PSPJ", "from": "", "to": "", "source": "homepage"},
+                {"name": "RANKT", "from": "", "to": "", "source": "homepage"}
             ],
             "NOSP": [
-                ["NOSP", "homepage"],
-                ["ATRMN", "homepage"]
+                {"name": "NOSP", "from": "", "to": "", "source": "homepage"},
+                {"name": "ATRMN", "from": "", "to": "", "source": "homepage"}
             ],
             "FF50A": [
-                ["FF50A", "homepage"],
-                ["FFMXA", "homepage"]
+                {"name": "FF50A", "from": "", "to": "", "source": "homepage"},
+                {"name": "FFMXA", "from": "", "to": "", "source": "homepage"}
             ],
             "ARKNO": [
-                ["ARKNO", "homepage"],
-                ["0AKN0", "homepage"]
+                {"name": "ARKNO", "from": "", "to": "", "source": "homepage"},
+                {"name": "0AKN0", "from": "", "to": "", "source": "homepage"}
             ],
             "DRRS": [
-                ["DRRS", "homepage"],
-                ["UNKWN", "homepage"]
+                {"name": "DRRS", "from": "", "to": "", "source": "homepage"},
+                {"name": "UNKWN", "from": "", "to": "", "source": "homepage"}
             ],
             "PEACE": [
-                ["PEACE", "homepage"],
-                ["\ud83d\udd05RPST", "homepage"]
+                {"name": "PEACE", "from": "", "to": "", "source": "homepage"},
+                {"name": "\ud83d\udd05RPST", "from": "", "to": "", "source": "homepage"}
             ],
             "ART": [
-                ["ART", "homepage"],
-                ["GINGR", "homepage"]
+                {"name": "ART", "from": "", "to": "", "source": "homepage"},
+                {"name": "GINGR", "from": "", "to": "", "source": "homepage"}
             ],
             "TITAN": [
-                ["TITAN", "homepage"],
-                ["CCW", "homepage"]
+                {"name": "TITAN", "from": "", "to": "", "source": "homepage"},
+                {"name": "CCW", "from": "", "to": "", "source": "homepage"}
             ],
             "NEWM": [
-                ["NEWM", "homepage"],
-                ["MUSE", "homepage"]
+                {"name": "NEWM", "from": "", "to": "", "source": "homepage"},
+                {"name": "MUSE", "from": "", "to": "", "source": "homepage"}
             ],
             "BEAR": [
-                ["BEAR", "homepage"],
-                ["EPOCH", "homepage"]
+                {"name": "BEAR", "from": "", "to": "", "source": "homepage"},
+                {"name": "EPOCH", "from": "", "to": "", "source": "homepage"}
             ]
-        },
-        "2022": {
-        }
     },
     "coinbase_tags": {
         "BNP": {

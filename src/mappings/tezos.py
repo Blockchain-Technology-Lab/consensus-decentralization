@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_csv_file
+from src.helpers.helper import get_pool_data, write_csv_file, get_pool_addresses
 from src.mappings.mapping import Mapping
 
 
@@ -10,10 +10,7 @@ class TezosMapping(Mapping):
 
     def process(self, timeframe):
         pool_data, pool_links = get_pool_data(self.project_name, timeframe)
-        try:
-            pool_addresses = pool_data['pool_addresses'][timeframe[:4]]
-        except KeyError:
-            pool_addresses = {}
+        pool_addresses = get_pool_addresses(self.project_name, timeframe)
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
