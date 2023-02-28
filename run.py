@@ -1,5 +1,5 @@
 import argparse
-import re
+import datetime
 from src.map import ledger_mapping, apply_mapping
 from src.analyze import analyze
 from src.parse import parse
@@ -11,10 +11,15 @@ END_YEAR = 2024
 
 
 def valid_date(date_string):
-    # note: this regex assumes that all months have 31 days, so a few invalid dates get accepted (but most don't)
-    pattern = r'\d{4}(\-(0[1-9]|1[012]))?(\-(0[1-9]|[12][0-9]|3[01]))?'
-    match = re.fullmatch(pattern, date_string)
-    if match is None:
+    try:
+        time_list = [int(i) for i in date_string.split('-')]
+        if len(time_list) == 3:
+            datetime.date(time_list[0], time_list[1], time_list[2])
+        elif len(time_list) == 2:
+            datetime.date(time_list[0], time_list[1], 1)
+        elif len(time_list) == 1:
+            datetime.date(time_list[0], 1, 1)
+    except ValueError:
         raise argparse.ArgumentTypeError("Please use the format YYYY-MM-DD for the timeframe argument "
                                          "(day and / or month can be omitted).")
     return date_string
