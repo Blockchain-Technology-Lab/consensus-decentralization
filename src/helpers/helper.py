@@ -5,10 +5,26 @@ import pathlib
 import json
 import datetime
 import calendar
+import argparse
 
 YEAR_DIGITS = 4
 INPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'input'
 OUTPUT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent / 'output'
+
+
+def valid_date(date_string):
+    try:
+        time_list = [int(i) for i in date_string.split('-')]
+        if len(time_list) == 3:
+            datetime.date(time_list[0], time_list[1], time_list[2])
+        elif len(time_list) == 2:
+            datetime.date(time_list[0], time_list[1], 1)
+        elif len(time_list) == 1:
+            datetime.date(time_list[0], 1, 1)
+    except ValueError:
+        raise argparse.ArgumentTypeError("Please use the format YYYY-MM-DD for the timeframe argument "
+                                         "(day and / or month can be omitted).")
+    return date_string
 
 
 def get_start_date(timeframe):
