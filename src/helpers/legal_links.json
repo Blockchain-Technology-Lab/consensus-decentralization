@@ -1,39 +1,17 @@
 {
-  "2018": {
-      "Bitmain": [
-          ["AntPool", "https://www.investopedia.com/news/top-bitcoin-mining-pools/"],
-          ["BTC.COM", "https://www.investopedia.com/news/top-bitcoin-mining-pools/"],
-          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
-      ]
-  },
-  "2019": {
-      "Bitmain": [
-          ["AntPool", "https://www.coindesk.com/company/antpool/"],
-          ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
-          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
-      ]
-  },
-  "2020": {
-      "Bitmain": [
-          ["AntPool", "https://www.coindesk.com/company/antpool/"],
-          ["BTC.COM", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"],
-          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
-      ]
-  },
-  "2021": {
-      "Bitmain": [
-          ["AntPool", "https://www.coindesk.com/company/antpool/"]
-      ],
-      "BTC.COM": [
-          ["Bitdeer", "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"]
-      ]
-  },
-  "2022": {
-      "Bitmain": [
-          ["AntPool", "https://www.coindesk.com/company/antpool/"]
-      ],
-      "Poolin": [
-          ["NovaBlock", "https://bitcoinmagazine.com/business/chinese-mining-pool-poolin-acquires-north-american-competitor-novablock"]
-      ]
-  }
+  "Bitmain": [
+      {"name": "AntPool", "from": "", "to": "", "source": "https://www.coindesk.com/company/antpool/"},
+      {"name": "BTC.COM", "from": "", "to": "2020-12", "source": "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"},
+      {"name": "Bitdeer", "from": "", "to": "2020-12", "source": "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"}
+  ],
+  "Bitdeer": [
+      {"name": "BTC.COM", "from": "2020-12", "to": "2021-04", "source": "https://www.theblock.co/post/84370/bitmain-bitcoin-spinoff-fight-end"}
+  ],
+  "BIT Mining": [
+      {"name": "BTC.COM", "from": "2021-04", "to": "", "source": "https://ir.btcm.group/news/pressDetail/316"},
+      {"name": "Bitdeer", "from": "2021-04", "to": "", "source": "https://ir.btcm.group/news/pressDetail/316"}
+  ],
+  "Poolin": [
+      {"name": "NovaBlock", "from": "2021-02", "to": "", "source": "https://bitcoinmagazine.com/business/chinese-mining-pool-poolin-acquires-north-american-competitor-novablock"}
+  ]
 }
