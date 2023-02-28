@@ -732,14 +732,7 @@
     }
   },
   "pool_addresses": {
-    "2020": {
-        "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
-    },
-    "2021": {
-        "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
-    },
-    "2022": {
-        "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": "litecoinpool.org"
-    }
+    "LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU": {"name": "litecoinpool.org", "from": "", "to": "", "source": "https://explorer.btc.com/ltc/address/LTCPodha2LAxSyBGsGfkWcmKDEB8cWrqLU"},
+    "LTCPodmy8cJB4uSaZEirLRqY5yhYLwvwwr": {"name": "litecoinpool.org", "from": "", "to": "", "source": "https://explorer.btc.com/ltc/address/LTCPodmy8cJB4uSaZEirLRqY5yhYLwvwwr"}
   }
 }
