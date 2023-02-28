@@ -1,7 +1,9 @@
 import pathlib
 import datetime
+import argparse
+import pytest
 from src.helpers.helper import get_pool_data, write_csv_file, get_blocks_per_entity_from_file, get_start_date, \
-    get_timeframe_end, get_time_period
+    get_timeframe_end, get_time_period, valid_date
 
 
 def test_pool_data():
@@ -56,6 +58,36 @@ def test_write_read_blocks_per_entity():
         bpe['Entity 1'] == 1,
         bpe['Entity 2'] == 2,
     ])
+
+
+def test_valid_date():
+    for d in [
+        '2022',
+        '2022-01',
+        '2022-01-01',
+        '2022-01-1',
+        '2022-1-1',
+        '2022-1-01',
+        '2022-1',
+    ]:
+        assert valid_date(d)
+
+    for d in [
+        '2022/1/01',
+        '2022/01/1',
+        '2022/1',
+        '2022/01',
+        '2022.1.01',
+        '2022.01.1',
+        '2022.1',
+        '2022.01',
+        'blah',
+        '2022-',
+        '2022-02-29'
+    ]:
+        with pytest.raises(argparse.ArgumentTypeError) as e_info:
+            valid_date(d)
+        assert e_info.type == argparse.ArgumentTypeError
 
 
 def test_get_start_date():  # currently not testing for invalid dates
