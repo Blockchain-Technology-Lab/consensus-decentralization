@@ -2,7 +2,7 @@ import pathlib
 import datetime
 import argparse
 import pytest
-from src.helpers.helper import get_pool_data, write_csv_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
+from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, valid_date
 from src.map import ledger_mapping
 
@@ -60,7 +60,7 @@ def test_write_read_blocks_per_entity():
 
     blocks_per_entity = {'Entity 1': 1, 'Entity 2': 2}
 
-    write_csv_file(output_dir, blocks_per_entity, 'test')
+    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, 'test')
     bpe = get_blocks_per_entity_from_file(output_dir / 'test.csv')
 
     assert all([
