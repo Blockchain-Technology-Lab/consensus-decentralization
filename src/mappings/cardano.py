@@ -4,11 +4,21 @@ from src.mappings.mapping import Mapping
 
 
 class CardanoMapping(Mapping):
+    """
+        Mapping class tailored for Cardano data. Inherits from Mapping class.
+    """
 
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
 
     def process(self, timeframe):
+        """
+            Overrides process method of parent class to use project-specific information and extract the distribution of
+            blocks to different entities.
+            :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
+            format)
+            :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
+        """
         pool_data, pool_links = get_pool_data(self.project_name, timeframe)
 
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
