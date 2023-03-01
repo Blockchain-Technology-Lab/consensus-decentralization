@@ -95,21 +95,22 @@
               
                 <h1 id="metrics">Metrics</h1>
 <p>A metric gets the mapped data (see above <code>Mapping</code>) and outputs a relevant value.
-The metrics that we currently track are the following (note that more metrics may be added in the future):</p>
+The implemented metrics are the following (with more to be added in the future):</p>
 <ol>
-<li><strong>Nakamoto coefficient</strong>: The Nakamoto coefficient in this context represents the minimum number of entities that 
-collectively produce more than 50% of the system's total blocks. The output of the metric is a tuple of the Nakamoto 
-coefficient and the power percentage that these entities (that form the coefficient) control.</li>
-<li><strong>Gini coefficient</strong>: The Gini coefficient represents the degree of inequality when it comes to block production. The 
-output of the metric a decimal number in [0,1], where values close to 0 are an indicator of perfect equality (all entities in 
-the system produce the same number of blocks) and values close to 1 are an indicator of perfect inequality (one entity 
+<li><strong>Nakamoto coefficient</strong>: The Nakamoto coefficient is the minimum number of entities that
+collectively produce more than 50% of the produced blocks within a given timeframe. The output of the metric is a tuple of the Nakamoto
+coefficient and the power percentage that these entities control.</li>
+<li><strong>Gini coefficient</strong>: The Gini coefficient represents the degree of inequality in block production. The
+output of the metric a decimal number in [0,1]. Values close to 0 indicate equality (all entities in
+the system produce the same number of blocks) and values close to 1 indicate inequality (one entity
 produces most or all blocks).</li>
-<li><strong>Shannon entropy</strong>: The Shannon entropy represents the expected amount of information that one will gain by 
-determining which entity produced some block. The output of the metric is a real number; typically, a high number of 
-different involved entities will yield high entropy.</li>
+<li><strong>Entropy</strong>: Entropy represents the expected amount of information in the distribution of blocks across entities.
+Entropy is parameterized by a base rate α, which defines different types of
+entropy: (a) -1: min; (b) 0: Hartley; (c) 1: Shannon; (d) 2: collision.
+The output of the metric is a real number. Typically, a high number of
+different involved entities, each with approximately equal power, should yield high entropy.</li>
 </ol>
-<p>Each metric is implemented in a separate Python script in the folder <code>metrics</code>. Each script defines a function named <code>compute_&lt;metric_name&gt;</code>, which takes as input a dictionary of the form <code>{'&lt;entity name&gt;': &lt;number of resources&gt;}</code> (and 
-possibly other relevant arguments) and outputs the corresponding metric values.</p>
+<p>Each metric is implemented in a separate Python script in the folder <code>metrics</code>. Each script defines a function named <code>compute_&lt;metric_name&gt;</code>, which takes as input a dictionary of the form <code>{'&lt;entity name&gt;': &lt;number of resources&gt;}</code> (and possibly other relevant arguments) and outputs the corresponding metric values.</p>
               
             </div>
           </div><footer>

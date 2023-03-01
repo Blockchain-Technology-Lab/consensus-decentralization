@@ -102,36 +102,35 @@
 <p>To install the pooling analysis tool, simply clone this GitHub repository:</p>
 <pre><code>git clone https://github.com/Blockchain-Technology-Lab/pooling-analysis.git
 </code></pre>
-<p>The tool is written in Python 3, therefore a Python 3 interpreter is required in order to run it locally.
-Also take note of the <a href="requirements.txt">requirements file</a>, which lists the dependencies of the project, and make
-sure you have all of them installed before running the scripts. To install all of them in one go, you can run the 
-following command from the root directory of the project:</p>
+<p>The tool is written in Python 3, therefore a Python 3 interpreter is required in order to run it locally.</p>
+<p>The <a href="requirements.txt">requirements file</a> lists the dependencies of the project.
+Make sure you have all of them installed before running the scripts. To install
+all of them in one go, run the following command from the root directory of the
+project:</p>
 <pre><code>python -m pip install -r requirements.txt
 </code></pre>
 <h2 id="execution">Execution</h2>
-<p>The pooling analysis tool is a CLI tool, i.e. it can be executed through a terminal. In the future, a user-friendly 
-interface may be added, but for now the best way to interact with it is by running a python script that invokes it. 
-The <code>run.py</code> script in the root directory of the project invokes the required parsers, mappings and metrics, but it is 
+<p>The pooling analysis tool is a CLI tool.
+The <code>run.py</code> script in the root directory of the project invokes the required parsers, mappings and metrics, but it is
 also possible to execute each module individually. The following process describes the most typical workflow.</p>
-<p>Place all raw data (which could be collected from BigQuery for example, see <a href="../data/">Data Collection</a> for more details) 
-in the <code>input</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g. <code>bitcoin_raw_data.json</code>). By default, 
-there is a (very small) sample input file for some supported projects; to use it, remove the prefix <code>sample_</code> (but it is 
-recommended to use larger datasets).</p>
-<p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt;</code> to produce a csv of the mapped data. 
-Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values 
-will be used). Specifically:</p>
+<p>Place all raw data (which could be collected from BigQuery for example; see <a href="../data/">Data Collection</a> for more details)
+in the <code>input</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g., <code>bitcoin_raw_data.json</code>). By default,
+there is a (very small) sample input file for some supported projects; to use it, remove the prefix <code>sample_</code>.</p>
+<p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt;</code> to
+analyze the n specified ledgers for the given timeframe.
+Both arguments are optional, so it's possible to omit one or both of them; in this case, the default values
+will be used. Specifically:</p>
 <ul>
-<li>The <code>ledgers</code> argument accepts any number of the supported ledgers (case-insensitive). For example, <code>--ledgers bitcoin</code> 
-would run the analysis for Bitcoin, while <code>--ledgers Bitcoin Ethereum Cardano</code> would run the analysis for Bitcoin, 
-Ethereum and Cardano. If the <code>ledgers</code> argument is omitted, then all supported ledgers are used. </li>
-<li>The <code>timeframe</code> argument should be of the form <code>YYYY-MM-DD</code> (month and day can be omitted). For example, 
-<code>--timeframe 2022</code> would run the analysis for the year 2022, while <code>--timeframe 2022-02</code> would do it for the month of 
-February 2022. If the <code>timeframe</code> argument is omitted then a monthly analysis is performed for each month between 
+<li><code>ledgers</code> accepts any number of the supported ledgers (case-insensitive). For example, <code>--ledgers bitcoin</code>
+would run the analysis for Bitcoin, while <code>--ledgers Bitcoin Ethereum Cardano</code> would run the analysis for Bitcoin,
+Ethereum and Cardano. If the <code>ledgers</code> argument is omitted, then all supported ledgers are analyzed.</li>
+<li>The <code>timeframe</code> argument should be of the form <code>YYYY-MM-DD</code> (month and day can be omitted). For example,
+<code>--timeframe 2022</code> would run the analysis for the year 2022, while <code>--timeframe 2022-02</code> would do it for the month of
+February 2022. If the <code>timeframe</code> argument is omitted, then a monthly analysis is performed for each month between
 January 2018 and the current month.</li>
 </ul>
 <p>The script will print the output of each implemented metric for the specified ledgers and timeframe.
-All output files can then be found under the "Output" directory (which is automatically created the first time the tool 
-is run).</p>
+All output files can then be found under the <code>output</code> directory, which is automatically created the first time the tool is run.</p>
               
             </div>
           </div><footer>

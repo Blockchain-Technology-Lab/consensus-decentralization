@@ -100,25 +100,23 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="mappings">Mappings</h1>
-<p>The mapping obtains the parsed data (from <code>output/&lt;project_name&gt;/parsed_data.json</code>) and outputs a <code>csv</code> file that maps 
-blocks to entities. Specifically, the <code>csv</code> file is structured as follows:</p>
+<p>A mapping obtains the parsed data (from <code>output/&lt;project_name&gt;/parsed_data.json</code>) and outputs a <code>csv</code> file that maps
+blocks to entities, structured as follows:</p>
 <pre><code>Entity,Resources
 &lt;name of entity&gt;,&lt;(int) number of blocks&gt;
 </code></pre>
-<p>The <code>csv</code> file is named as the timeframe over which the mapping was executed (e.g., <code>2021-04.csv</code>) and is stored in the 
-project's output directory (i.e., <code>output/&lt;project_name&gt;</code>).</p>
-<p>The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output 
-different results, even if applied on the same data. </p>
+<p>The name of the <code>csv</code> file is the timeframe, over which the mapping was executed (e.g., <code>2021-04.csv</code>). The file is stored in the
+project's output directory (<code>output/&lt;project_name&gt;/</code>).</p>
+<p>The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output
+different results, even if applied on the same data.</p>
 <h2 id="pool-information">Pool Information</h2>
-<p>To assist the mapping process, the directory <code>helpers/pool_information</code> contains files named <code>&lt;project_name&gt;.json</code>, with 
+<p>To assist the mapping process, the directory <code>helpers/pool_information/</code> contains files named <code>&lt;project_name&gt;.json</code>, with
 relevant pool information, structured as follows:</p>
 <pre><code>{
   &quot;clusters&quot;: {
-    &quot;&lt;year&gt;&quot;: {
-      &quot;&lt;cluster name&gt;&quot;: [
-        [&quot;&lt;pool name&gt;&quot;, &quot;&lt;source of information&gt;&quot;]
-      ]
-    }
+    &quot;&lt;cluster name&gt;&quot;: [
+      {&quot;name&quot;: &quot;&lt;pool name&gt;&quot;, &quot;from&quot;: &quot;&lt;from&gt;&quot;, &quot;to&quot;: &quot;&lt;to&gt;&quot;, &quot;source&quot;: &quot;&lt;source of information&gt;&quot;}
+    ]
   },
   &quot;coinbase_tags&quot;: {
     &quot;&lt;pool tag&gt;&quot;: {
@@ -126,28 +124,42 @@ relevant pool information, structured as follows:</p>
       &quot;link&quot;: &quot;&lt;pool website&gt;&quot;
     }
   },
-  &quot;pool_addresses: {
-      &quot;&lt;year&gt;&quot; {
-          &quot;&lt;address&gt;&quot;: &quot;&lt;pool name&gt;&quot;
-      }
+  &quot;pool_addresses&quot;: {
+    &quot;&lt;address&gt;&quot;: {&quot;name&quot;: &quot;&lt;pool name&gt;&quot;, &quot;from&quot;: &quot;&lt;from&gt;&quot;, &quot;to&quot;: &quot;&lt;to&gt;&quot;, &quot;source&quot;: &quot;&lt;source of information&gt;&quot;},
   }
 }
 </code></pre>
 <p>In this file:</p>
 <ul>
-<li><code>clusters</code> refers to pools with shared coinbase addresses:</li>
-<li>instead of <code>&lt;year&gt;</code>, use the keyword <code>all</code> for clusters across years</li>
-<li>in projects other than Cardano, such links appear when an address appears in two blocks that are attributed to 
-different pools</li>
-<li>in Cardano, such links exist when two pools share the same metadata</li>
-<li>the <code>&lt;source of information&gt;</code> should be comma-separated keywords (e.g., "homepage", "shared block", etc) or a url with the clustering information; this information should be reprodusible (a link to a community or company with information that cannot be verified independently is not acceptable)</li>
-<li><code>&lt;pool tag&gt;</code> is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined 
-by the pool</li>
-<li>in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool</li>
+<li><code>clusters</code> refers to pools that share infrastructure:</li>
+<li>for each pool in a cluster, the following values should be defined:</li>
+<li><code>&lt;from&gt;</code> sets the beginning of the control of the pool by the cluster; the first
+    day of the timeframe is chosen; for example, if <code>2022</code>, then the beginning is set
+    to <code>2022-01-01</code>); if <code>&lt;from&gt;</code> is empty, then the control existed since the
+    pool's inception.</li>
+<li><code>&lt;to&gt;</code> sets the end of the control of the pool by the cluster; the end is
+    exclusive, i.e., it defines the beginning of the control transition; for
+    example, if <code>2022</code>, the end of the control is <code>31-12-2021</code>
+    if <code>&lt;to&gt;</code> is empty, then the control is still active.</li>
+<li><code>&lt;source of information&gt;</code> should be either (i) comma-separated keywords or (ii) a url with the clustering information; this information should be publicly-available and reproducible (for example, a link to a community or company, with information that cannot be verified independently, is not acceptable);<ul>
+<li>keywords: for Cardano, <code>homepage</code> can be used for pools that define the
+  same <code>homepage</code> in their metadata json file (published on0chain)</li>
+</ul>
+</li>
+<li><code>&lt;pool tag&gt;</code> is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool; in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool (Tezos) or its ticker (Cardano).</li>
+<li><code>pool_addresses</code> define control of an address by a pool; the structure is the same as <code>clusters</code>.</li>
 </ul>
 <h4 id="pool-ownership">Pool Ownership</h4>
-<p>The file <code>helpers/legal_links.json</code> defines legal links between pools and companies, based on off-chain information 
-(e.g., when a company is the major stakeholder in a pool).</p>
+<p>The file <code>helpers/legal_links.json</code> defines legal links between pools and companies, based on off-chain information.
+For example, it defines ownership information of a pool by a company.
+The structure of the file is as follows:</p>
+<pre><code>{
+  &quot;&lt;parent company&gt;&quot;: [
+      {&quot;name&quot;: &quot;&lt;pool name&gt;&quot;, &quot;from&quot;: &quot;&lt;start date&gt;&quot;, &quot;to&quot;: &quot;&lt;end date&gt;&quot;, &quot;source&quot;: &quot;&lt;source of information&gt;&quot;}
+  ]
+}
+</code></pre>
+<p>The values for each entry are the same as <code>clusters</code> in the above pool information.</p>
               
             </div>
           </div><footer>
