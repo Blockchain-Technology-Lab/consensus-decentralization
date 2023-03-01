@@ -4,6 +4,7 @@ import argparse
 import pytest
 from src.helpers.helper import get_pool_data, write_csv_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, valid_date
+from src.map import ledger_mapping
 
 
 def test_pool_data():
@@ -44,6 +45,14 @@ def test_pool_data():
         pool_links['NovaBlock'] == 'Poolin',
         pool_links['BTC.COM'] == 'Bitdeer',
     ])
+
+
+def test_committed_pool_data():
+    for project_name in ledger_mapping.keys() - ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos']:
+        for year in range(2018, 2024):
+            pool_data, pool_links = get_pool_data(project_name, str(year))
+            for month in range(1, 13):
+                pool_data, pool_links = get_pool_data(project_name, f'{year}-{month:02d}')
 
 
 def test_write_read_blocks_per_entity():
