@@ -64,6 +64,14 @@ def get_time_period(frm, to):
 
 
 def get_pool_data(project_name, timeframe):
+    """
+    Retrieves data regarding the pools of a project and the links between them.
+    :param project_name: string that corresponds to the project under consideration
+    :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
+    format)
+    :returns: (pool_data, pool_links) where pool_data is a dictionary with the tags, addresses and cluster
+    information of each pool, and pool_links is a dictionary that reveals the ownership of pools
+    """
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
     start = get_timeframe_beginning(timeframe)
@@ -105,7 +113,15 @@ def get_pool_data(project_name, timeframe):
     return pool_data, pool_links
 
 
-def get_pool_addresses(project_name, timeframe):
+def get_pool_addresses(project_name, timeframe):  # todo add test
+    """
+    Retrieves the addresses associated with pools of a certain project over a given timeframe
+    :param project_name: string that corresponds to the project under consideration
+    :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
+    format)
+    :returns: a dictionary with known addresses and the names of the pools that own them (given that the timeframe of
+    the ownership overlaps with the timeframe under consideration)
+    """
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
     start = get_timeframe_beginning(timeframe)
@@ -114,25 +130,30 @@ def get_pool_addresses(project_name, timeframe):
     with open(helpers_path + f'/pool_information/{project_name}.json') as f:
         address_data = json.load(f)['pool_addresses']
 
-    if not address_data:
-        return {}
-
     address_links = {}
-    for address, addr_info in address_data.items():
-        link_start, link_end = get_time_period(addr_info['from'], addr_info['to'])
+    if address_data:
+        for address, addr_info in address_data.items():
+            link_start, link_end = get_time_period(addr_info['from'], addr_info['to'])
 
-        check_list = [  # Check if two periods overlap at any point
-            start <= link_start <= end,
-            start <= link_end <= end,
-            link_start <= start <= link_end,
-            link_start <= end <= link_end
-        ]
-        if any(check_list):
-            address_links[address] = addr_info['name']
+            check_list = [  # Check if two periods overlap at any point
+                start <= link_start <= end,
+                start <= link_end <= end,
+                link_start <= start <= link_end,
+                link_start <= end <= link_end
+            ]
+            if any(check_list):
+                address_links[address] = addr_info['name']
     return address_links
 
 
-def write_csv_file(project_dir, blocks_per_entity, timeframe):
+def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
+    """
+    Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
+    The entries are sorted so that the entities that controlled the most resources appear first.
+    :param project_dir: the output directory corresponding to the project
+    :param blocks_per_entity: a dictionary with entities and the number of blocks they produced over the given timeframe
+    :param timeframe: the timeframe under consideration
+    """
     with open(project_dir / f'{timeframe}.csv', 'w') as f:
         csv_output = ['Entity,Resources']
         for key, val in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
@@ -140,9 +161,14 @@ def write_csv_file(project_dir, blocks_per_entity, timeframe):
         f.write('\n'.join(csv_output))
 
 
-def get_blocks_per_entity_from_file(filename):
+def get_blocks_per_entity_from_file(filepath):
+    """
+    Retrieves information about the number of blocks that each entity produced over some timeframe for some project.
+    :param filepath: the path to the file with the relevant information
+    :returns: a dictionary with entities and the number of blocks they produced
+    """
     blocks_per_entity = {}
-    with open(filename) as f:
+    with open(filepath) as f:
         for idx, line in enumerate(f.readlines()):
             if idx > 0:
                 row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])

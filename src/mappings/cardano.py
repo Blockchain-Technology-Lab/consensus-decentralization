@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_csv_file, get_pool_addresses
+from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses
 from src.mappings.mapping import Mapping
 
 
@@ -44,6 +44,6 @@ class CardanoMapping(Mapping):
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
-        write_csv_file(self.io_dir, blocks_per_entity, timeframe)
+        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, timeframe)
 
         return blocks_per_entity
