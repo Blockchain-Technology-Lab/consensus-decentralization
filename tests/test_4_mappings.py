@@ -1,4 +1,5 @@
 import pathlib
+import pytest
 import shutil
 import os
 import json
@@ -7,6 +8,7 @@ from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
 from src.parsers.cardano_parser import CardanoParser
 from src.map import apply_mapping, ledger_mapping
+from src.mappings.mapping import Mapping
 from src.mappings.bitcoin import BitcoinMapping
 from src.mappings.ethereum import EthereumMapping
 from src.mappings.cardano import CardanoMapping
@@ -245,3 +247,14 @@ def test_tezos_mapping():
             assert expected_output[idx] == line
 
     os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
+
+
+def test_not_implemented_process():
+    class TestMap(Mapping):
+        def __init__(self, project_name, dataset):
+            super().__init__(project_name, dataset)
+
+    test_map = TestMap('test', 'test')
+    with pytest.raises(NotImplementedError) as e_info:
+        test_map.process('test')
+    assert e_info.type == NotImplementedError
