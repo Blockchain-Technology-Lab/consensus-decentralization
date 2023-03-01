@@ -5,10 +5,14 @@ import src.helpers.helper as hlp
 
 def compute_entropy(blocks_per_entity, alpha):
     """
-        Pi is the relative frequency of each entity.
-        Renyi entropy: 1/(1-alpha) * log2 (sum (Pi**alpha))
-        Shannon entropy (alpha=1): −sum P(Si) log2 (Pi)
-        Min entropy (alpha=-1): -log max Pi
+    Calculates the entropy of a distribution of blocks to entities
+    Pi is the relative frequency of each entity.
+    Renyi entropy: 1/(1-alpha) * log2 (sum (Pi**alpha))
+    Shannon entropy (alpha=1): −sum P(Si) log2 (Pi)
+    Min entropy (alpha=-1): -log max Pi
+    :param blocks_per_entity: a dictionary with entities and the blocks they have produced
+    :param alpha: the entropy parameter (depending on its value the corresponding entropy measure is used)
+    :returns: a float that represents the entropy of the data
     """
     if alpha == 1:
         entropy = 0
