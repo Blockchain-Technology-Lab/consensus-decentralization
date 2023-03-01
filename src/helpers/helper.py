@@ -16,8 +16,8 @@ def valid_date(date_string):
     """
     Validates the given string if it corresponds to a correct date and is in YYYY-MM-DD, YYYY-MM or YYYY format
     :param date_string: a string representation of a date
-    :returns: the string as it was given, if it corresponds to a valid date in the specified format
-    :raises: argparse.ArgumentTypeError if the wrong format is used or if the date_string doesn't correspond to a valid
+    :return: the string as it was given, if it corresponds to a valid date in the specified format
+    :raises argparse.ArgumentTypeError: if the wrong format is used or if the date_string doesn't correspond to a valid
     date
     """
     try:
