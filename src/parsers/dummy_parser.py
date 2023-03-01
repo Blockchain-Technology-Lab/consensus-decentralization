@@ -10,5 +10,8 @@ class DummyParser(DefaultParser):
         super().__init__(project_name)
 
     def parse(self):
+        """
+        "Parses" the data and writes the results into a file
+        """
         data = self.read_and_sort_data()
         self.write_parsed_data(data)
