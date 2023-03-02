@@ -43,4 +43,3 @@ class Mapping:
         format)
         """
         raise NotImplementedError
-
