@@ -10,9 +10,11 @@ END_YEAR = 2024
 
 def analyze(projects, timeframes, entropy_alpha):
     """
-    :param projects: the ledgers whose data should be analyzed
-    :param timeframe: the timeframes (of the form yyyy-mm-dd) over which data should be analyzed
-    :param entropy_alpha: the alpha parameter for the entropy calculation
+    Calculates all available metrics for the given ledgers and timeframes. Outputs one file for each metric.
+    :param projects: list of strings that correspond to the ledgers whose data should be analyzed
+    :param timeframes: list of strings that correspond to the timeframes under consideration (in YYYY-MM-DD,
+    YYYY-MM or YYYY format)
+    :param entropy_alpha: float that corresponds to the alpha parameter for the entropy calculation
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
     """
