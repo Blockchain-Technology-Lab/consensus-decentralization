@@ -23,10 +23,12 @@ ledger_mapping = {
 
 def apply_mapping(project, timeframes):
     """
-    :param project: the ledger whose data should be mapped
-    :param timeframes: the timeframes (of the form yyyy-mm-dd) over which data should be mapped
-
-    Using multiple timeframes is more efficient here, since every new mapping has a heavy I/O
+    Applies the appropriate mapping to the parsed data of a ledger over some timeframes. If the mapping has already
+    been applied for some timeframe (i.e. the corresponding output file already exists) then nothing happens for that
+    timeframe.
+    :param project: string that corresponds to the ledger whose data should be mapped
+    :param timeframes: list of strings that correspond to the timeframes under consideration (in YYYY-MM-DD,
+    YYYY-MM or YYYY format). Using multiple timeframes is more efficient here, since every new mapping has a heavy I/O
     operation for retrieving the parsed data.
     """
     project_output_dir = OUTPUT_DIR / f'{project}'
