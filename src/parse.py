@@ -22,8 +22,8 @@ def parse(project, force_parse=False):
     Parses raw data
     :param project: string that corresponds to the ledger whose data should be parsed
     :param force_parse: boolean. If True, then raw data will be parsed, regardless of whether parsed data for some or
-    all of the projects already exist. If False, then data will be parsed only if they have not been parsed before (the relevant
-    file does not exist)
+    all of the projects already exist. If False, then data will be parsed only if they have not been parsed before (the
+    relevant file does not exist)
     """
     parsed_data_file = OUTPUT_DIR / project / 'parsed_data.json'
     if force_parse or not parsed_data_file.is_file():
