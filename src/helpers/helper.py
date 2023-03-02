@@ -113,7 +113,7 @@ def get_pool_data(project_name, timeframe):
     return pool_data, pool_links
 
 
-def get_pool_addresses(project_name, timeframe):  # todo add test
+def get_pool_addresses(project_name, timeframe):
     """
     Retrieves the addresses associated with pools of a certain project over a given timeframe
     :param project_name: string that corresponds to the project under consideration
