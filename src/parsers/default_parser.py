@@ -30,7 +30,8 @@ class DefaultParser:
 
     def parse(self):
         """
-        Parses the data and writes the results into a file
+        Parses the data and writes the results into a file in a directory associated with the parser instance
+        (specifically in <general output directory>/<project_name>)
         """
         data = self.read_and_sort_data()
 
@@ -43,7 +44,9 @@ class DefaultParser:
 
     def write_parsed_data(self, data):
         """
-        Writes the parsed data into a file in a directory associated with the project
+        Writes the parsed data into a file in a directory associated with the parser instance. Specifically,
+        into a folder named after the project, inside the general output directory. If the project folder doesn't
+        already exist then it is created here.
         :param data: the parsed data of the project
         """
         path = OUTPUT_DIR / self.project_name
