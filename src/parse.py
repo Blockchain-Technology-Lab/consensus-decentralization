@@ -19,8 +19,8 @@ ledger_parser = {
 
 def parse(project, force_parse=False):
     """
-    Parse raw data, unless already parsed
-    :param project: the ledger whose data should be parsed
+    Parses raw data, unless already parsed
+    :param project: string that corresponds to the ledger whose data should be parsed
     :param force_parse: if True, then raw data will be parsed, regardless of whether parsed data for some or all of the
     projects already exist
     """
