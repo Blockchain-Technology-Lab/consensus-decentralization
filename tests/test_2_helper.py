@@ -52,7 +52,10 @@ def test_write_read_blocks_per_entity():
     blocks_per_entity = {'Entity 1': 1, 'Entity 2': 2}
 
     write_blocks_per_entity_to_file(output_dir, blocks_per_entity, 'test')
-    bpe = get_blocks_per_entity_from_file(output_dir / 'test.csv')
+    # test that reading works for filepaths in both pathlib.PosixPath and string formats
+    get_blocks_per_entity_from_file(output_dir / 'test.csv')
+    get_blocks_per_entity_from_file(str(output_dir) + '/test.csv')
+    bpe = get_blocks_per_entity_from_file('../output/test.csv')  # test that it also works with relative paths
 
     assert all([
         bpe['Entity 1'] == 1,

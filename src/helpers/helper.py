@@ -16,7 +16,7 @@ def valid_date(date_string):
     """
     Validates the given string if it corresponds to a correct date and is in YYYY-MM-DD, YYYY-MM or YYYY format
     :param date_string: a string representation of a date
-    :return: the string as it was given, if it corresponds to a valid date in the specified format
+    :returns: the string as it was given, if it corresponds to a valid date in the specified format
     :raises argparse.ArgumentTypeError: if the wrong format is used or if the date_string doesn't correspond to a valid
     date
     """
@@ -150,9 +150,11 @@ def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
-    :param project_dir: the output directory corresponding to the project
+    :param project_dir: pathlib.PosixPath object of the output directory corresponding to the project. This is where
+    the produced csv file is written to.
     :param blocks_per_entity: a dictionary with entities and the number of blocks they produced over the given timeframe
-    :param timeframe: the timeframe under consideration
+    :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
+    format). Also used for naming the produced file.
     """
     with open(project_dir / f'{timeframe}.csv', 'w') as f:
         csv_output = ['Entity,Resources']
@@ -164,7 +166,8 @@ def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
 def get_blocks_per_entity_from_file(filepath):
     """
     Retrieves information about the number of blocks that each entity produced over some timeframe for some project.
-    :param filepath: the path to the file with the relevant information
+    :param filepath: the path to the file with the relevant information. It can be either an absolute or a relative
+    path in either a pathlib.PosixPath object or a string.
     :returns: a dictionary with entities and the number of blocks they produced
     """
     blocks_per_entity = {}
