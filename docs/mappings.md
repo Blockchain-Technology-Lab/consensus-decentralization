@@ -12,7 +12,8 @@ The name of the `csv` file is the timeframe, over which the mapping was executed
 project's output directory (`output/<project_name>/`).
 
 The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output
-different results, even if applied on the same data.
+different results, even if applied on the same data. An exception to this is the "no-cluster" mapping, which maps blocks to 
+coinbase addresses, so it doesn't perform any extra processing on the raw data.
 
 ## Pool Information
 
