@@ -52,8 +52,9 @@ class BitcoinMapping(Mapping):
                     if addr in pool_addresses.keys():
                         block_pools.add((addr, pool_addresses[addr]))
                 if block_pools:
-                    entity = str('/'.join(sorted([i[1] for i in block_pools])))
-                    if len(set([i[1] for i in block_pools])) > 1:
+                    entities = sorted({i[1] for i in block_pools})
+                    entity = str('/'.join(entities))
+                    if len(entities) > 1:
                         multi_pool_info = '/'.join([f'{i[0]}({i[1]})' for i in block_pools])
                         multi_pool_blocks.append(f'{tx["number"]},{tx["timestamp"]},{multi_pool_info}')
                 else:
