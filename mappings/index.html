@@ -108,7 +108,8 @@ blocks to entities, structured as follows:</p>
 <p>The name of the <code>csv</code> file is the timeframe, over which the mapping was executed (e.g., <code>2021-04.csv</code>). The file is stored in the
 project's output directory (<code>output/&lt;project_name&gt;/</code>).</p>
 <p>The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output
-different results, even if applied on the same data.</p>
+different results, even if applied on the same data. An exception to this is the "no-cluster" mapping, which maps blocks to 
+coinbase addresses, so it doesn't perform any extra processing on the raw data.</p>
 <h2 id="pool-information">Pool Information</h2>
 <p>To assist the mapping process, the directory <code>helpers/pool_information/</code> contains files named <code>&lt;project_name&gt;.json</code>, with
 relevant pool information, structured as follows:</p>
