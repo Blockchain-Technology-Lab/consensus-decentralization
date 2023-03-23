@@ -5,7 +5,7 @@ Currently, the data for the analysis of the different ledgers is collected throu
 
 Note that when saving results from BigQuery you should select the option "JSONL (newline delimited)".
 
-## Sample data
+## Sample data & queries
 
 ### Bitcoin
 
@@ -136,3 +136,21 @@ JOIN `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_
 WHERE is_coinbase is TRUE
 AND timestamp > '2018-12-31'
 ```
+
+##  Automating the data collection process
+
+Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is 
+possible to automate the process using a [script](/src/query.py) and collect all relevant data in one go. Executing this 
+script will run all queries in [this file](/queries.yaml), so you can also control which queries are run by adding them 
+to or removing them from the file.
+
+IMPORTANT: the script uses service account credentials for authentication, therefore before running it, you need to 
+generate the relevant credentials from Google, as described 
+[here](https://developers.google.com/workspace/guides/create-credentials#service-account) and save your key in the
+root directory of the project under the name 'google-service-account-key.json'
+
+Once you have set up the credentials, you can just run the following command from the `src` directory to retrieve data 
+for all supported blockchains:
+
+`python query.py`
+

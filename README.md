@@ -33,7 +33,8 @@ following command from the root directory of the project:
 Place all raw data (which could be collected from BigQuery for example) in the `input` directory, each file named as 
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there is a (very small) sample input file 
 for some supported projects; to use it, remove the prefix `sample_` (but it is generally recommended to use larger 
-datasets). For more extended raw data see [here](https://blockchain-technology-lab.github.io/pooling-analysis/data/).
+datasets). For more extended raw data and instructions on how to retrieve it, see 
+[here](https://blockchain-technology-lab.github.io/pooling-analysis/data/).
 
 Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data. 
 Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values 
