@@ -147,7 +147,9 @@ to or removing them from the file.
 IMPORTANT: the script uses service account credentials for authentication, therefore before running it, you need to 
 generate the relevant credentials from Google, as described 
 [here](https://developers.google.com/workspace/guides/create-credentials#service-account) and save your key in the
-root directory of the project under the name 'google-service-account-key.json'
+root directory of the project under the name 'google-service-account-key.json'. There is a 
+[sample file](/google-service-account-key-SAMPLE.json) that you can consult, which shows what your credentials are 
+supposed to look like (but note that this is for informational purposes only, this file is not used in the code).
 
 Once you have set up the credentials, you can just run the following command from the `src` directory to retrieve data 
 for all supported blockchains:
