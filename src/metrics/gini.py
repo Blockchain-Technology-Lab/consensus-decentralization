@@ -5,8 +5,9 @@ import src.helpers.helper as hlp
 
 def compute_gini(blocks_per_entity):
     """
-    Calculate the Gini coefficient of a distribution
-    param blocks_per_entity must be a dictionary
+    Calculates the Gini coefficient of a distribution of blocks to entities
+    :param blocks_per_entity: a dictionary with entities and the blocks they have produced
+    :returns: a float that represents the Gini coefficient of the given distribution
     """
     array = np.array(list(blocks_per_entity.values()))
     return gini(array)
@@ -14,8 +15,10 @@ def compute_gini(blocks_per_entity):
 
 def gini(array):
     """
-    Calculate the Gini coefficient of a numpy array
+    Calculates the Gini coefficient of a distribution
     Source: https://github.com/oliviaguest/gini
+    :param array: a numpy array with entities and the blocks they have produced
+    :returns: a float that represents the Gini coefficient of the given distribution
     """
     array = array.flatten()
     if np.amin(array) < 0:

@@ -6,13 +6,20 @@ MIN_TX_VALUE = 0
 
 class DefaultParser:
     """
-    The default parser, used for Bitcoin, Litecoin, Zcash and others
+    The default parser, used for Bitcoin, Litecoin, Zcash and others. Any project that requires different parsing
+    must use a parser class that inherits from this one.
+
+    :ivar project_name: the name of the project associated with a specific parser instance
     """
 
     def __init__(self, project_name):
         self.project_name = project_name
 
     def read_and_sort_data(self):
+        """
+        Reads the "raw" block data associated with the project
+        :returns: a list of block data sorted by timestamp
+        """
         filename = f'{self.project_name}_raw_data.json'
         filepath = INPUT_DIR / filename
         with open(filepath) as f:
@@ -22,6 +29,10 @@ class DefaultParser:
         return data
 
     def parse(self):
+        """
+        Parses the data and writes the results into a file in a directory associated with the parser instance
+        (specifically in <general output directory>/<project_name>)
+        """
         data = self.read_and_sort_data()
 
         for block in data:
@@ -32,6 +43,12 @@ class DefaultParser:
         self.write_parsed_data(data)
 
     def write_parsed_data(self, data):
+        """
+        Writes the parsed data into a file in a directory associated with the parser instance. Specifically,
+        into a folder named after the project, inside the general output directory. If the project folder doesn't
+        already exist then it is created here.
+        :param data: the parsed data of the project
+        """
         path = OUTPUT_DIR / self.project_name
         path.mkdir(parents=True, exist_ok=True)  # create project output directory if it doesn't already exist
         filename = 'parsed_data.json'

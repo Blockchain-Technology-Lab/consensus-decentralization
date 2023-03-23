@@ -1,8 +1,8 @@
 import argparse
-import re
 from src.map import ledger_mapping, apply_mapping
 from src.analyze import analyze
 from src.parse import parse
+from src.helpers.helper import valid_date
 
 PROJECTS = ledger_mapping.keys()
 
@@ -10,17 +10,16 @@ START_YEAR = 2018
 END_YEAR = 2024
 
 
-def valid_date(date_string):
-    # note: this regex assumes that all months have 31 days, so a few invalid dates get accepted (but most don't)
-    pattern = r'\d{4}(\-(0[1-9]|1[012]))?(\-(0[1-9]|[12][0-9]|3[01]))?'
-    match = re.fullmatch(pattern, date_string)
-    if match is None:
-        raise argparse.ArgumentTypeError("Please use the format YYYY-MM-DD for the timeframe argument "
-                                         "(day and / or month can be omitted).")
-    return date_string
-
-
 def main(projects, timeframes, force_parse, entropy_alpha):
+    """
+    Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
+    :param projects: list of strings that correspond to the ledgers whose data should be analyzed
+    :param timeframes: list of strings that correspond to the timeframes under consideration (in YYYY-MM-DD,
+    YYYY-MM or YYYY format)
+    :param force_parse: if True, then raw data will be parsed, regardless of whether parsed data for some or all of the
+    projects already exist
+    :param entropy_alpha: float that corresponds to the alpha parameter for the entropy calculation
+    """
     print(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
         parse(project, force_parse)
@@ -32,6 +31,7 @@ def main(projects, timeframes, force_parse, entropy_alpha):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
+    # todo maybe move parsing to helper module
     parser.add_argument(
         '--ledgers',
         nargs="*",

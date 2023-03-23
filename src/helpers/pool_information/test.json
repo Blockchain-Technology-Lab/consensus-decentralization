@@ -1,24 +1,18 @@
 {
   "clusters": {
-    "2022": {
-        "cluster_1": [
-            ["entity 1", "homepage"]
-        ]
-    },
-    "2021": {
-        "cluster_4": [
-            ["entity 5", "homepage"]
-        ]
-    },
-    "all": {
-        "cluster_2": [
-            ["ent2", "homepage"],
-            ["entity_3", "homepage"]
-        ],
-        "cluster_3": [
-            ["cluster_1", "homepage"]
-        ]
-      }
+    "cluster_1": [
+        {"name": "entity 1", "from": "", "to": "2023", "source": "homepage"}
+    ],
+    "cluster_2": [
+        {"name": "ent2", "from": "", "to": "", "source": "homepage"},
+        {"name": "entity_3", "from": "", "to": "", "source": "homepage"}
+    ],
+    "cluster_3": [
+        {"name": "cluster_1", "from": "", "to": "", "source": "homepage"}
+    ],
+    "cluster_4": [
+        {"name": "entity 5", "from": "", "to": "2022", "source": "homepage"}
+    ]
   },
   "coinbase_tags": {
     "entity 1": {
@@ -43,9 +37,7 @@
     }
   },
   "pool_addresses": {
-    "2022": {
-        "address1": "entity 4",
-        "addr2": "entity_5"
-    }
+    "address1": {"name": "entity 4", "from": "", "to": "2023", "source": ""},
+    "addr2": {"name": "entity_5", "from": "", "to": "2023", "source": ""}
   }
 }
