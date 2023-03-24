@@ -73,17 +73,17 @@ def get_pool_data(project_name, timeframe):
     :returns: (pool_data, pool_links) where pool_data is a dictionary with the tags, addresses and cluster
     information of each pool, and pool_links is a dictionary that reveals the ownership of pools
     """
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
+    helpers_path = ROOT_DIR / '/helpers'
 
     start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)
 
     pool_links = {}
 
-    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
+    with open(helpers_path / f'/pool_information/{project_name}.json') as f:
         pool_data = json.load(f)
         cluster_data = pool_data['clusters']
-    with open(helpers_path + '/legal_links.json') as f:
+    with open(helpers_path / '/legal_links.json') as f:
         legal_data = json.load(f)
     for data in [cluster_data, legal_data]:
         for cluster_name, pools in data.items():
@@ -123,12 +123,12 @@ def get_pool_addresses(project_name, timeframe):
     :returns: a dictionary with known addresses and the names of the pools that own them (given that the timeframe of
     the ownership overlaps with the timeframe under consideration)
     """
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
+    helpers_path = ROOT_DIR / '/helpers'
 
     start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)
 
-    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
+    with open(helpers_path / f'/pool_information/{project_name}.json') as f:
         address_data = json.load(f)['pool_addresses']
 
     address_links = {}
