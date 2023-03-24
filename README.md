@@ -34,15 +34,20 @@ project:
 Place all raw data (which could be collected from BigQuery for example) in the `input` directory, each file named as
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there
 is a (very small) sample input file for some supported projects. To use the
-samples, remove the prefix `sample_`. For more extended raw data see
+samples, remove the prefix `sample_`. For more extended raw data and instructions on how to retrieve it, see
 [here](https://blockchain-technology-lab.github.io/pooling-analysis/data/).
 
 Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data.
 Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values
 will be used). Specifically:
 
-- The `ledgers` argument accepts any number of supported ledgers (case-insensitive). For example, `--ledgers bitcoin` runs the analysis for Bitcoin, `--ledgers Bitcoin Ethereum Cardano` runs the analysis for Bitcoin, Ethereum and Cardano, etc. Ledgers with  more words should be defined with an underscore; for example Bitcoin Cash should be set as `bitcoin_cash`.
-- The `timeframe` argument should be of the form `YYYY-MM-DD` (month and day can be omitted). For example,  `--timeframe 2022` runs the analysis for the year 2022, `--timeframe 2022-02` runs it for February 2022, etc.
+- The `ledgers` argument accepts any number of supported ledgers (case-insensitive). 
+For example, `--ledgers bitcoin` runs the analysis for Bitcoin, `--ledgers Bitcoin Ethereum Cardano` runs the analysis 
+for Bitcoin, Ethereum and Cardano, etc. Ledgers with  more words should be defined with an underscore; for example 
+Bitcoin Cash should be set as `bitcoin_cash`.
+- The `timeframe` argument should be of the form `YYYY-MM-DD` (month and day can be omitted). 
+For example,  `--timeframe 2022` runs the analysis for the year 2022, `--timeframe 2022-02` runs it for February 2022, 
+etc.
 
 `run.py` prints the output of each implemented metric for the specified ledgers and timeframe.
 
@@ -52,7 +57,8 @@ analyzed. If only the timeframe is specified, all ledgers will be analyzed for
 the given timeframe. If no arguments are given, all ledgers will be analyzed for
 all months since January 2018.
 
-Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the `output` directory, containing the data from the last execution of `run.py`.
+Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the `output` directory, containing the data from the 
+last execution of `run.py`.
 
 ## Contributing
 
