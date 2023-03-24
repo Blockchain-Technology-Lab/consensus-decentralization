@@ -51,7 +51,7 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Data Collection</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#sample-data">Sample data</a>
+    <li class="toctree-l2"><a class="reference internal" href="#sample-data-queries">Sample data &amp; queries</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#bitcoin">Bitcoin</a>
     </li>
@@ -72,6 +72,8 @@
     <li class="toctree-l3"><a class="reference internal" href="#zcash">Zcash</a>
     </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#automating-the-data-collection-process">Automating the data collection process</a>
     </li>
     </ul>
                 </li>
@@ -119,7 +121,7 @@
 <p>Currently, the data for the analysis of the different ledgers is collected through 
 <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> .</p>
 <p>Note that when saving results from BigQuery you should select the option "JSONL (newline delimited)".</p>
-<h2 id="sample-data">Sample data</h2>
+<h2 id="sample-data-queries">Sample data &amp; queries</h2>
 <h3 id="bitcoin">Bitcoin</h3>
 <p>Sample raw Bitcoin data are available
 <a href="https://drive.google.com/file/d/12sd6xn8aZE5yBrUFoxE6vVPFIuE_Sw4F/view?usp=sharing">here</a>.</p>
@@ -205,6 +207,20 @@ JOIN `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_
 WHERE is_coinbase is TRUE
 AND timestamp &gt; '2018-12-31'
 </code></pre>
+<h2 id="automating-the-data-collection-process">Automating the data collection process</h2>
+<p>Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is 
+possible to automate the process using a <a href="/src/query.py">script</a> and collect all relevant data in one go. Executing this 
+script will run all queries in <a href="/queries.yaml">this file</a>, so you can also control which queries are run by adding them 
+to or removing them from the file.</p>
+<p>IMPORTANT: the script uses service account credentials for authentication, therefore before running it, you need to 
+generate the relevant credentials from Google, as described 
+<a href="https://developers.google.com/workspace/guides/create-credentials#service-account">here</a> and save your key in the
+root directory of the project under the name 'google-service-account-key.json'. There is a 
+<a href="/google-service-account-key-SAMPLE.json">sample file</a> that you can consult, which shows what your credentials are 
+supposed to look like (but note that this is for informational purposes only, this file is not used in the code).</p>
+<p>Once you have set up the credentials, you can just run the following command from the <code>src</code> directory to retrieve data 
+for all supported blockchains:</p>
+<p><code>python query.py</code></p>
               
             </div>
           </div><footer>
