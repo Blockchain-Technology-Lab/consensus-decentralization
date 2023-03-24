@@ -23,8 +23,9 @@ for ledger in queries.keys():
     query_job = client.query(QUERY)
     try:
         rows = query_job.result()
-    except Exception:  # todo specify which exception
+    except Exception as e:
         print(f'{ledger} query failed, please make sure it is properly defined.')
+        print(f'The following exception was raised: {repr(e)}')
         continue
 
     result_json = [dict(row) for row in rows]
