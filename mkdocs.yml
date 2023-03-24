@@ -6,5 +6,4 @@ nav:
         - Parsers: parsers.md
         - Mappings: mappings.md
         - Metrics: metrics.md
-        - Output: output.md
 theme: readthedocs
