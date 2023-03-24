@@ -13,8 +13,8 @@ The tool consists of the following modules:
 - Mapping
 - Metrics
 
-The parser is responsible for pre-processing the raw data that comes from a full node. It produces a file 
-with all the information that is needed for the mapping. 
+The parser is responsible for pre-processing the raw data that comes from a full node. It produces a file
+with all the information that is needed for the mapping.
 
 The mapping takes the output of the parser and combines it with some other
 sources of information. It then outputs a file that reveals the distribution of
@@ -24,7 +24,8 @@ number of produced blocks.
 This distribution is the input for the metrics module, which tracks various
 decentralization-related metrics and produces files with the results. 
 
-More details about the different modules can be found in the corresponding [Parser](parsers.md), [Mapping](mappings.md) and [Metrics](metrics.md) pages.
+More details about the different modules can be found in the corresponding [Parser](parsers.md), [Mapping](mappings.md)
+and [Metrics](metrics.md) pages.
 
 Currently, the supported ledgers are:
 
@@ -42,7 +43,9 @@ We intend to add more ledgers to this list in the future.
 
 ## Contributing
 
-This is an open source project licensed under the terms and conditions of the [MIT license](LICENSE) and [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
+This is an open source project licensed under the terms and conditions of the 
+[MIT license](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/LICENSE) and
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 Everyone is welcome to contribute to it by proposing or implementing their
 ideas. Example contributions include, but are not limited to, reporting
 potential bugs, supplying useful information for the mappings of supported
