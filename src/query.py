@@ -11,7 +11,7 @@ import google.cloud.bigquery as bq
 import json
 from yaml import safe_load
 
-from helpers.helper import ROOT_DIR, INPUT_DIR
+from src.helpers.helper import ROOT_DIR, INPUT_DIR
 
 with open(ROOT_DIR / "queries.yaml") as f:
     queries = safe_load(f)
