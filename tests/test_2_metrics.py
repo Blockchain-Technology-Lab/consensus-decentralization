@@ -1,4 +1,4 @@
-from src.metrics import entropy, gini, nakamoto_coefficient
+from src.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index
 import numpy as np
 
 
@@ -61,3 +61,23 @@ def test_nc():
     blocks_per_entity = {'a': 1}
     coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 1
+
+
+def test_hhi():
+    # each participant produced 10% of the total blocks
+    blocks_per_entity = {'a': 1, 'b': 1, 'c': 1, 'd': 1, 'e': 1, 'f': 1, 'g': 1, 'h': 1, 'i': 1, 'j': 1}
+    hhi = herfindahl_hirschman_index.compute_hhi(blocks_per_entity)
+    assert hhi == 1000
+
+    # 'a', 'b', 'c' and 'd' produced 40%, 30%, 15% and 15% respectively of the total blocks
+    blocks_per_entity = {'a': 8, 'b': 6, 'c': 3, 'd': 3}
+    hhi = herfindahl_hirschman_index.compute_hhi(blocks_per_entity)
+    assert hhi == 2950
+
+    blocks_per_entity = {'a': 2, 'b': 2}  # 'a' and 'b' each produced 50% of the total blocks
+    hhi = herfindahl_hirschman_index.compute_hhi(blocks_per_entity)
+    assert hhi == 5000
+
+    blocks_per_entity = {'a': 1}  # 'a' produced 100% of the blocks
+    hhi = herfindahl_hirschman_index.compute_hhi(blocks_per_entity)
+    assert hhi == 10000
