@@ -140,7 +140,7 @@ AND timestamp > '2018-12-31'
 ##  Automating the data collection process
 
 Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is 
-possible to automate the process using a [script](/src/query.py) and collect all relevant data in one go. Executing this 
+possible to automate the process using a [script](/src/collect_data.py) and collect all relevant data in one go. Executing this 
 script will run all queries in [this file](/queries.yaml), so you can also control which queries are run by adding them 
 to or removing them from the file.
 
