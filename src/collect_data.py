@@ -48,4 +48,3 @@ for ledger in queries.keys():
             f.write(json.dumps(dict(row), default=str) + "\n")
     print(f'Done writing {ledger} data (took about {round(time() - start)} seconds)')
     print('-------------------------------------------------------')
-
