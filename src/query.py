@@ -40,15 +40,12 @@ for ledger in queries.keys():
         print(f'The following exception was raised: {repr(e)}')
         continue
 
-    print(f"Formatting {ledger} data..")
-    start = time()
-    result_json = [dict(row) for row in rows]
-    print(f'Done formatting {ledger} data (took about {round(time() - start)} seconds)')
-
     print(f"Writing {ledger} data to file..")
     start = time()
+    # write json lines to file
     with open(file, 'w') as f:
-        json.dump(result_json, f, default=str)
+        for row in rows:
+            f.write(json.dumps(dict(row), default=str) + "\n")
     print(f'Done writing {ledger} data (took about {round(time() - start)} seconds)')
     print('-------------------------------------------------------')
 
