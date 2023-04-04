@@ -39,6 +39,8 @@ class TezosMapping(Mapping):
 
             try:
                 coinbase_addresses = tx['coinbase_addresses']
+                if coinbase_addresses is None:
+                    coinbase_addresses = '----- UNDEFINED MINER -----'
             except KeyError:
                 coinbase_addresses = '----- UNDEFINED MINER -----'
 
