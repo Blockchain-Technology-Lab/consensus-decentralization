@@ -8,6 +8,16 @@ class CardanoMapping(Mapping):
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
 
+    def map_relays(self):
+        filename = 'cardano_relays.csv'
+        with open(filename) as f:
+            relay_info = f.readlines()
+        relay_dict = defaultdict(set)
+        for row in relay_info:
+            _, ticker, *relays = row.split(',')
+            for relay in relays:
+                relay_dict[relay.strip()].add(ticker)
+
     def process(self, timeframe):
         pool_data, pool_links = get_pool_data(self.project_name, timeframe)
 
