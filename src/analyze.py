@@ -2,6 +2,7 @@ import argparse
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
+from src.metrics.herfindahl_hirschman_index import compute_hhi
 from src.helpers.helper import OUTPUT_DIR
 
 START_YEAR = 2018
@@ -21,6 +22,7 @@ def analyze(projects, timeframes, entropy_alpha):
     gini_csv = {'0': 'timeframe'}
     nc_csv = {'0': 'timeframe'}
     entropy_csv = {'0': 'timeframe'}
+    hhi_csv = {'0': 'timeframe'}
 
     for project in projects:
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
@@ -28,12 +30,14 @@ def analyze(projects, timeframes, entropy_alpha):
         gini_csv['0'] += f',{project}'
         nc_csv['0'] += f',{project}'
         entropy_csv['0'] += f',{project}'
+        hhi_csv['0'] += f',{project}'
 
         for timeframe in timeframes:
             if timeframe not in gini_csv.keys():
                 gini_csv[timeframe] = timeframe
                 nc_csv[timeframe] = timeframe
                 entropy_csv[timeframe] = timeframe
+                hhi_csv[timeframe] = timeframe
 
             # Get mapped data for the year that corresponds to the timeframe.
             # This is needed because the Gini coefficient is computed over all entities per each year.
@@ -57,20 +61,22 @@ def analyze(projects, timeframes, entropy_alpha):
                         blocks_per_entity[entity] = 0
                 gini = compute_gini(blocks_per_entity)
                 nc = compute_nakamoto_coefficient(blocks_per_entity)
+                hhi = compute_hhi(blocks_per_entity)
                 entropy = compute_entropy(blocks_per_entity, entropy_alpha)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities}, entropy_alpha)
                 entropy_percentage = 100 * entropy / max_entropy if max_entropy != 0 else 0
                 print(
-                    f'[{project:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   '
+                    f'[{project:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   HHI: {hhi:.6f} '
                     f'Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})'
                 )
             else:
-                gini, nc, entropy = '', ('', ''), ''
+                gini, nc, hhi, entropy = '', ('', ''), '', ''
                 print(f'[{project:12} {timeframe:7}] No data')
 
             gini_csv[timeframe] += f',{gini}'
             nc_csv[timeframe] += f',{nc[0]}'
             entropy_csv[timeframe] += f',{entropy}'
+            hhi_csv[timeframe] += f',{hhi}'
 
     with open(OUTPUT_DIR / 'gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
@@ -78,6 +84,8 @@ def analyze(projects, timeframes, entropy_alpha):
         f.write('\n'.join([i[1] for i in sorted(nc_csv.items(), key=lambda x: x[0])]))
     with open(OUTPUT_DIR / 'entropy.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(entropy_csv.items(), key=lambda x: x[0])]))
+    with open(OUTPUT_DIR / 'hhi.csv', 'w') as f:
+        f.write('\n'.join([i[1] for i in sorted(hhi_csv.items(), key=lambda x: x[0])]))
 
 
 if __name__ == '__main__':
