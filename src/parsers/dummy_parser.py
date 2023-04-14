@@ -15,4 +15,7 @@ class DummyParser(DefaultParser):
         (specifically in <general output directory>/<project_name>)
         """
         data = self.read_and_sort_data()
+        for block in data:
+            if 'coinbase_addresses' not in block.keys():
+                block['coinbase_addresses'] = None
         self.write_parsed_data(data)
