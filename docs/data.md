@@ -154,5 +154,5 @@ supposed to look like (but note that this is for informational purposes only, th
 Once you have set up the credentials, you can just run the following command from the `src` directory to retrieve data 
 for all supported blockchains:
 
-`python query.py`
+`python collect_data.py`
 
