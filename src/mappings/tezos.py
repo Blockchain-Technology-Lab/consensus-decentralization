@@ -37,10 +37,9 @@ class TezosMapping(Mapping):
                 daily_helper_data[day]['pool_links'] = pool_links
                 daily_helper_data[day]['pool_addresses'] = pool_addresses
 
-            try:
                 coinbase_addresses = tx['coinbase_addresses']
-            except KeyError:
-                coinbase_addresses = '----- UNDEFINED MINER -----'
+                if coinbase_addresses is None:
+                    coinbase_addresses = '----- UNDEFINED MINER -----'
 
             if coinbase_addresses in pool_addresses.keys():
                 entity = pool_addresses[coinbase_addresses]
