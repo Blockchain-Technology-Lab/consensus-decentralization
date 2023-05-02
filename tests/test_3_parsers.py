@@ -1,4 +1,6 @@
 import json
+import shutil
+import pytest
 from src.parse import parse, ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
@@ -6,12 +8,28 @@ from src.parsers.cardano_parser import CardanoParser
 from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 
+@pytest.fixture
+def setup_and_cleanup():
+    """
+    This function can be used to set up the right conditions for a test and also clean up after the test is finished.
+    The part before the yield command is run before the test (setup) and the part after the yield command is run
+    after (cleanup)
+    """
+    print("Setting up")
+    test_input_dir = INPUT_DIR
+    test_output_dir = OUTPUT_DIR / "test_output"
+    yield test_input_dir, test_output_dir
+    print("Cleaning up")
+    shutil.rmtree(test_output_dir)
+
+
 def compare_parsed_samples(correct_data, parsed_file):
     with open(parsed_file) as f:
         test_data = json.load(f)
 
     for item in test_data:
-        for sample in correct_data:
+        for sample in correct_data:  # todo parser always sorts data so we know the final order, no reason to check
+            # every sample for every item. if we stick to this at least continue after match is found
             if sample['number'] == item['number']:
                 assert all([
                     sample['timestamp'] == item['timestamp'],
@@ -20,7 +38,8 @@ def compare_parsed_samples(correct_data, parsed_file):
                 ])
 
 
-def test_default_parser():
+def test_default_parser(setup_and_cleanup):
+    test_input_dir, test_output_dir = setup_and_cleanup
     sample_parsed_data = [
         {"number": "507516", "timestamp": "2018-02-04 02:36:23 UTC", "coinbase_param": "037cbe0741d69d9c6acce4d141d69d9c69f9bef52f4254432e544f502ffabe6d6d143120f7b3da918f12ffb328ab935fbfe2d1cd9bb4707265d7fee23fd6cf372780000000000000005a44cacf0000f8a441200000", "coinbase_addresses": "137YB5cpBLxLKvy8T6qXsycJ699iJjWCHH,1FVKW4rp5rN23dqFVk2tYGY4niAXMB8eZC"},
         {"number": "507715", "timestamp": "2018-02-05 04:54:34 UTC", "coinbase_param": "0343bf07132f6d696e65642062792067626d696e6572732f2cfabe6d6d94976ecebbc73b3d4214b3d7ab330dca2129ebfcc863fa75623c6f95891e7346010000000000000010af8b66002da910ef408c776852840100", "coinbase_addresses": "1J7FCFaafPRxqu4X9VsaiMZr1XMemx69GR,131RUhDyyjxXSbSPxGRCm3t6vcei1TB6MB"},
@@ -36,16 +55,17 @@ def test_default_parser():
 
     project_name = 'sample_bitcoin'
 
-    parser = DefaultParser(project_name)
+    parser = DefaultParser(project_name, test_input_dir, test_output_dir)
     parser.parse()
 
-    parsed_file = OUTPUT_DIR / f'{project_name}/parsed_data.json'
+    parsed_file = test_output_dir / f'{project_name}/parsed_data.json'
     assert parsed_file.is_file()
 
     compare_parsed_samples(sample_parsed_data, parsed_file)
 
 
-def test_dummy_parser():
+def test_dummy_parser(setup_and_cleanup):
+    test_input_dir, test_output_dir = setup_and_cleanup
     sample_parsed_data = [
         {"number": "11181062", "timestamp": "2020-11-03 00:56:48 UTC", "coinbase_addresses": "0xe9b54a47e3f401d37798fc4e22f14b78475c2afc", "coinbase_param": "0x36"},
         {"number": "11183702", "timestamp": "2020-11-03 10:37:32 UTC", "coinbase_addresses": "0xe9b54a47e3f401d37798fc4e22f14b78475c2afc", "coinbase_param": "0x36"},
@@ -61,16 +81,17 @@ def test_dummy_parser():
 
     project_name = 'sample_ethereum'
 
-    parser = DummyParser(project_name)
+    parser = DummyParser(project_name, test_input_dir, test_output_dir)
     parser.parse()
 
-    parsed_file = OUTPUT_DIR / f'{project_name}/parsed_data.json'
+    parsed_file = test_output_dir / f'{project_name}/parsed_data.json'
     assert parsed_file.is_file()
 
     compare_parsed_samples(sample_parsed_data, parsed_file)
 
 
-def test_cardano_parser():
+def test_cardano_parser(setup_and_cleanup):
+    test_input_dir, test_output_dir = setup_and_cleanup
     sample_parsed_data = [
         {"number": "17809932", "coinbase_param": "CFLOW", "timestamp": "2020-12-31T00:57:03", "coinbase_addresses": "e7b605b72af41d6e8e6894274dedd18114f1759fea500b6d07031535"},
         {"number": "55555555555", "coinbase_param": "1PCT5", "timestamp": "2020-12-31T06:42:01", "coinbase_addresses": ""},
@@ -79,25 +100,26 @@ def test_cardano_parser():
 
     project_name = 'sample_cardano'
 
-    parser = CardanoParser(project_name)
+    parser = CardanoParser(project_name, test_input_dir, test_output_dir)
     parser.parse()
 
-    parsed_file = OUTPUT_DIR / f'{project_name}/parsed_data.json'
+    parsed_file = test_output_dir / f'{project_name}/parsed_data.json'
     assert parsed_file.is_file()
 
     compare_parsed_samples(sample_parsed_data, parsed_file)
 
 
-def test_parse():
+def test_parse(setup_and_cleanup):
+    test_input_dir, test_output_dir = setup_and_cleanup
     sample_block = {"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "coinbase_param": "03f06a0a202f5669614254432f4d696e6564206279206a617669647361656964373037332f2cfabe6d6d6e43ef2e06f7137b897180388403ee5019b8ff0ca4a045ea3cd82e3e41620fe91000000000000000105462a20fc21591f70e691905660b0000", "coinbase_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX"}
 
     project = 'sample_bitcoin'
     ledger_parser[project] = DefaultParser
 
-    parsed_file = OUTPUT_DIR / f'{project}/parsed_data.json'
-    input_file = INPUT_DIR / f'{project}_raw_data.json'
+    parsed_file = test_output_dir / f'{project}/parsed_data.json'
+    input_file = test_input_dir / f'{project}_raw_data.json'
 
-    parse(project)
+    parse(project, test_input_dir, test_output_dir)
     with open(parsed_file) as f:
         test_data = json.load(f)
         for item in test_data:
@@ -110,14 +132,14 @@ def test_parse():
     with open(input_file, 'w') as f:
         f.write(sample_data)
 
-    parse(project)
+    parse(project, test_input_dir, test_output_dir)
     with open(parsed_file) as f:
         test_data = json.load(f)
         for item in test_data:
             if item['number'] == '682736':
                 assert item['coinbase_addresses'] == sample_block['coinbase_addresses']
 
-    parse(project, True)
+    parse(project, test_input_dir, test_output_dir, True)
     with open(parsed_file) as f:
         test_data = json.load(f)
         for item in test_data:
@@ -126,6 +148,6 @@ def test_parse():
 
     with open(input_file) as f:
         sample_data = f.read()
-    sample_data = sample_data.replace("----------------------------------", "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX")
+    sample_data = sample_data.replace("----------------------------------", "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX")  #
     with open(input_file, 'w') as f:
         f.write(sample_data)

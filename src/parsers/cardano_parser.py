@@ -6,8 +6,8 @@ class CardanoParser(DefaultParser):
     Parser used for Cardano. Inherits from DefaultParser.
     """
 
-    def __init__(self, project_name):
-        super().__init__(project_name)
+    def __init__(self, project_name, input_dir, output_dir):
+        super().__init__(project_name, input_dir, output_dir)
 
     def parse(self):
         """

@@ -2,7 +2,8 @@ import argparse
 from src.parsers.default_parser import DefaultParser
 from src.parsers.cardano_parser import CardanoParser
 from src.parsers.dummy_parser import DummyParser
-from src.helpers.helper import OUTPUT_DIR
+from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
+
 
 ledger_parser = {
     'bitcoin': DefaultParser,
@@ -17,7 +18,7 @@ ledger_parser = {
 }
 
 
-def parse(project, force_parse=False):
+def parse(project, input_dir, output_dir, force_parse=False):
     """
     Parses raw data
     :param project: string that corresponds to the ledger whose data should be parsed
@@ -25,9 +26,9 @@ def parse(project, force_parse=False):
     all of the projects already exist. If False, then data will be parsed only if they have not been parsed before (the
     relevant file does not exist)
     """
-    parsed_data_file = OUTPUT_DIR / project / 'parsed_data.json'
+    parsed_data_file = output_dir / project / 'parsed_data.json'
     if force_parse or not parsed_data_file.is_file():
-        parser = ledger_parser[project](project)
+        parser = ledger_parser[project](project, input_dir, output_dir)
         parser.parse()
 
 
@@ -49,4 +50,4 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    parse(args.ledger, args.force_parse)
+    parse(args.ledger, INPUT_DIR, OUTPUT_DIR, args.force_parse)
