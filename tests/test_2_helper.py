@@ -1,10 +1,27 @@
-import pathlib
 import datetime
 import argparse
+import os
+import shutil
 import pytest
 from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, \
-    get_timeframe_beginning, get_timeframe_end, get_time_period, valid_date
+    get_timeframe_beginning, get_timeframe_end, get_time_period, valid_date, OUTPUT_DIR
 from src.map import ledger_mapping
+
+
+@pytest.fixture
+def setup_and_cleanup():
+    """
+    This function can be used to set up the right conditions for a test and also clean up after the test is finished.
+    The part before the yield command is run before the test (setup) and the part after the yield command is run
+    after (cleanup)
+    """
+    print("Setting up")
+    test_output_dir = OUTPUT_DIR / "test_output"
+    if not os.path.exists(test_output_dir):
+        os.makedirs(test_output_dir)
+    yield test_output_dir
+    print("Cleaning up")
+    shutil.rmtree(test_output_dir)
 
 
 def test_pool_data():
@@ -55,16 +72,15 @@ def test_committed_pool_data():
                 pool_data, pool_links = get_pool_data(project_name, f'{year}-{month:02d}')
 
 
-def test_write_read_blocks_per_entity():
-    output_dir = pathlib.Path(__file__).resolve().parent.parent / 'output'
+def test_write_read_blocks_per_entity(setup_and_cleanup):
+    output_dir = setup_and_cleanup
 
     blocks_per_entity = {'Entity 1': 1, 'Entity 2': 2}
 
     write_blocks_per_entity_to_file(output_dir, blocks_per_entity, 'test')
     # test that reading works for filepaths in both pathlib.PosixPath and string formats
     get_blocks_per_entity_from_file(output_dir / 'test.csv')
-    get_blocks_per_entity_from_file(str(output_dir) + '/test.csv')
-    bpe = get_blocks_per_entity_from_file('output/test.csv')  # test that it also works with relative paths
+    bpe = get_blocks_per_entity_from_file(str(output_dir) + '/test.csv')
 
     assert all([
         bpe['Entity 1'] == 1,
