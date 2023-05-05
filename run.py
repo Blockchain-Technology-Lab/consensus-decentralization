@@ -68,7 +68,7 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         '--plot',
-        action='store_false',
+        action='store_true',
         help='Flag to specify whether to produce and save plots of the results.'
     )
     args = parser.parse_args()
