@@ -128,7 +128,6 @@ def plot(ledgers, metrics):
 
 if __name__ == '__main__':
     ledgers = ['bitcoin', 'bitcoin_cash', 'cardano', 'dash', 'dogecoin', 'ethereum', 'litecoin', 'tezos', 'zcash']
-    ledgers = ['litecoin']
     metrics = ['entropy', 'gini', 'hhi', 'nc']
     parser = argparse.ArgumentParser()
 
