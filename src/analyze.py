@@ -9,7 +9,7 @@ START_YEAR = 2018
 END_YEAR = 2024
 
 
-def analyze(projects, timeframes, entropy_alpha):
+def analyze(projects, timeframes, entropy_alpha, output_dir):
     """
     Calculates all available metrics for the given ledgers and timeframes. Outputs one file for each metric.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -43,13 +43,13 @@ def analyze(projects, timeframes, entropy_alpha):
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
             yearly_entities = set()
-            with open(OUTPUT_DIR / f'{project}/{year}.csv') as f:
+            with open(output_dir / f'{project}/{year}.csv') as f:
                 for line in f.readlines()[1:]:
                     row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
                     yearly_entities.add(row[0])
 
             # Get mapped data for the defined timeframe.
-            with open(OUTPUT_DIR / f'{project}/{timeframe}.csv') as f:
+            with open(output_dir / f'{project}/{timeframe}.csv') as f:
                 blocks_per_entity = {}
                 for line in f.readlines()[1:]:
                     blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
@@ -78,13 +78,13 @@ def analyze(projects, timeframes, entropy_alpha):
             entropy_csv[timeframe] += f',{entropy}'
             hhi_csv[timeframe] += f',{hhi}'
 
-    with open(OUTPUT_DIR / 'gini.csv', 'w') as f:
+    with open(output_dir / 'gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
-    with open(OUTPUT_DIR / 'nc.csv', 'w') as f:
+    with open(output_dir / 'nc.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(nc_csv.items(), key=lambda x: x[0])]))
-    with open(OUTPUT_DIR / 'entropy.csv', 'w') as f:
+    with open(output_dir / 'entropy.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(entropy_csv.items(), key=lambda x: x[0])]))
-    with open(OUTPUT_DIR / 'hhi.csv', 'w') as f:
+    with open(output_dir / 'hhi.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(hhi_csv.items(), key=lambda x: x[0])]))
 
 
@@ -125,4 +125,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    analyze(args.ledgers, timeframes, args.entropy_alpha)
+    analyze(args.ledgers, timeframes, args.entropy_alpha, OUTPUT_DIR)

@@ -9,24 +9,34 @@ from src.map import ledger_mapping
 from src.mappings.bitcoin import BitcoinMapping
 from src.mappings.cardano import CardanoMapping
 from src.helpers.helper import OUTPUT_DIR
+import pytest
 
 
-def test_end_to_end():
+@pytest.fixture
+def setup_and_cleanup():
+    """
+    This function can be used to set up the right conditions for a test and also clean up after the test is finished.
+    The part before the yield command is run before the test (setup) and the part after the yield command is run
+    after (cleanup)
+    """
+    print("Setting up")
     shutil.rmtree(OUTPUT_DIR)
+    ledger_mapping['sample_bitcoin'] = BitcoinMapping
+    ledger_parser['sample_bitcoin'] = DefaultParser
+    ledger_mapping['sample_cardano'] = CardanoMapping
+    ledger_parser['sample_cardano'] = CardanoParser
+    yield
+    print("Cleaning up")
+    # todo remove all test output files
 
+
+def test_end_to_end(setup_and_cleanup):
     pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
 
     projects = ['bitcoin', 'cardano']
 
     for project in projects:
         shutil.copy2(str(pool_info_dir / f'{project}.json'), str(pool_info_dir / f'sample_{project}.json'))
-
-        if project == 'bitcoin':
-            ledger_mapping[project] = BitcoinMapping
-            ledger_parser[project] = DefaultParser
-        elif project == 'cardano':
-            ledger_mapping[project] = CardanoMapping
-            ledger_parser[project] = CardanoParser
 
     timeframes = ['2010', '2018-02', '2018-03', '2020-12']
     force_parse = False

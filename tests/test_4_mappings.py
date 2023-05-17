@@ -13,55 +13,72 @@ from src.mappings.bitcoin import BitcoinMapping
 from src.mappings.ethereum import EthereumMapping
 from src.mappings.cardano import CardanoMapping
 from src.mappings.tezos import TezosMapping
-from src.helpers.helper import OUTPUT_DIR
+from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 
-pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
+@pytest.fixture
+def setup_and_cleanup():
+    """
+    This function can be used to set up the right conditions for a test and also clean up after the test is finished.
+    The part before the yield command is run before the test (setup) and the part after the yield command is run
+    after (cleanup)
+    """
+    print("Setting up")
+    ledger_mapping['sample_bitcoin'] = BitcoinMapping
+    ledger_parser['sample_bitcoin'] = DefaultParser
+    ledger_mapping['sample_ethereum'] = EthereumMapping
+    ledger_parser['sample_ethereum'] = DummyParser
+    ledger_mapping['sample_cardano'] = CardanoMapping
+    ledger_parser['sample_cardano'] = CardanoParser
+    ledger_mapping['sample_tezos'] = TezosMapping
+    ledger_parser['sample_tezos'] = DummyParser
+    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'  # todo maybe better to have separate helper files for the tests s.t. the tests don't break just because the info changes
+    test_input_dir = INPUT_DIR
+    test_output_dir = OUTPUT_DIR / "test_output"
+    yield pool_info_dir, test_input_dir, test_output_dir
+    print("Cleaning up")
+    shutil.rmtree(test_output_dir)
 
-ledger_mapping['sample_bitcoin'] = BitcoinMapping
-ledger_parser['sample_bitcoin'] = DefaultParser
-ledger_mapping['sample_ethereum'] = EthereumMapping
-ledger_parser['sample_ethereum'] = DummyParser
-ledger_mapping['sample_cardano'] = CardanoMapping
-ledger_parser['sample_cardano'] = CardanoParser
-ledger_mapping['sample_tezos'] = TezosMapping
-ledger_parser['sample_tezos'] = DummyParser
 
-
-def test_map():
+def test_map(setup_and_cleanup):
+    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
     project = 'sample_bitcoin'
 
-    shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
+    shutil.copy2(str(pool_info_dir / 'bitcoin.json'),
+                 str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
 
     timeframes = ['2010', '2018-02', '2018-03']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     assert output_file.is_file()
 
-    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
     assert yearly_output_file.is_file()
 
     os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
-def test_bitcoin_mapping():
+def test_bitcoin_mapping(setup_and_cleanup):
+    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
     project = 'sample_bitcoin'
 
-    shutil.copy2(str(pool_info_dir / 'bitcoin.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
+    shutil.copy2(str(pool_info_dir / 'bitcoin.json'),
+                 str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
 
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
-    pool_info['pool_addresses']['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'from': '2020-01-02', 'to': '2020-09-20', 'source': ''}
+    pool_info['pool_addresses']['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'from': '2020-01-02',
+                                                                               'to': '2020-09-20', 'source': ''}
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
 
     timeframes = ['2018-02']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
     expected_output = [
         'Entity,Resources\n',
@@ -70,7 +87,7 @@ def test_bitcoin_mapping():
         'GBMiners,2'
     ]
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -83,15 +100,15 @@ def test_bitcoin_mapping():
         '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
     ]
 
-    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
     timeframes = ['2020']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
     expected_output = [
         'Entity,Resources\n',
@@ -100,7 +117,7 @@ def test_bitcoin_mapping():
         '0000000000000000000000000000000000000000,1'
     ]
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -108,22 +125,25 @@ def test_bitcoin_mapping():
     os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
-def test_ethereum_mapping():
+def test_ethereum_mapping(setup_and_cleanup):
+    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
     project = 'sample_ethereum'
 
-    shutil.copy2(str(pool_info_dir / 'ethereum.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
+    shutil.copy2(str(pool_info_dir / 'ethereum.json'),
+                 str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
 
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
     pool_info['clusters']['TEST'] = [{'name': 'ezil.me', 'from': '', 'to': '', 'source': 'homepage'}]
-    pool_info['pool_addresses']['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'from': '2020', 'to': '2021-01', 'source': ''}
+    pool_info['pool_addresses']['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'from': '2020',
+                                                                                 'to': '2021-01', 'source': ''}
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
 
     timeframes = ['2020-11']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
     expected_output = [
         'Entity,Resources\n',
@@ -132,27 +152,27 @@ def test_ethereum_mapping():
         '0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6,1'
     ]
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
     timeframes = ['2023']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
     expected_output = [
         'Entity,Resources\n',
         'MEV Builder: 0x3B...436,1'
     ]
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -160,18 +180,20 @@ def test_ethereum_mapping():
     os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
-def test_cardano_mapping():
+def test_cardano_mapping(setup_and_cleanup):
+    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
     project = 'sample_cardano'
 
-    shutil.copy2(str(pool_info_dir / 'cardano.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
+    shutil.copy2(str(pool_info_dir / 'cardano.json'),
+                 str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
 
     ledger_mapping[project] = CardanoMapping
     ledger_parser[project] = CardanoParser
 
     timeframes = ['2020-12']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
     expected_output = [
         'Entity,Resources\n',
@@ -182,12 +204,12 @@ def test_cardano_mapping():
         '1percentpool,1'
     ]
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -195,10 +217,12 @@ def test_cardano_mapping():
     os.remove(str(pool_info_dir / f'{project}.json'))  # Remove temp pool info file
 
 
-def test_tezos_mapping():
+def test_tezos_mapping(setup_and_cleanup):
+    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
     project = 'sample_tezos'
 
-    shutil.copy2(str(pool_info_dir / 'tezos.json'), str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
+    shutil.copy2(str(pool_info_dir / 'tezos.json'),
+                 str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
     pool_info['clusters']['TEST'] = [{'name': 'TzNode', 'from': '2021', 'to': '2022', 'source': 'homepage'}]
@@ -210,8 +234,8 @@ def test_tezos_mapping():
 
     timeframes = ['2021-08']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
     expected_output = [
         'Entity,Resources\n',
@@ -221,27 +245,27 @@ def test_tezos_mapping():
         '----- UNDEFINED MINER -----,1'
     ]
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    yearly_output_file = OUTPUT_DIR / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
     timeframes = ['2018']
 
-    parse(project)
-    apply_mapping(project, timeframes)
+    parse(project, test_input_dir, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir)
 
     expected_output = [
         'Entity,Resources\n',
         'tz0000000000000000000000000000000000,1'
     ]
 
-    output_file = OUTPUT_DIR / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line

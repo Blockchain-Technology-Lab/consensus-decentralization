@@ -21,7 +21,7 @@ ledger_mapping = {
 }
 
 
-def apply_mapping(project, timeframes):
+def apply_mapping(project, timeframes, output_dir):
     """
     Applies the appropriate mapping to the parsed data of a ledger over some timeframes. If the mapping has already
     been applied for some timeframe (i.e. the corresponding output file already exists) then nothing happens for that
@@ -31,7 +31,7 @@ def apply_mapping(project, timeframes):
     YYYY-MM or YYYY format). Using multiple timeframes is more efficient here, since every new mapping has a heavy I/O
     operation for retrieving the parsed data.
     """
-    project_output_dir = OUTPUT_DIR / f'{project}'
+    project_output_dir = output_dir / f'{project}'
     mapping = ledger_mapping[project](project, project_output_dir)
 
     for timeframe in timeframes:
@@ -76,4 +76,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    apply_mapping(args.ledgers, timeframes)
+    apply_mapping(args.ledgers, timeframes, OUTPUT_DIR)

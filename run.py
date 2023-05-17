@@ -4,6 +4,7 @@ from src.analyze import analyze
 from src.parse import parse
 from src.plot import plot
 from src.helpers.helper import valid_date
+from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 PROJECTS = ledger_mapping.keys()
 
@@ -11,7 +12,7 @@ START_YEAR = 2018
 END_YEAR = 2024
 
 
-def main(projects, timeframes, force_parse, entropy_alpha, make_plots):
+def main(projects, timeframes, force_parse, entropy_alpha, make_plots, output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -25,10 +26,10 @@ def main(projects, timeframes, force_parse, entropy_alpha, make_plots):
     """
     print(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
-        parse(project, force_parse)
-        apply_mapping(project, timeframes)
+        parse(project, INPUT_DIR, output_dir, force_parse)
+        apply_mapping(project, timeframes, output_dir)
 
-    analyze(projects, timeframes, entropy_alpha)
+    analyze(projects, timeframes, entropy_alpha, output_dir)
 
     if make_plots:
         metrics = ['entropy', 'gini', 'hhi', 'nc']

@@ -1,5 +1,4 @@
 import json
-from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 MIN_TX_VALUE = 0
 
@@ -12,8 +11,10 @@ class DefaultParser:
     :ivar project_name: the name of the project associated with a specific parser instance
     """
 
-    def __init__(self, project_name):
+    def __init__(self, project_name, input_dir, output_dir):
         self.project_name = project_name
+        self.input_dir = input_dir
+        self.output_dir = output_dir
 
     def read_and_sort_data(self):
         """
@@ -21,7 +22,7 @@ class DefaultParser:
         :returns: a list of block data sorted by timestamp
         """
         filename = f'{self.project_name}_raw_data.json'
-        filepath = INPUT_DIR / filename
+        filepath = self.input_dir / filename
         with open(filepath) as f:
             contents = f.read()
         data = [json.loads(item) for item in contents.strip().split('\n')]
@@ -49,7 +50,7 @@ class DefaultParser:
         already exist then it is created here.
         :param data: the parsed data of the project
         """
-        path = OUTPUT_DIR / self.project_name
+        path = self.output_dir / self.project_name
         path.mkdir(parents=True, exist_ok=True)  # create project output directory if it doesn't already exist
         filename = 'parsed_data.json'
         with open(path / filename, 'w') as f:
