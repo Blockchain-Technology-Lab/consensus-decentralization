@@ -2,6 +2,7 @@ import argparse
 from src.map import ledger_mapping, apply_mapping
 from src.analyze import analyze
 from src.parse import parse
+from src.plot import plot
 from src.helpers.helper import valid_date
 from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
@@ -11,15 +12,17 @@ START_YEAR = 2018
 END_YEAR = 2024
 
 
-def main(projects, timeframes, force_parse, entropy_alpha, output_dir=OUTPUT_DIR):
+def main(projects, timeframes, force_parse, entropy_alpha, make_plots, output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
     :param timeframes: list of strings that correspond to the timeframes under consideration (in YYYY-MM-DD,
     YYYY-MM or YYYY format)
-    :param force_parse: if True, then raw data will be parsed, regardless of whether parsed data for some or all of the
+    :param force_parse: bool. If True, then raw data will be parsed, regardless of whether parsed data for some or all
+    of the
     projects already exist
     :param entropy_alpha: float that corresponds to the alpha parameter for the entropy calculation
+    :param make_plots: bool. If True, then plots are generated and saved for the results
     """
     print(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
@@ -28,11 +31,14 @@ def main(projects, timeframes, force_parse, entropy_alpha, output_dir=OUTPUT_DIR
 
     analyze(projects, timeframes, entropy_alpha, output_dir)
 
+    if make_plots:
+        metrics = ['entropy', 'gini', 'hhi', 'nc']
+        plot(projects, metrics)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    # todo maybe move parsing to helper module
     parser.add_argument(
         '--ledgers',
         nargs="*",
@@ -61,6 +67,11 @@ if __name__ == '__main__':
         help='The alpha parameter for entropy computation. Default Shannon entropy. Examples: -1: min, 0: Hartley, '
              '1: Shannon, 2: collision.'
     )
+    parser.add_argument(
+        '--plot',
+        action='store_true',
+        help='Flag to specify whether to produce and save plots of the results.'
+    )
     args = parser.parse_args()
 
     projects = args.ledgers
@@ -74,4 +85,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    main(projects, timeframes, args.force_parse, args.entropy_alpha)
+    main(projects, timeframes, args.force_parse, args.entropy_alpha, args.plot)

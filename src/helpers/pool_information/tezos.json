@@ -103,6 +103,7 @@
     "tz1cYufsxHXJcvANhvS55h3aY32a9BAFB494": {"name": "Bakery-IL", "from": "", "to": "", "source": "https://tzkt.io/bakers"},
     "tz1dbfppLAAxXZNtf2SDps7rch3qfUznKSoK": {"name": "Coinhouse", "from": "", "to": "", "source": "https://tzkt.io/bakers"},
     "tz1S8e9GgdZG78XJRB3NqabfWeM37GnhZMWQ": {"name": "0xb1 / PlusMinus", "from": "", "to": "", "source": "https://tzkt.io/bakers"},
-    "tz1aRoaRhSpRYvFdyvgWLL6TGyRoGF51wDjM": {"name": "Everstake", "from": "", "to": "", "source": "https://tzkt.io/bakers"}
+    "tz1aRoaRhSpRYvFdyvgWLL6TGyRoGF51wDjM": {"name": "Everstake", "from": "", "to": "", "source": "https://tzkt.io/bakers"},
+    "tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk": {"name": "Coinbase Baker", "from": "", "to": "", "source": "https://tzkt.io/bakers"}
   }
 }

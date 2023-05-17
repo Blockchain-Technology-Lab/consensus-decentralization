@@ -169,7 +169,7 @@ def test_ethereum_mapping(setup_and_cleanup):
 
     expected_output = [
         'Entity,Resources\n',
-        '0x3bee5122e2a2fbe11287aafb0cb918e22abb5436,1'
+        'MEV Builder: 0x3B...436,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
