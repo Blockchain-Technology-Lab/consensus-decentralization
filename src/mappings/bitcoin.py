@@ -1,6 +1,6 @@
 from collections import defaultdict
 import codecs
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses
+from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses, get_special_addresses
 from src.mappings.mapping import Mapping
 
 YEAR_DIGITS = 4
@@ -24,6 +24,8 @@ class BitcoinMapping(Mapping):
         """
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
+        special_addresses = get_special_addresses(self.project_name)
+
         daily_helper_data = {}
         multi_pool_blocks = list()
         multi_pool_addresses = list()
@@ -43,14 +45,14 @@ class BitcoinMapping(Mapping):
                 daily_helper_data[day]['pool_addresses'] = pool_addresses
 
             coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
-            coinbase_addresses = tx['coinbase_addresses'].split(',')
+            coinbase_addresses = list(set(tx['coinbase_addresses'].split(',')) - special_addresses)
 
             pool_match = False
             for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
                 if tag in str(coinbase_param):
                     entity = info['name']
                     pool_match = True
-                    for addr in tx['coinbase_addresses'].split(','):
+                    for addr in coinbase_addresses:
                         if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
                             multi_pool_addresses.append(f'{tx["number"]},{tx["timestamp"]},{addr},{entity}')
                         pool_addresses[addr] = entity
