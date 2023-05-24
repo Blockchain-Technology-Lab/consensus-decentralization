@@ -72,6 +72,8 @@ class BitcoinMapping(Mapping):
                 else:
                     if len(coinbase_addresses) == 1:
                         entity = coinbase_addresses[0]
+                    elif len(coinbase_addresses) == 0:
+                        entity = '----- UNDEFINED MINER -----'
                     else:
                         entity = '/'.join([
                             addr[:5] + '...' + addr[-5:] for addr in sorted(coinbase_addresses)
