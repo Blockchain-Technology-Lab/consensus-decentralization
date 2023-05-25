@@ -178,3 +178,22 @@ def get_blocks_per_entity_from_file(filepath):
                 row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
                 blocks_per_entity[row[0]] = int(row[1])
     return blocks_per_entity
+
+
+def get_special_addresses(project_name):
+    """
+    Retrieves special addresses of a project, such as treasury addresses, protocol related smart contracts, etc.
+    :param project_name: string that corresponds to the project under consideration
+    :returns: special_addresses, which is a set of addresses
+    """
+    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
+
+    with open(helpers_path + '/special_addresses.json') as f:
+        special_address_data = json.load(f)
+
+    try:
+        special_addresses = special_address_data[project_name]
+    except KeyError:
+        return set()
+
+    return set([addr['address'] for addr in special_addresses])

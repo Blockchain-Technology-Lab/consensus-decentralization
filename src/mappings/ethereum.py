@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses
+from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses, get_special_addresses
 from src.mappings.mapping import Mapping
 
 
@@ -20,6 +20,8 @@ class EthereumMapping(Mapping):
         :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
         """
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
+
+        special_addresses = get_special_addresses(self.project_name)
 
         multi_pool_addresses = list()
         daily_helper_data = {}
@@ -44,6 +46,8 @@ class EthereumMapping(Mapping):
                 coinbase_param = tx['coinbase_param']
 
             coinbase_addresses = tx['coinbase_addresses']
+            if coinbase_addresses in special_addresses:
+                continue
 
             pool_match = False
             for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
