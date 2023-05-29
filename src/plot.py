@@ -75,7 +75,7 @@ def plot_stack_area_chart(values, execution_id, path, ylabel, legend_labels, tic
         visible_legend_labels = [label for label in legend_labels if not label.startswith('_')]
         if len(visible_legend_labels) > 0:
             max_labels_per_column = 25
-            ncols = 2  # len(visible_legend_labels) // (max_labels_per_column + 1) + 1
+            ncols = len(visible_legend_labels) // (max_labels_per_column + 1) + 1
             fig.legend(loc='upper right', bbox_to_anchor=(0.9, -0.1), ncol=ncols, fancybox=True,
                        borderpad=0.2,
                        labelspacing=0.3, handlelength=1)
