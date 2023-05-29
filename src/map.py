@@ -67,6 +67,11 @@ if __name__ == '__main__':
         default=None,
         help='The timeframe that will be analyzed.'
     )
+    parser.add_argument(
+        '--force-map',
+        action='store_true',
+        help='Flag to specify whether to map the parsed data, regardless if the mapped data files exist.'
+    )
     args = parser.parse_args()
 
     timeframe = args.timeframe
@@ -78,4 +83,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    apply_mapping(args.ledgers, timeframes, OUTPUT_DIR)
+    apply_mapping(args.ledgers, timeframes, OUTPUT_DIR, args.force_map)
