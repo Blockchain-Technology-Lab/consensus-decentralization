@@ -48,9 +48,10 @@ def test_map(setup_and_cleanup):
                  str(pool_info_dir / f'{project}.json'))  # Create a temp pool info file for sample
 
     timeframes = ['2010', '2018-02', '2018-03']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     assert output_file.is_file()
@@ -76,9 +77,10 @@ def test_bitcoin_mapping(setup_and_cleanup):
         f.write(json.dumps(pool_info))
 
     timeframes = ['2018-02']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
         'Entity,Resources\n',
@@ -106,9 +108,10 @@ def test_bitcoin_mapping(setup_and_cleanup):
             assert expected_output[idx] == line
 
     timeframes = ['2020']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
         'Entity,Resources\n',
@@ -141,9 +144,10 @@ def test_ethereum_mapping(setup_and_cleanup):
         f.write(json.dumps(pool_info))
 
     timeframes = ['2020-11']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
         'Entity,Resources\n',
@@ -163,9 +167,10 @@ def test_ethereum_mapping(setup_and_cleanup):
             assert expected_output[idx] == line
 
     timeframes = ['2023']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
         'Entity,Resources\n',
@@ -191,9 +196,10 @@ def test_cardano_mapping(setup_and_cleanup):
     ledger_parser[project] = CardanoParser
 
     timeframes = ['2020-12']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
         'Entity,Resources\n',
@@ -233,9 +239,10 @@ def test_tezos_mapping(setup_and_cleanup):
     ledger_parser[project] = DummyParser
 
     timeframes = ['2021-08']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
         'Entity,Resources\n',
@@ -256,9 +263,10 @@ def test_tezos_mapping(setup_and_cleanup):
             assert expected_output[idx] == line
 
     timeframes = ['2018']
+    force_map = True
 
     parse(project, test_input_dir, test_output_dir)
-    apply_mapping(project, timeframes, test_output_dir)
+    apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
         'Entity,Resources\n',
