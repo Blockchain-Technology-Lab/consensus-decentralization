@@ -44,7 +44,7 @@ def test_end_to_end(setup_and_cleanup):
     entropy_alpha = 1
 
     test_projects = [f'sample_{i}' for i in projects]
-    main(test_projects, timeframes, force_parse, force_map, entropy_alpha, False, test_output_dir)
+    main(test_projects, timeframes, force_parse, force_map, entropy_alpha, False, False, test_output_dir)
 
     for project in test_projects:
         os.remove(str(pool_info_dir / f'{project}.json'))
