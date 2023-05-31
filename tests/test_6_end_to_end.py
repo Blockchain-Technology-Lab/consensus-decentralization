@@ -40,10 +40,11 @@ def test_end_to_end(setup_and_cleanup):
 
     timeframes = ['2010', '2018-02', '2018-03', '2020-12']
     force_parse = False
+    force_map = False
     entropy_alpha = 1
 
     test_projects = [f'sample_{i}' for i in projects]
-    main(test_projects, timeframes, force_parse, entropy_alpha, False, test_output_dir)
+    main(test_projects, timeframes, force_parse, force_map, entropy_alpha, False, test_output_dir)
 
     for project in test_projects:
         os.remove(str(pool_info_dir / f'{project}.json'))
