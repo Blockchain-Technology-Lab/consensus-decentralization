@@ -42,10 +42,10 @@ def test_end_to_end(setup_and_cleanup):
     force_parse = False
     entropy_alpha = 1
 
-    projects = [f'sample_{i}' for i in projects]
-    main(projects, timeframes, force_parse, entropy_alpha, False, test_output_dir)
+    test_projects = [f'sample_{i}' for i in projects]
+    main(test_projects, timeframes, force_parse, entropy_alpha, False, test_output_dir)
 
-    for project in projects:
+    for project in test_projects:
         os.remove(str(pool_info_dir / f'{project}.json'))
 
     expected_entropy = [
