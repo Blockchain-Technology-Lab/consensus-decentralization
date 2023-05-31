@@ -20,19 +20,19 @@ def setup_and_cleanup():
     after (cleanup)
     """
     print("Setting up")
-    shutil.rmtree(OUTPUT_DIR)
+    test_output_dir = OUTPUT_DIR / "test_output"
     ledger_mapping['sample_bitcoin'] = BitcoinMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = CardanoParser
-    yield
+    yield test_output_dir
     print("Cleaning up")
-    # todo remove all test output files
+    shutil.rmtree(test_output_dir)
 
 
 def test_end_to_end(setup_and_cleanup):
+    test_output_dir = setup_and_cleanup
     pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
-
     projects = ['bitcoin', 'cardano']
 
     for project in projects:
@@ -43,10 +43,10 @@ def test_end_to_end(setup_and_cleanup):
     force_map = False
     entropy_alpha = 1
 
-    projects = [f'sample_{i}' for i in projects]
-    main(projects, timeframes, force_parse, force_map, entropy_alpha, False, False)
+    test_projects = [f'sample_{i}' for i in projects]
+    main(test_projects, timeframes, force_parse, force_map, entropy_alpha, False, False, test_output_dir)
 
-    for project in projects:
+    for project in test_projects:
         os.remove(str(pool_info_dir / f'{project}.json'))
 
     expected_entropy = [
@@ -56,7 +56,7 @@ def test_end_to_end(setup_and_cleanup):
         '2018-03,0.0,\n',
         '2020-12,,2.321928094887362'
     ]
-    with open(OUTPUT_DIR / 'entropy.csv') as f:
+    with open(test_output_dir / 'entropy.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert expected_entropy[idx] == line
@@ -68,7 +68,7 @@ def test_end_to_end(setup_and_cleanup):
         '2018-03,0.75,\n',
         '2020-12,,0.0'
     ]
-    with open(OUTPUT_DIR / 'gini.csv') as f:
+    with open(test_output_dir / 'gini.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert expected_gini[idx] == line
@@ -80,7 +80,7 @@ def test_end_to_end(setup_and_cleanup):
         '2018-03,1,\n',
         '2020-12,,3'
     ]
-    with open(OUTPUT_DIR / 'nc.csv') as f:
+    with open(test_output_dir / 'nc.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert expected_nc[idx] == line
