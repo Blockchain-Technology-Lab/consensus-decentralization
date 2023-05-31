@@ -17,11 +17,11 @@ ledger_mapping = {
     'litecoin': BitcoinMapping,
     'zcash': BitcoinMapping,
     'tezos': TezosMapping,
-    'dash': BitcoinMapping,
+    'dash': BitcoinMapping
 }
 
 
-def apply_mapping(project, timeframes, output_dir):
+def apply_mapping(project, timeframes, output_dir, force_map):
     """
     Applies the appropriate mapping to the parsed data of a ledger over some timeframes. If the mapping has already
     been applied for some timeframe (i.e. the corresponding output file already exists) then nothing happens for that
@@ -30,20 +30,22 @@ def apply_mapping(project, timeframes, output_dir):
     :param timeframes: list of strings that correspond to the timeframes under consideration (in YYYY-MM-DD,
     YYYY-MM or YYYY format). Using multiple timeframes is more efficient here, since every new mapping has a heavy I/O
     operation for retrieving the parsed data.
+    :param force_map: bool. If True, then the mapping will be performed, regardless of whether
+    mapped data for some or all of the projects already exist
     """
     project_output_dir = output_dir / f'{project}'
     mapping = ledger_mapping[project](project, project_output_dir)
 
     for timeframe in timeframes:
         output_file = project_output_dir / f'{timeframe}.csv'
-        if not output_file.is_file():
+        if not output_file.is_file() or force_map:
             mapping.perform_mapping(timeframe)
 
             # Get mapped data for the year that corresponds to the timeframe.
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
             year_file = project_output_dir / f'{year}.csv'
-            if not year_file.is_file():
+            if not year_file.is_file() or force_map:
                 mapping.perform_mapping(year)
 
 
@@ -65,6 +67,11 @@ if __name__ == '__main__':
         default=None,
         help='The timeframe that will be analyzed.'
     )
+    parser.add_argument(
+        '--force-map',
+        action='store_true',
+        help='Flag to specify whether to map the parsed data, regardless if the mapped data files exist.'
+    )
     args = parser.parse_args()
 
     timeframe = args.timeframe
@@ -76,4 +83,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    apply_mapping(args.ledgers, timeframes, OUTPUT_DIR)
+    apply_mapping(args.ledgers, timeframes, OUTPUT_DIR, args.force_map)

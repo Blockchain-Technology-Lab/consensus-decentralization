@@ -12,7 +12,7 @@ START_YEAR = 2018
 END_YEAR = 2024
 
 
-def main(projects, timeframes, force_parse, entropy_alpha, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+def main(projects, timeframes, force_parse, force_map, entropy_alpha, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -20,6 +20,8 @@ def main(projects, timeframes, force_parse, entropy_alpha, make_plots, make_anim
         YYYY-MM or YYYY format)
     :param force_parse: bool. If True, then raw data will be parsed, regardless of whether parsed data for some or all
         of the projects already exist
+    :param force_map: bool. If True, then the mapping will be performed, regardless of whether
+        mapped data for some or all of the projects already exist
     :param entropy_alpha: float that corresponds to the alpha parameter for the entropy calculation
     :param make_plots: bool. If True, then plots are generated and saved for the results
     :param make_animated_plots: bool. If True (and make_plots also True) then animated plots are also generated.
@@ -28,7 +30,7 @@ def main(projects, timeframes, force_parse, entropy_alpha, make_plots, make_anim
     print(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
         parse(project, INPUT_DIR, output_dir, force_parse)
-        apply_mapping(project, timeframes, output_dir)
+        apply_mapping(project, timeframes, output_dir, force_map)
 
     analyze(projects, timeframes, entropy_alpha, output_dir)
 
@@ -61,6 +63,11 @@ if __name__ == '__main__':
         help='Flag to specify whether to parse the raw data, regardless if the parsed data file exists.'
     )
     parser.add_argument(
+        '--force-map',
+        action='store_true',
+        help='Flag to specify whether to map the parsed data, regardless if the mapped data files exist.'
+    )
+    parser.add_argument(
         '--entropy-alpha',
         nargs="?",
         type=int,
@@ -91,4 +98,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    main(projects, timeframes, args.force_parse, args.entropy_alpha, args.plot, args.animated)
+    main(projects, timeframes, args.force_parse, args.force_map, args.entropy_alpha, args.plot, args.animated)
