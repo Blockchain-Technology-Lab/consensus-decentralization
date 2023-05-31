@@ -130,7 +130,7 @@ def plot_animated_stack_area_chart(values, execution_id, path, ylabel, legend_la
 
 def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
     for ledger in ledgers:
-        print(f'Plotting {ledger} data..')
+        print(f"Plotting {'(animated)' if animated else ''} {ledger} data..")
         path = hlp.OUTPUT_DIR / ledger
         figures_path = path / 'figures'
         if not figures_path.is_dir():
@@ -205,7 +205,7 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
 
 def plot_comparative_metrics(ledgers, metrics, animated=False):
     for metric in metrics:
-        print(f'Plotting {metric}..')
+        print(f"Plotting {'(animated)' if animated else ''} {metric}..")
         figures_path = hlp.OUTPUT_DIR / 'figures'
         if not figures_path.is_dir():
             figures_path.mkdir()
@@ -229,11 +229,12 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
                            )
 
 
-def plot(ledgers, metrics):
+def plot(ledgers, metrics, animated):
     plot_dynamics_per_ledger(ledgers, animated=False, legend=True)
-    # plot_dynamics_per_ledger(ledgers, animated=True, legend=False)
     plot_comparative_metrics(ledgers, metrics, animated=False)
-    # plot_comparative_metrics(ledgers, metrics, animated=True)
+    if animated:
+        plot_dynamics_per_ledger(ledgers, animated=True)
+        plot_comparative_metrics(ledgers, metrics, animated=True)
 
 
 if __name__ == '__main__':
@@ -257,5 +258,10 @@ if __name__ == '__main__':
         choices=[metric for metric in metrics],
         help='The metrics to plot.'
     )
+    parser.add_argument(
+        '--animated',
+        action='store_true',
+        help='Flag to specify whether to also generate animated plots.'
+    )
     args = parser.parse_args()
-    plot(args.ledgers, args.metrics)
+    plot(args.ledgers, args.metrics, args.animated)
