@@ -83,23 +83,23 @@ def test_bitcoin_mapping(setup_and_cleanup):
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
-        'Entity,Resources\n',
-        '1AM2f...9pJUx/3G7y1...gPPWb,4\n',
-        'BTC.TOP,2\n',
-        'GBMiners,2'
+        'Entity Group,Entity,Resources\n',
+        '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n',
+        'BTC.TOP,BTC.TOP,2\n',
+        'GBMiners,GBMiners,2'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
-            assert expected_output[idx] == line
+            assert line == expected_output[idx]
 
     expected_output = [
-        'Entity,Resources\n',
-        '1AM2f...9pJUx/3G7y1...gPPWb,4\n',
-        'BTC.TOP,2\n',
-        'GBMiners,2\n',
-        '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
+        'Entity Group,Entity,Resources\n',
+        '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n',
+        'BTC.TOP,BTC.TOP,2\n',
+        'GBMiners,GBMiners,2\n',
+        'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
     ]
 
     yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
@@ -114,10 +114,10 @@ def test_bitcoin_mapping(setup_and_cleanup):
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
-        'Entity,Resources\n',
-        'TEST2,1\n',
-        'Bitmain,1\n',
-        '0000000000000000000000000000000000000000,1'
+        'Entity Group,Entity,Resources\n',
+        'TEST2,TEST2,1\n',
+        'Bitmain,Bitmain,1\n',
+        'Unknown,0000000000000000000000000000000000000000,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
@@ -150,10 +150,10 @@ def test_ethereum_mapping(setup_and_cleanup):
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
-        'Entity,Resources\n',
-        'TEST2,5\n',
-        'TEST,3\n',
-        '0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6,1'
+        'Entity Group,Entity,Resources\n',
+        'TEST2,TEST2,5\n',
+        'TEST,TEST,3\n',
+        'Unknown,0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
@@ -173,8 +173,8 @@ def test_ethereum_mapping(setup_and_cleanup):
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
-        'Entity,Resources\n',
-        'MEV Builder: 0x3B...436,1'
+        'Entity Group,Entity,Resources\n',
+        'MEV Builder: 0x3B...436,MEV Builder: 0x3B...436,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
@@ -202,12 +202,12 @@ def test_cardano_mapping(setup_and_cleanup):
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
-        'Entity,Resources\n',
-        'CFLOW,1\n',
-        '1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53,1\n',
-        '[!] IOG (core nodes pre-decentralization),1\n',
-        'Arrakis,1\n',
-        '1percentpool,1'
+        'Entity Group,Entity,Resources\n',
+        'CFLOW,CFLOW,1\n',
+        'Unknown,1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53,1\n',
+        'Input Output (iohk.io),Input Output (iohk.io),1\n',
+        'Arrakis,Arrakis,1\n',
+        '1percentpool,1percentpool,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
@@ -245,11 +245,11 @@ def test_tezos_mapping(setup_and_cleanup):
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
-        'Entity,Resources\n',
-        'Tezos Seoul,2\n',
-        'tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP,1\n',
-        'TEST,1\n',
-        '----- UNDEFINED MINER -----,1'
+        'Entity Group,Entity,Resources\n',
+        'Tezos Seoul,Tezos Seoul,2\n',
+        'Unknown,tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP,1\n',
+        'TEST,TEST,1\n',
+        '----- UNDEFINED MINER -----,----- UNDEFINED MINER -----,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
@@ -269,8 +269,8 @@ def test_tezos_mapping(setup_and_cleanup):
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
-        'Entity,Resources\n',
-        'tz0000000000000000000000000000000000,1'
+        'Entity Group,Entity,Resources\n',
+        'Unknown,tz0000000000000000000000000000000000,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'

@@ -4,7 +4,8 @@ import os
 import shutil
 import pytest
 from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, \
-    get_timeframe_beginning, get_timeframe_end, get_time_period, valid_date, OUTPUT_DIR
+    get_blocks_per_entity_group_from_file, get_timeframe_beginning, get_timeframe_end, get_time_period, valid_date, \
+    OUTPUT_DIR
 from src.map import ledger_mapping
 
 
@@ -85,6 +86,28 @@ def test_write_read_blocks_per_entity(setup_and_cleanup):
     assert all([
         bpe['Entity 1'] == 1,
         bpe['Entity 2'] == 2,
+    ])
+
+
+def test_write_read_blocks_per_entity_group(setup_and_cleanup):
+    output_dir = setup_and_cleanup
+
+    blocks_per_entity = {
+        'Entity 1': 1,
+        'Entity 2': 2,
+        'Entity 123456789012345678901234567': 2,
+        'Entity 234567890123456789012345678': 3
+    }
+
+    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, 'test')
+    # test that reading works for filepaths in both pathlib.PosixPath and string formats
+    get_blocks_per_entity_group_from_file(output_dir / 'test.csv')
+    bpg = get_blocks_per_entity_group_from_file(str(output_dir) + '/test.csv')
+
+    assert all([
+        bpg['Entity 1'] == 1,
+        bpg['Entity 2'] == 2,
+        bpg['Unknown'] == 5
     ])
 
 

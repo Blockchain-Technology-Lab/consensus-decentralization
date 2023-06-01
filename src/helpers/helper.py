@@ -159,10 +159,10 @@ def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
     """
     with open(project_dir / f'{timeframe}.csv', 'w') as f:
         csv_output = ['Entity Group,Entity,Resources']
-        for key, val in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
+        for entity, resources in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
             # we assume that any entity name with more than 30 characters is actually just an address, therefore unknown
-            group = 'Unknown' if len(key) > 30 else key
-            csv_output.append(','.join([group, key, str(val)]))
+            group = 'Unknown' if len(entity) > 30 else entity
+            csv_output.append(','.join([group, entity, str(resources)]))
         f.write('\n'.join(csv_output))
 
 
@@ -175,11 +175,29 @@ def get_blocks_per_entity_from_file(filepath):
     """
     blocks_per_entity = {}
     with open(filepath) as f:
-        for idx, line in enumerate(f.readlines()):
-            if idx > 0:
-                row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
-                blocks_per_entity[row[0]] = int(row[1])
+        for idx, line in enumerate(f.readlines()[1:]):
+            group, entity, resources = line.split(',')
+            blocks_per_entity[entity] = int(resources)
     return blocks_per_entity
+
+
+def get_blocks_per_entity_group_from_file(filepath):
+    """
+    Retrieves information about the number of blocks that each entity group produced over some timeframe for some
+    project. Note that all unidentified addresses are merged into one 'Unknown' group
+    :param filepath: the path to the file with the relevant information. It can be either an absolute or a relative
+    path in either a pathlib.PosixPath object or a string.
+    :returns: a dictionary with entity groups and the number of blocks they produced
+    """
+    blocks_per_entity_group = {}
+    with open(filepath) as f:
+        for idx, line in enumerate(f.readlines()[1:]):
+            group, entity, resources = line.split(',')
+            if group in blocks_per_entity_group:
+                blocks_per_entity_group[group] += int(resources)
+            else:
+                blocks_per_entity_group[group] = int(resources)
+    return blocks_per_entity_group
 
 
 def get_special_addresses(project_name):
