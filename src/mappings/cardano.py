@@ -50,7 +50,7 @@ class CardanoMapping(Mapping):
                 if pool:
                     entity = pool
                 else:
-                    entity = '[!] IOG (core nodes pre-decentralization)'
+                    entity = 'Input Output (iohk.io)'  # pre-decentralization
 
             blocks_per_entity[entity.replace(',', '')] += 1
 

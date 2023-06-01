@@ -158,9 +158,11 @@ def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
     format). Also used for naming the produced file.
     """
     with open(project_dir / f'{timeframe}.csv', 'w') as f:
-        csv_output = ['Entity,Resources']
+        csv_output = ['Entity Group,Entity,Resources']
         for key, val in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-            csv_output.append(','.join([key, str(val)]))
+            # we assume that any entity name with more than 30 characters is actually just an address, therefore unknown
+            group = 'Unknown' if len(key) > 30 else key
+            csv_output.append(','.join([group, key, str(val)]))
         f.write('\n'.join(csv_output))
 
 
