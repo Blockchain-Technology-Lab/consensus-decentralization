@@ -6,6 +6,7 @@ import json
 import datetime
 import calendar
 import argparse
+from collections import defaultdict
 
 YEAR_DIGITS = 4
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
@@ -189,14 +190,11 @@ def get_blocks_per_entity_group_from_file(filepath):
     path in either a pathlib.PosixPath object or a string.
     :returns: a dictionary with entity groups and the number of blocks they produced
     """
-    blocks_per_entity_group = {}
+    blocks_per_entity_group = defaultdict(int)
     with open(filepath) as f:
         for idx, line in enumerate(f.readlines()[1:]):
             group, entity, resources = line.split(',')
-            if group in blocks_per_entity_group:
-                blocks_per_entity_group[group] += int(resources)
-            else:
-                blocks_per_entity_group[group] = int(resources)
+            blocks_per_entity_group[group] += int(resources)
     return blocks_per_entity_group
 
 

@@ -1,4 +1,5 @@
 import argparse
+from collections import defaultdict
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
@@ -53,14 +54,11 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
             # Get mapped data for the defined timeframe.
             with open(output_dir / f'{project}/{timeframe}.csv') as f:
                 blocks_per_entity = {}
-                blocks_per_entity_group = {"Unknown": 0}
+                blocks_per_entity_group = defaultdict(int, {'Unknown': 0})
                 for line in f.readlines()[1:]:
                     entity_group, entity, resources = line.split(',')
                     blocks_per_entity[entity] = int(resources)
-                    if entity_group in blocks_per_entity_group:
-                        blocks_per_entity_group[entity_group] += int(resources)
-                    else:
-                        blocks_per_entity_group[entity_group] = int(resources)
+                    blocks_per_entity_group[entity_group] += int(resources)
 
             # If the project data exist for the given timeframe, compute the metrics on them.
             if blocks_per_entity.keys():
