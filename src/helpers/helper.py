@@ -65,6 +65,29 @@ def get_time_period(frm, to):
     return start, end
 
 
+def get_known_entities(ledger):
+    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
+    known_entities = set()
+    with open(helpers_path + f'/pool_information/{ledger}.json') as f:
+        pool_data = json.load(f)
+        clusters = pool_data['clusters']
+        coinbase_tags = pool_data['coinbase_tags']
+        pool_addresses = pool_data['pool_addresses']
+    for cluster in clusters:
+        known_entities.add(cluster)
+    for tag_info in coinbase_tags.values():
+        known_entities.add(tag_info['name'])
+    for address_info in pool_addresses.values():
+        known_entities.add(address_info['name'])
+    with open(helpers_path + '/legal_links.json') as f:
+        legal_links = json.load(f)
+    for parent, children in legal_links.items():
+        known_entities.add(parent)
+        for child in children:
+            known_entities.add(child['name'])
+    return known_entities
+
+
 def get_pool_data(project_name, timeframe):
     """
     Retrieves data regarding the pools of a project and the links between them.
@@ -148,7 +171,7 @@ def get_pool_addresses(project_name, timeframe):
     return address_links
 
 
-def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
+def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, groups, timeframe):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
@@ -161,9 +184,7 @@ def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
     with open(project_dir / f'{timeframe}.csv', 'w') as f:
         csv_output = ['Entity Group,Entity,Resources']
         for entity, resources in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-            # we assume that any entity name with more than 30 characters is actually just an address, therefore unknown
-            group = 'Unknown' if len(entity) > 30 else entity
-            csv_output.append(','.join([group, entity, str(resources)]))
+            csv_output.append(','.join([groups[entity], entity, str(resources)]))
         f.write('\n'.join(csv_output))
 
 

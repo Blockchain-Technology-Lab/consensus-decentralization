@@ -51,6 +51,7 @@ class TezosMapping(Mapping):
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
-        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, timeframe)
+        groups = self.map_block_producers_to_groups(blocks_per_entity.keys())
+        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
 
         return blocks_per_entity

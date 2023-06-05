@@ -84,7 +84,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
 
     expected_output = [
         'Entity Group,Entity,Resources\n',
-        '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n',
+        'Unknown,1AM2f...9pJUx/3G7y1...gPPWb,4\n',
         'BTC.TOP,BTC.TOP,2\n',
         'GBMiners,GBMiners,2'
     ]
@@ -96,7 +96,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
 
     expected_output = [
         'Entity Group,Entity,Resources\n',
-        '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n',
+        'Unknown,1AM2f...9pJUx/3G7y1...gPPWb,4\n',
         'BTC.TOP,BTC.TOP,2\n',
         'GBMiners,GBMiners,2\n',
         'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
@@ -249,7 +249,7 @@ def test_tezos_mapping(setup_and_cleanup):
         'Tezos Seoul,Tezos Seoul,2\n',
         'Unknown,tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP,1\n',
         'TEST,TEST,1\n',
-        '----- UNDEFINED MINER -----,----- UNDEFINED MINER -----,1'
+        'Unknown,----- UNDEFINED MINER -----,1'
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'

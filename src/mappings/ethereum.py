@@ -70,7 +70,8 @@ class EthereumMapping(Mapping):
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
-        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, timeframe)
+        groups = self.map_block_producers_to_groups(blocks_per_entity.keys())
+        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
 
         if len(timeframe) == 4 and multi_pool_addresses:
             with open(f'{self.io_dir}/multi_pool_addresses_{timeframe}.csv', 'w') as f:

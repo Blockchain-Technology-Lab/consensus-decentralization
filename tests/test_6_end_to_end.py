@@ -64,14 +64,14 @@ def test_end_to_end(setup_and_cleanup):
     expected_gini = [
         'timeframe,sample_bitcoin,sample_bitcoin_unknowns_grouped,sample_cardano,sample_cardano_unknowns_grouped\n',
         '2010,,,,\n',
-        '2018-02,0.375,0.375,,\n',
-        '2018-03,0.75,0.75,,\n',
+        '2018-02,0.375,0.16666666666666666,,\n',
+        '2018-03,0.75,0.6666666666666666,,\n',
         '2020-12,,,0.0,0.0'
     ]
     with open(test_output_dir / 'gini.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
-            assert expected_gini[idx] == line
+            assert line == expected_gini[idx]
 
     expected_nc = [
         'timeframe,sample_bitcoin,sample_bitcoin_unknowns_grouped,sample_cardano,sample_cardano_unknowns_grouped\n',
@@ -83,4 +83,4 @@ def test_end_to_end(setup_and_cleanup):
     with open(test_output_dir / 'nc.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
-            assert expected_nc[idx] == line
+            assert line == expected_nc[idx]
