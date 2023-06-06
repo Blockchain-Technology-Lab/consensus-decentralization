@@ -50,37 +50,37 @@ def test_end_to_end(setup_and_cleanup):
         os.remove(str(pool_info_dir / f'{project}.json'))
 
     expected_entropy = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2010,,\n',
-        '2018-02,1.5,\n',
-        '2018-03,0.0,\n',
-        '2020-12,,2.321928094887362'
+        'timeframe,sample_bitcoin,sample_bitcoin_unknowns_grouped,sample_cardano,sample_cardano_unknowns_grouped\n',
+        '2010,,,,\n',
+        '2018-02,1.5,1.5,,\n',
+        '2018-03,0.0,0.0,,\n',
+        '2020-12,,,2.321928094887362,2.321928094887362'
     ]
     with open(test_output_dir / 'entropy.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
-            assert expected_entropy[idx] == line
+            assert line == expected_entropy[idx]
 
     expected_gini = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2010,,\n',
-        '2018-02,0.375,\n',
-        '2018-03,0.75,\n',
-        '2020-12,,0.0'
+        'timeframe,sample_bitcoin,sample_bitcoin_unknowns_grouped,sample_cardano,sample_cardano_unknowns_grouped\n',
+        '2010,,,,\n',
+        '2018-02,0.375,0.16666666666666666,,\n',
+        '2018-03,0.75,0.6666666666666666,,\n',
+        '2020-12,,,0.0,0.0'
     ]
     with open(test_output_dir / 'gini.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
-            assert expected_gini[idx] == line
+            assert line == expected_gini[idx]
 
     expected_nc = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2010,,\n',
-        '2018-02,1,\n',
-        '2018-03,1,\n',
-        '2020-12,,3'
+        'timeframe,sample_bitcoin,sample_bitcoin_unknowns_grouped,sample_cardano,sample_cardano_unknowns_grouped\n',
+        '2010,,,,\n',
+        '2018-02,1,1,,\n',
+        '2018-03,1,1,,\n',
+        '2020-12,,,3,3'
     ]
     with open(test_output_dir / 'nc.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
-            assert expected_nc[idx] == line
+            assert line == expected_nc[idx]

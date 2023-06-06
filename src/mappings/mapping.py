@@ -1,4 +1,5 @@
 import json
+import src.helpers.helper as hlp
 
 
 class Mapping:
@@ -34,6 +35,18 @@ class Mapping:
         with open(self.io_dir / 'parsed_data.json') as f:
             data = json.load(f)
         return data
+
+    def map_block_producers_to_groups(self, block_producers):
+        """
+        Maps the project's block producers to groups. A group is either the name of the entity behind the block
+        producer, or "Unknown" if we only have address information about the block producer
+        :param blocks_per_entity:
+        """
+        known_entities = hlp.get_known_entities(self.project_name)
+        groups = dict()
+        for block_producer in block_producers:
+            groups[block_producer] = block_producer if block_producer in known_entities else 'Unknown'
+        return groups
 
     def process(self, timeframe):
         """

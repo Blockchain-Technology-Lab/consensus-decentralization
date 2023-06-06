@@ -3,8 +3,9 @@ import argparse
 import os
 import shutil
 import pytest
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, \
-    get_timeframe_beginning, get_timeframe_end, get_time_period, valid_date, OUTPUT_DIR
+from src.helpers.helper import get_known_entities, get_pool_data, write_blocks_per_entity_to_file, \
+    get_blocks_per_entity_from_file, get_blocks_per_entity_group_from_file, get_timeframe_beginning, \
+    get_timeframe_end, get_time_period, valid_date, OUTPUT_DIR
 from src.map import ledger_mapping
 
 
@@ -49,8 +50,8 @@ def test_pool_data():
         pool_data['coinbase_tags']['entity 4']['link'] == 'https://www.entity.4',
         pool_data['coinbase_tags']['entity_5']['name'] == 'Entity 5',
         pool_data['coinbase_tags']['entity_5']['link'] == 'https://www.entity.5',
-        pool_data['pool_addresses']['address1'] == {"name": "entity 4", "from": "", "to": "2023", "source": ""},
-        pool_data['pool_addresses']['addr2'] == {"name": "entity_5", "from": "", "to": "2023", "source": ""},
+        pool_data['pool_addresses']['address1'] == {"name": "Entity 4", "from": "", "to": "2023", "source": ""},
+        pool_data['pool_addresses']['addr2'] == {"name": "Entity 5", "from": "", "to": "2023", "source": ""},
     ])
 
     pool_data, pool_links = get_pool_data('test', '2021-03-12')
@@ -76,8 +77,9 @@ def test_write_read_blocks_per_entity(setup_and_cleanup):
     output_dir = setup_and_cleanup
 
     blocks_per_entity = {'Entity 1': 1, 'Entity 2': 2}
+    groups = {'Entity 1': 'Entity 1', 'Entity 2': 'Entity 2'}
 
-    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, 'test')
+    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, groups, 'test')
     # test that reading works for filepaths in both pathlib.PosixPath and string formats
     get_blocks_per_entity_from_file(output_dir / 'test.csv')
     bpe = get_blocks_per_entity_from_file(str(output_dir) + '/test.csv')
@@ -85,6 +87,30 @@ def test_write_read_blocks_per_entity(setup_and_cleanup):
     assert all([
         bpe['Entity 1'] == 1,
         bpe['Entity 2'] == 2,
+    ])
+
+
+def test_write_read_blocks_per_entity_group(setup_and_cleanup):
+    output_dir = setup_and_cleanup
+
+    blocks_per_entity = {
+        'Entity 1': 1,
+        'Entity 2': 2,
+        'Entity 123456789012345678901234567': 2,
+        'Entity 234567890123456789012345678': 3
+    }
+    groups = {'Entity 1': 'Entity 1', 'Entity 2': 'Entity 2', 'Entity 123456789012345678901234567': 'Unknown',
+              'Entity 234567890123456789012345678': 'Unknown'}
+
+    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, groups, 'test')
+    # test that reading works for filepaths in both pathlib.PosixPath and string formats
+    get_blocks_per_entity_group_from_file(output_dir / 'test.csv')
+    bpg = get_blocks_per_entity_group_from_file(str(output_dir) + '/test.csv')
+
+    assert all([
+        bpg['Entity 1'] == 1,
+        bpg['Entity 2'] == 2,
+        bpg['Unknown'] == 5
     ])
 
 
@@ -156,3 +182,20 @@ def test_get_time_period():  # currently not testing for invalid dates
 
     for i, (frm, to) in enumerate(from_to):
         assert get_time_period(frm, to) == time_periods[i]
+
+
+def test_get_known_entities():
+    known_entities = get_known_entities(ledger='test')
+
+    # check pool data
+    assert "cluster_1" in known_entities
+    assert "Entity 1" in known_entities
+    assert "Entity 5" in known_entities
+
+    assert "entity 5" not in known_entities
+    assert "entity_5" not in known_entities
+    assert "ent2" not in known_entities
+
+    # check legal links
+    assert "Bitmain" in known_entities
+    assert "NovaBlock" in known_entities

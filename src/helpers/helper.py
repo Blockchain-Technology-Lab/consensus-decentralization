@@ -6,6 +6,7 @@ import json
 import datetime
 import calendar
 import argparse
+from collections import defaultdict
 
 YEAR_DIGITS = 4
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
@@ -62,6 +63,29 @@ def get_time_period(frm, to):
     start = get_timeframe_beginning(frm) if frm else datetime.date.min
     end = get_timeframe_beginning(to) - datetime.timedelta(1) if to else datetime.date.max
     return start, end
+
+
+def get_known_entities(ledger):
+    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
+    known_entities = set()
+    with open(helpers_path + f'/pool_information/{ledger}.json') as f:
+        pool_data = json.load(f)
+        clusters = pool_data['clusters']
+        coinbase_tags = pool_data['coinbase_tags']
+        pool_addresses = pool_data['pool_addresses']
+    for cluster in clusters:
+        known_entities.add(cluster)
+    for tag_info in coinbase_tags.values():
+        known_entities.add(tag_info['name'])
+    for address_info in pool_addresses.values():
+        known_entities.add(address_info['name'])
+    with open(helpers_path + '/legal_links.json') as f:
+        legal_links = json.load(f)
+    for parent, children in legal_links.items():
+        known_entities.add(parent)
+        for child in children:
+            known_entities.add(child['name'])
+    return known_entities
 
 
 def get_pool_data(project_name, timeframe):
@@ -147,7 +171,7 @@ def get_pool_addresses(project_name, timeframe):
     return address_links
 
 
-def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
+def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, groups, timeframe):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
@@ -158,9 +182,9 @@ def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
     format). Also used for naming the produced file.
     """
     with open(project_dir / f'{timeframe}.csv', 'w') as f:
-        csv_output = ['Entity,Resources']
-        for key, val in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-            csv_output.append(','.join([key, str(val)]))
+        csv_output = ['Entity Group,Entity,Resources']
+        for entity, resources in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
+            csv_output.append(','.join([groups[entity], entity, str(resources)]))
         f.write('\n'.join(csv_output))
 
 
@@ -173,11 +197,26 @@ def get_blocks_per_entity_from_file(filepath):
     """
     blocks_per_entity = {}
     with open(filepath) as f:
-        for idx, line in enumerate(f.readlines()):
-            if idx > 0:
-                row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
-                blocks_per_entity[row[0]] = int(row[1])
+        for idx, line in enumerate(f.readlines()[1:]):
+            group, entity, resources = line.split(',')
+            blocks_per_entity[entity] = int(resources)
     return blocks_per_entity
+
+
+def get_blocks_per_entity_group_from_file(filepath):
+    """
+    Retrieves information about the number of blocks that each entity group produced over some timeframe for some
+    project. Note that all unidentified addresses are merged into one 'Unknown' group
+    :param filepath: the path to the file with the relevant information. It can be either an absolute or a relative
+    path in either a pathlib.PosixPath object or a string.
+    :returns: a dictionary with entity groups and the number of blocks they produced
+    """
+    blocks_per_entity_group = defaultdict(int)
+    with open(filepath) as f:
+        for idx, line in enumerate(f.readlines()[1:]):
+            group, entity, resources = line.split(',')
+            blocks_per_entity_group[group] += int(resources)
+    return blocks_per_entity_group
 
 
 def get_special_addresses(project_name):

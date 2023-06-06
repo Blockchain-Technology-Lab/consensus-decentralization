@@ -229,16 +229,47 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
                            )
 
 
-def plot(ledgers, metrics, animated):
+def plot_confidence_intervals(ledgers, metrics):
+    for metric in metrics:
+        print(f"Plotting {metric} (with confidence intervals)..")
+        figures_path = hlp.OUTPUT_DIR / 'figures'
+        if not figures_path.is_dir():
+            figures_path.mkdir()
+        filename = f'{metric}.csv'
+        metric_df = pd.read_csv(hlp.OUTPUT_DIR / filename)
+        num_lines = metric_df.shape[1]
+        colors = sns.color_palette(cc.glasbey, n_colors=num_lines)
+        ledger_columns_to_keep = [col for col in metric_df.columns if col in ledgers]
+        if len(ledger_columns_to_keep) > 0:
+            data = metric_df[['timeframe'] + ledger_columns_to_keep]
+            ax = data.plot(figsize=(10, 6), color=colors)
+            for i, ledger in enumerate(ledgers):
+                ax.fill_between(metric_df.index, metric_df[ledger], metric_df[f'{ledger}_unknowns_grouped'], alpha=0.1,
+                                color=colors[i])
+            plt.xlabel('Time')
+            plt.ylabel(metric)
+            plt.legend(frameon=False)
+            num_time_steps = metric_df.shape[0]
+            plt.xticks(ticks=range(num_time_steps), labels=metric_df['timeframe'], rotation=45)
+            ax = plt.gca()
+            n = 5
+            ax.set_xticks(ax.get_xticks()[::n])
+            filename = f"{metric}_ci_{'_'.join(ledgers)}.png"
+            plt.savefig(figures_path / filename, bbox_inches='tight')
+
+
+def plot(ledgers, metrics, animated, show_confidence=True):
     plot_dynamics_per_ledger(ledgers, animated=False, legend=True)
     plot_comparative_metrics(ledgers, metrics, animated=False)
     if animated:
         plot_dynamics_per_ledger(ledgers, animated=True)
         plot_comparative_metrics(ledgers, metrics, animated=True)
+    if show_confidence:
+        plot_confidence_intervals(ledgers, metrics)
 
 
 if __name__ == '__main__':
-    ledgers = ['bitcoin', 'bitcoin_cash', 'cardano', 'dash', 'dogecoin', 'ethereum', 'litecoin', 'tezos', 'zcash']
+    ledgers = ['bitcoin', 'bitcoin_cash', 'cardano', 'dogecoin', 'ethereum', 'litecoin', 'tezos', 'zcash']
     metrics = ['entropy', 'gini', 'hhi', 'nc', 'entities']
     parser = argparse.ArgumentParser()
 
@@ -263,5 +294,10 @@ if __name__ == '__main__':
         action='store_true',
         help='Flag to specify whether to also generate animated plots.'
     )
+    parser.add_argument(
+        '--show-confidence',
+        action='store_true',
+        help='Flag to specify whether to also generate plots with confidence intervals.'
+    )
     args = parser.parse_args()
-    plot(args.ledgers, args.metrics, args.animated)
+    plot(args.ledgers, args.metrics, args.animated, args.show_confidence)

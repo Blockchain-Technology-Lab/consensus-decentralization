@@ -1,4 +1,5 @@
 import argparse
+from collections import defaultdict
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
@@ -27,10 +28,10 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
     for project in projects:
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv title.
-        gini_csv['0'] += f',{project}'
-        nc_csv['0'] += f',{project}'
-        entropy_csv['0'] += f',{project}'
-        hhi_csv['0'] += f',{project}'
+        gini_csv['0'] += f',{project},{project}_unknowns_grouped'
+        nc_csv['0'] += f',{project},{project}_unknowns_grouped'
+        entropy_csv['0'] += f',{project},{project}_unknowns_grouped'
+        hhi_csv['0'] += f',{project},{project}_unknowns_grouped'
 
         for timeframe in timeframes:
             if timeframe not in gini_csv.keys():
@@ -43,26 +44,37 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
             yearly_entities = set()
+            yearly_entity_groups = set()
             with open(output_dir / f'{project}/{year}.csv') as f:
                 for line in f.readlines()[1:]:
-                    row = (','.join([i for i in line.split(',')[:-1]]), line.split(',')[-1])
-                    yearly_entities.add(row[0])
+                    entity_group, entity, _ = line.split(',')
+                    yearly_entities.add(entity)
+                    yearly_entity_groups.add(entity_group)
 
             # Get mapped data for the defined timeframe.
             with open(output_dir / f'{project}/{timeframe}.csv') as f:
                 blocks_per_entity = {}
+                blocks_per_entity_group = defaultdict(int, {'Unknown': 0})
                 for line in f.readlines()[1:]:
-                    blocks_per_entity[line.split(',')[0]] = int(line.split(',')[1])
+                    entity_group, entity, resources = line.split(',')
+                    blocks_per_entity[entity] = int(resources)
+                    blocks_per_entity_group[entity_group] += int(resources)
 
             # If the project data exist for the given timeframe, compute the metrics on them.
             if blocks_per_entity.keys():
                 for entity in yearly_entities:
                     if entity not in blocks_per_entity.keys():
                         blocks_per_entity[entity] = 0
+                        if entity in yearly_entity_groups:
+                            blocks_per_entity_group[entity] = 0
                 gini = compute_gini(blocks_per_entity)
+                gini_unknowns_grouped = compute_gini(blocks_per_entity_group)
                 nc = compute_nakamoto_coefficient(blocks_per_entity)
+                nc_unknowns_grouped = compute_nakamoto_coefficient(blocks_per_entity_group)
                 hhi = compute_hhi(blocks_per_entity)
+                hhi_unknowns_grouped = compute_hhi(blocks_per_entity_group)
                 entropy = compute_entropy(blocks_per_entity, entropy_alpha)
+                entropy_unknowns_grouped = compute_entropy(blocks_per_entity_group, entropy_alpha)
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities}, entropy_alpha)
                 entropy_percentage = 100 * entropy / max_entropy if max_entropy != 0 else 0
                 print(
@@ -70,13 +82,14 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
                     f'Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})'
                 )
             else:
-                gini, nc, hhi, entropy = '', ('', ''), '', ''
+                gini, gini_unknowns_grouped, nc, nc_unknowns_grouped, hhi, hhi_unknowns_grouped, entropy, \
+                    entropy_unknowns_grouped = '', '', ('', ''), ('', ''), '', '', '', ''
                 print(f'[{project:12} {timeframe:7}] No data')
 
-            gini_csv[timeframe] += f',{gini}'
-            nc_csv[timeframe] += f',{nc[0]}'
-            entropy_csv[timeframe] += f',{entropy}'
-            hhi_csv[timeframe] += f',{hhi}'
+            gini_csv[timeframe] += f',{gini},{gini_unknowns_grouped}'
+            nc_csv[timeframe] += f',{nc[0]},{nc_unknowns_grouped[0]}'
+            entropy_csv[timeframe] += f',{entropy},{entropy_unknowns_grouped}'
+            hhi_csv[timeframe] += f',{hhi},{hhi_unknowns_grouped}'
 
     with open(output_dir / 'gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
