@@ -99,3 +99,4 @@ if __name__ == '__main__':
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
     main(projects, timeframes, args.force_parse, args.force_map, args.entropy_alpha, args.plot, args.animated)
+    print('Done. Please check the output directory for results.')

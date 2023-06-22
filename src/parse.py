@@ -28,6 +28,7 @@ def parse(project, input_dir, output_dir, force_parse=False):
     """
     parsed_data_file = output_dir / project / 'parsed_data.json'
     if force_parse or not parsed_data_file.is_file():
+        print(f'Parsing {project} data..')
         parser = ledger_parser[project](project, input_dir, output_dir)
         parser.parse()
 

@@ -38,6 +38,7 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
         csv_contents[metric] = {'0': 'timeframe'}
 
     for project in projects:
+        print(f'Calculating metrics for {project} data..')
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv header
         for metric in metrics_funcs.keys():
