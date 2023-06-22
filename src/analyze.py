@@ -2,7 +2,7 @@ import argparse
 from collections import defaultdict
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
-from src.metrics.entropy import compute_entropy
+from src.metrics.entropy import compute_entropy, compute_entropy_percentage
 from src.metrics.herfindahl_hirschman_index import compute_hhi
 from src.helpers.helper import OUTPUT_DIR
 
@@ -13,11 +13,13 @@ metrics_funcs = {
     'gini': compute_gini,
     'nc': compute_nakamoto_coefficient,
     'entropy': compute_entropy,
+    'entropy_percentage': compute_entropy_percentage,
     'hhi': compute_hhi
 }
 
 additional_metric_args = {
-    'entropy': ['entropy_alpha']
+    'entropy': ['entropy_alpha'],
+    'entropy_percentage': ['entropy_alpha']
 }
 
 
