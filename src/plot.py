@@ -270,7 +270,7 @@ def plot(ledgers, metrics, animated, show_confidence=True):
 
 if __name__ == '__main__':
     ledgers = ['bitcoin', 'bitcoin_cash', 'cardano', 'dogecoin', 'ethereum', 'litecoin', 'tezos', 'zcash']
-    metrics = ['entropy', 'gini', 'hhi', 'nc', 'entities']
+    metrics = ['entropy', 'gini', 'hhi', 'nakamoto_coefficient']
     parser = argparse.ArgumentParser()
 
     parser.add_argument(

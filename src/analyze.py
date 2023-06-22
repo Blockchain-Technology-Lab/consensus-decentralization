@@ -1,51 +1,43 @@
 import argparse
 from collections import defaultdict
+from yaml import safe_load
 from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy, compute_entropy_percentage
 from src.metrics.herfindahl_hirschman_index import compute_hhi
-from src.helpers.helper import OUTPUT_DIR
+from src.helpers.helper import OUTPUT_DIR, ROOT_DIR
 
 START_YEAR = 2018
 END_YEAR = 2024
 
-metrics_funcs = {
-    'gini': compute_gini,
-    'nc': compute_nakamoto_coefficient,
-    'entropy': compute_entropy,
-    'entropy_percentage': compute_entropy_percentage,
-    'hhi': compute_hhi
-}
 
-additional_metric_args = {
-    'entropy': ['entropy_alpha'],
-    'entropy_percentage': ['entropy_alpha']
-}
-
-
-def analyze(projects, timeframes, entropy_alpha, output_dir):
+def analyze(projects, timeframes, output_dir):
     """
     Calculates all available metrics for the given ledgers and timeframes. Outputs one file for each metric.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
     :param timeframes: list of strings that correspond to the timeframes under consideration (in YYYY-MM-DD,
     YYYY-MM or YYYY format)
-    :param entropy_alpha: float that corresponds to the alpha parameter for the entropy calculation
+    :returns: a list with the names of all the metrics that were used
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
     """
+    with open(ROOT_DIR / "config.yaml") as f:
+        config = safe_load(f)
+    metrics = config['metrics']
+
     csv_contents = {}
-    for metric in metrics_funcs.keys():
+    for metric in metrics.keys():
         csv_contents[metric] = {'0': 'timeframe'}
 
     for project in projects:
         print(f'Calculating metrics for {project} data..')
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv header
-        for metric in metrics_funcs.keys():
+        for metric in metrics.keys():
             csv_contents[metric]['0'] += f',{project},{project}_unknowns_grouped'
 
         for timeframe in timeframes:
-            for metric in metrics_funcs.keys():
+            for metric in metrics.keys():
                 if timeframe not in csv_contents[metric].keys():
                     csv_contents[metric][timeframe] = timeframe
 
@@ -79,38 +71,24 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
                         if entity in yearly_entity_groups:
                             blocks_per_entity_group[entity] = 0
 
-                scope = locals()
-                for metric, func in metrics_funcs.items():
-                    if metric in additional_metric_args.keys():
-                        results[metric] = func(
-                            blocks_per_entity,
-                            *[eval(arg, scope) for arg in additional_metric_args[metric]]
-                        )
-                        results_unknowns_grouped[metric] = func(
-                            blocks_per_entity_group,
-                            *[eval(arg, scope) for arg in additional_metric_args[metric]]
-                        )
-                    else:
-                        results[metric] = func(blocks_per_entity)
-                        results_unknowns_grouped[metric] = func(blocks_per_entity_group)
-                # max_entropy = compute_entropy({entity: 1 for entity in yearly_entities}, entropy_alpha)
-                # entropy_percentage = 100 * entropy / max_entropy if max_entropy != 0 else 0
-                # print(
-                #    f'[{project:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   HHI:
-                #    {hhi:.6f} '
-                #    f'Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})'
-                # )
+                for metric, args_dict in metrics.items():
+                    func = eval(f'compute_{metric}')
+                    results[metric] = func(blocks_per_entity, **args_dict) if args_dict else func(blocks_per_entity)
+                    results_unknowns_grouped[metric] = func(blocks_per_entity_group,
+                                                            **args_dict) if args_dict else func(blocks_per_entity_group)
             else:
-                for metric, func in metrics_funcs.items():
+                for metric in metrics.keys():
                     results[metric] = ''
                     results_unknowns_grouped[metric] = ''
 
-            for metric in metrics_funcs.keys():
+            for metric in metrics.keys():
                 csv_contents[metric][timeframe] += f',{results[metric]},{results_unknowns_grouped[metric]}'
 
-    for metric in metrics_funcs.keys():
+    for metric in metrics.keys():
         with open(output_dir / f'{metric}.csv', 'w') as f:
             f.write('\n'.join([i[1] for i in sorted(csv_contents[metric].items(), key=lambda x: x[0])]))
+
+    return list(metrics.keys())
 
 
 if __name__ == '__main__':
@@ -130,14 +108,6 @@ if __name__ == '__main__':
         default=None,
         help='The timeframe that will be analyzed.'
     )
-    parser.add_argument(
-        '--entropy-alpha',
-        nargs="?",
-        type=int,
-        default=1,
-        help='The alpha parameter for entropy computation. Default Shannon entropy. Examples: -1: min, 0: Hartley, '
-             '1: Shannon, 2: collision.'
-    )
 
     args = parser.parse_args()
 
@@ -150,4 +120,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    analyze(args.ledgers, timeframes, args.entropy_alpha, OUTPUT_DIR)
+    analyze(args.ledgers, timeframes, OUTPUT_DIR)
