@@ -1,10 +1,10 @@
 import argparse
 from collections import defaultdict
 from yaml import safe_load
-from src.metrics.gini import compute_gini
-from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
-from src.metrics.entropy import compute_entropy, compute_entropy_percentage
-from src.metrics.herfindahl_hirschman_index import compute_hhi
+from src.metrics.gini import compute_gini  # noqa: F401
+from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
+from src.metrics.entropy import compute_entropy, compute_entropy_percentage  # noqa: F401
+from src.metrics.herfindahl_hirschman_index import compute_hhi  # noqa: F401
 from src.helpers.helper import OUTPUT_DIR, ROOT_DIR
 
 START_YEAR = 2018
