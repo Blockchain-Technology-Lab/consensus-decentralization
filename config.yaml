@@ -1,0 +1,8 @@
+metrics:
+  entropy:
+    alpha: 1
+  entropy_percentage:
+    alpha: 1
+  gini:
+  hhi:
+  nakamoto_coefficient:

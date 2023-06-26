@@ -12,7 +12,7 @@ START_YEAR = 2018
 END_YEAR = 2024
 
 
-def main(projects, timeframes, force_parse, force_map, entropy_alpha, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+def main(projects, timeframes, force_parse, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -22,7 +22,6 @@ def main(projects, timeframes, force_parse, force_map, entropy_alpha, make_plots
         of the projects already exist
     :param force_map: bool. If True, then the mapping will be performed, regardless of whether
         mapped data for some or all of the projects already exist
-    :param entropy_alpha: float that corresponds to the alpha parameter for the entropy calculation
     :param make_plots: bool. If True, then plots are generated and saved for the results
     :param make_animated_plots: bool. If True (and make_plots also True) then animated plots are also generated.
         Warning: generating animated plots might take a long time
@@ -32,11 +31,10 @@ def main(projects, timeframes, force_parse, force_map, entropy_alpha, make_plots
         parse(project, INPUT_DIR, output_dir, force_parse)
         apply_mapping(project, timeframes, output_dir, force_map)
 
-    analyze(projects, timeframes, entropy_alpha, output_dir)
+    used_metrics = analyze(projects, timeframes, output_dir)
 
     if make_plots:
-        metrics = ['entropy', 'gini', 'hhi', 'nc']
-        plot(projects, metrics, make_animated_plots)
+        plot(projects, used_metrics, make_animated_plots)
 
 
 if __name__ == '__main__':
@@ -68,14 +66,6 @@ if __name__ == '__main__':
         help='Flag to specify whether to map the parsed data, regardless if the mapped data files exist.'
     )
     parser.add_argument(
-        '--entropy-alpha',
-        nargs="?",
-        type=int,
-        default=1,
-        help='The alpha parameter for entropy computation. Default Shannon entropy. Examples: -1: min, 0: Hartley, '
-             '1: Shannon, 2: collision.'
-    )
-    parser.add_argument(
         '--plot',
         action='store_true',
         help='Flag to specify whether to produce and save plots of the results.'
@@ -98,4 +88,5 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    main(projects, timeframes, args.force_parse, args.force_map, args.entropy_alpha, args.plot, args.animated)
+    main(projects, timeframes, args.force_parse, args.force_map, args.plot, args.animated)
+    print('Done. Please check the output directory for results.')

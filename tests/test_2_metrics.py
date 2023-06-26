@@ -25,6 +25,20 @@ def test_entropy():
     assert round(collision_entropy, 3) == 1.642
 
 
+def test_max_entropy():
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+
+    max_shannon_entropy = entropy.compute_max_entropy(len(blocks_per_entity), 1)
+    assert round(max_shannon_entropy, 3) == 1.585
+
+
+def test_entropy_percentage():
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+
+    entropy_percentage = entropy.compute_entropy_percentage(blocks_per_entity, 1)
+    assert round(entropy_percentage, 3) == 0.921
+
+
 def test_gini():
     """
     Ensure that the results of the compute_entropy function are consistent with online calculators,
@@ -51,15 +65,15 @@ def test_gini():
 
 def test_nc():
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
-    coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
+    coeff = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 1
 
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3, 'd': 1, 'e': 1, 'f': 1}
-    coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
+    coeff = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 2
 
     blocks_per_entity = {'a': 1}
-    coeff, power_percentage = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
+    coeff = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 1
 
 

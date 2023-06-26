@@ -41,10 +41,9 @@ def test_end_to_end(setup_and_cleanup):
     timeframes = ['2010', '2018-02', '2018-03', '2020-12']
     force_parse = False
     force_map = False
-    entropy_alpha = 1
 
     test_projects = [f'sample_{i}' for i in projects]
-    main(test_projects, timeframes, force_parse, force_map, entropy_alpha, False, False, test_output_dir)
+    main(test_projects, timeframes, force_parse, force_map, False, False, test_output_dir)
 
     for project in test_projects:
         os.remove(str(pool_info_dir / f'{project}.json'))
@@ -80,7 +79,7 @@ def test_end_to_end(setup_and_cleanup):
         '2018-03,1,1,,\n',
         '2020-12,,,3,3'
     ]
-    with open(test_output_dir / 'nc.csv') as f:
+    with open(test_output_dir / 'nakamoto_coefficient.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_nc[idx]

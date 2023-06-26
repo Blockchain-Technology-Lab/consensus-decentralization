@@ -14,18 +14,16 @@ def compute_entropy(blocks_per_entity, alpha):
     :param alpha: the entropy parameter (depending on its value the corresponding entropy measure is used)
     :returns: a float that represents the entropy of the data
     """
+    block_distribution = blocks_per_entity.values()
+    all_blocks = sum(block_distribution)
     if alpha == 1:
         entropy = 0
-        all_blocks = sum(blocks_per_entity.values())
-        for entity in blocks_per_entity.keys():
-            rel_freq = blocks_per_entity[entity] / all_blocks
+        for value in block_distribution:
+            rel_freq = value / all_blocks
             if rel_freq > 0:
                 entropy -= rel_freq * log(rel_freq, 2)
     else:
-        all_blocks = sum(blocks_per_entity.values())
-        probs = [
-            blocks / all_blocks for blocks in blocks_per_entity.values()
-        ]
+        probs = [blocks / all_blocks for blocks in block_distribution]
         if alpha == -1:
             entropy = - log(max(probs), 2)
         else:
@@ -35,6 +33,14 @@ def compute_entropy(blocks_per_entity, alpha):
             entropy = log(sum_freqs, 2) / (1 - alpha)
 
     return entropy
+
+
+def compute_max_entropy(num_entities, alpha):
+    return compute_entropy({i: 1 for i in range(num_entities)}, alpha)
+
+
+def compute_entropy_percentage(blocks_per_entity, alpha):
+    return compute_entropy(blocks_per_entity, alpha) / compute_max_entropy(len(blocks_per_entity), alpha)
 
 
 if __name__ == '__main__':
