@@ -2,8 +2,6 @@ from math import log
 import sys
 import src.helpers.helper as hlp
 
-# todo fix zero division
-
 
 def compute_entropy(blocks_per_entity, alpha):
     """

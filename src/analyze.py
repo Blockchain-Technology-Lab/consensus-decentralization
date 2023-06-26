@@ -1,11 +1,10 @@
 import argparse
 from collections import defaultdict
-from yaml import safe_load
 from src.metrics.gini import compute_gini  # noqa: F401
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
 from src.metrics.entropy import compute_entropy, compute_entropy_percentage  # noqa: F401
 from src.metrics.herfindahl_hirschman_index import compute_hhi  # noqa: F401
-from src.helpers.helper import OUTPUT_DIR, ROOT_DIR
+from src.helpers.helper import OUTPUT_DIR, get_metrics_config
 
 START_YEAR = 2018
 END_YEAR = 2024
@@ -21,9 +20,7 @@ def analyze(projects, timeframes, output_dir):
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
     """
-    with open(ROOT_DIR / "config.yaml") as f:
-        config = safe_load(f)
-    metrics = config['metrics']
+    metrics = get_metrics_config()
 
     csv_contents = {}
     for metric in metrics.keys():

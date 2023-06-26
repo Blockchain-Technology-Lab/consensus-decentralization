@@ -7,6 +7,7 @@ import datetime
 import calendar
 import argparse
 from collections import defaultdict
+from yaml import safe_load
 
 YEAR_DIGITS = 4
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
@@ -236,3 +237,32 @@ def get_special_addresses(project_name):
         return set()
 
     return set([addr['address'] for addr in special_addresses])
+
+
+def get_metrics_config():
+    """
+    Reads data about the metrics that will be used. The data is read from a file named "confing.yaml" located at the
+    root directory of the project. All metrics that are mentioned in the file (not in comments) will be used at the
+    "analyze" and "plot" stages. If a metric is parameterized, then the values of its parameters are also given in
+    this file. To add a new metric, one can add a new entry in the file, and to disable a metric it suffices to comment
+    out the relevant line(s).
+    :returns: a dictionary where the keys correspond to metric names and the values to their configurations
+    (dictionary of parameter - value pairs for each parameter that the metric takes)
+    :raises AssertionError if the file defines different parameter values for metrics that are supposed to be
+    consistent (e.g. entropy and entropy percentage)
+    """
+    with open(ROOT_DIR / "config.yaml") as f:
+        config = safe_load(f)
+    metrics = config['metrics']
+    metric_families = [['entropy', 'entropy_percentage']]
+    for metric_family in metric_families:
+        # ensure that parameter values that correspond to the same family of metrics are consistent
+        params = None
+        for metric in metric_family:
+            if params is None:
+                params = metrics[metric]
+            else:
+                assert metrics[metric] == params, "Metrics that belong in the same family (e.g. entropy and entropy " \
+                                                  "percentage) must use the same parameter values. " \
+                                                  "Please update your config.yaml file accordingly."
+    return metrics
