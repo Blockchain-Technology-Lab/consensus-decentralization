@@ -1,4 +1,4 @@
-from src.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index
+from src.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index, theil
 import numpy as np
 
 
@@ -81,3 +81,22 @@ def test_hhi():
     blocks_per_entity = {'a': 1}  # 'a' produced 100% of the blocks
     hhi = herfindahl_hirschman_index.compute_hhi(blocks_per_entity)
     assert hhi == 10000
+
+
+def test_theil():
+    """
+    Ensure that the results of the compute_theil function are consistent with the definition (5 decimal accuracy).
+    """
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+    decimals = 5
+
+    theil_t = theil.compute_theil(blocks_per_entity, 1)
+    assert round(theil_t, decimals) == 0.08721
+
+    theil_l = theil.compute_theil(blocks_per_entity, 0)
+    assert round(theil_l, decimals) == 0.09589
+
+    blocks_per_entity = {'a': 0, 'b': 0, 'c': 0, 'd': 432}
+
+    theil_t = theil.compute_theil(blocks_per_entity, 1)
+    assert round(theil_t, decimals) == 1.38629

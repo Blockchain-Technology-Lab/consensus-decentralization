@@ -12,7 +12,7 @@ START_YEAR = 2018
 END_YEAR = 2024
 
 
-def main(projects, timeframes, force_parse, force_map, entropy_alpha, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+def main(projects, timeframes, force_parse, force_map, entropy_alpha, theil_alpha, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -32,7 +32,7 @@ def main(projects, timeframes, force_parse, force_map, entropy_alpha, make_plots
         parse(project, INPUT_DIR, output_dir, force_parse)
         apply_mapping(project, timeframes, output_dir, force_map)
 
-    analyze(projects, timeframes, entropy_alpha, output_dir)
+    analyze(projects, timeframes, entropy_alpha, theil_alpha, output_dir)
 
     if make_plots:
         metrics = ['entropy', 'gini', 'hhi', 'nc']
@@ -76,6 +76,13 @@ if __name__ == '__main__':
              '1: Shannon, 2: collision.'
     )
     parser.add_argument(
+        '--theil-alpha',
+        nargs="?",
+        type=int,
+        default=1,
+        help='The alpha parameter for Theil index computation. Default Theil-t. Examples: 0: Theil-L, 1: Theil-T'
+    )
+    parser.add_argument(
         '--plot',
         action='store_true',
         help='Flag to specify whether to produce and save plots of the results.'
@@ -98,4 +105,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    main(projects, timeframes, args.force_parse, args.force_map, args.entropy_alpha, args.plot, args.animated)
+    main(projects, timeframes, args.force_parse, args.force_map, args.entropy_alpha, args.theil_alpha, args.plot, args.animated)

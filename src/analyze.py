@@ -4,13 +4,14 @@ from src.metrics.gini import compute_gini
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient
 from src.metrics.entropy import compute_entropy
 from src.metrics.herfindahl_hirschman_index import compute_hhi
+from src.metrics.theil import compute_theil
 from src.helpers.helper import OUTPUT_DIR
 
 START_YEAR = 2018
 END_YEAR = 2024
 
 
-def analyze(projects, timeframes, entropy_alpha, output_dir):
+def analyze(projects, timeframes, entropy_alpha, theil_alpha, output_dir):
     """
     Calculates all available metrics for the given ledgers and timeframes. Outputs one file for each metric.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -20,6 +21,7 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
     """
+    theil_csv = {'0': 'timeframe'}
     gini_csv = {'0': 'timeframe'}
     nc_csv = {'0': 'timeframe'}
     entropy_csv = {'0': 'timeframe'}
@@ -28,6 +30,7 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
     for project in projects:
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv title.
+        theil_csv['0'] += f',{project},{project}_unknowns_grouped'
         gini_csv['0'] += f',{project},{project}_unknowns_grouped'
         nc_csv['0'] += f',{project},{project}_unknowns_grouped'
         entropy_csv['0'] += f',{project},{project}_unknowns_grouped'
@@ -35,6 +38,7 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
 
         for timeframe in timeframes:
             if timeframe not in gini_csv.keys():
+                theil_csv[timeframe] = timeframe
                 gini_csv[timeframe] = timeframe
                 nc_csv[timeframe] = timeframe
                 entropy_csv[timeframe] = timeframe
@@ -67,6 +71,8 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
                         blocks_per_entity[entity] = 0
                         if entity in yearly_entity_groups:
                             blocks_per_entity_group[entity] = 0
+                theil = compute_theil(blocks_per_entity, theil_alpha)
+                theil_unknowns_grouped = compute_theil(blocks_per_entity_group, theil_alpha)
                 gini = compute_gini(blocks_per_entity)
                 gini_unknowns_grouped = compute_gini(blocks_per_entity_group)
                 nc = compute_nakamoto_coefficient(blocks_per_entity)
@@ -78,19 +84,22 @@ def analyze(projects, timeframes, entropy_alpha, output_dir):
                 max_entropy = compute_entropy({entity: 1 for entity in yearly_entities}, entropy_alpha)
                 entropy_percentage = 100 * entropy / max_entropy if max_entropy != 0 else 0
                 print(
-                    f'[{project:12} {timeframe:7}] \t Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   HHI: {hhi:.6f} '
+                    f'[{project:12} {timeframe:7}] \t Theil: {theil:.6f}  Gini: {gini:.6f}   NC: {nc[0]:3} ({nc[1]:.2f}%)   HHI: {hhi:.6f} '
                     f'Entropy: {entropy:.6f} ({entropy_percentage:.1f}% out of max {max_entropy:.6f})'
                 )
             else:
-                gini, gini_unknowns_grouped, nc, nc_unknowns_grouped, hhi, hhi_unknowns_grouped, entropy, \
-                    entropy_unknowns_grouped = '', '', ('', ''), ('', ''), '', '', '', ''
+                theil, theil_unknowns_grouped, gini, gini_unknowns_grouped, nc, nc_unknowns_grouped, hhi, hhi_unknowns_grouped, entropy, \
+                    entropy_unknowns_grouped = '', '', '', '', ('', ''), ('', ''), '', '', '', ''
                 print(f'[{project:12} {timeframe:7}] No data')
 
+            theil_csv[timeframe] += f',{theil},{theil_unknowns_grouped}'
             gini_csv[timeframe] += f',{gini},{gini_unknowns_grouped}'
             nc_csv[timeframe] += f',{nc[0]},{nc_unknowns_grouped[0]}'
             entropy_csv[timeframe] += f',{entropy},{entropy_unknowns_grouped}'
             hhi_csv[timeframe] += f',{hhi},{hhi_unknowns_grouped}'
 
+    with open(output_dir / 'theil.csv', 'w') as f:
+        f.write('\n'.join([i[1] for i in sorted(theil_csv.items(), key=lambda x: x[0])]))
     with open(output_dir / 'gini.csv', 'w') as f:
         f.write('\n'.join([i[1] for i in sorted(gini_csv.items(), key=lambda x: x[0])]))
     with open(output_dir / 'nc.csv', 'w') as f:
@@ -127,6 +136,14 @@ if __name__ == '__main__':
              '1: Shannon, 2: collision.'
     )
 
+    parser.add_argument(
+        '--theil-alpha',
+        nargs="?",
+        type=int,
+        default=1,
+        help='The alpha parameter for Theil index computation. Default Theil-t. Examples: 0: Theil-L, 1: Theil-T'
+    )
+
     args = parser.parse_args()
 
     timeframe = args.timeframe
@@ -138,4 +155,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    analyze(args.ledgers, timeframes, args.entropy_alpha, OUTPUT_DIR)
+    analyze(args.ledgers, timeframes, args.entropy_alpha, args.theil_alpha, OUTPUT_DIR)

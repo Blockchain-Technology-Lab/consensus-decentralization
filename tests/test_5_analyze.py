@@ -45,8 +45,9 @@ def test_analyze(setup_and_cleanup):
     projects = ['sample_bitcoin']
     timeframes = ['2018']
     entropy_alpha = 1
+    theil_alpha = 1
 
-    analyze(projects, timeframes, entropy_alpha, test_output_dir)
+    analyze(projects, timeframes, entropy_alpha, theil_alpha, test_output_dir)
 
     metrics = ['gini', 'nc', 'entropy']
     for metric in metrics:
@@ -65,8 +66,9 @@ def test_analyze(setup_and_cleanup):
 
     timeframes = ['2018-02']
     entropy_alpha = 1
+    theil_alpha = 1
 
-    analyze(projects, timeframes, entropy_alpha, test_output_dir)
+    analyze(projects, timeframes, entropy_alpha, theil_alpha, test_output_dir)
 
     metrics = ['gini', 'nc', 'entropy']
     for metric in metrics:
@@ -85,8 +87,9 @@ def test_analyze(setup_and_cleanup):
 
     timeframes = ['2018-03']
     entropy_alpha = 1
+    theil_alpha = 1
 
-    analyze(projects, timeframes, entropy_alpha, test_output_dir)
+    analyze(projects, timeframes, entropy_alpha, theil_alpha, test_output_dir)
 
     metrics = ['gini', 'nc', 'entropy']
     for metric in metrics:
@@ -105,7 +108,7 @@ def test_analyze(setup_and_cleanup):
 
     timeframes = ['2010']
 
-    analyze(projects, timeframes, entropy_alpha, test_output_dir)
+    analyze(projects, timeframes, entropy_alpha, theil_alpha, test_output_dir)
 
     metrics = ['gini', 'nc', 'entropy']
     for metric in metrics:
