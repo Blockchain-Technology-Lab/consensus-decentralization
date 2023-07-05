@@ -6,3 +6,13 @@ metrics:
   gini:
   hhi:
   nakamoto_coefficient:
+
+default_ledgers:
+  - bitcoin
+  - bitcoin_cash
+  - cardano
+  - dogecoin
+  - ethereum
+  - litecoin
+  - tezos
+  - zcash

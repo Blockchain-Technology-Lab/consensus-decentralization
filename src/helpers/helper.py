@@ -239,20 +239,29 @@ def get_special_addresses(project_name):
     return set([addr['address'] for addr in special_addresses])
 
 
+def get_config_data():
+    """
+    Reads the configuration data of the project. This data is read from a file named "confing.yaml" located at the
+    root directory of the project.
+    :returns: a dictionary of configuration keys and values
+    """
+    with open(ROOT_DIR / "config.yaml") as f:
+        config = safe_load(f)
+    return config
+
+
 def get_metrics_config():
     """
-    Reads data about the metrics that will be used. The data is read from a file named "confing.yaml" located at the
-    root directory of the project. All metrics that are mentioned in the file (not in comments) will be used at the
-    "analyze" and "plot" stages. If a metric is parameterized, then the values of its parameters are also given in
-    this file. To add a new metric, one can add a new entry in the file, and to disable a metric it suffices to comment
-    out the relevant line(s).
+    Reads data about the metrics that will be used from the project's config file. All metrics that are mentioned in
+    the file (not in comments) will be used at the "analyze" and "plot" stages. If a metric is parameterized, then the
+    values of its parameters are also given in this file. To add a new metric, one can add a new entry in the file, and
+    to disable a metric it suffices to comment out the relevant line(s).
     :returns: a dictionary where the keys correspond to metric names and the values to their configurations
     (dictionary of parameter - value pairs for each parameter that the metric takes)
     :raises AssertionError if the file defines different parameter values for metrics that are supposed to be
     consistent (e.g. entropy and entropy percentage)
     """
-    with open(ROOT_DIR / "config.yaml") as f:
-        config = safe_load(f)
+    config = get_config_data()
     metrics = config['metrics']
     metric_families = [['entropy', 'entropy_percentage']]
     for metric_family in metric_families:
@@ -266,3 +275,14 @@ def get_metrics_config():
                                                   "percentage) must use the same parameter values. " \
                                                   "Please update your config.yaml file accordingly."
     return metrics
+
+
+def get_default_ledgers():
+    """
+    Retrieves data regarding the default ledgers to use
+    :returns: a list of strings that correspond to the ledgers that will be used (unless overriden by the relevant cmd
+    arg)
+    """
+    config = get_config_data()
+    ledgers = config['default_ledgers']
+    return ledgers

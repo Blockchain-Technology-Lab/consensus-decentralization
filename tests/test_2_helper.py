@@ -5,7 +5,7 @@ import shutil
 import pytest
 from src.helpers.helper import get_known_entities, get_pool_data, write_blocks_per_entity_to_file, \
     get_blocks_per_entity_from_file, get_blocks_per_entity_group_from_file, get_timeframe_beginning, \
-    get_timeframe_end, get_time_period, valid_date, OUTPUT_DIR
+    get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
 from src.map import ledger_mapping
 
 
@@ -199,3 +199,9 @@ def test_get_known_entities():
     # check legal links
     assert "Bitmain" in known_entities
     assert "NovaBlock" in known_entities
+
+
+def test_get_default_ledgers():
+    ledgers = get_default_ledgers()
+    assert type(ledgers) == list
+    assert len(ledgers) > 0
