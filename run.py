@@ -1,12 +1,10 @@
 import argparse
-from src.map import ledger_mapping, apply_mapping
+from src.map import apply_mapping
 from src.analyze import analyze
 from src.parse import parse
 from src.plot import plot
-from src.helpers.helper import valid_date
-from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
+from src.helpers.helper import valid_date, INPUT_DIR, OUTPUT_DIR, get_default_ledgers
 
-PROJECTS = ledger_mapping.keys()
 
 START_YEAR = 2018
 END_YEAR = 2024
@@ -38,14 +36,15 @@ def main(projects, timeframes, force_parse, force_map, make_plots, make_animated
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    default_ledgers = get_default_ledgers()
 
+    parser = argparse.ArgumentParser()
     parser.add_argument(
         '--ledgers',
         nargs="*",
         type=str.lower,
-        default=PROJECTS,
-        choices=[ledger for ledger in PROJECTS],
+        default=default_ledgers,
+        choices=[ledger for ledger in default_ledgers],
         help='The ledgers that will be analyzed.'
     )
     parser.add_argument(
