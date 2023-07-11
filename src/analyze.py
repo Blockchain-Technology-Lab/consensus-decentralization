@@ -4,6 +4,10 @@ from src.metrics.gini import compute_gini  # noqa: F401
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
 from src.metrics.entropy import compute_entropy, compute_entropy_percentage  # noqa: F401
 from src.metrics.herfindahl_hirschman_index import compute_hhi  # noqa: F401
+from src.metrics.theil_index import compute_theil  # noqa: F401
+from src.metrics.centralization_level import compute_centralization_level  # noqa: F401
+from src.metrics.parties import compute_num_parties  # noqa: F401
+from src.metrics.mining_power_ratio import compute_mining_power_ratio  # noqa: F401
 from src.helpers.helper import OUTPUT_DIR, get_metrics_config
 
 START_YEAR = 2018

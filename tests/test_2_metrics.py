@@ -1,4 +1,4 @@
-from src.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index
+from src.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index, theil_index, centralization_level, parties, mining_power_ratio
 import numpy as np
 
 
@@ -95,3 +95,58 @@ def test_hhi():
     blocks_per_entity = {'a': 1}  # 'a' produced 100% of the blocks
     hhi = herfindahl_hirschman_index.compute_hhi(blocks_per_entity)
     assert hhi == 10000
+
+def test_theil():
+    """
+    Ensure that the results of the compute_theil function are consistent with the definition (5 decimal accuracy).
+    """
+    decimals = 5
+
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+    theil_t = theil_index.compute_theil(blocks_per_entity, 1)
+    assert round(theil_t, decimals) == 0.08721
+    theil_l = theil_index.compute_theil(blocks_per_entity, 0)
+    assert round(theil_l, decimals) == 0.09589
+
+    blocks_per_entity = {'a': 0, 'b': 0, 'c': 12, 'd': 432}
+    theil_t = theil_index.compute_theil(blocks_per_entity, 1)
+    assert round(theil_t, decimals) == 0.5689
+    theil_l = theil_index.compute_theil(blocks_per_entity, 0)
+    assert round(theil_l, decimals) == 1.12601
+
+def test_cl():
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+    cl = centralization_level.compute_centralization_level(blocks_per_entity, 0.5)
+    assert cl == 1
+    cl = centralization_level.compute_centralization_level(blocks_per_entity, 0.33)
+    assert cl == 2
+
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3, 'd': 1, 'e': 1, 'f': 1}
+    cl = centralization_level.compute_centralization_level(blocks_per_entity, 0.5)
+    assert cl == 2
+    cl = centralization_level.compute_centralization_level(blocks_per_entity, 0.33)
+    assert cl == 4
+
+    blocks_per_entity = {'a': 1}
+    cl = centralization_level.compute_centralization_level(blocks_per_entity, 0.5)
+    assert cl == 1
+    cl = centralization_level.compute_centralization_level(blocks_per_entity, 0.33)
+    assert cl == 1
+
+def test_parties():
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+    numpart = parties.compute_num_parties(blocks_per_entity)
+    assert numpart == 3
+
+    blocks_per_entity = {'a': 0, 'b': 2, 'c': 3, 'd': 0, 'e': 1, 'f': 1}
+    numpart = parties.compute_num_parties(blocks_per_entity)
+    assert numpart == 4
+
+def test_mpr():
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+    mpr = mining_power_ratio.compute_mining_power_ratio(blocks_per_entity)
+    assert mpr == 0.5
+
+    blocks_per_entity = {'a': 3, 'b': 3, 'c': 0}
+    mpr = mining_power_ratio.compute_mining_power_ratio(blocks_per_entity)
+    assert mpr == 0.5

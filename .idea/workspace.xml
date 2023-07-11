@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="51fb5849-e115-454a-816b-5f97fe1062ea" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/metrics/centralization_level.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/metrics/mining_power_ratio.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/metrics/parties.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/metrics/theil_index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyze.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_2_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_2_metrics.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2RI8qAp7UdPj7rXNwy9Gnul5lem" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/marymilad/pooling-analysis/src/metrics&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/metrics" />
+      <recent name="$PROJECT_DIR$/../Desktop/edi/python" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="51fb5849-e115-454a-816b-5f97fe1062ea" name="Changes" comment="" />
+      <created>1686926424626</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686926424626</updated>
+      <workItem from="1686926425964" duration="16795000" />
+      <workItem from="1687437157955" duration="3901000" />
+      <workItem from="1687443123859" duration="50668000" />
+      <workItem from="1687776962769" duration="111000" />
+      <workItem from="1687777140773" duration="10000" />
+      <workItem from="1687780217944" duration="1449000" />
+      <workItem from="1687787978747" duration="402000" />
+      <workItem from="1687788385129" duration="1916000" />
+      <workItem from="1687862894459" duration="1746000" />
+      <workItem from="1687880904954" duration="756000" />
+      <workItem from="1687881715951" duration="2826000" />
+      <workItem from="1687944283238" duration="5605000" />
+      <workItem from="1688035555731" duration="21000" />
+      <workItem from="1688133902617" duration="888000" />
+      <workItem from="1688375353366" duration="645000" />
+      <workItem from="1688555340471" duration="13000" />
+      <workItem from="1688556470357" duration="618000" />
+      <workItem from="1689073122185" duration="2528000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/pooling_analysis$parties.coverage" NAME="parties Coverage Results" MODIFIED="1687441602242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Desktop/edi/python" />
+    <SUITE FILE_PATH="coverage/pooling_analysis$run.coverage" NAME="run Coverage Results" MODIFIED="1687951001637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pooling_analysis$centralization_level.coverage" NAME="centralization_level Coverage Results" MODIFIED="1687943196979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/metrics" />
+    <SUITE FILE_PATH="coverage/pooling_analysis$pytest_in_test_2_metrics_py.coverage" NAME="pytest in test_2_metrics.py Coverage Results" MODIFIED="1687948058484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/pooling_analysis$theil.coverage" NAME="theil Coverage Results" MODIFIED="1687435775443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/metrics" />
+  </component>
+</project>

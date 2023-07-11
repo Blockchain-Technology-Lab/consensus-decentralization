@@ -6,3 +6,9 @@ metrics:
   gini:
   hhi:
   nakamoto_coefficient:
+  theil:
+    alpha: 1
+  centralization_level:
+    epsilon: 0.33
+  num_parties:
+  mining_power_ratio:
