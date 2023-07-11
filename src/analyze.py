@@ -13,7 +13,6 @@ from src.helpers.helper import OUTPUT_DIR, get_metrics_config
 START_YEAR = 2018
 END_YEAR = 2024
 
-
 def analyze(projects, timeframes, output_dir):
     """
     Calculates all available metrics for the given ledgers and timeframes. Outputs one file for each metric.
@@ -71,7 +70,6 @@ def analyze(projects, timeframes, output_dir):
                         blocks_per_entity[entity] = 0
                         if entity in yearly_entity_groups:
                             blocks_per_entity_group[entity] = 0
-
                 for metric, args_dict in metrics.items():
                     func = eval(f'compute_{metric}')
                     results[metric] = func(blocks_per_entity, **args_dict) if args_dict else func(blocks_per_entity)
@@ -91,7 +89,6 @@ def analyze(projects, timeframes, output_dir):
 
     return list(metrics.keys())
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
@@ -110,6 +107,14 @@ if __name__ == '__main__':
         help='The timeframe that will be analyzed.'
     )
 
+    parser.add_argument(
+        '--theil-alpha',
+        nargs="?",
+        type=int,
+        default=1,
+        help='The alpha parameter for Theil index computation. Default Theil-t. Examples: 0: Theil-L, 1: Theil-T'
+    )
+
     args = parser.parse_args()
 
     timeframe = args.timeframe
@@ -120,5 +125,4 @@ if __name__ == '__main__':
         for year in range(START_YEAR, END_YEAR):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
-
     analyze(args.ledgers, timeframes, OUTPUT_DIR)

@@ -11,8 +11,8 @@ PROJECTS = ledger_mapping.keys()
 START_YEAR = 2018
 END_YEAR = 2024
 
-
 def main(projects, timeframes, force_parse, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -30,7 +30,7 @@ def main(projects, timeframes, force_parse, force_map, make_plots, make_animated
     for project in projects:
         parse(project, INPUT_DIR, output_dir, force_parse)
         apply_mapping(project, timeframes, output_dir, force_map)
-
+    
     used_metrics = analyze(projects, timeframes, output_dir)
 
     if make_plots:
@@ -87,6 +87,6 @@ if __name__ == '__main__':
         for year in range(START_YEAR, END_YEAR):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
-
     main(projects, timeframes, args.force_parse, args.force_map, args.plot, args.animated)
     print('Done. Please check the output directory for results.')
+

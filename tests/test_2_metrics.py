@@ -150,3 +150,16 @@ def test_mpr():
     blocks_per_entity = {'a': 3, 'b': 3, 'c': 0}
     mpr = mining_power_ratio.compute_mining_power_ratio(blocks_per_entity)
     assert mpr == 0.5
+    blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
+    decimals = 5
+
+    theil_t = theil.compute_theil(blocks_per_entity, 1)
+    assert round(theil_t, decimals) == 0.08721
+
+    theil_l = theil.compute_theil(blocks_per_entity, 0)
+    assert round(theil_l, decimals) == 0.09589
+
+    blocks_per_entity = {'a': 0, 'b': 0, 'c': 0, 'd': 432}
+
+    theil_t = theil.compute_theil(blocks_per_entity, 1)
+    assert round(theil_t, decimals) == 1.38629

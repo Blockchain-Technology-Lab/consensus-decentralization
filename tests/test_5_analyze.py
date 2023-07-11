@@ -44,9 +44,7 @@ def test_analyze(setup_and_cleanup):
     test_output_dir = setup_and_cleanup
     projects = ['sample_bitcoin']
     timeframes = ['2018']
-
     analyze(projects, timeframes, test_output_dir)
-
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
@@ -63,9 +61,7 @@ def test_analyze(setup_and_cleanup):
                 assert lines[1] == '2018,1.836591668108979,1.836591668108979'
 
     timeframes = ['2018-02']
-
     analyze(projects, timeframes, test_output_dir)
-
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
@@ -82,9 +78,7 @@ def test_analyze(setup_and_cleanup):
                 assert lines[1] == '2018-02,1.5,1.5'
 
     timeframes = ['2018-03']
-
     analyze(projects, timeframes, test_output_dir)
-
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
@@ -101,9 +95,7 @@ def test_analyze(setup_and_cleanup):
                 assert lines[1] == '2018-03,0.0,0.0'
 
     timeframes = ['2010']
-
     analyze(projects, timeframes, test_output_dir)
-
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
