@@ -72,3 +72,19 @@ The structure of the file is as follows:
 ```
 
 The values for each entry are the same as `clusters` in the above pool information.
+
+## Mapping process implementation
+
+In our implementation, the mapping of a block uses the auxiliary information as follows.
+
+First, it iterates over all known tags compares each one with the block's coinbase parameter. If the tag is a substring of the parameter, then we have a match.
+
+Second, if the first step fails, we compare the block's coinbase addresses with known pool addresses and again look for a match.
+
+In both cases, if there is a match, then: (i) we map the block to the matched pool; (ii) we associate all of the block's coinbase addresses (that is, the addresses that receive fees from the block) with the matched pool.
+
+In essence, the coinbase parameter is the principal element for mapping a block to an entity and the known addresses is the fallback mechanism.
+
+If there is a match, we also parse the auxiliary information, such as pool ownership or clusters, in order to assign the block to the top level entity, e.g., the pool's parent company or cluster.
+
+If both mechanisms fail, then no match is found. In this case, we assign the coinbase addresses as the block's entity.
