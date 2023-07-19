@@ -139,36 +139,20 @@ def get_pool_data(project_name, timeframe):
     return pool_data, pool_links
 
 
-def get_pool_addresses(project_name, timeframe):
+def get_pool_addresses(project_name):
     """
     Retrieves the addresses associated with pools of a certain project over a given timeframe
     :param project_name: string that corresponds to the project under consideration
-    :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
-    format)
     :returns: a dictionary with known addresses and the names of the pools that own them (given that the timeframe of
     the ownership overlaps with the timeframe under consideration)
     """
     helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
 
-    start = get_timeframe_beginning(timeframe)
-    end = get_timeframe_end(timeframe)
-
     with open(helpers_path + f'/pool_information/{project_name}.json') as f:
         address_data = json.load(f)['pool_addresses']
 
-    address_links = {}
-    if address_data:
-        for address, addr_info in address_data.items():
-            link_start, link_end = get_time_period(addr_info['from'], addr_info['to'])
+    address_links = {address: addr_info['name'] for address, addr_info in address_data.items()}
 
-            check_list = [  # Check if two periods overlap at any point
-                start <= link_start <= end,
-                start <= link_end <= end,
-                link_start <= start <= link_end,
-                link_start <= end <= link_end
-            ]
-            if any(check_list):
-                address_links[address] = addr_info['name']
     return address_links
 
 
