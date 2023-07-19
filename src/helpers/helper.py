@@ -13,6 +13,7 @@ YEAR_DIGITS = 4
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
 INPUT_DIR = ROOT_DIR / 'input'
 OUTPUT_DIR = ROOT_DIR / 'output'
+HELPERS_DIR = ROOT_DIR / 'src/helpers'
 
 
 def valid_date(date_string):
@@ -67,9 +68,8 @@ def get_time_period(frm, to):
 
 
 def get_known_entities(ledger):
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
     known_entities = set()
-    with open(helpers_path + f'/pool_information/{ledger}.json') as f:
+    with open(HELPERS_DIR / f'pool_information/{ledger}.json') as f:
         pool_data = json.load(f)
         clusters = pool_data['clusters']
         coinbase_tags = pool_data['coinbase_tags']
@@ -80,7 +80,7 @@ def get_known_entities(ledger):
         known_entities.add(tag_info['name'])
     for address_info in pool_addresses.values():
         known_entities.add(address_info['name'])
-    with open(helpers_path + '/legal_links.json') as f:
+    with open(HELPERS_DIR / 'legal_links.json') as f:
         legal_links = json.load(f)
     for parent, children in legal_links.items():
         known_entities.add(parent)
@@ -98,17 +98,15 @@ def get_pool_data(project_name, timeframe):
     :returns: (pool_data, pool_links) where pool_data is a dictionary with the tags, addresses and cluster
     information of each pool, and pool_links is a dictionary that reveals the ownership of pools
     """
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
-
     start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)
 
     pool_links = {}
 
-    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
+    with open(HELPERS_DIR / f'pool_information/{project_name}.json') as f:
         pool_data = json.load(f)
         cluster_data = pool_data['clusters']
-    with open(helpers_path + '/legal_links.json') as f:
+    with open(HELPERS_DIR / 'legal_links.json') as f:
         legal_data = json.load(f)
     for data in [cluster_data, legal_data]:
         for cluster_name, pools in data.items():
@@ -146,9 +144,7 @@ def get_pool_addresses(project_name):
     :returns: a dictionary with known addresses and the names of the pools that own them (given that the timeframe of
     the ownership overlaps with the timeframe under consideration)
     """
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
-
-    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
+    with open(HELPERS_DIR / f'pool_information/{project_name}.json') as f:
         address_data = json.load(f)['pool_addresses']
 
     address_links = {address: addr_info['name'] for address, addr_info in address_data.items()}
@@ -210,9 +206,7 @@ def get_special_addresses(project_name):
     :param project_name: string that corresponds to the project under consideration
     :returns: special_addresses, which is a set of addresses
     """
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
-
-    with open(helpers_path + '/special_addresses.json') as f:
+    with open(HELPERS_DIR / 'special_addresses.json') as f:
         special_address_data = json.load(f)
 
     try:
