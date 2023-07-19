@@ -89,9 +89,23 @@ def get_known_entities(ledger):
     return known_entities
 
 
-def get_pool_data(project_name, timeframe):
+def get_pool_tags(project_name):
     """
-    Retrieves data regarding the pools of a project and the links between them.
+    Retrieves coinbase tag data regarding the pools of a project.
+    :param project_name: string that corresponds to the project under consideration
+    :returns: pool_tags, a dictionary with the tags information of each pool
+    """
+    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
+
+    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
+        pool_data = json.load(f)
+
+    return pool_data['coinbase_tags']
+
+
+def get_pool_links(project_name, timeframe):
+    """
+    Retrieves data regarding the links between the pools of a project.
     :param project_name: string that corresponds to the project under consideration
     :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
     format)
@@ -108,6 +122,7 @@ def get_pool_data(project_name, timeframe):
         cluster_data = pool_data['clusters']
     with open(HELPERS_DIR / 'legal_links.json') as f:
         legal_data = json.load(f)
+
     for data in [cluster_data, legal_data]:
         for cluster_name, pools in data.items():
             for pool_info in pools:
@@ -134,7 +149,7 @@ def get_pool_data(project_name, timeframe):
                 child = next_child
         pool_links[parent] = child
 
-    return pool_data, pool_links
+    return pool_links
 
 
 def get_pool_addresses(project_name):

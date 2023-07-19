@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses, get_special_addresses
+from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file, get_pool_tags, get_pool_addresses, get_special_addresses
 from src.mappings.mapping import Mapping
 
 
@@ -24,20 +24,18 @@ class EthereumMapping(Mapping):
         special_addresses = get_special_addresses(self.project_name)
 
         pool_addresses = get_pool_addresses(self.project_name)
+        pool_tags = get_pool_tags(self.project_name)
 
         multi_pool_addresses = list()
-        daily_helper_data = {}
+        daily_links = {}
         blocks_per_entity = defaultdict(int)
         for tx in data:
             day = tx['timestamp'][:10]
             try:
-                pool_data = daily_helper_data[day]['pool_data']
-                pool_links = daily_helper_data[day]['pool_links']
+                pool_links = daily_links[day]
             except KeyError:
-                pool_data, pool_links = get_pool_data(self.project_name, day)
-                daily_helper_data[day] = {}
-                daily_helper_data[day]['pool_data'] = pool_data
-                daily_helper_data[day]['pool_links'] = pool_links
+                pool_links = get_pool_links(self.project_name, day)
+                daily_links[day] = pool_links
 
             try:
                 coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
@@ -49,7 +47,7 @@ class EthereumMapping(Mapping):
                 continue
 
             pool_match = False
-            for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
+            for (tag, info) in pool_tags.items():  # Check if coinbase param contains known pool tag
                 if tag in str(coinbase_param):
                     entity = info['name']
                     pool_addresses[coinbase_addresses] = entity
