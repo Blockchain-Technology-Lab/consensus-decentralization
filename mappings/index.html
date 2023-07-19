@@ -124,7 +124,7 @@ relevant pool information, structured as follows:</p>
     }
   },
   &quot;pool_addresses&quot;: {
-    &quot;&lt;address&gt;&quot;: {&quot;name&quot;: &quot;&lt;pool name&gt;&quot;, &quot;from&quot;: &quot;&lt;from&gt;&quot;, &quot;to&quot;: &quot;&lt;to&gt;&quot;, &quot;source&quot;: &quot;&lt;source of information&gt;&quot;},
+    &quot;&lt;address&gt;&quot;: {&quot;name&quot;: &quot;&lt;pool name&gt;&quot;, &quot;source&quot;: &quot;&lt;source of information&gt;&quot;},
   }
 }
 </code></pre>
@@ -146,7 +146,7 @@ relevant pool information, structured as follows:</p>
 </ul>
 </li>
 <li><code>&lt;pool tag&gt;</code> is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool; in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool (Tezos) or its ticker (Cardano).</li>
-<li><code>pool_addresses</code> define control of an address by a pool; the structure is the same as <code>clusters</code>.</li>
+<li><code>pool_addresses</code> define control of an address by a pool; the structure is the same as <code>clusters</code> without the timeframe.</li>
 </ul>
 <h4 id="pool-ownership">Pool Ownership</h4>
 <p>The file <code>helpers/legal_links.json</code> defines legal links between pools and companies, based on off-chain information.
