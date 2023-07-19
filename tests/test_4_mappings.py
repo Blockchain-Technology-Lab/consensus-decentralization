@@ -71,8 +71,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
 
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
-    pool_info['pool_addresses']['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'from': '2020-01-02',
-                                                                               'to': '2020-09-20', 'source': ''}
+    pool_info['pool_addresses']['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'source': ''}
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
 
@@ -115,9 +114,8 @@ def test_bitcoin_mapping(setup_and_cleanup):
 
     expected_output = [
         'Entity Group,Entity,Resources\n',
-        'TEST2,TEST2,1\n',
-        'Bitmain,Bitmain,1\n',
-        'Unknown,0000000000000000000000000000000000000000,1'
+        'TEST2,TEST2,2\n',
+        'Bitmain,Bitmain,1',
     ]
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
@@ -138,8 +136,7 @@ def test_ethereum_mapping(setup_and_cleanup):
     with open(str(pool_info_dir / f'{project}.json')) as f:
         pool_info = json.load(f)
     pool_info['clusters']['TEST'] = [{'name': 'ezil.me', 'from': '', 'to': '', 'source': 'homepage'}]
-    pool_info['pool_addresses']['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'from': '2020',
-                                                                                 'to': '2021-01', 'source': ''}
+    pool_info['pool_addresses']['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'source': ''}
     with open(str(pool_info_dir / f'{project}.json'), 'w') as f:
         f.write(json.dumps(pool_info))
 

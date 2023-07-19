@@ -50,8 +50,8 @@ def test_pool_data():
         pool_data['coinbase_tags']['entity 4']['link'] == 'https://www.entity.4',
         pool_data['coinbase_tags']['entity_5']['name'] == 'Entity 5',
         pool_data['coinbase_tags']['entity_5']['link'] == 'https://www.entity.5',
-        pool_data['pool_addresses']['address1'] == {"name": "Entity 4", "from": "", "to": "2023", "source": ""},
-        pool_data['pool_addresses']['addr2'] == {"name": "Entity 5", "from": "", "to": "2023", "source": ""},
+        pool_data['pool_addresses']['address1'] == {"name": "Entity 4", "source": ""},
+        pool_data['pool_addresses']['addr2'] == {"name": "Entity 5", "source": ""},
     ])
 
     pool_data, pool_links = get_pool_data('test', '2021-03-12')

@@ -31,7 +31,7 @@ class TezosMapping(Mapping):
                 pool_addresses = daily_helper_data[day]['pool_addresses']
             except KeyError:
                 pool_data, pool_links = get_pool_data(self.project_name, day)
-                pool_addresses = get_pool_addresses(self.project_name, day)
+                pool_addresses = get_pool_addresses(self.project_name)
                 daily_helper_data[day] = {}
                 daily_helper_data[day]['pool_data'] = pool_data
                 daily_helper_data[day]['pool_links'] = pool_links

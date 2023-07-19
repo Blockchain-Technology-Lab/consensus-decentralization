@@ -34,7 +34,7 @@ relevant pool information, structured as follows:
     }
   },
   "pool_addresses": {
-    "<address>": {"name": "<pool name>", "from": "<from>", "to": "<to>", "source": "<source of information>"},
+    "<address>": {"name": "<pool name>", "source": "<source of information>"},
   }
 }
 ```
@@ -55,7 +55,7 @@ In this file:
     - keywords: for Cardano, `homepage` can be used for pools that define the
       same `homepage` in their metadata json file (published on0chain)
 - `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool; in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool (Tezos) or its ticker (Cardano).
-- `pool_addresses` define control of an address by a pool; the structure is the same as `clusters`.
+- `pool_addresses` define control of an address by a pool; the structure is the same as `clusters` without the timeframe.
 
 #### Pool Ownership
 
