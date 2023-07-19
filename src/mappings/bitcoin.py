@@ -89,11 +89,11 @@ class BitcoinMapping(Mapping):
 
         if len(timeframe) == 4:
             if multi_pool_addresses:
-                with open(f'{self.io_dir}/multi_pool_addresses_{timeframe}.csv', 'w') as f:
+                with open(self.io_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
                     f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(multi_pool_addresses))
 
             if multi_pool_blocks:
-                with open(f'{self.io_dir}/multi_pool_blocks_{timeframe}.csv', 'w') as f:
+                with open(self.io_dir / f'multi_pool_blocks_{timeframe}.csv', 'w') as f:
                     f.write('Block No,Timestamp,Entities\n' + '\n'.join(multi_pool_blocks))
 
         return blocks_per_entity

@@ -74,7 +74,7 @@ class EthereumMapping(Mapping):
         write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
 
         if len(timeframe) == 4 and multi_pool_addresses:
-            with open(f'{self.io_dir}/multi_pool_addresses_{timeframe}.csv', 'w') as f:
+            with open(self.io_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
                 f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(multi_pool_addresses))
 
         return blocks_per_entity
