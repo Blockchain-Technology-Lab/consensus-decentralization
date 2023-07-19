@@ -17,45 +17,57 @@ coinbase addresses, so it doesn't perform any extra processing on the raw data.
 
 ## Pool Information
 
-To assist the mapping process, the directory `helpers/pool_information/` contains files named `<project_name>.json`, with
-relevant pool information, structured as follows:
+To assist the mapping process, the directory `helpers/pool_information/` contains 
+pool information about the supported projects.
 
+There exist three subdirectories. In each subdirectory there exists a file for
+the corresponding ledger data, if such data exists.
+
+`coinbase_tags` defines information about block creators. Each key
+corresponds to a tag or ticker, by which the pool is identifiable in its
+produced blocks. The value for each key is a dictionary of pool-related
+information, specifically its name, a url to its homepage, etc. Each file's
+structure is as follows:
 ```
 {
-  "clusters": {
-    "<cluster name>": [
-      {"name": "<pool name>", "from": "<from>", "to": "<to>", "source": "<source of information>"}
-    ]
+  "P1": {
+      "name": "Pool P1",
+      "homepage": "example.com/p1"
   },
-  "coinbase_tags": {
-    "<pool tag>": {
-      "name": "<pool name>",
-      "link": "<pool website>"
-    }
-  },
-  "pool_addresses": {
-    "<address>": {"name": "<pool name>", "source": "<source of information>"},
+  "--P2--": {
+      "name": "Pool P2",
+      "homepage": "example.com/p2"
   }
 }
 ```
 
-In this file:
+`addresses` defines ownership information about addresses. As with
+clusters, for each address the pool ownership information defines the pool's
+name and a public source of information about the ownership.  Each file's
+structure is as follows:
+```
+{
+  "address1": {"name": "Pool P2", "source": "example.com"},
+}
+```
 
-- `clusters` refers to pools that share infrastructure:
-- for each pool in a cluster, the following values should be defined:
-  - `<from>` sets the beginning of the control of the pool by the cluster; the first
-    day of the timeframe is chosen; for example, if `2022`, then the beginning is set
-    to `2022-01-01`); if `<from>` is empty, then the control existed since the
-    pool's inception.
-  - `<to>` sets the end of the control of the pool by the cluster; the end is
-    exclusive, i.e., it defines the beginning of the control transition; for
-    example, if `2022`, the end of the control is `31-12-2021`
-    if `<to>` is empty, then the control is still active.
-  - `<source of information>` should be either (i) comma-separated keywords or (ii) a url with the clustering information; this information should be publicly-available and reproducible (for example, a link to a community or company, with information that cannot be verified independently, is not acceptable);
-    - keywords: for Cardano, `homepage` can be used for pools that define the
-      same `homepage` in their metadata json file (published on0chain)
-- `<pool tag>` is the tag that a pool inserts in a block's coinbase parameter, in order to claim a block as being mined by the pool; in projects that do not rely on the coinbase parameter (e.g., Cardano, Tezos) the tag is just the name of the pool (Tezos) or its ticker (Cardano).
-- `pool_addresses` define control of an address by a pool; the structure is the same as `clusters` without the timeframe.
+`clusters` defines information about pool clusters. This information is
+organized per cluster. For each cluster, an array of pool-related information is
+defined. Each item in the array defines the pool's name, the time window during
+which the pool belonged to the cluster (from the beginning of `from` until the
+beginning of `to` _excluding_), and the _publicly available_ source of
+information, via which the link between the pool and the cluster is established.
+Each file's structure is as follows:
+```
+{
+  "cluster A": [
+      {"name": "P1", "from": "", "to": "2023", "source": "example.com/link1"}
+  ],
+  "cluster B": [
+      {"name": "--P2--", "from": "", "to": "", "source": "example.com/link2"}
+  ]
+}
+```
 
 #### Pool Ownership
 
