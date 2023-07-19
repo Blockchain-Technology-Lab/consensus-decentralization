@@ -34,7 +34,7 @@
           <a href=".." class="icon icon-home"> Blockchain Pooling Analysis - Docs
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -65,6 +65,8 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mapping-process-implementation">Mapping process implementation</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -85,7 +87,7 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
       <li>Mappings</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -157,6 +159,19 @@ The structure of the file is as follows:</p>
 }
 </code></pre>
 <p>The values for each entry are the same as <code>clusters</code> in the above pool information.</p>
+<h2 id="mapping-process-implementation">Mapping process implementation</h2>
+<p>In our implementation, the mapping of a block uses the auxiliary information as follows.</p>
+<p>First, it iterates over all known tags and compares each one with the block's coinbase parameter. If the tag is a
+substring of the parameter, then we have a match.</p>
+<p>Second, if the first step fails, we compare the block's coinbase addresses with known pool addresses and again look for
+a match.</p>
+<p>In both cases, if there is a match, then: (i) we map the block to the matched pool; (ii) we associate all of the block's
+coinbase addresses (that is, the addresses that receive fees from the block) with the matched pool.</p>
+<p>In essence, the coinbase parameter is the principal element for mapping a block to an entity and the known addresses is
+the fallback mechanism.</p>
+<p>If there is a match, we also parse the auxiliary information, such as pool ownership or clusters, in order to assign the
+block to the top level entity, e.g., the pool's parent company or cluster.</p>
+<p>If both mechanisms fail, then no match is found. In this case, we assign the coinbase addresses as the block's entity.</p>
               
             </div>
           </div><footer>
