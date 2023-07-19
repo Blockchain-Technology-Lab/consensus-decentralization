@@ -69,23 +69,37 @@ def get_time_period(frm, to):
 
 def get_known_entities(ledger):
     known_entities = set()
-    with open(HELPERS_DIR / f'pool_information/{ledger}.json') as f:
-        pool_data = json.load(f)
-        clusters = pool_data['clusters']
-        coinbase_tags = pool_data['coinbase_tags']
-        pool_addresses = pool_data['pool_addresses']
-    for cluster in clusters:
-        known_entities.add(cluster)
-    for tag_info in coinbase_tags.values():
-        known_entities.add(tag_info['name'])
-    for address_info in pool_addresses.values():
-        known_entities.add(address_info['name'])
-    with open(HELPERS_DIR / 'legal_links.json') as f:
+    try:
+        with open(HELPERS_DIR + f'/pool_information/coinbase_tags/{ledger}.json') as f:
+            coinbase_tags = json.load(f)
+        for info in coinbase_tags.values():
+            known_entities.add(info['name'])
+    except FileNotFoundError:
+        coinbase_tags = {}
+
+    try:
+        with open(HELPERS_DIR + f'/pool_information/clusters/{ledger}.json') as f:
+            clusters = json.load(f)
+        for cluster in clusters.keys():
+            known_entities.add(cluster)
+    except FileNotFoundError:
+        clusters = {}
+
+    try:
+        with open(HELPERS_DIR + f'/pool_information/addresses/{ledger}.json') as f:
+            pool_addresses = json.load(f)
+        for address_info in pool_addresses.values():
+            known_entities.add(address_info['name'])
+    except FileNotFoundError:
+        pool_addresses = {}
+
+    with open(HELPERS_DIR + '/legal_links.json') as f:
         legal_links = json.load(f)
     for parent, children in legal_links.items():
         known_entities.add(parent)
         for child in children:
             known_entities.add(child['name'])
+
     return known_entities
 
 
@@ -95,12 +109,13 @@ def get_pool_tags(project_name):
     :param project_name: string that corresponds to the project under consideration
     :returns: pool_tags, a dictionary with the tags information of each pool
     """
-    helpers_path = str(pathlib.Path(__file__).parent.parent.resolve()) + '/helpers'
+    try:
+        with open(HELPERS_DIR + f'/pool_information/coinbase_tags/{project_name}.json') as f:
+            pool_data = json.load(f)
+    except FileNotFoundError:
+        pool_data = {}
 
-    with open(helpers_path + f'/pool_information/{project_name}.json') as f:
-        pool_data = json.load(f)
-
-    return pool_data['coinbase_tags']
+    return pool_data
 
 
 def get_pool_links(project_name, timeframe):
@@ -117,10 +132,13 @@ def get_pool_links(project_name, timeframe):
 
     pool_links = {}
 
-    with open(HELPERS_DIR / f'pool_information/{project_name}.json') as f:
-        pool_data = json.load(f)
-        cluster_data = pool_data['clusters']
-    with open(HELPERS_DIR / 'legal_links.json') as f:
+    try:
+        with open(HELPERS_DIR + f'/pool_information/clusters/{project_name}.json') as f:
+            cluster_data = json.load(f)
+    except FileNotFoundError:
+        cluster_data = {}
+
+    with open(HELPERS_DIR + '/legal_links.json') as f:
         legal_data = json.load(f)
 
     for data in [cluster_data, legal_data]:
@@ -159,8 +177,11 @@ def get_pool_addresses(project_name):
     :returns: a dictionary with known addresses and the names of the pools that own them (given that the timeframe of
     the ownership overlaps with the timeframe under consideration)
     """
-    with open(HELPERS_DIR / f'pool_information/{project_name}.json') as f:
-        address_data = json.load(f)['pool_addresses']
+    try:
+        with open(HELPERS_DIR + f'/pool_information/addresses/{project_name}.json') as f:
+            address_data = json.load(f)
+    except FileNotFoundError:
+        address_data = {}
 
     address_links = {address: addr_info['name'] for address, addr_info in address_data.items()}
 

@@ -1,0 +1,22 @@
+{
+    "entity 1": {
+      "name": "Entity 1",
+      "link": "https://www.entity.1"
+    },
+    "ent2": {
+      "name": "Entity 2",
+      "link": "https://www.entity.2"
+    },
+    "entity_3": {
+      "name": "Entity 3",
+      "link": "https://www.entity.3"
+    },
+    "entity 4": {
+      "name": "Entity 4",
+      "link": "https://www.entity.4"
+    },
+    "entity_5": {
+      "name": "Entity 5",
+      "link": "https://www.entity.5"
+    }
+}

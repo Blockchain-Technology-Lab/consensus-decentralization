@@ -1,7 +1,4 @@
 {
-  "clusters": {
-  },
-  "coinbase_tags": {
     "bitdeer": {
       "name": "Bitdeer",
       "link": "https://www.bitdeer.com/"
@@ -730,7 +727,4 @@
       "name": "Prohashing",
       "link": "https://prohashing.com/"
     }
-  },
-  "pool_addresses": {
-  }
 }
