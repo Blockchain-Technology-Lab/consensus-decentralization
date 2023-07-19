@@ -1,9 +1,4 @@
 {
-  "clusters": {
-  },
-  "coinbase_tags": {
-  },
-  "pool_addresses": {
     "tz1STeamwbp68THcny9zk3LsbG3H36DMvbRK": {"name": "Staking Team", "source": "https://tzkt.io/bakers"},
     "tz1UvkANVPWppVgMkLnvN7BwYZsCP7vm6NVd": {"name": "Neokta Labs", "source": "https://tzkt.io/bakers"},
     "tz1eCzNtidHvVgeRzQ38C81FPcYnxMsCEL6Z": {"name": "TezLoom", "source": "https://tzkt.io/bakers"},
@@ -105,5 +100,4 @@
     "tz1S8e9GgdZG78XJRB3NqabfWeM37GnhZMWQ": {"name": "0xb1 / PlusMinus", "source": "https://tzkt.io/bakers"},
     "tz1aRoaRhSpRYvFdyvgWLL6TGyRoGF51wDjM": {"name": "Everstake", "source": "https://tzkt.io/bakers"},
     "tz1irJKkXS2DBWkU1NnmFQx1c1L7pbGg4yhk": {"name": "Coinbase Baker", "source": "https://tzkt.io/bakers"}
-  }
 }

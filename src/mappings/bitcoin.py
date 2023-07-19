@@ -1,6 +1,6 @@
 from collections import defaultdict
 import codecs
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses, get_special_addresses
+from src.helpers.helper import write_blocks_per_entity_to_file, get_pool_tags, get_pool_links, get_pool_addresses, get_special_addresses
 from src.mappings.mapping import Mapping
 
 YEAR_DIGITS = 4
@@ -26,29 +26,26 @@ class BitcoinMapping(Mapping):
 
         special_addresses = get_special_addresses(self.project_name)
 
-        daily_helper_data = {}
+        pool_addresses = get_pool_addresses(self.project_name)
+        pool_tags = get_pool_tags(self.project_name)
+
+        daily_links = {}
         multi_pool_blocks = list()
         multi_pool_addresses = list()
         blocks_per_entity = defaultdict(int)
         for tx in data:
             day = tx['timestamp'][:10]
             try:
-                pool_data = daily_helper_data[day]['pool_data']
-                pool_links = daily_helper_data[day]['pool_links']
-                pool_addresses = daily_helper_data[day]['pool_addresses']
+                pool_links = daily_links[day]
             except KeyError:
-                pool_data, pool_links = get_pool_data(self.project_name, day)
-                pool_addresses = get_pool_addresses(self.project_name)
-                daily_helper_data[day] = {}
-                daily_helper_data[day]['pool_data'] = pool_data
-                daily_helper_data[day]['pool_links'] = pool_links
-                daily_helper_data[day]['pool_addresses'] = pool_addresses
+                pool_links = get_pool_links(self.project_name, day)
+                daily_links[day] = pool_links
 
             coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
             coinbase_addresses = list(set(tx['coinbase_addresses'].split(',')) - special_addresses)
 
             pool_match = False
-            for (tag, info) in pool_data['coinbase_tags'].items():  # Check if coinbase param contains known pool tag
+            for (tag, info) in pool_tags.items():  # Check if coinbase param contains known pool tag
                 if tag in str(coinbase_param):
                     entity = info['name']
                     pool_match = True

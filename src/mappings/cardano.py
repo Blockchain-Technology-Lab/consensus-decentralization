@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses
+from src.helpers.helper import get_pool_links, get_pool_tags, write_blocks_per_entity_to_file
 from src.mappings.mapping import Mapping
 
 
@@ -19,32 +19,26 @@ class CardanoMapping(Mapping):
         format)
         :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
         """
-        pool_data, pool_links = get_pool_data(self.project_name, timeframe)
-
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
-        daily_helper_data = {}
+        pool_tags = get_pool_tags(self.project_name)
+
+        daily_links = {}
         blocks_per_entity = defaultdict(int)
         for tx in data:
             day = tx['timestamp'][:10]
             try:
-                pool_data = daily_helper_data[day]['pool_data']
-                pool_links = daily_helper_data[day]['pool_links']
-                pool_addresses = daily_helper_data[day]['pool_addresses']
+                pool_links = daily_links[day]
             except KeyError:
-                pool_data, pool_links = get_pool_data(self.project_name, day)
-                pool_addresses = get_pool_addresses(self.project_name)
-                daily_helper_data[day] = {}
-                daily_helper_data[day]['pool_data'] = pool_data
-                daily_helper_data[day]['pool_links'] = pool_links
-                daily_helper_data[day]['pool_addresses'] = pool_addresses
+                pool_links = get_pool_links(self.project_name, day)
+                daily_links[day] = pool_links
 
             entity = tx['coinbase_param']
             if entity:
                 if entity in pool_links.keys():
                     entity = pool_links[entity]
-                elif entity in pool_data['coinbase_tags'].keys():
-                    entity = pool_data['coinbase_tags'][entity]['name']
+                elif entity in pool_tags.keys():
+                    entity = pool_tags[entity]['name']
             else:
                 pool = tx['coinbase_addresses']
                 if pool:

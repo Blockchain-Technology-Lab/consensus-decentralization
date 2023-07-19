@@ -3,7 +3,7 @@ import argparse
 import os
 import shutil
 import pytest
-from src.helpers.helper import get_known_entities, get_pool_data, write_blocks_per_entity_to_file, \
+from src.helpers.helper import get_known_entities, get_pool_tags, get_pool_links, get_pool_addresses, write_blocks_per_entity_to_file, \
     get_blocks_per_entity_from_file, get_blocks_per_entity_group_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
 from src.map import ledger_mapping
@@ -26,7 +26,9 @@ def setup_and_cleanup():
 
 
 def test_pool_data():
-    pool_data, pool_links = get_pool_data('test', '2022')
+    pool_tags = get_pool_tags('test')
+    pool_addresses = get_pool_addresses('test')
+    pool_links = get_pool_links('test', '2022')
 
     assert all([
         pool_links['entity 1'] == 'cluster_3',
@@ -40,21 +42,21 @@ def test_pool_data():
     ])
 
     assert all([
-        pool_data['coinbase_tags']['entity 1']['name'] == 'Entity 1',
-        pool_data['coinbase_tags']['entity 1']['link'] == 'https://www.entity.1',
-        pool_data['coinbase_tags']['ent2']['name'] == 'Entity 2',
-        pool_data['coinbase_tags']['ent2']['link'] == 'https://www.entity.2',
-        pool_data['coinbase_tags']['entity_3']['name'] == 'Entity 3',
-        pool_data['coinbase_tags']['entity_3']['link'] == 'https://www.entity.3',
-        pool_data['coinbase_tags']['entity 4']['name'] == 'Entity 4',
-        pool_data['coinbase_tags']['entity 4']['link'] == 'https://www.entity.4',
-        pool_data['coinbase_tags']['entity_5']['name'] == 'Entity 5',
-        pool_data['coinbase_tags']['entity_5']['link'] == 'https://www.entity.5',
-        pool_data['pool_addresses']['address1'] == {"name": "Entity 4", "source": ""},
-        pool_data['pool_addresses']['addr2'] == {"name": "Entity 5", "source": ""},
+        pool_tags['entity 1']['name'] == 'Entity 1',
+        pool_tags['entity 1']['link'] == 'https://www.entity.1',
+        pool_tags['ent2']['name'] == 'Entity 2',
+        pool_tags['ent2']['link'] == 'https://www.entity.2',
+        pool_tags['entity_3']['name'] == 'Entity 3',
+        pool_tags['entity_3']['link'] == 'https://www.entity.3',
+        pool_tags['entity 4']['name'] == 'Entity 4',
+        pool_tags['entity 4']['link'] == 'https://www.entity.4',
+        pool_tags['entity_5']['name'] == 'Entity 5',
+        pool_tags['entity_5']['link'] == 'https://www.entity.5',
+        pool_addresses['address1'] == "Entity 4",
+        pool_addresses['addr2'] == "Entity 5",
     ])
 
-    pool_data, pool_links = get_pool_data('test', '2021-03-12')
+    pool_links = get_pool_links('test', '2021-03-12')
     assert all([
         pool_links['entity 1'] == 'cluster_3',
         pool_links['ent2'] == 'cluster_2',
@@ -67,10 +69,12 @@ def test_pool_data():
 
 def test_committed_pool_data():
     for project_name in ledger_mapping.keys() - ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos']:
+        get_pool_tags(project_name)
+        get_pool_addresses(project_name)
         for year in range(2018, 2024):
-            pool_data, pool_links = get_pool_data(project_name, str(year))
+            get_pool_links(project_name, str(year))
             for month in range(1, 13):
-                pool_data, pool_links = get_pool_data(project_name, f'{year}-{month:02d}')
+                get_pool_links(project_name, f'{year}-{month:02d}')
 
 
 def test_write_read_blocks_per_entity(setup_and_cleanup):

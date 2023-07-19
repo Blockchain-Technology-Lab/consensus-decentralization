@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses
+from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file, get_pool_addresses
 from src.mappings.mapping import Mapping
 
 
@@ -21,21 +21,17 @@ class TezosMapping(Mapping):
         """
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
-        daily_helper_data = {}
+        pool_addresses = get_pool_addresses(self.project_name)
+
+        daily_links = {}
         blocks_per_entity = defaultdict(int)
         for tx in data:
             day = tx['timestamp'][:10]
             try:
-                pool_data = daily_helper_data[day]['pool_data']
-                pool_links = daily_helper_data[day]['pool_links']
-                pool_addresses = daily_helper_data[day]['pool_addresses']
+                pool_links = daily_links[day]
             except KeyError:
-                pool_data, pool_links = get_pool_data(self.project_name, day)
-                pool_addresses = get_pool_addresses(self.project_name)
-                daily_helper_data[day] = {}
-                daily_helper_data[day]['pool_data'] = pool_data
-                daily_helper_data[day]['pool_links'] = pool_links
-                daily_helper_data[day]['pool_addresses'] = pool_addresses
+                pool_links = get_pool_links(self.project_name, day)
+                daily_links[day] = pool_links
 
             coinbase_addresses = tx['coinbase_addresses']
             if coinbase_addresses is None:

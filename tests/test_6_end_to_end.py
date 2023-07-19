@@ -36,7 +36,18 @@ def test_end_to_end(setup_and_cleanup):
     projects = ['bitcoin', 'cardano']
 
     for project in projects:
-        shutil.copy2(str(pool_info_dir / f'{project}.json'), str(pool_info_dir / f'sample_{project}.json'))
+        try:
+            shutil.copy2(str(pool_info_dir / f'clusters/{project}.json'), str(pool_info_dir / f'clusters/sample_{project}.json'))
+        except FileNotFoundError:
+            pass
+        try:
+            shutil.copy2(str(pool_info_dir / f'addresses/{project}.json'), str(pool_info_dir / f'addresses/sample_{project}.json'))
+        except FileNotFoundError:
+            pass
+        try:
+            shutil.copy2(str(pool_info_dir / f'coinbase_tags/{project}.json'), str(pool_info_dir / f'coinbase_tags/sample_{project}.json'))
+        except FileNotFoundError:
+            pass
 
     timeframes = ['2010', '2018-02', '2018-03', '2020-12']
     force_parse = False
@@ -46,7 +57,18 @@ def test_end_to_end(setup_and_cleanup):
     main(test_projects, timeframes, force_parse, force_map, False, False, test_output_dir)
 
     for project in test_projects:
-        os.remove(str(pool_info_dir / f'{project}.json'))
+        try:
+            os.remove(str(pool_info_dir / f'clusters/{project}.json'))
+        except FileNotFoundError:
+            pass
+        try:
+            os.remove(str(pool_info_dir / f'addresses/{project}.json'))
+        except FileNotFoundError:
+            pass
+        try:
+            os.remove(str(pool_info_dir / f'coinbase_tags/{project}.json'))
+        except FileNotFoundError:
+            pass
 
     expected_entropy = [
         'timeframe,sample_bitcoin,sample_bitcoin_unknowns_grouped,sample_cardano,sample_cardano_unknowns_grouped\n',
