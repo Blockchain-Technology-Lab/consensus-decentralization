@@ -732,7 +732,7 @@
     }
   },
   "pool_addresses": {
-    "qzlq00exgztlyf5tevl9uq2m66nnhxpst5xjrglr0n": {"name":  "luckinpool.com", "from": "", "to": "", "source": "blockchain.com"},
-    "ppjgtpu3s3jhrcf5m5ush443kt55rnhyuv8max72cu": {"name":  "Satoshi Nakamoto (Fake)", "from": "", "to": "", "source": "blockchain.com"}
+    "qzlq00exgztlyf5tevl9uq2m66nnhxpst5xjrglr0n": {"name":  "luckinpool.com", "source": "blockchain.com"},
+    "ppjgtpu3s3jhrcf5m5ush443kt55rnhyuv8max72cu": {"name":  "Satoshi Nakamoto (Fake)", "source": "blockchain.com"}
   }
 }
