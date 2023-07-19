@@ -37,7 +37,7 @@
     }
   },
   "pool_addresses": {
-    "address1": {"name": "Entity 4", "from": "", "to": "2023", "source": ""},
-    "addr2": {"name": "Entity 5", "from": "", "to": "2023", "source": ""}
+    "address1": {"name": "Entity 4", "source": ""},
+    "addr2": {"name": "Entity 5", "source": ""}
   }
 }
