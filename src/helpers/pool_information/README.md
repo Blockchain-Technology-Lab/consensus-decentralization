@@ -1,14 +1,37 @@
 # Pool Information
 
-The file `src/helpers/legal_links.json` defines information about legal links
-between entities. This file is common and corresponds to all ledgers. 
+This directory contains pool information about the supported projects.
 
-The file defines three main types of information.
+There exist three subdirectories. In each subdirectory there exists a file for
+the corresponding ledger data, if such data exists.
 
 `coinbase_tags` defines information about pools and miners. Each key
 corresponds to a tag or ticker, by which the pool is identifiable in its
 produced blocks. The value for each key is a dictionary of pool-related
-information, specifically its name, a url to its homepage, etc.
+information, specifically its name, a url to its homepage, etc. Each file's
+structure is as follows:
+```
+{
+  "P1": {
+      "name": "Pool P1",
+      "homepage": "example.com/p1"
+  },
+  "--P2--": {
+      "name": "Pool P2",
+      "homepage": "example.com/p2"
+  }
+}
+```
+
+`addresses` defines ownership information about addresses. As with
+clusters, for each address the pool ownership information defines the pool's
+name and a public source of information about the ownership.  Each file's
+structure is as follows:
+```
+{
+  "address1": {"name": "Pool P2", "source": "example.com"},
+}
+```
 
 `clusters` defines information about pool clusters. This information is
 organized per cluster. For each cluster, an array of pool-related information is
@@ -16,25 +39,34 @@ defined. Each item in the array defines the pool's name, the time window during
 which the pool belonged to the cluster (from the beginning of `from` until the
 beginning of `to` _excluding_), and the _publicly available_ source of
 information, via which the link between the pool and the cluster is established.
-
-`pool_addresses` defines ownership information about addresses. As with
-clusters, for each address the pool ownership information defines the pool's
-name, the time window of the ownership, and a public source of information about the ownership.
+Each file's structure is as follows:
+```
+{
+  "cluster A": [
+      {"name": "P1", "from": "", "to": "2023", "source": "example.com/link1"}
+  ],
+  "cluster B": [
+      {"name": "--P2--", "from": "", "to": "", "source": "example.com/link2"}
+  ]
+}
+```
 
 ## Example
 
-Consider the following example file:
+Consider the following example:
 ```
+clusters:
 {
-  "clusters": {
       "cluster A": [
           {"name": "P1", "from": "", "to": "2023", "source": "example.com/link1"}
       ],
       "cluster B": [
           {"name": "--P2--", "from": "", "to": "", "source": "example.com/link2"}
       ]
-  },
-  "coinbase_tags": {
+}
+
+coinbase_tags: 
+{
       "P1": {
           "name": "Pool P1",
           "homepage": "example.com/p1"
@@ -43,10 +75,11 @@ Consider the following example file:
           "name": "Pool P2",
           "homepage": "example.com/p2"
       }
-  },
-  "pool_addresses": {
+}
+
+addresses:
+{
     "address1": {"name": "Pool P2", "from": "2019", "to": "", "source": ""},
-  }
 }
 ```
 
@@ -61,7 +94,7 @@ address "address1" is known to be controlled by P2 since the beginning of 2019.
 To update or add information, you should open a Pull
 Request that changes one of the files. To do this:
 
-- Open the file (e.g., for Bitcoin, follow [this link](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/src/helpers/pool_information/bitcoin.json)) on your browser.
+- Open the file (e.g., for Bitcoin, follow [this link](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/src/helpers/pool_information/coinbase_tags/bitcoin.json)) on your browser.
 - Click `Edit this file`.
 - Make your changes in the file.
 - On the bottom, initiate a Pull Request.
