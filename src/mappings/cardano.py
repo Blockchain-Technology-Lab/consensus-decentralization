@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file, get_pool_addresses
+from src.helpers.helper import get_pool_data, write_blocks_per_entity_to_file
 from src.mappings.mapping import Mapping
 
 
@@ -30,14 +30,11 @@ class CardanoMapping(Mapping):
             try:
                 pool_data = daily_helper_data[day]['pool_data']
                 pool_links = daily_helper_data[day]['pool_links']
-                pool_addresses = daily_helper_data[day]['pool_addresses']
             except KeyError:
                 pool_data, pool_links = get_pool_data(self.project_name, day)
-                pool_addresses = get_pool_addresses(self.project_name)
                 daily_helper_data[day] = {}
                 daily_helper_data[day]['pool_data'] = pool_data
                 daily_helper_data[day]['pool_links'] = pool_links
-                daily_helper_data[day]['pool_addresses'] = pool_addresses
 
             entity = tx['coinbase_param']
             if entity:

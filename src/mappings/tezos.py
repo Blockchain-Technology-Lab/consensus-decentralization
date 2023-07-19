@@ -21,6 +21,8 @@ class TezosMapping(Mapping):
         """
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
+        pool_addresses = get_pool_addresses(self.project_name)
+
         daily_helper_data = {}
         blocks_per_entity = defaultdict(int)
         for tx in data:
@@ -28,14 +30,11 @@ class TezosMapping(Mapping):
             try:
                 pool_data = daily_helper_data[day]['pool_data']
                 pool_links = daily_helper_data[day]['pool_links']
-                pool_addresses = daily_helper_data[day]['pool_addresses']
             except KeyError:
                 pool_data, pool_links = get_pool_data(self.project_name, day)
-                pool_addresses = get_pool_addresses(self.project_name)
                 daily_helper_data[day] = {}
                 daily_helper_data[day]['pool_data'] = pool_data
                 daily_helper_data[day]['pool_links'] = pool_links
-                daily_helper_data[day]['pool_addresses'] = pool_addresses
 
             coinbase_addresses = tx['coinbase_addresses']
             if coinbase_addresses is None:
