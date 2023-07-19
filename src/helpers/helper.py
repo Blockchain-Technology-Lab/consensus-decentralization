@@ -75,7 +75,7 @@ def get_known_entities(ledger):
         for info in coinbase_tags.values():
             known_entities.add(info['name'])
     except FileNotFoundError:
-        coinbase_tags = {}
+        pass
 
     try:
         with open(HELPERS_DIR / f'pool_information/clusters/{ledger}.json') as f:
@@ -83,7 +83,7 @@ def get_known_entities(ledger):
         for cluster in clusters.keys():
             known_entities.add(cluster)
     except FileNotFoundError:
-        clusters = {}
+        pass
 
     try:
         with open(HELPERS_DIR / f'pool_information/addresses/{ledger}.json') as f:
@@ -91,7 +91,7 @@ def get_known_entities(ledger):
         for address_info in pool_addresses.values():
             known_entities.add(address_info['name'])
     except FileNotFoundError:
-        pool_addresses = {}
+        pass
 
     with open(HELPERS_DIR / 'legal_links.json') as f:
         legal_links = json.load(f)
@@ -111,11 +111,11 @@ def get_pool_tags(project_name):
     """
     try:
         with open(HELPERS_DIR / f'pool_information/coinbase_tags/{project_name}.json') as f:
-            pool_data = json.load(f)
+            coinbase_tags = json.load(f)
     except FileNotFoundError:
-        pool_data = {}
+        coinbase_tags = {}
 
-    return pool_data
+    return coinbase_tags
 
 
 def get_pool_links(project_name, timeframe):
