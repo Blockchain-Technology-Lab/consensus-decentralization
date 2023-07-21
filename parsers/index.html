@@ -98,21 +98,21 @@ It parses the data and outputs a <code>json</code> file with a list of entries, 
     {
         &quot;number&quot;: &quot;&lt;block's number&gt;&quot;,
         &quot;timestamp&quot;: &quot;&lt;block's timestamp of the form: yyyy-mm-dd hh:mm:ss UTC&gt;&quot;,
-        &quot;coinbase_addresses&quot;: &quot;&lt;address1&gt;,&lt;address2&gt;&quot;
-        &quot;coinbase_param&quot;: &quot;&lt;coinbase parameter&gt;&quot;
+        &quot;reward_addresses&quot;: &quot;&lt;address1&gt;,&lt;address2&gt;&quot;
+        &quot;identifiers&quot;: &quot;&lt;identifiers&gt;&quot;
     }
 ]
 </code></pre>
 <p><code>number</code> and <code>timestamp</code> are consistent among different blockchains.
-<code>coinbase_addresses</code> and <code>coinbase_param</code> vary, depending on each ledger.</p>
-<p>Specifically, <code>coinbase_addresses</code> corresponds to:</p>
+<code>reward_addresses</code> and <code>identifiers</code> vary, depending on each ledger.</p>
+<p>Specifically, <code>reward_addresses</code> corresponds to:</p>
 <ul>
 <li><code>Bitcoin</code>, <code>Bitcoin Cash</code>, <code>Dogecoin</code>, <code>Litecoin</code>, <code>Zcash</code>, <code>Dash</code>: a string of comma-separated addresses which appear in the block's coinbase transaction with non-negative value (i.e., which are given part of the block's fees)</li>
 <li><code>Ethereum</code>: the block's <code>miner</code> field</li>
 <li><code>Cardano</code>: the hash of the pool that created the data, if defined, otherwise the empty string</li>
 <li><code>Tezos</code>: the block's <code>baker</code> field</li>
 </ul>
-<p>The field <code>coinbase_param</code> corresponds to:</p>
+<p>The field <code>identifiers</code> corresponds to:</p>
 <ul>
 <li><code>Bitcoin</code>, <code>Bitcoin Cash</code>, <code>Dogecoin</code>, <code>Litecoin</code>, <code>Zcash</code>, <code>Dash</code>: the field <code>coinbase_param</code> of the block's coinbase transaction</li>
 <li><code>Ethereum</code>: the block's <code>extra_data</code> field</li>
