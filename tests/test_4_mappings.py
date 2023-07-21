@@ -6,13 +6,12 @@ import json
 from src.parse import parse, ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
-from src.parsers.cardano_parser import CardanoParser
 from src.map import apply_mapping, ledger_mapping
 from src.mappings.mapping import Mapping
-from src.mappings.bitcoin import BitcoinMapping
-from src.mappings.ethereum import EthereumMapping
-from src.mappings.cardano import CardanoMapping
-from src.mappings.tezos import TezosMapping
+from src.mappings.bitcoin_mapping import BitcoinMapping
+from src.mappings.ethereum_mapping import EthereumMapping
+from src.mappings.cardano_mapping import CardanoMapping
+from src.mappings.tezos_mapping import TezosMapping
 from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
 
@@ -29,7 +28,7 @@ def setup_and_cleanup():
     ledger_mapping['sample_ethereum'] = EthereumMapping
     ledger_parser['sample_ethereum'] = DummyParser
     ledger_mapping['sample_cardano'] = CardanoMapping
-    ledger_parser['sample_cardano'] = CardanoParser
+    ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
     pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'  # todo maybe better to have separate helper files for the tests s.t. the tests don't break just because the info changes
@@ -57,8 +56,8 @@ def test_map(setup_and_cleanup):
         pass
 
     try:
-        shutil.copy2(str(pool_info_dir / 'coinbase_tags/bitcoin.json'),
-                     str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Create a temp pool info file for sample
+        shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'),
+                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
     except FileNotFoundError:
         pass
 
@@ -83,7 +82,7 @@ def test_map(setup_and_cleanup):
     except FileNotFoundError:
         pass
     try:
-        os.remove(str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Remove temp pool info file
+        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
     except FileNotFoundError:
         pass
 
@@ -105,8 +104,8 @@ def test_bitcoin_mapping(setup_and_cleanup):
         pass
 
     try:
-        shutil.copy2(str(pool_info_dir / 'coinbase_tags/bitcoin.json'),
-                     str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Create a temp pool info file for sample
+        shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'),
+                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
     except FileNotFoundError:
         pass
 
@@ -176,7 +175,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
     except FileNotFoundError:
         pass
     try:
-        os.remove(str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Remove temp pool info file
+        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
     except FileNotFoundError:
         pass
 
@@ -198,8 +197,8 @@ def test_ethereum_mapping(setup_and_cleanup):
         pass
 
     try:
-        shutil.copy2(str(pool_info_dir / 'coinbase_tags/ethereum.json'),
-                     str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Create a temp pool info file for sample
+        shutil.copy2(str(pool_info_dir / 'identifiers/ethereum.json'),
+                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
     except FileNotFoundError:
         pass
 
@@ -269,7 +268,7 @@ def test_ethereum_mapping(setup_and_cleanup):
     except FileNotFoundError:
         pass
     try:
-        os.remove(str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Remove temp pool info file
+        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
     except FileNotFoundError:
         pass
 
@@ -291,13 +290,13 @@ def test_cardano_mapping(setup_and_cleanup):
         pass
 
     try:
-        shutil.copy2(str(pool_info_dir / 'coinbase_tags/cardano.json'),
-                     str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Create a temp pool info file for sample
+        shutil.copy2(str(pool_info_dir / 'identifiers/cardano.json'),
+                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
     except FileNotFoundError:
         pass
 
     ledger_mapping[project] = CardanoMapping
-    ledger_parser[project] = CardanoParser
+    ledger_parser[project] = DummyParser
 
     timeframes = ['2020-12']
     force_map = True
@@ -333,7 +332,7 @@ def test_cardano_mapping(setup_and_cleanup):
     except FileNotFoundError:
         pass
     try:
-        os.remove(str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Remove temp pool info file
+        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
     except FileNotFoundError:
         pass
 
@@ -355,8 +354,8 @@ def test_tezos_mapping(setup_and_cleanup):
         pass
 
     try:
-        shutil.copy2(str(pool_info_dir / 'coinbase_tags/tezos.json'),
-                     str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Create a temp pool info file for sample
+        shutil.copy2(str(pool_info_dir / 'identifiers/tezos.json'),
+                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
     except FileNotFoundError:
         pass
 
@@ -421,7 +420,7 @@ def test_tezos_mapping(setup_and_cleanup):
     except FileNotFoundError:
         pass
     try:
-        os.remove(str(pool_info_dir / f'coinbase_tags/{project}.json'))  # Remove temp pool info file
+        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
     except FileNotFoundError:
         pass
 

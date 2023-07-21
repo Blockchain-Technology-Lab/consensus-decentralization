@@ -4,10 +4,10 @@ import shutil
 from run import main
 from src.parse import ledger_parser
 from src.parsers.default_parser import DefaultParser
-from src.parsers.cardano_parser import CardanoParser
+from src.parsers.dummy_parser import DummyParser
 from src.map import ledger_mapping
-from src.mappings.bitcoin import BitcoinMapping
-from src.mappings.cardano import CardanoMapping
+from src.mappings.bitcoin_mapping import BitcoinMapping
+from src.mappings.cardano_mapping import CardanoMapping
 from src.helpers.helper import OUTPUT_DIR
 import pytest
 
@@ -24,7 +24,7 @@ def setup_and_cleanup():
     ledger_mapping['sample_bitcoin'] = BitcoinMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
-    ledger_parser['sample_cardano'] = CardanoParser
+    ledger_parser['sample_cardano'] = DummyParser
     yield test_output_dir
     print("Cleaning up")
     shutil.rmtree(test_output_dir)
@@ -45,7 +45,7 @@ def test_end_to_end(setup_and_cleanup):
         except FileNotFoundError:
             pass
         try:
-            shutil.copy2(str(pool_info_dir / f'coinbase_tags/{project}.json'), str(pool_info_dir / f'coinbase_tags/sample_{project}.json'))
+            shutil.copy2(str(pool_info_dir / f'identifiers/{project}.json'), str(pool_info_dir / f'identifiers/sample_{project}.json'))
         except FileNotFoundError:
             pass
 
@@ -66,7 +66,7 @@ def test_end_to_end(setup_and_cleanup):
         except FileNotFoundError:
             pass
         try:
-            os.remove(str(pool_info_dir / f'coinbase_tags/{project}.json'))
+            os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
         except FileNotFoundError:
             pass
 

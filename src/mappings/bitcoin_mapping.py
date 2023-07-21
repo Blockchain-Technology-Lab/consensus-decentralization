@@ -1,6 +1,7 @@
 from collections import defaultdict
 import codecs
-from src.helpers.helper import write_blocks_per_entity_to_file, get_pool_tags, get_pool_links, get_pool_addresses, get_special_addresses
+from src.helpers.helper import write_blocks_per_entity_to_file, get_pool_tags, get_pool_links, get_pool_addresses, \
+    get_special_addresses
 from src.mappings.mapping import Mapping
 
 YEAR_DIGITS = 4
@@ -41,15 +42,15 @@ class BitcoinMapping(Mapping):
                 pool_links = get_pool_links(self.project_name, day)
                 daily_links[day] = pool_links
 
-            coinbase_param = codecs.decode(tx['coinbase_param'], 'hex')
-            coinbase_addresses = list(set(tx['coinbase_addresses'].split(',')) - special_addresses)
+            identifiers = codecs.decode(tx['identifiers'], 'hex')
+            reward_addresses = list(set(tx['reward_addresses'].split(',')) - special_addresses)
 
             pool_match = False
-            for (tag, info) in pool_tags.items():  # Check if coinbase param contains known pool tag
-                if tag in str(coinbase_param):
+            for (tag, info) in pool_tags.items():  # Check if identifiers contain known pool tag
+                if tag in str(identifiers):
                     entity = info['name']
                     pool_match = True
-                    for addr in coinbase_addresses:
+                    for addr in reward_addresses:
                         if addr in pool_addresses.keys() and pool_addresses[addr] != entity:
                             multi_pool_addresses.append(f'{tx["number"]},{tx["timestamp"]},{addr},{entity}')
                         pool_addresses[addr] = entity
@@ -57,7 +58,7 @@ class BitcoinMapping(Mapping):
 
             if not pool_match:
                 block_pools = set()
-                for addr in coinbase_addresses:  # Check if address is associated with pool
+                for addr in reward_addresses:  # Check if address is associated with pool
                     if addr in pool_addresses.keys():
                         block_pools.add((addr, pool_addresses[addr]))
                 if block_pools:
@@ -67,13 +68,13 @@ class BitcoinMapping(Mapping):
                         multi_pool_info = '/'.join([f'{i[0]}({i[1]})' for i in block_pools])
                         multi_pool_blocks.append(f'{tx["number"]},{tx["timestamp"]},{multi_pool_info}')
                 else:
-                    if len(coinbase_addresses) == 1:
-                        entity = coinbase_addresses[0]
-                    elif len(coinbase_addresses) == 0:
+                    if len(reward_addresses) == 1:
+                        entity = reward_addresses[0]
+                    elif len(reward_addresses) == 0:
                         entity = '----- UNDEFINED MINER -----'
                     else:
                         entity = '/'.join([
-                            addr[:5] + '...' + addr[-5:] for addr in sorted(coinbase_addresses)
+                            addr[:5] + '...' + addr[-5:] for addr in sorted(reward_addresses)
                         ])
 
             if entity in pool_links.keys():

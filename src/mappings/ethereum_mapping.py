@@ -38,29 +38,29 @@ class EthereumMapping(Mapping):
                 daily_links[day] = pool_links
 
             try:
-                coinbase_param = bytes.fromhex(tx['coinbase_param'][2:]).decode('utf-8')
+                identifiers = bytes.fromhex(tx['identifiers'][2:]).decode('utf-8')
             except (UnicodeDecodeError, ValueError):
-                coinbase_param = tx['coinbase_param']
+                identifiers = tx['identifiers']
 
-            coinbase_addresses = tx['coinbase_addresses']
-            if coinbase_addresses in special_addresses:
+            reward_addresses = tx['reward_addresses']
+            if reward_addresses in special_addresses:
                 continue
 
             pool_match = False
-            for (tag, info) in pool_tags.items():  # Check if coinbase param contains known pool tag
-                if tag in str(coinbase_param):
+            for (tag, info) in pool_tags.items():  # Check if identifiers contain known pool tag
+                if tag in str(identifiers):
                     entity = info['name']
-                    pool_addresses[coinbase_addresses] = entity
+                    pool_addresses[reward_addresses] = entity
                     pool_match = True
-                    if coinbase_addresses in pool_addresses.keys() and pool_addresses[coinbase_addresses] != entity:
-                        multi_pool_addresses.append(f'{tx["number"]},{tx["timestamp"]},{coinbase_addresses},{entity}')
+                    if reward_addresses in pool_addresses.keys() and pool_addresses[reward_addresses] != entity:
+                        multi_pool_addresses.append(f'{tx["number"]},{tx["timestamp"]},{reward_addresses},{entity}')
                     break
 
             if not pool_match:
-                if coinbase_addresses in pool_addresses.keys():
-                    entity = pool_addresses[coinbase_addresses]
+                if reward_addresses in pool_addresses.keys():
+                    entity = pool_addresses[reward_addresses]
                 else:
-                    entity = coinbase_addresses
+                    entity = reward_addresses
 
             if entity in pool_links.keys():
                 entity = pool_links[entity]

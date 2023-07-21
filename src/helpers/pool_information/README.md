@@ -5,7 +5,7 @@ This directory contains pool information about the supported projects.
 There exist three subdirectories. In each subdirectory there exists a file for
 the corresponding ledger data, if such data exists.
 
-`coinbase_tags` defines information about pools and miners. Each key
+`identifiers` defines information about pools and miners. Each key
 corresponds to a tag or ticker, by which the pool is identifiable in its
 produced blocks. The value for each key is a dictionary of pool-related
 information, specifically its name, a url to its homepage, etc. Each file's
@@ -65,7 +65,7 @@ clusters:
       ]
 }
 
-coinbase_tags: 
+identifiers: 
 {
       "P1": {
           "name": "Pool P1",
@@ -94,7 +94,9 @@ address "address1" is known to be controlled by P2 since the beginning of 2019.
 To update or add information, you should open a Pull
 Request that changes one of the files. To do this:
 
-- Open the file (e.g., for Bitcoin, follow [this link](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/src/helpers/pool_information/coinbase_tags/bitcoin.json)) on your browser.
+- Open the file (e.g., for Bitcoin, follow [this link](https://github.
+  com/Blockchain-Technology-Lab/pooling-analysis/blob/main/src/helpers/pool_information/identifiers/bitcoin.json)) on
+  your browser.
 - Click `Edit this file`.
 - Make your changes in the file.
 - On the bottom, initiate a Pull Request.

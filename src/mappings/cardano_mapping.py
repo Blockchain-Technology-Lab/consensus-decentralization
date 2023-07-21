@@ -1,11 +1,11 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file, get_pool_addresses
+from src.helpers.helper import get_pool_links, get_pool_tags, write_blocks_per_entity_to_file
 from src.mappings.mapping import Mapping
 
 
-class TezosMapping(Mapping):
+class CardanoMapping(Mapping):
     """
-    Mapping class tailored for Tezos data. Inherits from Mapping.
+    Mapping class tailored for Cardano data. Inherits from Mapping class.
     """
 
     def __init__(self, project_name, dataset):
@@ -21,7 +21,7 @@ class TezosMapping(Mapping):
         """
         data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
 
-        pool_addresses = get_pool_addresses(self.project_name)
+        pool_tags = get_pool_tags(self.project_name)
 
         daily_links = {}
         blocks_per_entity = defaultdict(int)
@@ -33,17 +33,18 @@ class TezosMapping(Mapping):
                 pool_links = get_pool_links(self.project_name, day)
                 daily_links[day] = pool_links
 
-            coinbase_addresses = tx['coinbase_addresses']
-            if coinbase_addresses is None:
-                coinbase_addresses = '----- UNDEFINED MINER -----'
-
-            if coinbase_addresses in pool_addresses.keys():
-                entity = pool_addresses[coinbase_addresses]
+            entity = tx['identifiers']
+            if entity:
+                if entity in pool_links.keys():
+                    entity = pool_links[entity]
+                elif entity in pool_tags.keys():
+                    entity = pool_tags[entity]['name']
             else:
-                entity = coinbase_addresses
-
-            if entity in pool_links.keys():
-                entity = pool_links[entity]
+                pool = tx['reward_addresses']
+                if pool:
+                    entity = pool
+                else:
+                    entity = 'Input Output (iohk.io)'  # pre-decentralization
 
             blocks_per_entity[entity.replace(',', '')] += 1
 

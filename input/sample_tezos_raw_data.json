@@ -1,6 +1,6 @@
-{"number":"1649812","timestamp":"2021-08-30 00:36:18 UTC","coinbase_addresses":"tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY"}
-{"number":"1650474","timestamp":"2021-08-30 06:11:58 UTC","coinbase_addresses":"tz1Vd1rXpV8hTHbFXCXN3c3qzCsgcU5BZw1e"}
-{"number":"1650309","timestamp":"2021-08-30 04:49:28 UTC","coinbase_addresses":"tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY"}
+{"number":"1649812","timestamp":"2021-08-30 00:36:18 UTC","reward_addresses":"tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY"}
+{"number":"1650474","timestamp":"2021-08-30 06:11:58 UTC","reward_addresses":"tz1Vd1rXpV8hTHbFXCXN3c3qzCsgcU5BZw1e"}
+{"number":"1650309","timestamp":"2021-08-30 04:49:28 UTC","reward_addresses":"tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY"}
 {"number":"1651794","timestamp":"2021-08-30 17:41:08 UTC"}
-{"number":"1649839","timestamp":"2021-08-30 00:49:48 UTC","coinbase_addresses":"tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP"}
-{"number":"0000000","timestamp":"2018-08-30 00:36:18 UTC","coinbase_addresses":"tz0000000000000000000000000000000000"}
+{"number":"1649839","timestamp":"2021-08-30 00:49:48 UTC","reward_addresses":"tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP"}
+{"number":"0000000","timestamp":"2018-08-30 00:36:18 UTC","reward_addresses":"tz0000000000000000000000000000000000"}

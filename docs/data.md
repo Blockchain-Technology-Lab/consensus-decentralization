@@ -15,7 +15,7 @@ Sample raw Bitcoin data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
+SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
 FROM `bigquery-public-data.crypto_bitcoin.transactions`
 JOIN `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
 WHERE is_coinbase is TRUE
@@ -30,7 +30,7 @@ Sample raw Bitcoin Cash data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
+SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
 FROM `bigquery-public-data.crypto_bitcoin_cash.transactions`
 JOIN `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
 WHERE is_coinbase is TRUE
@@ -45,8 +45,8 @@ Sample raw Cardano data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as coinbase_param, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp, `iog-data-analytics.cardano_mainnet.block`.pool_hash
-FROM `iog-data-analytics.cardano_mainnet.block` 
+SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as identifiers, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp,`iog-data-analytics.cardano_mainnet.block`.pool_hash as reward_addresses
+FROM `iog-data-analytics.cardano_mainnet.block`
 LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
 WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 ```
@@ -59,7 +59,7 @@ Sample raw Dash data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dash.transactions`.outputs
+SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_dash.transactions`.outputs
 FROM `bigquery-public-data.crypto_dash.transactions`
 JOIN `bigquery-public-data.crypto_dash.blocks` ON `bigquery-public-data.crypto_dash.transactions`.block_number = `bigquery-public-data.crypto_dash.blocks`.number
 WHERE is_coinbase is TRUE
@@ -74,7 +74,7 @@ Sample raw Dogecoin data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
+SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
 FROM `bigquery-public-data.crypto_dogecoin.transactions`
 JOIN `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.crypto_dogecoin.transactions`.block_number = `bigquery-public-data.crypto_dogecoin.blocks`.number
 WHERE is_coinbase is TRUE
@@ -89,7 +89,7 @@ Sample raw Ethereum data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT number, timestamp, miner as coinbase_addresses, extra_data as coinbase_param
+SELECT number, timestamp, miner as reward_addresses, extra_data as identifiers
 FROM `bigquery-public-data.crypto_ethereum.blocks`
 WHERE timestamp > '2018-12-31'
 ```
@@ -102,7 +102,7 @@ Sample raw Litecoin data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_litecoin.transactions`.outputs
+SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_litecoin.transactions`.outputs
 FROM `bigquery-public-data.crypto_litecoin.transactions`
 JOIN `bigquery-public-data.crypto_litecoin.blocks` ON `bigquery-public-data.crypto_litecoin.transactions`.block_number = `bigquery-public-data.crypto_litecoin.blocks`.number
 WHERE is_coinbase is TRUE
@@ -117,7 +117,7 @@ Sample raw Tezos data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT level as number, timestamp, baker as coinbase_addresses
+SELECT level as number, timestamp, baker as reward_addresses
 FROM `public-data-finance.crypto_tezos.blocks`
 WHERE timestamp > '2020-12-31'
 ```
@@ -130,7 +130,7 @@ Sample raw Zcash data are available
 They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
 
 ```
-SELECT block_number as number, block_timestamp as timestamp, coinbase_param, `bigquery-public-data.crypto_zcash.transactions`.outputs
+SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_zcash.transactions`.outputs
 FROM `bigquery-public-data.crypto_zcash.transactions`
 JOIN `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_zcash.transactions`.block_number = `bigquery-public-data.crypto_zcash.blocks`.number
 WHERE is_coinbase is TRUE

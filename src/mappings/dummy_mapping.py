@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import write_csv_file
+from src.helpers.helper import write_blocks_per_entity_to_file
 from src.mappings.mapping import Mapping
 
 
@@ -13,11 +13,11 @@ class DummyMapping(Mapping):
 
         blocks_per_entity = defaultdict(int)
         for tx in data:
-            coinbase_addresses = tx['coinbase_addresses'].split(',')
-            entity = coinbase_addresses[0]
+            reward_addresses = tx['reward_addresses'].split(',')
+            entity = reward_addresses[0]
 
             blocks_per_entity[entity] += 1
 
-        write_csv_file(self.io_dir, blocks_per_entity, timeframe)
+        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, blocks_per_entity.keys, timeframe)
 
         return blocks_per_entity

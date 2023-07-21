@@ -1,5 +1,5 @@
-{"number":"17809932","coinbase_param":"CFLOW","timestamp":"2020-12-31T00:57:03","pool_hash":"e7b605b72af41d6e8e6894274dedd18114f1759fea500b6d07031535"}
-{"number":"55555555555","coinbase_param":"1PCT5","timestamp":"2020-12-31T06:42:01"}
-{"number":"66666666666","timestamp":"2020-12-31T04:42:01","pool_hash":"1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53"}
-{"number":"00000000000","coinbase_param":"ARRA","timestamp":"2020-12-31T06:42:00"}
+{"number":"17809932","identifiers":"CFLOW","timestamp":"2020-12-31T00:57:03","reward_addresses":"e7b605b72af41d6e8e6894274dedd18114f1759fea500b6d07031535"}
+{"number":"55555555555","identifiers":"1PCT5","timestamp":"2020-12-31T06:42:01"}
+{"number":"66666666666","timestamp":"2020-12-31T04:42:01","reward_addresses":"1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53"}
+{"number":"00000000000","identifiers":"ARRA","timestamp":"2020-12-31T06:42:00"}
 {"number":"00000000001","timestamp":"2020-12-31T06:00:00"}

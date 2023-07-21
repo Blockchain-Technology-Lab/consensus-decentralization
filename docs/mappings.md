@@ -12,18 +12,18 @@ The name of the `csv` file is the timeframe, over which the mapping was executed
 project's output directory (`output/<project_name>/`).
 
 The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output
-different results, even if applied on the same data. An exception to this is the "no-cluster" mapping, which maps blocks to 
-coinbase addresses, so it doesn't perform any extra processing on the raw data.
+different results, even if applied on the same data. An exception to this is the "no-cluster" mapping (DummyMapping
+in the code), which maps blocks to reward addresses, so it doesn't perform any extra processing on the raw data.
 
 ## Pool Information
 
-To assist the mapping process, the directory `helpers/pool_information/` contains 
+To assist the mapping process, the directory `helpers/pool_information/` contains
 pool information about the supported projects.
 
 There exist three subdirectories. In each subdirectory there exists a file for
 the corresponding ledger data, if such data exists.
 
-`coinbase_tags` defines information about block creators. Each key
+`identifiers` defines information about block creators. Each key
 corresponds to a tag or ticker, by which the pool is identifiable in its
 produced blocks. The value for each key is a dictionary of pool-related
 information, specifically its name, a url to its homepage, etc. Each file's
@@ -89,19 +89,19 @@ The values for each entry are the same as `clusters` in the above pool informati
 
 In our implementation, the mapping of a block uses the auxiliary information as follows.
 
-First, it iterates over all known tags and compares each one with the block's coinbase parameter. If the tag is a
+First, it iterates over all known tags and compares each one with the block's identifiers. If the tag is a
 substring of the parameter, then we have a match.
 
-Second, if the first step fails, we compare the block's coinbase addresses with known pool addresses and again look for
+Second, if the first step fails, we compare the block's reward addresses with known pool addresses and again look for
 a match.
 
 In both cases, if there is a match, then: (i) we map the block to the matched pool; (ii) we associate all of the block's
-coinbase addresses (that is, the addresses that receive fees from the block) with the matched pool.
+reward addresses (that is, the addresses that receive fees from the block) with the matched pool.
 
-In essence, the coinbase parameter is the principal element for mapping a block to an entity and the known addresses is
+In essence, the identifiers are the principal element for mapping a block to an entity and the known addresses are
 the fallback mechanism.
 
 If there is a match, we also parse the auxiliary information, such as pool ownership or clusters, in order to assign the
 block to the top level entity, e.g., the pool's parent company or cluster.
 
-If both mechanisms fail, then no match is found. In this case, we assign the coinbase addresses as the block's entity.
+If both mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.
