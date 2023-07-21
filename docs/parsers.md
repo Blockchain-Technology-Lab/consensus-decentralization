@@ -12,23 +12,23 @@ The output file is stored under `output/<project_name>/parsed_data.json` and is 
     {
         "number": "<block's number>",
         "timestamp": "<block's timestamp of the form: yyyy-mm-dd hh:mm:ss UTC>",
-        "coinbase_addresses": "<address1>,<address2>"
-        "coinbase_param": "<coinbase parameter>"
+        "reward_addresses": "<address1>,<address2>"
+        "identifiers": "<identifiers>"
     }
 ]
 ```
 
 `number` and `timestamp` are consistent among different blockchains.
-`coinbase_addresses` and `coinbase_param` vary, depending on each ledger.
+`reward_addresses` and `identifiers` vary, depending on each ledger.
 
-Specifically, `coinbase_addresses` corresponds to:
+Specifically, `reward_addresses` corresponds to:
 
 - `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: a string of comma-separated addresses which appear in the block's coinbase transaction with non-negative value (i.e., which are given part of the block's fees)
 - `Ethereum`: the block's `miner` field
 - `Cardano`: the hash of the pool that created the data, if defined, otherwise the empty string
 - `Tezos`: the block's `baker` field
 
-The field `coinbase_param` corresponds to:
+The field `identifiers` corresponds to:
 
 - `Bitcoin`, `Bitcoin Cash`, `Dogecoin`, `Litecoin`, `Zcash`, `Dash`: the field `coinbase_param` of the block's coinbase transaction
 - `Ethereum`: the block's `extra_data` field

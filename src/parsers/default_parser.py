@@ -37,8 +37,8 @@ class DefaultParser:
         data = self.read_and_sort_data()
 
         for block in data:
-            block['coinbase_addresses'] = ','.join(set([tx['addresses'][0] for tx in block['outputs']
-                                                        if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
+            block['reward_addresses'] = ','.join(set([tx['addresses'][0] for tx in block['outputs']
+                                                 if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
             del block['outputs']
 
         self.write_parsed_data(data)

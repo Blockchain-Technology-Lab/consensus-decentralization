@@ -1,6 +1,5 @@
 import argparse
 from src.parsers.default_parser import DefaultParser
-from src.parsers.cardano_parser import CardanoParser
 from src.parsers.dummy_parser import DummyParser
 from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
 
@@ -10,7 +9,7 @@ ledger_parser = {
     'ethereum': DummyParser,
     'bitcoin_cash': DefaultParser,
     'dogecoin': DefaultParser,
-    'cardano': CardanoParser,
+    'cardano': DummyParser,
     'litecoin': DefaultParser,
     'zcash': DefaultParser,
     'tezos': DummyParser,

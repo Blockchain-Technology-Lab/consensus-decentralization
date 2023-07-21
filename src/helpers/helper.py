@@ -70,9 +70,9 @@ def get_time_period(frm, to):
 def get_known_entities(ledger):
     known_entities = set()
     try:
-        with open(HELPERS_DIR / f'pool_information/coinbase_tags/{ledger}.json') as f:
-            coinbase_tags = json.load(f)
-        for info in coinbase_tags.values():
+        with open(HELPERS_DIR / f'pool_information/identifiers/{ledger}.json') as f:
+            identifiers = json.load(f)
+        for info in identifiers.values():
             known_entities.add(info['name'])
     except FileNotFoundError:
         pass
@@ -105,17 +105,17 @@ def get_known_entities(ledger):
 
 def get_pool_tags(project_name):
     """
-    Retrieves coinbase tag data regarding the pools of a project.
+    Retrieves tag data (identifiers) about the pools of a project.
     :param project_name: string that corresponds to the project under consideration
     :returns: pool_tags, a dictionary with the tags information of each pool
     """
     try:
-        with open(HELPERS_DIR / f'pool_information/coinbase_tags/{project_name}.json') as f:
-            coinbase_tags = json.load(f)
+        with open(HELPERS_DIR / f'pool_information/identifiers/{project_name}.json') as f:
+            tags = json.load(f)
     except FileNotFoundError:
-        coinbase_tags = {}
+        tags = {}
 
-    return coinbase_tags
+    return tags
 
 
 def get_pool_links(project_name, timeframe):
