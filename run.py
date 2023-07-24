@@ -3,7 +3,7 @@ from src.map import apply_mapping
 from src.analyze import analyze
 from src.parse import parse
 from src.plot import plot
-from src.helpers.helper import valid_date, INPUT_DIR, OUTPUT_DIR, get_default_ledgers
+from src.helpers.helper import valid_date, INPUT_DIR, OUTPUT_DIR, get_default_ledgers, get_start_end_years
 
 
 START_YEAR = 2018
@@ -78,12 +78,14 @@ if __name__ == '__main__':
 
     projects = args.ledgers
 
+    start_year, end_year = get_start_end_years()
+
     timeframe = args.timeframe
     if timeframe:
         timeframes = [timeframe]
     else:
         timeframes = []
-        for year in range(START_YEAR, END_YEAR):
+        for year in range(start_year, end_year+1):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 

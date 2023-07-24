@@ -3,10 +3,7 @@ from src.mappings.bitcoin_mapping import BitcoinMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.mappings.tezos_mapping import TezosMapping
-from src.helpers.helper import OUTPUT_DIR
-
-START_YEAR = 2018
-END_YEAR = 2024
+from src.helpers.helper import OUTPUT_DIR, get_start_end_years
 
 ledger_mapping = {
     'bitcoin': BitcoinMapping,
@@ -75,12 +72,14 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
+    start_year, end_year = get_start_end_years()
+
     timeframe = args.timeframe
     if timeframe:
         timeframes = [timeframe]
     else:
         timeframes = []
-        for year in range(START_YEAR, END_YEAR):
+        for year in range(start_year, end_year+1):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 

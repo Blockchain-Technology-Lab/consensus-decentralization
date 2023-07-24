@@ -135,8 +135,9 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
         figures_path = path / 'figures'
         if not figures_path.is_dir():
             figures_path.mkdir()
-        start_year = 2018
-        end_year = 2023
+
+        start_year, end_year = hlp.get_start_end_years()
+
         end_month = 3
         pool_blocks_by_month = {}  # dictionary of dictionaries (one dictionary for each month under consideration)
         pool_block_share_by_month = {}  # same as above but for fractions instead of absolute values for each month

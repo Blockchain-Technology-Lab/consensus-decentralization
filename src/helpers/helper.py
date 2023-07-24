@@ -300,3 +300,12 @@ def get_default_ledgers():
     config = get_config_data()
     ledgers = config['default_ledgers']
     return ledgers
+
+
+def get_start_end_years():
+    """
+    Retrieves the start and end year for which to analyze data
+    :returns: a touple of two integers, (<start year>, <end year>)
+    """
+    config = get_config_data()
+    return config['params']['start_year'], config['params']['end_year']
