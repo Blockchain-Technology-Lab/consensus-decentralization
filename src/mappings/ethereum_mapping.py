@@ -27,15 +27,10 @@ class EthereumMapping(Mapping):
         pool_tags = get_pool_tags(self.project_name)
 
         multi_pool_addresses = list()
-        daily_links = {}
         blocks_per_entity = defaultdict(int)
         for tx in data:
             day = tx['timestamp'][:10]
-            try:
-                pool_links = daily_links[day]
-            except KeyError:
-                pool_links = get_pool_links(self.project_name, day)
-                daily_links[day] = pool_links
+            pool_links = get_pool_links(self.project_name, day)
 
             try:
                 identifiers = bytes.fromhex(tx['identifiers'][2:]).decode('utf-8')

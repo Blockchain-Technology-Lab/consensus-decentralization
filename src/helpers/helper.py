@@ -7,9 +7,10 @@ import datetime
 import calendar
 import argparse
 from collections import defaultdict
+from functools import lru_cache
+
 from yaml import safe_load
 
-YEAR_DIGITS = 4
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
 INPUT_DIR = ROOT_DIR / 'input'
 OUTPUT_DIR = ROOT_DIR / 'output'
@@ -118,6 +119,7 @@ def get_pool_tags(project_name):
     return tags
 
 
+@lru_cache(maxsize=1)
 def get_pool_links(project_name, timeframe):
     """
     Retrieves data regarding the links between the pools of a project.

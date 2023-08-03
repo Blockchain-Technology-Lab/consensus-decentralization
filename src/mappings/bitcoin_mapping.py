@@ -4,8 +4,6 @@ from src.helpers.helper import write_blocks_per_entity_to_file, get_pool_tags, g
     get_special_addresses
 from src.mappings.mapping import Mapping
 
-YEAR_DIGITS = 4
-
 
 class BitcoinMapping(Mapping):
     """
@@ -30,17 +28,12 @@ class BitcoinMapping(Mapping):
         pool_addresses = get_pool_addresses(self.project_name)
         pool_tags = get_pool_tags(self.project_name)
 
-        daily_links = {}
         multi_pool_blocks = list()
         multi_pool_addresses = list()
         blocks_per_entity = defaultdict(int)
         for tx in data:
             day = tx['timestamp'][:10]
-            try:
-                pool_links = daily_links[day]
-            except KeyError:
-                pool_links = get_pool_links(self.project_name, day)
-                daily_links[day] = pool_links
+            pool_links = get_pool_links(self.project_name, day)
 
             identifiers = codecs.decode(tx['identifiers'], 'hex')
             reward_addresses = list(set(tx['reward_addresses'].split(',')) - special_addresses)

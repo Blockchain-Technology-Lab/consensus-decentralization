@@ -23,15 +23,10 @@ class CardanoMapping(Mapping):
 
         pool_tags = get_pool_tags(self.project_name)
 
-        daily_links = {}
         blocks_per_entity = defaultdict(int)
         for tx in data:
             day = tx['timestamp'][:10]
-            try:
-                pool_links = daily_links[day]
-            except KeyError:
-                pool_links = get_pool_links(self.project_name, day)
-                daily_links[day] = pool_links
+            pool_links = get_pool_links(self.project_name, day)
 
             entity = tx['identifiers']
             if entity:
