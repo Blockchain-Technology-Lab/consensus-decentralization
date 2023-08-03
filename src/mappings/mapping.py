@@ -36,7 +36,7 @@ class Mapping:
             data = json.load(f)
         return data
 
-    def map_block_producers_to_groups(self, block_producers):
+    def map_block_creators_to_groups(self, block_producers):
         """
         Maps the project's block producers to groups. A group is either the name of the entity behind the block
         producer, or "Unknown" if we only have address information about the block producer

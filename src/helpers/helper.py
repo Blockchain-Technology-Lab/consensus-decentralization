@@ -104,25 +104,27 @@ def get_known_entities(ledger):
     return known_entities
 
 
-def get_pool_tags(project_name):
+def get_pool_identifiers(project_name):
     """
-    Retrieves tag data (identifiers) about the pools of a project.
+    Retrieves identifiers (tags, etc) about the pools of a project.
     :param project_name: string that corresponds to the project under consideration
-    :returns: pool_tags, a dictionary with the tags information of each pool
+    :returns: a dictionary where each key corresponds to an identifier (tag, ticker, etc) and each value is
+    another dictionary with information about the entity behind the identifier (name of the pool, website, etc)
     """
     try:
         with open(HELPERS_DIR / f'pool_information/identifiers/{project_name}.json') as f:
-            tags = json.load(f)
+            identifiers = json.load(f)
     except FileNotFoundError:
-        tags = {}
+        identifiers = {}
 
-    return tags
+    return identifiers
 
 
 @lru_cache(maxsize=1)
 def get_pool_links(project_name, timeframe):
     """
     Retrieves data regarding the links between the pools of a project.
+    Caches the result for quick access when the function is called again with the same arguments.
     :param project_name: string that corresponds to the project under consideration
     :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
     format)
@@ -172,7 +174,7 @@ def get_pool_links(project_name, timeframe):
     return pool_links
 
 
-def get_pool_addresses(project_name):
+def get_known_addresses(project_name):
     """
     Retrieves the addresses associated with pools of a certain project over a given timeframe
     :param project_name: string that corresponds to the project under consideration

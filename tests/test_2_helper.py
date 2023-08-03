@@ -3,7 +3,7 @@ import argparse
 import os
 import shutil
 import pytest
-from src.helpers.helper import get_known_entities, get_pool_tags, get_pool_links, get_pool_addresses, write_blocks_per_entity_to_file, \
+from src.helpers.helper import get_known_entities, get_pool_identifiers, get_pool_links, get_known_addresses, write_blocks_per_entity_to_file, \
     get_blocks_per_entity_from_file, get_blocks_per_entity_group_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
 from src.map import ledger_mapping
@@ -26,8 +26,8 @@ def setup_and_cleanup():
 
 
 def test_pool_data():
-    pool_tags = get_pool_tags('test')
-    pool_addresses = get_pool_addresses('test')
+    pool_tags = get_pool_identifiers('test')
+    pool_addresses = get_known_addresses('test')
     pool_links = get_pool_links('test', '2022')
 
     assert all([
@@ -69,8 +69,8 @@ def test_pool_data():
 
 def test_committed_pool_data():
     for project_name in ledger_mapping.keys() - ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos']:
-        get_pool_tags(project_name)
-        get_pool_addresses(project_name)
+        get_pool_identifiers(project_name)
+        get_known_addresses(project_name)
         for year in range(2018, 2024):
             get_pool_links(project_name, str(year))
             for month in range(1, 13):
