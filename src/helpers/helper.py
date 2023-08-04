@@ -109,13 +109,14 @@ def get_pool_identifiers(project_name):
     Retrieves identifiers (tags, etc) about the pools of a project.
     :param project_name: string that corresponds to the project under consideration
     :returns: a dictionary where each key corresponds to an identifier (tag, ticker, etc) and each value is
-    another dictionary with information about the entity behind the identifier (name of the pool, website, etc)
+    another dictionary with information about the entity behind the identifier (name of the pool, website, etc),
+    or an empty dictionary if no information is available for the project (the relevant file does not exist)
     """
     try:
         with open(HELPERS_DIR / f'pool_information/identifiers/{project_name}.json') as f:
             identifiers = json.load(f)
     except FileNotFoundError:
-        identifiers = {}
+        return dict()
 
     return identifiers
 
@@ -179,17 +180,16 @@ def get_known_addresses(project_name):
     Retrieves the addresses associated with pools of a certain project over a given timeframe
     :param project_name: string that corresponds to the project under consideration
     :returns: a dictionary with known addresses and the names of the pools that own them (given that the timeframe of
-    the ownership overlaps with the timeframe under consideration)
+    the ownership overlaps with the timeframe under consideration), or an empty dictionary if no addresses are known
+    for the project (no such file exists)
     """
     try:
         with open(HELPERS_DIR / f'pool_information/addresses/{project_name}.json') as f:
             address_data = json.load(f)
     except FileNotFoundError:
-        address_data = {}
+        return dict()
 
-    address_links = {address: addr_info['name'] for address, addr_info in address_data.items()}
-
-    return address_links
+    return {address: addr_info['name'] for address, addr_info in address_data.items()}
 
 
 def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, groups, timeframe):
@@ -244,7 +244,7 @@ def get_special_addresses(project_name):
     """
     Retrieves special addresses of a project, such as treasury addresses, protocol related smart contracts, etc.
     :param project_name: string that corresponds to the project under consideration
-    :returns: special_addresses, which is a set of addresses
+    :returns: a set of addresses or an empty set if no special addresses are found for the project
     """
     with open(HELPERS_DIR / 'special_addresses.json') as f:
         special_address_data = json.load(f)

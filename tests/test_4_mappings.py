@@ -7,8 +7,7 @@ from src.parse import parse, ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
 from src.map import apply_mapping, ledger_mapping
-from src.mappings.mapping import Mapping
-from src.mappings.bitcoin_mapping import BitcoinMapping
+from src.mappings.default_mapping import DefaultMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.mappings.tezos_mapping import TezosMapping
@@ -23,7 +22,7 @@ def setup_and_cleanup():
     after (cleanup)
     """
     print("Setting up")
-    ledger_mapping['sample_bitcoin'] = BitcoinMapping
+    ledger_mapping['sample_bitcoin'] = DefaultMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_ethereum'] = EthereumMapping
     ledger_parser['sample_ethereum'] = DummyParser
@@ -424,13 +423,3 @@ def test_tezos_mapping(setup_and_cleanup):
     except FileNotFoundError:
         pass
 
-
-def test_not_implemented_process():
-    class TestMap(Mapping):
-        def __init__(self, project_name, dataset):
-            super().__init__(project_name, dataset)
-
-    test_map = TestMap('test', 'test')
-    with pytest.raises(NotImplementedError) as e_info:
-        test_map.process('test')
-    assert e_info.type == NotImplementedError

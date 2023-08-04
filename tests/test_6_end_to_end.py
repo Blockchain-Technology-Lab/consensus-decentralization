@@ -6,7 +6,7 @@ from src.parse import ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
 from src.map import ledger_mapping
-from src.mappings.bitcoin_mapping import BitcoinMapping
+from src.mappings.default_mapping import DefaultMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.helpers.helper import OUTPUT_DIR
 import pytest
@@ -21,7 +21,7 @@ def setup_and_cleanup():
     """
     print("Setting up")
     test_output_dir = OUTPUT_DIR / "test_output"
-    ledger_mapping['sample_bitcoin'] = BitcoinMapping
+    ledger_mapping['sample_bitcoin'] = DefaultMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser

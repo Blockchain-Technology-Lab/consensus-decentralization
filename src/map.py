@@ -1,21 +1,21 @@
 import argparse
 import logging
-from src.mappings.bitcoin_mapping import BitcoinMapping
+from src.mappings.default_mapping import DefaultMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.mappings.tezos_mapping import TezosMapping
 from src.helpers.helper import OUTPUT_DIR, get_start_end_years
 
 ledger_mapping = {
-    'bitcoin': BitcoinMapping,
+    'bitcoin': DefaultMapping,
     'ethereum': EthereumMapping,
-    'bitcoin_cash': BitcoinMapping,
-    'dogecoin': BitcoinMapping,
+    'bitcoin_cash': DefaultMapping,
+    'dogecoin': DefaultMapping,
     'cardano': CardanoMapping,
-    'litecoin': BitcoinMapping,
-    'zcash': BitcoinMapping,
+    'litecoin': DefaultMapping,
+    'zcash': DefaultMapping,
     'tezos': TezosMapping,
-    'dash': BitcoinMapping
+    'dash': DefaultMapping
 }
 
 

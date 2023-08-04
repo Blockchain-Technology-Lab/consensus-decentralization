@@ -1,18 +1,15 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file, get_pool_identifiers, get_known_addresses, get_special_addresses
-from src.mappings.mapping import Mapping
+from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file
+from src.mappings.default_mapping import DefaultMapping
 
 
-class EthereumMapping(Mapping):
+class EthereumMapping(DefaultMapping):
     """
     Mapping class tailored to Ethereum data. Inherits from Mapping.
     """
 
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
-        self.special_addresses = get_special_addresses(project_name)
-        self.known_addresses = get_known_addresses(project_name)
-        self.known_identifiers = get_pool_identifiers(project_name)
         self.multi_pool_addresses = list()
 
     def process(self, timeframe):

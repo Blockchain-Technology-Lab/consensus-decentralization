@@ -1,16 +1,15 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_links, get_pool_identifiers, write_blocks_per_entity_to_file
-from src.mappings.mapping import Mapping
+from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file
+from src.mappings.default_mapping import DefaultMapping
 
 
-class CardanoMapping(Mapping):
+class CardanoMapping(DefaultMapping):
     """
     Mapping class tailored to Cardano data. Inherits from Mapping class.
     """
 
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
-        self.known_identifiers = get_pool_identifiers(project_name)
 
     def process(self, timeframe):
         """

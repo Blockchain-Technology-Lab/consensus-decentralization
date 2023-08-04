@@ -1,9 +1,9 @@
 from collections import defaultdict
 from src.helpers.helper import write_blocks_per_entity_to_file
-from src.mappings.mapping import Mapping
+from src.mappings.default_mapping import DefaultMapping
 
 
-class DummyMapping(Mapping):
+class DummyMapping(DefaultMapping):
     """
     "Dummy" mapping class that simply maps a block to the address that received rewards for it (if multiple addresses
     then to the first one). Inherits from Mapping class.
