@@ -308,4 +308,4 @@ def get_start_end_years():
     :returns: a touple of two integers, (<start year>, <end year>)
     """
     config = get_config_data()
-    return config['params']['start_year'], config['params']['end_year']
+    return config['max_timeframe']['start_year'], config['max_timeframe']['end_year']

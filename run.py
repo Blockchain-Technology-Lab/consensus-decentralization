@@ -6,10 +6,6 @@ from src.plot import plot
 from src.helpers.helper import valid_date, INPUT_DIR, OUTPUT_DIR, get_default_ledgers, get_start_end_years
 
 
-START_YEAR = 2018
-END_YEAR = 2024
-
-
 def main(projects, timeframes, force_parse, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
@@ -85,7 +81,7 @@ if __name__ == '__main__':
         timeframes = [timeframe]
     else:
         timeframes = []
-        for year in range(start_year, end_year+1):
+        for year in range(start_year, end_year + 1):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 

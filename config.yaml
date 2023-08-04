@@ -7,7 +7,7 @@ metrics:
   hhi:
   nakamoto_coefficient:
 
-params:
+max_timeframe:
   start_year: 2010
   end_year: 2023
 

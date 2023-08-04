@@ -112,7 +112,7 @@ if __name__ == '__main__':
         timeframes = [timeframe]
     else:
         timeframes = []
-        for year in range(start_year, end_year+1):
+        for year in range(start_year, end_year + 1):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
