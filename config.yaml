@@ -7,6 +7,10 @@ metrics:
   hhi:
   nakamoto_coefficient:
 
+max_timeframe:
+  start_year: 2010
+  end_year: 2023
+
 default_ledgers:
   - bitcoin
   - bitcoin_cash

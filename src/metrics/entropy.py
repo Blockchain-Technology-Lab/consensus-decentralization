@@ -40,7 +40,10 @@ def compute_max_entropy(num_entities, alpha):
 
 
 def compute_entropy_percentage(blocks_per_entity, alpha):
-    return compute_entropy(blocks_per_entity, alpha) / compute_max_entropy(len(blocks_per_entity), alpha)
+    try:
+        return compute_entropy(blocks_per_entity, alpha) / compute_max_entropy(len(blocks_per_entity), alpha)
+    except ZeroDivisionError:
+        return 0
 
 
 if __name__ == '__main__':

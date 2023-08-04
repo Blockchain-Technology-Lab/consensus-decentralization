@@ -4,10 +4,7 @@ from src.metrics.gini import compute_gini  # noqa: F401
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
 from src.metrics.entropy import compute_entropy, compute_entropy_percentage  # noqa: F401
 from src.metrics.herfindahl_hirschman_index import compute_hhi  # noqa: F401
-from src.helpers.helper import OUTPUT_DIR, get_metrics_config
-
-START_YEAR = 2018
-END_YEAR = 2024
+from src.helpers.helper import OUTPUT_DIR, get_metrics_config, get_start_end_years
 
 
 def analyze(projects, timeframes, output_dir):
@@ -108,12 +105,14 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    start_year, end_year = get_start_end_years()
+
     timeframe = args.timeframe
     if timeframe:
         timeframes = [timeframe]
     else:
         timeframes = []
-        for year in range(START_YEAR, END_YEAR):
+        for year in range(start_year, end_year + 1):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
