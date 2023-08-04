@@ -1,5 +1,4 @@
 from collections import defaultdict
-import codecs
 
 from src.helpers.helper import write_blocks_per_entity_to_file, get_pool_identifiers, get_pool_links, \
     get_known_addresses, get_special_addresses
@@ -27,7 +26,7 @@ class BitcoinMapping(Mapping):
         :param block: dictionary with block information (block number, timestamp, identifiers, etc)
         :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise None
         """
-        block_identifier = str(codecs.decode(block['identifiers'], 'hex'))
+        block_identifier = block['identifiers']
         for identifier in self.known_identifiers.keys():
             if identifier in block_identifier:
                 entity = self.known_identifiers[identifier]['name']

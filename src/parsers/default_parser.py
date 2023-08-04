@@ -1,3 +1,4 @@
+import codecs
 import json
 
 MIN_TX_VALUE = 0
@@ -15,6 +16,16 @@ class DefaultParser:
         self.project_name = project_name
         self.input_dir = input_dir
         self.output_dir = output_dir
+
+    @staticmethod
+    def parse_identifiers(block_identifiers):
+        """
+        Parses (decodes) the "identifiers" field of a block. Should be overridden by a project-specific parser if
+        necessary (e.g. when no or different decoding is needed).
+        :param block_identifiers: the content of the "identifiers" field of a block (string)
+        :returns: the parsed (decoded) identifiers (string)
+        """
+        return str(codecs.decode(block_identifiers, 'hex'))
 
     def read_and_sort_data(self):
         """
@@ -38,8 +49,9 @@ class DefaultParser:
 
         for block in data:
             block['reward_addresses'] = ','.join(set([tx['addresses'][0] for tx in block['outputs']
-                                                 if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
+                                                      if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
             del block['outputs']
+            block['identifiers'] = self.parse_identifiers(block['identifiers'])
 
         self.write_parsed_data(data)
 

@@ -131,3 +131,9 @@ def test_parse(setup_and_cleanup):
     sample_data = sample_data.replace("----------------------------------", "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX")  #
     with open(input_file, 'w') as f:
         f.write(sample_data)
+
+
+def test_default_parse_identifiers():
+    parsed_identifiers = DefaultParser.parse_identifiers('0343bf07132f6d696e65642062792067626d696e6572732f2cfabe6d6d94976ecebbc73b3d4214b3d7ab330dca2129ebfcc863fa75623c6f95891e7346010000000000000010af8b66002da910ef408c776852840100')
+    assert parsed_identifiers == "b'\\x03C\\xbf\\x07\\x13/mined by gbminers/,\\xfa\\xbemm\\x94\\x97n\\xce\\xbb\\xc7;=B\\x14\\xb3\\xd7\\xab3\\r\\xca!)\\xeb\\xfc\\xc8c\\xfaub<o\\x95\\x89\\x1esF\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x10\\xaf\\x8bf\\x00-\\xa9\\x10\\xef@\\x8cwhR\\x84\\x01\\x00'"
+

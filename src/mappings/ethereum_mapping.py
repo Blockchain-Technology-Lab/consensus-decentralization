@@ -30,10 +30,7 @@ class EthereumMapping(Mapping):
             day = block['timestamp'][:10]
             pool_links = get_pool_links(self.project_name, day)
 
-            try:
-                identifiers = bytes.fromhex(block['identifiers'][2:]).decode('utf-8')
-            except (UnicodeDecodeError, ValueError):
-                identifiers = block['identifiers']
+            identifiers = block['identifiers']
 
             reward_addresses = block['reward_addresses']
             if reward_addresses in self.special_addresses:
