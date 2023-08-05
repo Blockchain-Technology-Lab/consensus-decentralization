@@ -10,7 +10,6 @@ class EthereumMapping(DefaultMapping):
 
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
-        self.multi_pool_addresses = list()
 
     def process(self, timeframe):
         """

@@ -6,6 +6,7 @@ import json
 from src.parse import parse, ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
+from src.parsers.ethereum_parser import EthereumParser
 from src.map import apply_mapping, ledger_mapping
 from src.mappings.default_mapping import DefaultMapping
 from src.mappings.ethereum_mapping import EthereumMapping
@@ -25,7 +26,7 @@ def setup_and_cleanup():
     ledger_mapping['sample_bitcoin'] = DefaultMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_ethereum'] = EthereumMapping
-    ledger_parser['sample_ethereum'] = DummyParser
+    ledger_parser['sample_ethereum'] = EthereumParser
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
