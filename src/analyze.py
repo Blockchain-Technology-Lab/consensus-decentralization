@@ -1,4 +1,5 @@
 import argparse
+import logging
 from collections import defaultdict
 from src.metrics.gini import compute_gini  # noqa: F401
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
@@ -24,7 +25,7 @@ def analyze(projects, timeframes, output_dir):
         csv_contents[metric] = {'0': 'timeframe'}
 
     for project in projects:
-        print(f'Calculating metrics for {project} data..')
+        logging.info(f'Calculating metrics for {project} data..')
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv header
         for metric in metrics.keys():

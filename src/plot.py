@@ -1,4 +1,5 @@
 import argparse
+import logging
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import seaborn as sns
@@ -130,7 +131,7 @@ def plot_animated_stack_area_chart(values, execution_id, path, ylabel, legend_la
 
 def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
     for ledger in ledgers:
-        print(f"Plotting {'(animated)' if animated else ''} {ledger} data..")
+        logging.info(f"Plotting {'(animated)' if animated else ''} {ledger} data..")
         path = hlp.OUTPUT_DIR / ledger
         figures_path = path / 'figures'
         if not figures_path.is_dir():
@@ -206,7 +207,7 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
 
 def plot_comparative_metrics(ledgers, metrics, animated=False):
     for metric in metrics:
-        print(f"Plotting {'(animated)' if animated else ''} {metric}..")
+        logging.info(f"Plotting {'(animated)' if animated else ''} {metric}..")
         figures_path = hlp.OUTPUT_DIR / 'figures'
         if not figures_path.is_dir():
             figures_path.mkdir()
@@ -232,7 +233,7 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
 
 def plot_confidence_intervals(ledgers, metrics):
     for metric in metrics:
-        print(f"Plotting {metric} (with confidence intervals)..")
+        logging.info(f"Plotting {metric} (with confidence intervals)..")
         figures_path = hlp.OUTPUT_DIR / 'figures'
         if not figures_path.is_dir():
             figures_path.mkdir()

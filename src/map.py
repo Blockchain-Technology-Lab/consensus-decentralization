@@ -1,4 +1,5 @@
 import argparse
+import logging
 from src.mappings.bitcoin_mapping import BitcoinMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
@@ -30,7 +31,7 @@ def apply_mapping(project, timeframes, output_dir, force_map):
     :param force_map: bool. If True, then the mapping will be performed, regardless of whether
     mapped data for some or all of the projects already exist
     """
-    print(f'Applying mapping to {project} data..')
+    logging.info(f'Applying mapping to {project} data..')
     project_output_dir = output_dir / f'{project}'
     mapping = ledger_mapping[project](project, project_output_dir)
 
