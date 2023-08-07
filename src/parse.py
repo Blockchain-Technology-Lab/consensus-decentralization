@@ -1,4 +1,5 @@
 import argparse
+import logging
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
 from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
@@ -27,7 +28,7 @@ def parse(project, input_dir, output_dir, force_parse=False):
     """
     parsed_data_file = output_dir / project / 'parsed_data.json'
     if force_parse or not parsed_data_file.is_file():
-        print(f'Parsing {project} data..')
+        logging.info(f'Parsing {project} data..')
         parser = ledger_parser[project](project, input_dir, output_dir)
         parser.parse()
 
