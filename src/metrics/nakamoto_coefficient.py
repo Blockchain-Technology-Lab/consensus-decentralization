@@ -1,3 +1,4 @@
+import logging
 import sys
 import src.helpers.helper as hlp
 
@@ -20,6 +21,7 @@ def compute_nakamoto_coefficient(blocks_per_entity):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
     filename = sys.argv[1]
     blocks_per_entity = hlp.get_blocks_per_entity_from_file(filename)
-    print(f'Nakamoto Coefficient: {compute_nakamoto_coefficient(blocks_per_entity)}')
+    logging.info(f'Nakamoto Coefficient: {compute_nakamoto_coefficient(blocks_per_entity)}')
