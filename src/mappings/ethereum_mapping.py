@@ -18,11 +18,16 @@ class EthereumMapping(DefaultMapping):
         Ethereum we always have one reward address and not multiple like in other projects.
         :param block: dictionary with block information (block number, timestamp, identifiers, etc)
         :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise the address
-        that received rewards for the block
+        that received rewards for the block. If there was no address associated with the block it returns
+        '----- UNDEFINED MINER -----' and if there was an associated address but it was part of the project's
+        "special addresses" it returns '----- SPECIAL ADDRESS -----'
         """
         reward_address = self.get_reward_addresses(block)
-        if reward_address:
+        if reward_address is None:  # there was no reward address associated with the block
+            return '----- UNDEFINED MINER -----'
+        if len(reward_address) > 0:
             reward_address = reward_address[0]
             if reward_address in self.known_addresses.keys():
                 return self.known_addresses[reward_address]
-        return reward_address
+            return reward_address
+        return '----- SPECIAL ADDRESS -----'

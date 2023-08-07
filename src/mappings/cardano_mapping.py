@@ -38,10 +38,14 @@ class CardanoMapping(DefaultMapping):
         :returns: the reward address of the block, if such exists, otherwise 'Input Output (iohk.io)'
         """
         reward_address = self.get_reward_addresses(block)
-        if reward_address:
-            return reward_address[0]
-        else:
+        if reward_address is None:  # there was no reward address associated with the block
             return 'Input Output (iohk.io)'  # pre-decentralization
+        if len(reward_address) > 0:
+            reward_address = reward_address[0]
+            if reward_address in self.known_addresses.keys():
+                return self.known_addresses[reward_address]
+            return reward_address
+        return '----- SPECIAL ADDRESS -----'
 
     def process(self, timeframe):
         """

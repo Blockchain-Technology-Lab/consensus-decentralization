@@ -57,13 +57,13 @@ class DefaultMapping:
         any special addresses from those that received rewards for the block
         :param block: dictionary with block information
         :returns: a list with the address(es) that received rewards from the block and are not considered "special
-        addresses". Note that the list can be empty if all addresses associated with the block were deemed "special"
-        or if there were no addresses associated with the block at all.
+        addresses", or None if there were no addresses associated with the block at all. Note that in the case of all
+        reward addresses being "special" an empty list is returned (not None)
         """
         reward_addresses = block['reward_addresses']
         if reward_addresses:
             return list(set(reward_addresses.split(',')) - self.special_addresses)
-        return list()
+        return None
 
     def map_from_known_identifiers(self, block):
         """
@@ -78,10 +78,11 @@ class DefaultMapping:
             if identifier in block_identifier:
                 entity = self.known_identifiers[identifier]['name']
                 reward_addresses = self.get_reward_addresses(block)
-                for address in reward_addresses:
-                    if address in self.known_addresses.keys() and self.known_addresses[address] != entity:
-                        self.multi_pool_addresses.append(f'{block["number"]},{block["timestamp"]},{address},{entity}')
-                    self.known_addresses[address] = entity
+                if reward_addresses:
+                    for address in reward_addresses:
+                        if address in self.known_addresses.keys() and self.known_addresses[address] != entity:
+                            self.multi_pool_addresses.append(f'{block["number"]},{block["timestamp"]},{address},{entity}')
+                        self.known_addresses[address] = entity
                 return entity
         return None
 
@@ -91,9 +92,12 @@ class DefaultMapping:
         :param block: dictionary with block information (block number, timestamp, identifiers, etc)
         :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise the address
         or concatenation of addresses that received rewards for the block, or '----- UNDEFINED MINER -----' if there
-        is no reward address
+        is no reward address, or '----- SPECIAL ADDRESS -----' if all reward addresses belong to the "special
+        addresses" of the project
         """
         reward_addresses = self.get_reward_addresses(block)
+        if reward_addresses is None:  # there was no reward address associated with the block
+            return '----- UNDEFINED MINER -----'
         block_pools = set()
         for address in reward_addresses:
             if address in self.known_addresses.keys():  # Check if address is associated with pool
@@ -107,8 +111,8 @@ class DefaultMapping:
         else:
             if len(reward_addresses) == 1:
                 entity = reward_addresses[0]
-            elif len(reward_addresses) == 0:
-                entity = '----- UNDEFINED MINER -----'
+            elif len(reward_addresses) == 0:  # the reward addresses associated with the block are all special
+                entity = '----- SPECIAL ADDRESS -----'
             else:
                 entity = '/'.join([
                     addr[:5] + '...' + addr[-5:] for addr in sorted(reward_addresses)
@@ -150,17 +154,14 @@ class DefaultMapping:
         blocks = [block for block in self.dataset if block['timestamp'][:len(timeframe)] == timeframe]
         blocks_per_entity = defaultdict(int)
 
-        # todo separate "special addresses" from "undefined"
-
         for block in blocks:
-            day = block['timestamp'][:10]
-            pool_links = hlp.get_pool_links(self.project_name, day)
-
             entity = self.map_from_known_identifiers(block)
 
             if entity is None:
                 entity = self.map_from_known_addresses(block)
 
+            day = block['timestamp'][:10]
+            pool_links = hlp.get_pool_links(self.project_name, day)
             if entity in pool_links.keys():
                 entity = pool_links[entity]
 

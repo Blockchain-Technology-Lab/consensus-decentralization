@@ -447,6 +447,24 @@ def test_get_reward_addresses():
     reward_addresses = default_mapping.get_reward_addresses(block)
     assert reward_addresses == ["hello1", "hello3"] or reward_addresses == ["hello3", "hello1"]
 
+    block = {
+        "number": -2,
+        "timestamp": "2023-08-07 17:52:38+00:00",
+        "identifiers": "b'mined by Lady X'",
+        "reward_addresses": "hello2"
+    }
+    reward_addresses = default_mapping.get_reward_addresses(block)
+    assert reward_addresses == []
+
+    block = {
+        "number": -3,
+        "timestamp": "2023-08-07 17:53:38+00:00",
+        "identifiers": "b'mined by Lady X'",
+        "reward_addresses": None
+    }
+    reward_addresses = default_mapping.get_reward_addresses(block)
+    assert reward_addresses is None
+
     eth_mapping = EthereumMapping("sample_ethereum", None)
     block = {
         "number": 6982695,
