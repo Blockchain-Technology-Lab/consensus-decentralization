@@ -11,6 +11,14 @@ class DefaultMapping:
     :ivar project_name: the name of the project associated with a specific mapping instance
     :ivar io_dir: the directory that includes the parsed data related to the project
     :ivar dataset: a dictionary with the parsed data of the project
+    :ivar special_addresses: a set with the special addresses of the project (addresses that don't count in the
+    context of out analysis)
+    :ivar known_addresses: a dictionary with the known addresses of the project (addresses that are known to belong to
+    a specific entity)
+    :ivar known_identifiers: a dictionary with the known identifiers of the project (identifiers that are publicly
+    associated with a specific entity)
+    :ivar multi_pool_blocks: a list to be populated with blocks that were produced by multiple pools
+    :ivar multi_pool_addresses: a list to be populated with addresses that were associated with multiple pools
     """
 
     def __init__(self, project_name, io_dir):
