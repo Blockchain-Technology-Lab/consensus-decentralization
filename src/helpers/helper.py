@@ -129,8 +129,7 @@ def get_pool_links(project_name, timeframe):
     :param project_name: string that corresponds to the project under consideration
     :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
     format)
-    :returns: (pool_data, pool_links) where pool_data is a dictionary with the tags, addresses and cluster
-    information of each pool, and pool_links is a dictionary that reveals the ownership of pools
+    :returns: a dictionary that reveals the ownership of pools
     """
     start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)

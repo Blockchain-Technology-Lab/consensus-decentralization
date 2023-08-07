@@ -11,54 +11,18 @@ class EthereumMapping(DefaultMapping):
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
 
-    def process(self, timeframe):
+    def map_from_known_addresses(self, block):
         """
-        Overrides process method of parent class to use project-specific information and extract the distribution of
-        blocks to different entities.
-        :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
-        format)
-        :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
+        Maps one block to its block producer (pool) based on known addresses. Overrides the map_from_known_addresses
+        of the DefaultMapping class to tailor the process to Ethereum, specifically taking advantage of the fact that in
+        Ethereum we always have one reward address and not multiple like in other projects.
+        :param block: dictionary with block information (block number, timestamp, identifiers, etc)
+        :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise the address
+        that received rewards for the block
         """
-        blocks = [block for block in self.dataset if block['timestamp'][:len(timeframe)] == timeframe]
-        blocks_per_entity = defaultdict(int)
-
-        for block in blocks:
-            day = block['timestamp'][:10]
-            pool_links = get_pool_links(self.project_name, day)
-
-            identifiers = block['identifiers']
-
-            reward_addresses = block['reward_addresses']
-            if reward_addresses in self.special_addresses:
-                continue
-
-            pool_match = False
-            for (tag, info) in self.known_identifiers.items():  # Check if identifiers contain known pool tag
-                if tag in str(identifiers):
-                    entity = info['name']
-                    self.known_addresses[reward_addresses] = entity
-                    pool_match = True
-                    if reward_addresses in self.known_addresses.keys() and self.known_addresses[reward_addresses] != entity:
-                        self.multi_pool_addresses.append(f'{block["number"]},{block["timestamp"]},{reward_addresses}'
-                                                         f',{entity}')
-                    break
-
-            if not pool_match:
-                if reward_addresses in self.known_addresses.keys():
-                    entity = self.known_addresses[reward_addresses]
-                else:
-                    entity = reward_addresses
-
-            if entity in pool_links.keys():
-                entity = pool_links[entity]
-
-            blocks_per_entity[entity.replace(',', '')] += 1
-
-        groups = self.map_block_creators_to_groups(blocks_per_entity.keys())
-        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
-
-        if len(timeframe) == 4 and self.multi_pool_addresses:
-            with open(self.io_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
-                f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(self.multi_pool_addresses))
-
-        return blocks_per_entity
+        reward_address = self.get_reward_addresses(block)
+        if reward_address:
+            reward_address = reward_address[0]
+            if reward_address in self.known_addresses.keys():
+                return self.known_addresses[reward_address]
+        return reward_address

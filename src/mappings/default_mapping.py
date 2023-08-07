@@ -51,6 +51,20 @@ class DefaultMapping:
             data = json.load(f)
         return data
 
+    def get_reward_addresses(self, block):
+        """
+        Determines which addresses are associated with a block in the context of our analysis, i.e. after removing
+        any special addresses from those that received rewards for the block
+        :param block: dictionary with block information
+        :returns: a list with the address(es) that received rewards from the block and are not considered "special
+        addresses". Note that the list can be empty if all addresses associated with the block were deemed "special"
+        or if there were no addresses associated with the block at all.
+        """
+        reward_addresses = block['reward_addresses']
+        if reward_addresses:
+            return list(set(reward_addresses.split(',')) - self.special_addresses)
+        return list()
+
     def map_from_known_identifiers(self, block):
         """
         Maps one block to its block producer (pool) based on known identifiers (tag, etc).
@@ -63,7 +77,7 @@ class DefaultMapping:
         for identifier in self.known_identifiers.keys():
             if identifier in block_identifier:
                 entity = self.known_identifiers[identifier]['name']
-                reward_addresses = list(set(block['reward_addresses'].split(',')) - self.special_addresses)
+                reward_addresses = self.get_reward_addresses(block)
                 for address in reward_addresses:
                     if address in self.known_addresses.keys() and self.known_addresses[address] != entity:
                         self.multi_pool_addresses.append(f'{block["number"]},{block["timestamp"]},{address},{entity}')
@@ -79,7 +93,7 @@ class DefaultMapping:
         or concatenation of addresses that received rewards for the block, or '----- UNDEFINED MINER -----' if there
         is no reward address
         """
-        reward_addresses = list(set(block['reward_addresses'].split(',')) - self.special_addresses)
+        reward_addresses = self.get_reward_addresses(block)
         block_pools = set()
         for address in reward_addresses:
             if address in self.known_addresses.keys():  # Check if address is associated with pool
@@ -113,6 +127,19 @@ class DefaultMapping:
             groups[block_producer] = block_producer if block_producer in known_entities else 'Unknown'
         return groups
 
+    def write_multi_pool_files(self, timeframe):
+        """
+        Writes the files with the blocks that were produced by multiple pools and the addresses that were associated
+        with multiple pools, if any such blocks/addresses were found for the project
+        """
+        if self.multi_pool_addresses:
+            with open(self.io_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
+                f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(self.multi_pool_addresses))
+
+        if self.multi_pool_blocks:
+            with open(self.io_dir / f'multi_pool_blocks_{timeframe}.csv', 'w') as f:
+                f.write('Block No,Timestamp,Entities\n' + '\n'.join(self.multi_pool_blocks))
+
     def process(self, timeframe):
         """
         Processes the parsed data and outputs the mapped data.
@@ -122,6 +149,8 @@ class DefaultMapping:
         """
         blocks = [block for block in self.dataset if block['timestamp'][:len(timeframe)] == timeframe]
         blocks_per_entity = defaultdict(int)
+
+        # todo separate "special addresses" from "undefined"
 
         for block in blocks:
             day = block['timestamp'][:10]
@@ -135,17 +164,11 @@ class DefaultMapping:
             if entity in pool_links.keys():
                 entity = pool_links[entity]
 
-            blocks_per_entity[entity.replace(',', '')] += 1  # todo why replace?
+            blocks_per_entity[entity.replace(',', '')] += 1
 
         groups = self.map_block_creators_to_groups(blocks_per_entity.keys())
         hlp.write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
 
         if len(timeframe) == 4:  # If timeframe is a year, also write multi-pool addresses and blocks to file
-            if self.multi_pool_addresses:
-                with open(self.io_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
-                    f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(self.multi_pool_addresses))
-
-            if self.multi_pool_blocks:
-                with open(self.io_dir / f'multi_pool_blocks_{timeframe}.csv', 'w') as f:
-                    f.write('Block No,Timestamp,Entities\n' + '\n'.join(self.multi_pool_blocks))
+            self.write_multi_pool_files(timeframe)
         return blocks_per_entity

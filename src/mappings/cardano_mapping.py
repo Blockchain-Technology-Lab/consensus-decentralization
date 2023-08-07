@@ -1,6 +1,6 @@
 from collections import defaultdict
-from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file
 from src.mappings.default_mapping import DefaultMapping
+import src.helpers.helper as hlp
 
 
 class CardanoMapping(DefaultMapping):
@@ -10,6 +10,38 @@ class CardanoMapping(DefaultMapping):
 
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
+
+    def map_from_known_identifiers(self, block):
+        """
+        Maps one block to its block producer (pool) based on known identifiers. Overrides the map_from_known_identifiers
+        of the DefaultMapping class to tailor the process to Cardano
+        :param block: dictionary with block information (block number, timestamp, identifiers, etc)
+        :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise None
+        """
+        block_identifier = block['identifiers']
+        day = block['timestamp'][:10]
+        pool_links = hlp.get_pool_links(self.project_name, day)
+        if block_identifier in pool_links.keys():
+            return pool_links[block_identifier]
+        if block_identifier in self.known_identifiers.keys():
+            return self.known_identifiers[block_identifier]['name']
+        return None
+
+    def map_from_known_addresses(self, block):
+        """
+        Maps one block to its block producer (pool) based on the reward address of the block. Overrides the
+        map_from_known_addresses of the DefaultMapping class to tailor the process to Cardano, specifically taking
+        advantage of the fact that in Cardano we always have one reward address and only in blocks that were mined
+        before a certain point there is no reward address, which we attribute to the development entity that was
+        responsible for creating Cardano blocks at the time (Input Output)
+        :param block: dictionary with block information (block number, timestamp, identifiers, etc)
+        :returns: the reward address of the block, if such exists, otherwise 'Input Output (iohk.io)'
+        """
+        reward_address = self.get_reward_addresses(block)
+        if reward_address:
+            return reward_address[0]
+        else:
+            return 'Input Output (iohk.io)'  # pre-decentralization
 
     def process(self, timeframe):
         """
@@ -21,26 +53,16 @@ class CardanoMapping(DefaultMapping):
         """
         blocks = [block for block in self.dataset if block['timestamp'][:len(timeframe)] == timeframe]
         blocks_per_entity = defaultdict(int)
-        for block in blocks:
-            day = block['timestamp'][:10]
-            pool_links = get_pool_links(self.project_name, day)
 
-            entity = block['identifiers']
-            if entity:
-                if entity in pool_links.keys():
-                    entity = pool_links[entity]
-                elif entity in self.known_identifiers.keys():
-                    entity = self.known_identifiers[entity]['name']
-            else:
-                pool = block['reward_addresses']
-                if pool:
-                    entity = pool
-                else:
-                    entity = 'Input Output (iohk.io)'  # pre-decentralization
+        for block in blocks:
+            entity = self.map_from_known_identifiers(block)
+
+            if entity is None:
+                entity = self.map_from_known_addresses(block)
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
         groups = self.map_block_creators_to_groups(blocks_per_entity.keys())
-        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
+        hlp.write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
 
         return blocks_per_entity
