@@ -1,9 +1,12 @@
 import argparse
+import logging
 from src.map import apply_mapping
 from src.analyze import analyze
 from src.parse import parse
 from src.plot import plot
 from src.helpers.helper import valid_date, INPUT_DIR, OUTPUT_DIR, get_default_ledgers, get_start_end_years
+
+logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
 
 def main(projects, timeframes, force_parse, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
@@ -20,7 +23,7 @@ def main(projects, timeframes, force_parse, force_map, make_plots, make_animated
     :param make_animated_plots: bool. If True (and make_plots also True) then animated plots are also generated.
         Warning: generating animated plots might take a long time
     """
-    print(f"The ledgers that will be analyzed are: {','.join(projects)}")
+    logging.info(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
         parse(project, INPUT_DIR, output_dir, force_parse)
         apply_mapping(project, timeframes, output_dir, force_map)
@@ -86,4 +89,4 @@ if __name__ == '__main__':
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
     main(projects, timeframes, args.force_parse, args.force_map, args.plot, args.animated)
-    print('Done. Please check the output directory for results.')
+    logging.info('Done. Please check the output directory for results.')
