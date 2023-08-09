@@ -35,7 +35,11 @@ class CardanoMapping(DefaultMapping):
         before a certain point there is no reward address, which we attribute to the development entity that was
         responsible for creating Cardano blocks at the time (Input Output)
         :param block: dictionary with block information (block number, timestamp, identifiers, etc)
-        :returns: the reward address of the block, if such exists, otherwise 'Input Output (iohk.io)'
+        :returns: the reward address of the block, if such exists and is not "special". If there was no address
+        associated with the block it returns 'Input Output (iohk.io)', as this only occurred pre-decentralization in
+        Cardano where a single entity (Input Output) was producing all blocks. If there was an associated address
+        but it was part of the project's "special addresses" then it returns '----- SPECIAL ADDRESS -----'
+
         """
         reward_address = self.get_reward_addresses(block)
         if reward_address is None:  # there was no reward address associated with the block
