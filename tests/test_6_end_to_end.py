@@ -19,14 +19,14 @@ def setup_and_cleanup():
     The part before the yield command is run before the test (setup) and the part after the yield command is run
     after (cleanup)
     """
-    print("Setting up")
+    # Set up
     test_output_dir = OUTPUT_DIR / "test_output"
     ledger_mapping['sample_bitcoin'] = BitcoinMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser
     yield test_output_dir
-    print("Cleaning up")
+    # Clean up
     shutil.rmtree(test_output_dir)
 
 

@@ -12,7 +12,7 @@ def setup_and_cleanup():
     The part before the yield command is run before the test (setup) and the part after the yield command is run
     after (cleanup)
     """
-    print("Setting up")
+    # Set up
     test_io_dir = OUTPUT_DIR / "test_output"
     test_bitcoin_dir = test_io_dir / "sample_bitcoin"
     if not os.path.exists(test_bitcoin_dir):
@@ -36,7 +36,7 @@ def setup_and_cleanup():
         with open(test_bitcoin_dir / f'{timeframe}.csv', 'w') as f:
             f.write(content)
     yield test_io_dir
-    print("Cleaning up")
+    # Clean up
     shutil.rmtree(test_io_dir)
 
 
