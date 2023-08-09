@@ -121,7 +121,7 @@ def get_pool_identifiers(project_name):
     return identifiers
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=2)
 def get_pool_links(project_name, timeframe):
     """
     Retrieves data regarding the links between the pools of a project.
