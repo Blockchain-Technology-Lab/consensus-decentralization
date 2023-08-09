@@ -14,11 +14,11 @@ def setup_and_cleanup():
     The part before the yield command is run before the test (setup) and the part after the yield command is run
     after (cleanup)
     """
-    print("Setting up")
+    # Set up
     test_input_dir = INPUT_DIR
     test_output_dir = OUTPUT_DIR / "test_output"
     yield test_input_dir, test_output_dir
-    print("Cleaning up")
+    # Clean up
     shutil.rmtree(test_output_dir)
 
 
