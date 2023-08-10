@@ -8,7 +8,7 @@
     <title>Mappings - Blockchain Pooling Analysis - Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
@@ -17,12 +17,11 @@
         var mkdocs_page_url = null;
       </script>
     
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -59,9 +58,17 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Mappings</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pool-information">Pool Information</a>
+    <li class="toctree-l2"><a class="reference internal" href="#mapping-information">Mapping Information</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#pool-ownership">Pool Ownership</a>
+    <li class="toctree-l3"><a class="reference internal" href="#identifiers">Identifiers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#clusters">Clusters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#addresses">Addresses</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#legal-links">Legal links</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#special-addresses">Special addresses</a>
     </li>
         </ul>
     </li>
@@ -88,7 +95,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-      <li>Mappings</li>
+      <li class="breadcrumb-item active">Mappings</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -108,12 +115,13 @@ project's output directory (<code>output/&lt;project_name&gt;/</code>).</p>
 <p>The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output
 different results, even if applied on the same data. An exception to this is the "no-cluster" mapping (DummyMapping
 in the code), which maps blocks to reward addresses, so it doesn't perform any extra processing on the raw data.</p>
-<h2 id="pool-information">Pool Information</h2>
-<p>To assist the mapping process, the directory <code>helpers/pool_information/</code> contains
-pool information about the supported projects.</p>
-<p>There exist three subdirectories. In each subdirectory there exists a file for
+<h2 id="mapping-information">Mapping Information</h2>
+<p>To assist the mapping process, the directory <code>mapping_information/</code> contains
+mapping information about the supported projects.</p>
+<p>There exist three subdirectories and two additional files. In each subdirectory there exists a file for
 the corresponding ledger data, if such data exists.</p>
-<p><code>identifiers</code> defines information about block creators. Each key
+<h4 id="identifiers">Identifiers</h4>
+<p>The files under <code>identifiers</code> define information about block creators. Each key
 corresponds to a tag or ticker, by which the pool is identifiable in its
 produced blocks. The value for each key is a dictionary of pool-related
 information, specifically its name, a url to its homepage, etc. Each file's
@@ -129,15 +137,8 @@ structure is as follows:</p>
   }
 }
 </code></pre>
-<p><code>addresses</code> defines ownership information about addresses. As with
-clusters, for each address the pool ownership information defines the pool's
-name and a public source of information about the ownership.  Each file's
-structure is as follows:</p>
-<pre><code>{
-  &quot;address1&quot;: {&quot;name&quot;: &quot;Pool P2&quot;, &quot;source&quot;: &quot;example.com&quot;},
-}
-</code></pre>
-<p><code>clusters</code> defines information about pool clusters. This information is
+<h4 id="clusters">Clusters</h4>
+<p>The files under <code>clusters</code> define information about pool clusters. This information is
 organized per cluster. For each cluster, an array of pool-related information is
 defined. Each item in the array defines the pool's name, the time window during
 which the pool belonged to the cluster (from the beginning of <code>from</code> until the
@@ -153,8 +154,17 @@ Each file's structure is as follows:</p>
   ]
 }
 </code></pre>
-<h4 id="pool-ownership">Pool Ownership</h4>
-<p>The file <code>helpers/legal_links.json</code> defines legal links between pools and companies, based on off-chain information.
+<h4 id="addresses">Addresses</h4>
+<p>The files under <code>addresses</code> define ownership information about addresses. As with
+clusters, for each address the pool ownership information defines the pool's
+name and a public source of information about the ownership.  Each file's
+structure is as follows:</p>
+<pre><code>{
+  &quot;address1&quot;: {&quot;name&quot;: &quot;Pool P2&quot;, &quot;source&quot;: &quot;example.com&quot;},
+}
+</code></pre>
+<h4 id="legal-links">Legal links</h4>
+<p>The file <code>legal_links.json</code> defines legal links between pools and companies, based on off-chain information.
 For example, it defines ownership information of a pool by a company.
 The structure of the file is as follows:</p>
 <pre><code>{
@@ -164,6 +174,19 @@ The structure of the file is as follows:</p>
 }
 </code></pre>
 <p>The values for each entry are the same as <code>clusters</code> in the above pool information.</p>
+<h4 id="special-addresses">Special addresses</h4>
+<p>The file <code>special_addresses.json</code> defines per-project information about addresses that are not related to some entity 
+but are used for protocol-specific reasons (e.g. treasury address). The format of the file is the following:</p>
+<pre><code>{
+  &quot;Project A&quot;: [
+      {&quot;address&quot;: &quot;A special address 1&quot;, &quot;source&quot;: &quot;some.public.source&quot;},
+      {&quot;address&quot;: &quot;A special address 2&quot;, &quot;source&quot;: &quot;some.public.source&quot;}
+  ],
+  &quot;Project B&quot;: [
+      {&quot;address&quot;: &quot;B special address&quot;, &quot;source&quot;: &quot;some.public.source&quot;}
+  ]
+}
+</code></pre>
 <h2 id="mapping-process-implementation">Mapping process implementation</h2>
 <p>In our implementation, the mapping of a block uses the auxiliary information as follows.</p>
 <p>First, it iterates over all known tags and compares each one with the block's identifiers. If the tag is a
@@ -212,14 +235,15 @@ block to the top level entity, e.g., the pool's parent company or cluster.</p>
     
   </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>
