@@ -97,7 +97,7 @@ def make_clusters(pools_per_homepage):
         if len(pool_names) > 1:
             pool_names = sorted(pool_names, key=lambda x: (x[0].isdigit(), x))
             cluster_name = pool_names[0]
-            clusters[cluster_name] = [{'name': name,'from': '', 'to': '', 'source': 'homepage'} for name in pool_names]
+            clusters[cluster_name] = [{'name': name, 'from': '', 'to': '', 'source': 'homepage'} for name in pool_names]
 
     with open(io_dir / 'cardano_clusters.json', 'w') as f:
         json.dump(clusters, f, indent=4)
