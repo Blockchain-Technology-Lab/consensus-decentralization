@@ -16,12 +16,12 @@ def setup_and_cleanup():
     The part before the yield command is run before the test (setup) and the part after the yield command is run
     after (cleanup)
     """
-    print("Setting up")
+    # Setting up
     test_output_dir = OUTPUT_DIR / "test_output"
     if not os.path.exists(test_output_dir):
         os.makedirs(test_output_dir)
     yield test_output_dir
-    print("Cleaning up")
+    # Cleaning up
     shutil.rmtree(test_output_dir)
 
 
