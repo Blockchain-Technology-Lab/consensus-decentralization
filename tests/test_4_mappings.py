@@ -22,7 +22,7 @@ def setup_and_cleanup():
     The part before the yield command is run before the test (setup) and the part after the yield command is run
     after (cleanup)
     """
-    print("Setting up")
+    # Set up
     ledger_mapping['sample_bitcoin'] = DefaultMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_ethereum'] = EthereumMapping
@@ -35,7 +35,7 @@ def setup_and_cleanup():
     test_input_dir = INPUT_DIR
     test_output_dir = OUTPUT_DIR / "test_output"
     yield pool_info_dir, test_input_dir, test_output_dir
-    print("Cleaning up")
+    # Clean up
     shutil.rmtree(test_output_dir)
 
 
