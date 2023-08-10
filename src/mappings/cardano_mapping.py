@@ -41,15 +41,15 @@ class CardanoMapping(DefaultMapping):
         but it was part of the project's "special addresses" then it returns '----- SPECIAL ADDRESS -----'
 
         """
-        reward_address = self.get_reward_addresses(block)
-        if reward_address is None:  # there was no reward address associated with the block
+        reward_addresses = self.get_reward_addresses(block)
+        if reward_addresses is None:  # there was no reward address associated with the block
             return 'Input Output (iohk.io)'  # pre-decentralization
-        if len(reward_address) > 0:
-            reward_address = reward_address[0]
-            if reward_address in self.known_addresses.keys():
-                return self.known_addresses[reward_address]
-            return reward_address
-        return '----- SPECIAL ADDRESS -----'
+        if len(reward_addresses) == 0:  # the reward address was deemed "special" and thus removed
+            return '----- SPECIAL ADDRESS -----'
+        reward_address = reward_addresses[0]
+        if reward_address in self.known_addresses.keys():
+            return self.known_addresses[reward_address]
+        return reward_address
 
     def process(self, timeframe):
         """
