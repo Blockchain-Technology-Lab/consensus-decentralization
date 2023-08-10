@@ -62,30 +62,23 @@ last execution of `run.py`.
 
 ## Contributing
 
-### Pooling information
+### Mapping information
 
-You can update and/or add clustering information for any ledger as follows. In
-all cases, the information should be submitted via a Github PR.
+You can update and/or add mapping information for any ledger as follows. In
+all cases, the information should be submitted via a GitHub PR.
 
-Information about legal links between entities is defined in
-`src/helpers/legal_links.json`. This file defines information for all supported
-ledgers. For a specific description on how to add information see
-[here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/src/helpers).
-
-Information about entities of a specific ledger is defined in
-`src/helpers/pool_information`. For every supported ledger, there exists a
-distinct file `src/helpers/pool_information/<project name>.json`. For a
-specific description on how to add information see
-[here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/src/helpers/pool_information).
+For a detailed description on how to add such information see
+[here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/mapping_information/README.md).
 
 ### Support for ledgers
 
 You can add support for an extra ledger, which is not already supported, as
 follows.
 
-In the directory `helpers/pool_information` store a file named `<project_name>.json` that contains the relevant pool
-information (see the [mapping documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/)
-for details on the file's structure).
+In the directory `mapping_information` store a file named `<project_name>.json` (under `addresses`, `clusters` or 
+`identifiers` depending on the type of mapping information) that contains the relevant mapping information (see 
+the [mapping documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/)
+for details on the files' structure).
 
 In the directory `parsers` create a file named `<project_name>_parser.py` and a corresponding class, or reuse an
 existing parser if fit for purpose. The class should inherit from the `DefaultParser` class of `default_parser.py`
@@ -102,7 +95,8 @@ dictionary `ledger_parser`. Do the same in the script `src/map.py` for the
 mapping class in the dictionary `ledger_mapping`.
 Note: You should provide an entry in the `ledger_mapping` and `ledger_parser` regardless of whether you are using a new or existing mapping or parser.
 
-To add a new metric, create a relevant script in `metrics`, then import and run the metric function in the script `src/analyze.py`.
+### Metrics
+To add a new metric, create a relevant script in `metrics`, then import the metric function in the script `src/analyze.py`.
 
 ## License
 

@@ -1,7 +1,7 @@
 import logging
 from math import log
 import sys
-import src.helpers.helper as hlp
+import src.helper as hlp
 
 
 def compute_entropy(blocks_per_entity, alpha):

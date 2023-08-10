@@ -1,6 +1,6 @@
 from collections import defaultdict
 import json
-import src.helpers.helper as hlp
+import src.helper as hlp
 
 
 class DefaultMapping:

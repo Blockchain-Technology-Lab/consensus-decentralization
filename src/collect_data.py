@@ -13,7 +13,7 @@ import argparse
 import logging
 from yaml import safe_load
 
-from helpers.helper import ROOT_DIR, INPUT_DIR
+from src.helper import ROOT_DIR, INPUT_DIR
 
 
 def collect_data(force_query):

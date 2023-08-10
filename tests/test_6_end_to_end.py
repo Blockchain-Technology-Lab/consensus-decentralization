@@ -8,7 +8,7 @@ from src.parsers.dummy_parser import DummyParser
 from src.map import ledger_mapping
 from src.mappings.default_mapping import DefaultMapping
 from src.mappings.cardano_mapping import CardanoMapping
-from src.helpers.helper import OUTPUT_DIR
+from src.helper import OUTPUT_DIR
 import pytest
 
 
@@ -32,20 +32,20 @@ def setup_and_cleanup():
 
 def test_end_to_end(setup_and_cleanup):
     test_output_dir = setup_and_cleanup
-    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     projects = ['bitcoin', 'cardano']
 
     for project in projects:
         try:
-            shutil.copy2(str(pool_info_dir / f'clusters/{project}.json'), str(pool_info_dir / f'clusters/sample_{project}.json'))
+            shutil.copy2(str(mapping_info_dir / f'clusters/{project}.json'), str(mapping_info_dir / f'clusters/sample_{project}.json'))
         except FileNotFoundError:
             pass
         try:
-            shutil.copy2(str(pool_info_dir / f'addresses/{project}.json'), str(pool_info_dir / f'addresses/sample_{project}.json'))
+            shutil.copy2(str(mapping_info_dir / f'addresses/{project}.json'), str(mapping_info_dir / f'addresses/sample_{project}.json'))
         except FileNotFoundError:
             pass
         try:
-            shutil.copy2(str(pool_info_dir / f'identifiers/{project}.json'), str(pool_info_dir / f'identifiers/sample_{project}.json'))
+            shutil.copy2(str(mapping_info_dir / f'identifiers/{project}.json'), str(mapping_info_dir / f'identifiers/sample_{project}.json'))
         except FileNotFoundError:
             pass
 
@@ -58,15 +58,15 @@ def test_end_to_end(setup_and_cleanup):
 
     for project in test_projects:
         try:
-            os.remove(str(pool_info_dir / f'clusters/{project}.json'))
+            os.remove(str(mapping_info_dir / f'clusters/{project}.json'))
         except FileNotFoundError:
             pass
         try:
-            os.remove(str(pool_info_dir / f'addresses/{project}.json'))
+            os.remove(str(mapping_info_dir / f'addresses/{project}.json'))
         except FileNotFoundError:
             pass
         try:
-            os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
+            os.remove(str(mapping_info_dir / f'identifiers/{project}.json'))
         except FileNotFoundError:
             pass
 
