@@ -6,9 +6,9 @@ import json
 from src.parse import parse, ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
+from src.parsers.ethereum_parser import EthereumParser
 from src.map import apply_mapping, ledger_mapping
-from src.mappings.mapping import Mapping
-from src.mappings.bitcoin_mapping import BitcoinMapping
+from src.mappings.default_mapping import DefaultMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.mappings.tezos_mapping import TezosMapping
@@ -23,10 +23,10 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Set up
-    ledger_mapping['sample_bitcoin'] = BitcoinMapping
+    ledger_mapping['sample_bitcoin'] = DefaultMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_ethereum'] = EthereumMapping
-    ledger_parser['sample_ethereum'] = DummyParser
+    ledger_parser['sample_ethereum'] = EthereumParser
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
@@ -425,12 +425,84 @@ def test_tezos_mapping(setup_and_cleanup):
         pass
 
 
-def test_not_implemented_process():
-    class TestMap(Mapping):
-        def __init__(self, project_name, dataset):
-            super().__init__(project_name, dataset)
+def test_get_reward_addresses():
+    default_mapping = DefaultMapping("sample_bitcoin", None)
 
-    test_map = TestMap('test', 'test')
-    with pytest.raises(NotImplementedError) as e_info:
-        test_map.process('test')
-    assert e_info.type == NotImplementedError
+    block = {
+        "number": 625113,
+        "timestamp": "2020-04-09 10:48:38+00:00",
+        "identifiers": "b'\\x03\\xd9\\x89\\t\\x04\\x89\\xfd\\x8e^/poolin.com/\\xfa\\xbemmL\\xd6\\xe82[\\xc7}\\x07\\x89\\xe5\\xbf.\\xdb\\xed\\xac\\xfd\\xff\\xe6\\xff\\x8a\\t\\xccQ\\xb8\\x11\\x97\\xea\\xae\\t\\xea\\xd3_\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\xb1\\xe3t\\xf7\\xaf\\xa4\\xcf\\x81\\x8c&\\xdf\\xd6s9\\x19o\\x12\\xf3t\\x1b`\\x00\\xbb\\x0bC\\x00\\xff\\xff\\xff\\xff'",
+        "reward_addresses": "3HqH1qGAqNWPpbrvyGjnRxNEjcUKD4e6ea"
+    }
+    reward_addresses = default_mapping.get_reward_addresses(block)
+    assert reward_addresses == ['3HqH1qGAqNWPpbrvyGjnRxNEjcUKD4e6ea']
+
+    block = {
+        "number": -1,
+        "timestamp": "2023-08-07 10:34:38+00:00",
+        "identifiers": "b'mined by Lady X'",
+        "reward_addresses": "hello1,hello2,hello3"
+    }
+    default_mapping.special_addresses.add("hello2")
+    reward_addresses = default_mapping.get_reward_addresses(block)
+    assert reward_addresses == ["hello1", "hello3"] or reward_addresses == ["hello3", "hello1"]
+
+    block = {
+        "number": -2,
+        "timestamp": "2023-08-07 17:52:38+00:00",
+        "identifiers": "b'mined by Lady X'",
+        "reward_addresses": "hello2"
+    }
+    reward_addresses = default_mapping.get_reward_addresses(block)
+    assert reward_addresses == []
+
+    block = {
+        "number": -3,
+        "timestamp": "2023-08-07 17:53:38+00:00",
+        "identifiers": "b'mined by Lady X'",
+        "reward_addresses": None
+    }
+    reward_addresses = default_mapping.get_reward_addresses(block)
+    assert reward_addresses is None
+
+    eth_mapping = EthereumMapping("sample_ethereum", None)
+    block = {
+        "number": 6982695,
+        "timestamp": "2018-12-31 00:00:12+00:00",
+        "reward_addresses": "0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c",
+        "identifiers": "sparkpool-eth-cn-hz2"
+    }
+    reward_addresses = eth_mapping.get_reward_addresses(block)
+    assert reward_addresses == ["0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c"]
+
+
+def test_from_known_addresses():
+    cardano_mapping = CardanoMapping("sample_cardano", None)
+
+    block = {
+        "number": 92082690,
+        "identifiers": "WAV7",
+        "timestamp": "2023-05-09 16:16:21",
+        "reward_addresses": "e14a650c7a58d229bbb663cb42fffb36d68c2a6cecf0fd7b9c47e399"
+    }
+    entity = cardano_mapping.map_from_known_addresses(block)
+    assert entity == "e14a650c7a58d229bbb663cb42fffb36d68c2a6cecf0fd7b9c47e399"
+
+    block = {
+        "number": -1,
+        "identifiers": "bla",
+        "timestamp": "2023-08-10 16:16:21",
+        "reward_addresses": ""
+    }
+    entity = cardano_mapping.map_from_known_addresses(block)
+    assert entity == "Input Output (iohk.io)"
+
+    cardano_mapping.special_addresses.add('very special address')
+    block = {
+        "number": -2,
+        "identifiers": "spcl",
+        "timestamp": "2023-08-10 17:16:21",
+        "reward_addresses": "very special address"
+    }
+    entity = cardano_mapping.map_from_known_addresses(block)
+    assert entity == "----- SPECIAL ADDRESS -----"

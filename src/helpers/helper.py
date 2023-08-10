@@ -7,9 +7,10 @@ import datetime
 import calendar
 import argparse
 from collections import defaultdict
+from functools import lru_cache
+
 from yaml import safe_load
 
-YEAR_DIGITS = 4
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
 INPUT_DIR = ROOT_DIR / 'input'
 OUTPUT_DIR = ROOT_DIR / 'output'
@@ -103,29 +104,32 @@ def get_known_entities(ledger):
     return known_entities
 
 
-def get_pool_tags(project_name):
+def get_pool_identifiers(project_name):
     """
-    Retrieves tag data (identifiers) about the pools of a project.
+    Retrieves identifiers (tags, etc) about the pools of a project.
     :param project_name: string that corresponds to the project under consideration
-    :returns: pool_tags, a dictionary with the tags information of each pool
+    :returns: a dictionary where each key corresponds to an identifier (tag, ticker, etc) and each value is
+    another dictionary with information about the entity behind the identifier (name of the pool, website, etc),
+    or an empty dictionary if no information is available for the project (the relevant file does not exist)
     """
     try:
         with open(HELPERS_DIR / f'pool_information/identifiers/{project_name}.json') as f:
-            tags = json.load(f)
+            identifiers = json.load(f)
     except FileNotFoundError:
-        tags = {}
+        return dict()
 
-    return tags
+    return identifiers
 
 
+@lru_cache(maxsize=2)
 def get_pool_links(project_name, timeframe):
     """
     Retrieves data regarding the links between the pools of a project.
+    Caches the result for quick access when the function is called again with the same arguments.
     :param project_name: string that corresponds to the project under consideration
     :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
     format)
-    :returns: (pool_data, pool_links) where pool_data is a dictionary with the tags, addresses and cluster
-    information of each pool, and pool_links is a dictionary that reveals the ownership of pools
+    :returns: a dictionary that reveals the ownership of pools
     """
     start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)
@@ -170,22 +174,21 @@ def get_pool_links(project_name, timeframe):
     return pool_links
 
 
-def get_pool_addresses(project_name):
+def get_known_addresses(project_name):
     """
     Retrieves the addresses associated with pools of a certain project over a given timeframe
     :param project_name: string that corresponds to the project under consideration
     :returns: a dictionary with known addresses and the names of the pools that own them (given that the timeframe of
-    the ownership overlaps with the timeframe under consideration)
+    the ownership overlaps with the timeframe under consideration), or an empty dictionary if no addresses are known
+    for the project (no such file exists)
     """
     try:
         with open(HELPERS_DIR / f'pool_information/addresses/{project_name}.json') as f:
             address_data = json.load(f)
     except FileNotFoundError:
-        address_data = {}
+        return dict()
 
-    address_links = {address: addr_info['name'] for address, addr_info in address_data.items()}
-
-    return address_links
+    return {address: addr_info['name'] for address, addr_info in address_data.items()}
 
 
 def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, groups, timeframe):
@@ -240,7 +243,7 @@ def get_special_addresses(project_name):
     """
     Retrieves special addresses of a project, such as treasury addresses, protocol related smart contracts, etc.
     :param project_name: string that corresponds to the project under consideration
-    :returns: special_addresses, which is a set of addresses
+    :returns: a set of addresses or an empty set if no special addresses are found for the project
     """
     with open(HELPERS_DIR / 'special_addresses.json') as f:
         special_address_data = json.load(f)

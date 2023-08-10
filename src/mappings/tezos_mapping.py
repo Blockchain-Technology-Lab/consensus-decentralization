@@ -1,53 +1,40 @@
-from collections import defaultdict
-from src.helpers.helper import get_pool_links, write_blocks_per_entity_to_file, get_pool_addresses
-from src.mappings.mapping import Mapping
+from src.mappings.default_mapping import DefaultMapping
 
 
-class TezosMapping(Mapping):
+class TezosMapping(DefaultMapping):
     """
-    Mapping class tailored for Tezos data. Inherits from Mapping.
+    Mapping class tailored to Tezos data. Inherits from Mapping.
     """
 
     def __init__(self, project_name, dataset):
         super().__init__(project_name, dataset)
 
-    def process(self, timeframe):
+    def map_from_known_identifiers(self, block):
         """
-        Overrides process method of parent class to use project-specific information and extract the distribution of
-        blocks to different entities.
-        :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
-        format)
-        :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
+        Overrides map_from_known_identifiers of the DefaultMapping class.
+        Always returns None as Tezos block data does not include identifiers
+        :param block: dictionary with block information (block number, timestamp, identifiers, etc)
+        :returns: None
         """
-        data = [tx for tx in self.dataset if tx['timestamp'][:len(timeframe)] == timeframe]
+        return None
 
-        pool_addresses = get_pool_addresses(self.project_name)
-
-        daily_links = {}
-        blocks_per_entity = defaultdict(int)
-        for tx in data:
-            day = tx['timestamp'][:10]
-            try:
-                pool_links = daily_links[day]
-            except KeyError:
-                pool_links = get_pool_links(self.project_name, day)
-                daily_links[day] = pool_links
-
-            reward_addresses = tx['reward_addresses']
-            if reward_addresses is None:
-                reward_addresses = '----- UNDEFINED MINER -----'
-
-            if reward_addresses in pool_addresses.keys():
-                entity = pool_addresses[reward_addresses]
-            else:
-                entity = reward_addresses
-
-            if entity in pool_links.keys():
-                entity = pool_links[entity]
-
-            blocks_per_entity[entity.replace(',', '')] += 1
-
-        groups = self.map_block_producers_to_groups(blocks_per_entity.keys())
-        write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
-
-        return blocks_per_entity
+    def map_from_known_addresses(self, block):
+        """
+        Maps one block to its block producer (pool) based on known addresses. Overrides the map_from_known_addresses of
+        the DefaultMapping class to tailor the process to Tezos, specifically taking advantage of the fact that in Tezos
+        we always have (at most) one reward address and not multiple ones like in other projects.
+        :param block: dictionary with block information (block number, timestamp, identifiers, etc)
+        :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise the address
+        that received rewards for the block. If there was no address associated with the block it returns
+        '----- UNDEFINED MINER -----' and if there was an associated address but it was part of the project's
+        "special addresses" it returns '----- SPECIAL ADDRESS -----'
+        """
+        reward_addresses = self.get_reward_addresses(block)
+        if reward_addresses is None:  # there was no reward address associated with the block
+            return '----- UNDEFINED MINER -----'
+        if len(reward_addresses) == 0:  # the reward address was deemed "special" and thus removed
+            return '----- SPECIAL ADDRESS -----'
+        reward_address = reward_addresses[0]
+        if reward_address in self.known_addresses.keys():
+            return self.known_addresses[reward_address]
+        return reward_address
