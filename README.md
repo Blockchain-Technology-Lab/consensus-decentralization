@@ -96,7 +96,9 @@ mapping class in the dictionary `ledger_mapping`.
 Note: You should provide an entry in the `ledger_mapping` and `ledger_parser` regardless of whether you are using a new or existing mapping or parser.
 
 ### Metrics
-To add a new metric, create a relevant script in `metrics`, then import the metric function in the script `src/analyze.py`.
+To add a new metric, create a relevant script in `metrics`, which includes a function named `compute_{metric_name}`, 
+then import this function to `src/analyze.py`. Finally, add the name of the metric (and any parameter values it 
+requires) to the file `config.yaml` under `metrics`.
 
 ## License
 
