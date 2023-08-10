@@ -474,3 +474,35 @@ def test_get_reward_addresses():
     }
     reward_addresses = eth_mapping.get_reward_addresses(block)
     assert reward_addresses == ["0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c"]
+
+
+def test_from_known_addresses():
+    cardano_mapping = CardanoMapping("sample_cardano", None)
+
+    block = {
+        "number": 92082690,
+        "identifiers": "WAV7",
+        "timestamp": "2023-05-09 16:16:21",
+        "reward_addresses": "e14a650c7a58d229bbb663cb42fffb36d68c2a6cecf0fd7b9c47e399"
+    }
+    entity = cardano_mapping.map_from_known_addresses(block)
+    assert entity == "e14a650c7a58d229bbb663cb42fffb36d68c2a6cecf0fd7b9c47e399"
+
+    block = {
+        "number": -1,
+        "identifiers": "bla",
+        "timestamp": "2023-08-10 16:16:21",
+        "reward_addresses": ""
+    }
+    entity = cardano_mapping.map_from_known_addresses(block)
+    assert entity == "Input Output (iohk.io)"
+
+    cardano_mapping.special_addresses.add('very special address')
+    block = {
+        "number": -2,
+        "identifiers": "spcl",
+        "timestamp": "2023-08-10 17:16:21",
+        "reward_addresses": "very special address"
+    }
+    entity = cardano_mapping.map_from_known_addresses(block)
+    assert entity == "----- SPECIAL ADDRESS -----"
