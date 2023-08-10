@@ -11,10 +11,10 @@ from functools import lru_cache
 
 from yaml import safe_load
 
-ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
+ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
 INPUT_DIR = ROOT_DIR / 'input'
 OUTPUT_DIR = ROOT_DIR / 'output'
-HELPERS_DIR = ROOT_DIR / 'src/helpers'
+MAPPING_INFO_DIR = ROOT_DIR / 'mapping_information'
 
 
 def valid_date(date_string):
@@ -71,7 +71,7 @@ def get_time_period(frm, to):
 def get_known_entities(ledger):
     known_entities = set()
     try:
-        with open(HELPERS_DIR / f'pool_information/identifiers/{ledger}.json') as f:
+        with open(MAPPING_INFO_DIR / f'identifiers/{ledger}.json') as f:
             identifiers = json.load(f)
         for info in identifiers.values():
             known_entities.add(info['name'])
@@ -79,7 +79,7 @@ def get_known_entities(ledger):
         pass
 
     try:
-        with open(HELPERS_DIR / f'pool_information/clusters/{ledger}.json') as f:
+        with open(MAPPING_INFO_DIR / f'clusters/{ledger}.json') as f:
             clusters = json.load(f)
         for cluster in clusters.keys():
             known_entities.add(cluster)
@@ -87,14 +87,14 @@ def get_known_entities(ledger):
         pass
 
     try:
-        with open(HELPERS_DIR / f'pool_information/addresses/{ledger}.json') as f:
+        with open(MAPPING_INFO_DIR / f'addresses/{ledger}.json') as f:
             pool_addresses = json.load(f)
         for address_info in pool_addresses.values():
             known_entities.add(address_info['name'])
     except FileNotFoundError:
         pass
 
-    with open(HELPERS_DIR / 'legal_links.json') as f:
+    with open(MAPPING_INFO_DIR / 'legal_links.json') as f:
         legal_links = json.load(f)
     for parent, children in legal_links.items():
         known_entities.add(parent)
@@ -113,7 +113,7 @@ def get_pool_identifiers(project_name):
     or an empty dictionary if no information is available for the project (the relevant file does not exist)
     """
     try:
-        with open(HELPERS_DIR / f'pool_information/identifiers/{project_name}.json') as f:
+        with open(MAPPING_INFO_DIR / f'identifiers/{project_name}.json') as f:
             identifiers = json.load(f)
     except FileNotFoundError:
         return dict()
@@ -137,12 +137,12 @@ def get_pool_links(project_name, timeframe):
     pool_links = {}
 
     try:
-        with open(HELPERS_DIR / f'pool_information/clusters/{project_name}.json') as f:
+        with open(MAPPING_INFO_DIR / f'clusters/{project_name}.json') as f:
             cluster_data = json.load(f)
     except FileNotFoundError:
         cluster_data = {}
 
-    with open(HELPERS_DIR / 'legal_links.json') as f:
+    with open(MAPPING_INFO_DIR / 'legal_links.json') as f:
         legal_data = json.load(f)
 
     for data in [cluster_data, legal_data]:
@@ -183,7 +183,7 @@ def get_known_addresses(project_name):
     for the project (no such file exists)
     """
     try:
-        with open(HELPERS_DIR / f'pool_information/addresses/{project_name}.json') as f:
+        with open(MAPPING_INFO_DIR / f'addresses/{project_name}.json') as f:
             address_data = json.load(f)
     except FileNotFoundError:
         return dict()
@@ -245,7 +245,7 @@ def get_special_addresses(project_name):
     :param project_name: string that corresponds to the project under consideration
     :returns: a set of addresses or an empty set if no special addresses are found for the project
     """
-    with open(HELPERS_DIR / 'special_addresses.json') as f:
+    with open(MAPPING_INFO_DIR / 'special_addresses.json') as f:
         special_address_data = json.load(f)
 
     try:

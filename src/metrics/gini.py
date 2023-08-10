@@ -1,7 +1,7 @@
 import logging
 import numpy as np
 import sys
-import src.helpers.helper as hlp
+import src.helper as hlp
 
 
 def compute_gini(blocks_per_entity):

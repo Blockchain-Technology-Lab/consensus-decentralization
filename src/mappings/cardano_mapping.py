@@ -1,6 +1,6 @@
 from collections import defaultdict
 from src.mappings.default_mapping import DefaultMapping
-import src.helpers.helper as hlp
+import src.helper as hlp
 
 
 class CardanoMapping(DefaultMapping):

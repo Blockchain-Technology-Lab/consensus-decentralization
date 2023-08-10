@@ -12,7 +12,7 @@ from src.mappings.default_mapping import DefaultMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.mappings.tezos_mapping import TezosMapping
-from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
+from src.helper import INPUT_DIR, OUTPUT_DIR
 
 
 @pytest.fixture
@@ -31,10 +31,10 @@ def setup_and_cleanup():
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
-    pool_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'src' / 'helpers' / 'pool_information'  # todo maybe better to have separate helper files for the tests s.t. the tests don't break just because the info changes
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'  # todo better to have separate helper files for the tests s.t. the tests don't break just because the info changes
     test_input_dir = INPUT_DIR
     test_output_dir = OUTPUT_DIR / "test_output"
-    yield pool_info_dir, test_input_dir, test_output_dir
+    yield mapping_info_dir, test_input_dir, test_output_dir
     # Clean up
     shutil.rmtree(test_output_dir)
 

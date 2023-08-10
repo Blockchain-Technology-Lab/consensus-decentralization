@@ -3,7 +3,7 @@ import logging
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
 from src.parsers.ethereum_parser import EthereumParser
-from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
+from src.helper import INPUT_DIR, OUTPUT_DIR
 
 
 ledger_parser = {

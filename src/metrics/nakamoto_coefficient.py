@@ -1,6 +1,6 @@
 import logging
 import sys
-import src.helpers.helper as hlp
+import src.helper as hlp
 
 
 def compute_nakamoto_coefficient(blocks_per_entity):

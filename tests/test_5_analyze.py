@@ -1,7 +1,7 @@
 import os
 import shutil
 import pytest
-from src.helpers.helper import OUTPUT_DIR
+from src.helper import OUTPUT_DIR
 from src.analyze import analyze
 
 

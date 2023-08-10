@@ -1,5 +1,5 @@
 from collections import defaultdict
-from src.helpers.helper import write_blocks_per_entity_to_file
+from src.helper import write_blocks_per_entity_to_file
 from src.mappings.default_mapping import DefaultMapping
 
 

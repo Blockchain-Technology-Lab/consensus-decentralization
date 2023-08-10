@@ -4,7 +4,7 @@ import pytest
 from src.parse import parse, ledger_parser
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
-from src.helpers.helper import INPUT_DIR, OUTPUT_DIR
+from src.helper import INPUT_DIR, OUTPUT_DIR
 
 
 @pytest.fixture

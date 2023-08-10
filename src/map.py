@@ -4,7 +4,7 @@ from src.mappings.default_mapping import DefaultMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.mappings.tezos_mapping import TezosMapping
-from src.helpers.helper import OUTPUT_DIR, get_start_end_years
+from src.helper import OUTPUT_DIR, get_start_end_years
 
 ledger_mapping = {
     'bitcoin': DefaultMapping,

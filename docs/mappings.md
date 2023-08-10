@@ -15,15 +15,17 @@ The logic of the mapping depends on the type of clustering we want to achieve. S
 different results, even if applied on the same data. An exception to this is the "no-cluster" mapping (DummyMapping
 in the code), which maps blocks to reward addresses, so it doesn't perform any extra processing on the raw data.
 
-## Pool Information
+## Mapping Information
 
-To assist the mapping process, the directory `helpers/pool_information/` contains
-pool information about the supported projects.
+To assist the mapping process, the directory `mapping_information/` contains
+mapping information about the supported projects.
 
-There exist three subdirectories. In each subdirectory there exists a file for
+There exist three subdirectories and two additional files. In each subdirectory there exists a file for
 the corresponding ledger data, if such data exists.
 
-`identifiers` defines information about block creators. Each key
+#### Identifiers
+
+The files under `identifiers` define information about block creators. Each key
 corresponds to a tag or ticker, by which the pool is identifiable in its
 produced blocks. The value for each key is a dictionary of pool-related
 information, specifically its name, a url to its homepage, etc. Each file's
@@ -41,17 +43,9 @@ structure is as follows:
 }
 ```
 
-`addresses` defines ownership information about addresses. As with
-clusters, for each address the pool ownership information defines the pool's
-name and a public source of information about the ownership.  Each file's
-structure is as follows:
-```
-{
-  "address1": {"name": "Pool P2", "source": "example.com"},
-}
-```
+#### Clusters
 
-`clusters` defines information about pool clusters. This information is
+The files under `clusters` define information about pool clusters. This information is
 organized per cluster. For each cluster, an array of pool-related information is
 defined. Each item in the array defines the pool's name, the time window during
 which the pool belonged to the cluster (from the beginning of `from` until the
@@ -69,9 +63,20 @@ Each file's structure is as follows:
 }
 ```
 
-#### Pool Ownership
+#### Addresses
+The files under `addresses` define ownership information about addresses. As with
+clusters, for each address the pool ownership information defines the pool's
+name and a public source of information about the ownership.  Each file's
+structure is as follows:
+```
+{
+  "address1": {"name": "Pool P2", "source": "example.com"},
+}
+```
 
-The file `helpers/legal_links.json` defines legal links between pools and companies, based on off-chain information.
+#### Legal links
+
+The file `legal_links.json` defines legal links between pools and companies, based on off-chain information.
 For example, it defines ownership information of a pool by a company.
 The structure of the file is as follows:
 
@@ -84,6 +89,22 @@ The structure of the file is as follows:
 ```
 
 The values for each entry are the same as `clusters` in the above pool information.
+
+#### Special addresses
+
+The file `special_addresses.json` defines per-project information about addresses that are not related to some entity 
+but are used for protocol-specific reasons (e.g. treasury address). The format of the file is the following:
+```
+{
+  "Project A": [
+      {"address": "A special address 1", "source": "some.public.source"},
+      {"address": "A special address 2", "source": "some.public.source"}
+  ],
+  "Project B": [
+      {"address": "B special address", "source": "some.public.source"}
+  ]
+}
+```
 
 ## Mapping process implementation
 

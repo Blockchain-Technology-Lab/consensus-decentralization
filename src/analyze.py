@@ -5,7 +5,7 @@ from src.metrics.gini import compute_gini  # noqa: F401
 from src.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
 from src.metrics.entropy import compute_entropy, compute_entropy_percentage  # noqa: F401
 from src.metrics.herfindahl_hirschman_index import compute_hhi  # noqa: F401
-from src.helpers.helper import OUTPUT_DIR, get_metrics_config, get_start_end_years
+from src.helper import OUTPUT_DIR, get_metrics_config, get_start_end_years
 
 
 def analyze(projects, timeframes, output_dir):
