@@ -28,7 +28,7 @@ the corresponding ledger data, if such data exists.
 The files under `identifiers` define information about block creators. Each key
 corresponds to a tag or ticker, by which the pool is identifiable in its
 produced blocks. The value for each key is a dictionary of pool-related
-information, specifically its name, a url to its homepage, etc. Each file's
+information, specifically its name, a URL to its homepage, etc. Each file's
 structure is as follows:
 ```
 {
