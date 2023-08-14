@@ -62,6 +62,42 @@ last execution of `run.py`.
 
 ## Contributing
 
+### Support for ledgers
+
+You can add support for a ledger that is not already supported as follows.
+
+In the directory `mapping_information`, there exist three folders (`addresses`,
+`clusters`, `identifiers`). In each folder, add a file named
+`<project_name>.json`, if there exist such information for the new ledger (for
+more details on what type of information each folder corresponds to see the
+[mapping
+documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/)).
+
+In the directory `src/parsers`, create a file named `<project_name>_parser.py`,
+if no existing parser can be reused. In this file create a new class, which
+inherits from the `DefaultParser` class of `default_parser.py`. Then,
+override its `parse` method in order to implement the new parser.
+
+In the directory `src/mappings`, create a file named
+`<project_name>_mapping.py`, if no existing parser can be reused. In this file
+create a new class, which inherits from the `Mapping` class of `mapping.py`.
+Then, override its `process` method. This method takes as input a time period in
+the form `yyyy-mm-dd` (e.g., '2022' for the year 2022, '2022-11' for November
+2022, '2022-11-12' for 12 November 2022), returns a dictionary of the form
+`{'<entity name>': <number of resources>}`, and creates a csv file of mapped
+data in the directory `output`.
+
+Finally, you should add support for the new ledger in the parser and mapping module scripts.
+Specifically:
+
+- in the script `src/parse.py`, import the parser class and assign it to the
+  project's name in the dictionary `ledger_parser`; 
+- in the script `src/map.py`, import the mapping class and assign it to the
+  project's name in the dictionary `ledger_mapping`.
+
+Note: You should add an entry in the dictionaries, regardless of whether you use
+a new or existing mapping or parser.
+
 ### Mapping information
 
 You can update and/or add mapping information for any ledger as follows. In
@@ -70,35 +106,20 @@ all cases, the information should be submitted via a GitHub PR.
 For a detailed description on how to add such information see
 [here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/mapping_information/README.md).
 
-### Support for ledgers
-
-You can add support for an extra ledger, which is not already supported, as
-follows.
-
-In the directory `mapping_information` store a file named `<project_name>.json` (under `addresses`, `clusters` or 
-`identifiers` depending on the type of mapping information) that contains the relevant mapping information (see 
-the [mapping documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/)
-for details on the files' structure).
-
-In the directory `parsers` create a file named `<project_name>_parser.py` and a corresponding class, or reuse an
-existing parser if fit for purpose. The class should inherit from the `DefaultParser` class of `default_parser.py`
-and override its `parse` method.
-
-In the directory `mappings` create a file named `<project_name>_mapping.py` and a corresponding class, or reuse an
-existing mapping. The class should inherit from the `Mapping` class of `mapping.py` and override its `process` method,
-which takes as input a time period in the form `yyyy-mm-dd` (e.g., '2022' for the year 2022, '2022-11' for the month
-November 2022, '2022-11-12' for the day 12 November 2022) and returns a dictionary of the form
-`{'<entity name>': <number of resources>}` and outputs a csv file of mapped data.
-
-In the script `src/parse.py`, import the parser class and assign it to the project's name in the
-dictionary `ledger_parser`. Do the same in the script `src/map.py` for the
-mapping class in the dictionary `ledger_mapping`.
-Note: You should provide an entry in the `ledger_mapping` and `ledger_parser` regardless of whether you are using a new or existing mapping or parser.
-
 ### Metrics
-To add a new metric, create a relevant script in `metrics`, which includes a function named `compute_{metric_name}`, 
-then import this function to `src/analyze.py`. Finally, add the name of the metric (and any parameter values it 
-requires) to the file `config.yaml` under `metrics`.
+
+To add a new metric, you should do the following steps.
+
+First, create a relevant script in the folder `src/metrics`. The script should
+include a function named `compute_{metric_name}` that, given a dictionary of
+entities (as keys) to number of blocks (as values), outputs a single value (the
+outcome of the metric).
+
+Second, import this new function to `src/analyze.py`.
+
+Finally, add the name of the metric (which should be the same as the one used in
+the filename above) and any parameter values it might require to the file
+`config.yaml`, under `metrics`.
 
 ## License
 

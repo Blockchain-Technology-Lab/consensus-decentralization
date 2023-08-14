@@ -161,9 +161,11 @@ but are used for protocol-specific reasons (e.g. treasury address). The format o
 
 ## Contributing
 
-To update or add information, you should open a Pull Request that changes one of the files. To do this:
+All mapping data are in the folder `mapping_information`. To update or add
+information about a supported ledger's mapping, you should open a Pull Request.
+This can be done either via console or as follows, via the browser:
 
-- Open the file (e.g., for Bitcoin, follow [this link](https://github.
+- Open the file that you want to change (e.g., for Bitcoin, follow [this link](https://github.
   com/Blockchain-Technology-Lab/pooling-analysis/blob/main/mapping_information/identifiers/bitcoin.json)) on
   your browser.
 - Click `Edit this file`.
@@ -173,7 +175,8 @@ To update or add information, you should open a Pull Request that changes one of
   - Select `Create a new branch for this commit and start a pull request.`
   - In the page that opens, change the PR title (if necessary) and click on `Create pull request`.
 
-Notes:
+When updating the mapping information, the following guidelines should be
+observed:
 
 - The link to a pool's website should be active and public. 
 - All sources cited should be publicly available and respectable. Unofficial tweets or 
@@ -186,4 +189,4 @@ available on-chain. Specifically:
   the value that corresponds to a key `name` in the ledger-specific pool information, as defined in the 
   corresponding `addresses`, `clusters` or `identifiers` file. If this string is not _exactly_ the same 
   (including capitalization), the link will not be identified during the mapping process.
-  - There should exist _no gaps_ in a pool's ownership structure.
+  - There should exist _no time gaps_ in a pool's ownership structure.
