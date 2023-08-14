@@ -1,0 +1,88 @@
+# How to contribute
+
+You can contribute to the tool by adding support for a ledger, updating the
+mapping process for an existing ledger, or adding a new metric. In all cases,
+the information should be submitted via a GitHub PR.
+
+## Support for ledgers
+
+You can add support for a ledger that is not already supported as follows.
+
+In the directory `mapping_information`, there exist three folders (`addresses`,
+`clusters`, `identifiers`). In each folder, add a file named
+`<project_name>.json`, if there exist such information for the new ledger (for
+more details on what type of information each folder corresponds to see the
+[mapping
+documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/)).
+
+In the directory `src/parsers`, create a file named `<project_name>_parser.py`,
+if no existing parser can be reused. In this file create a new class, which
+inherits from the `DefaultParser` class of `default_parser.py`. Then,
+override its `parse` method in order to implement the new parser.
+
+In the directory `src/mappings`, create a file named
+`<project_name>_mapping.py`, if no existing parser can be reused. In this file
+create a new class, which inherits from the `Mapping` class of `mapping.py`.
+Then, override its `process` method. This method takes as input a time period in
+the form `yyyy-mm-dd` (e.g., '2022' for the year 2022, '2022-11' for November
+2022, '2022-11-12' for 12 November 2022), returns a dictionary of the form
+`{'<entity name>': <number of resources>}`, and creates a csv file of mapped
+data in the directory `output`.
+
+Finally, you should add support for the new ledger in the parser and mapping module scripts.
+Specifically:
+
+- in the script `src/parse.py`, import the parser class and assign it to the
+  project's name in the dictionary `ledger_parser`; 
+- in the script `src/map.py`, import the mapping class and assign it to the
+  project's name in the dictionary `ledger_mapping`.
+
+Note: You should add an entry in the dictionaries, regardless of whether you use
+a new or existing mapping or parser.
+
+## Mapping process
+
+All mapping data are in the folder `mapping_information`. To update or add
+information about a supported ledger's mapping, you should open a Pull Request.
+This can be done either via console or as follows, via the browser:
+
+- Open the file that you want to change (e.g., for Bitcoin, follow [this link](https://github.
+  com/Blockchain-Technology-Lab/pooling-analysis/blob/main/mapping_information/identifiers/bitcoin.json)) on
+  your browser.
+- Click `Edit this file`.
+- Make your changes in the file.
+- On the bottom, initiate a Pull Request.
+  - Write a short and descriptive commit title message (e.g., "Update 2019 links for company A").
+  - Select `Create a new branch for this commit and start a pull request.`
+  - In the page that opens, change the PR title (if necessary) and click on `Create pull request`.
+
+When updating the mapping information, the following guidelines should be
+observed:
+
+- The link to a pool's website should be active and public. 
+- All sources cited should be publicly available and respectable. Unofficial tweets or 
+unavailable or private sources will be rejected.You can use specific keywords, in the cases when the information is 
+available on-chain. Specifically:
+  - `homepage`: this keyword is used in Cardano, to denote that two pools define the same homepage in their metadata 
+(which are published on-chain)
+- Specifically, for `legal_links.json`:
+  - The value of the pool's name (that is the first value in each array entry under a company), should be _the same_ as 
+  the value that corresponds to a key `name` in the ledger-specific pool information, as defined in the 
+  corresponding `addresses`, `clusters` or `identifiers` file. If this string is not _exactly_ the same 
+  (including capitalization), the link will not be identified during the mapping process.
+  - There should exist _no time gaps_ in a pool's ownership structure.
+
+## Metrics
+
+To add a new metric, you should do the following steps.
+
+First, create a relevant script in the folder `src/metrics`. The script should
+include a function named `compute_{metric_name}` that, given a dictionary of
+entities (as keys) to number of blocks (as values), outputs a single value (the
+outcome of the metric).
+
+Second, import this new function to `src/analyze.py`.
+
+Finally, add the name of the metric (which should be the same as the one used in
+the filename above) and any parameter values it might require to the file
+`config.yaml`, under `metrics`.
