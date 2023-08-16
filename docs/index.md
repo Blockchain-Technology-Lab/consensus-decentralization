@@ -57,4 +57,6 @@ When making changes in the code, contributors are required to fork the project's
 request with their changes. Each PR will be reviewed before being merged to the main branch. Bugs can be reported 
 in the [Issues](https://github.com/Blockchain-Technology-Lab/pooling-analysis/issues) page. 
 Other comments and ideas can be brought up in the project's
-[Disccussions](https://github.com/Blockchain-Technology-Lab/pooling-analysis/discussions).
+[Discussions](https://github.com/Blockchain-Technology-Lab/pooling-analysis/discussions).
+
+For more information on how to make specific contributions, see the [Contribute](contribute.md) page.

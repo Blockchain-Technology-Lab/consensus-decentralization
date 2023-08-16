@@ -6,4 +6,5 @@ nav:
         - Parsers: parsers.md
         - Mappings: mappings.md
         - Metrics: metrics.md
+        - How to contribute: contribute.md
 theme: readthedocs
