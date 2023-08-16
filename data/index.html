@@ -58,8 +58,6 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#cardano">Cardano</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#dash">Dash</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#dogecoin">Dogecoin</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#ethereum">Ethereum</a>
@@ -149,16 +147,6 @@ AND timestamp &gt; '2018-12-31'
 FROM `iog-data-analytics.cardano_mainnet.block`
 LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
 WHERE `iog-data-analytics.cardano_mainnet.block`.block_time &gt; '2020-12-31'
-</code></pre>
-<h3 id="dash">Dash</h3>
-<p>Sample raw Dash data are available
-<a href="https://drive.google.com/file/d/1DkjAZ7hq45zIan278NA6KVv3B45OG9GU/view?usp=sharing">here</a>.</p>
-<p>They can be retrieved using <a href="https://console.cloud.google.com/bigquery">Google BigQuery</a> with the following query:</p>
-<pre><code>SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_dash.transactions`.outputs
-FROM `bigquery-public-data.crypto_dash.transactions`
-JOIN `bigquery-public-data.crypto_dash.blocks` ON `bigquery-public-data.crypto_dash.transactions`.block_number = `bigquery-public-data.crypto_dash.blocks`.number
-WHERE is_coinbase is TRUE
-AND timestamp &gt; '2018-12-31'
 </code></pre>
 <h3 id="dogecoin">Dogecoin</h3>
 <p>Sample raw Dogecoin data are available
