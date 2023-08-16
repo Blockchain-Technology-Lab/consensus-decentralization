@@ -15,7 +15,6 @@ ledger_mapping = {
     'litecoin': DefaultMapping,
     'zcash': DefaultMapping,
     'tezos': TezosMapping,
-    'dash': DefaultMapping
 }
 
 

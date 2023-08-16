@@ -51,21 +51,6 @@ LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-an
 WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 ```
 
-### Dash
-
-Sample raw Dash data are available
-[here](https://drive.google.com/file/d/1DkjAZ7hq45zIan278NA6KVv3B45OG9GU/view?usp=sharing).
-
-They can be retrieved using [Google BigQuery](https://console.cloud.google.com/bigquery) with the following query:
-
-```
-SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_dash.transactions`.outputs
-FROM `bigquery-public-data.crypto_dash.transactions`
-JOIN `bigquery-public-data.crypto_dash.blocks` ON `bigquery-public-data.crypto_dash.transactions`.block_number = `bigquery-public-data.crypto_dash.blocks`.number
-WHERE is_coinbase is TRUE
-AND timestamp > '2018-12-31'
-```
-
 ### Dogecoin
 
 Sample raw Dogecoin data are available

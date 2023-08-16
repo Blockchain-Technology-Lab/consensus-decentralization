@@ -18,13 +18,6 @@ cardano:
   LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
   WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
 
-#dash:
-#  SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_dash.transactions`.outputs
-#  FROM `bigquery-public-data.crypto_dash.transactions`
-#  JOIN `bigquery-public-data.crypto_dash.blocks` ON `bigquery-public-data.crypto_dash.transactions`.block_number = `bigquery-public-data.crypto_dash.blocks`.number
-#  WHERE is_coinbase is TRUE
-#  AND timestamp > '2018-12-31'
-
 dogecoin:
   SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
   FROM `bigquery-public-data.crypto_dogecoin.transactions`
