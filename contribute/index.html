@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>How to contribute - Blockchain Pooling Analysis - Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How to contribute";
+        var mkdocs_page_input_path = "contribute.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Blockchain Pooling Analysis - Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../setup/">How to use</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../data/">Data Collection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../parsers/">Parsers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mappings/">Mappings</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">How to contribute</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#add-support-for-ledgers">Add support for ledgers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mapping-information">Mapping information</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parser-and-mapping">Parser and mapping</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#update-existing-mapping-information">Update existing mapping information</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-metrics">Add metrics</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Blockchain Pooling Analysis - Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+      <li class="breadcrumb-item active">How to contribute</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="how-to-contribute">How to contribute</h1>
+<p>You can contribute to the tool by adding support for a ledger, updating the
+mapping process for an existing ledger, or adding a new metric. In all cases,
+the information should be submitted via a GitHub PR.</p>
+<h2 id="add-support-for-ledgers">Add support for ledgers</h2>
+<p>You can add support for a ledger that is not already supported as follows.</p>
+<h3 id="mapping-information">Mapping information</h3>
+<p>In the directory <code>mapping_information</code>, there exist three folders (<code>addresses</code>,
+<code>clusters</code>, <code>identifiers</code>). In each folder, add a file named
+<code>&lt;project_name&gt;.json</code>, if there exist such information for the new ledger (for
+more details on what type of information each folder corresponds to see the
+<a href="https://blockchain-technology-lab.github.io/pooling-analysis/mappings/">mapping
+documentation</a>).</p>
+<h3 id="parser-and-mapping">Parser and mapping</h3>
+<p>In the directory <code>src/parsers</code>, create a file named <code>&lt;project_name&gt;_parser.py</code>,
+if no existing parser can be reused. In this file create a new class, which
+inherits from the <code>DefaultParser</code> class of <code>default_parser.py</code>. Then,
+override its <code>parse</code> method in order to implement the new parser (or override another
+method if there are only small changes needed, e.g. <code>parse_identifiers</code> if the only thing
+that is different from the default parser is the way identifiers are decoded).</p>
+<p>In the directory <code>src/mappings</code>, create a file named
+<code>&lt;project_name&gt;_mapping.py</code>, if no existing mapping can be reused. In this file
+create a new class, which inherits from the <code>DefaultMapping</code> class of <code>default_mapping.py</code>.
+Then, override its <code>process</code> method. This method takes as input a time period in
+the form <code>yyyy-mm-dd</code> (e.g., '2022' for the year 2022, '2022-11' for November
+2022, '2022-11-12' for 12 November 2022), returns a dictionary of the form
+<code>{'&lt;entity name&gt;': &lt;number of resources&gt;}</code>, and creates a csv file with the mapped
+data for this timeframe in the <code>output</code> directory.</p>
+<p>Then, you should enable support for the new ledger in the parser and mapping
+module scripts. Specifically:</p>
+<ul>
+<li>in the script <code>src/parse.py</code>, import the parser class and assign it to the
+  project's name in the <code>ledger_parser</code> dictionary;</li>
+<li>in the script <code>src/map.py</code>, import the mapping class and assign it to the
+  project's name in the dictionary <code>ledger_mapping</code>.</li>
+</ul>
+<p><em>Notes</em>:</p>
+<ul>
+<li>You should add an entry in each dictionary, regardless of whether you use a new or existing parser or mapping – if no
+  new parser or mapping class was created for the project, simply assign the suitable class (e.g. DefaultParser or
+  DefaultMapping) to the project's name in the corresponding dictionary.</li>
+<li>If you create a new parser/mapping, you should also add unit
+  tests <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests">here</a></li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<p>Finally, you should include the new ledger in the documentation pages;
+specifically:</p>
+<ul>
+<li>add the ledger in the list of supported ledgers in the repository's main <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/README.md">README file</a></li>
+<li>add the ledger in the list of supported ledgers in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/index.md">index documentation page</a></li>
+<li>document the new ledger's parser in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/parsers.md">corresponding documentation page</a></li>
+<li>document how the new ledger's data is retrieved in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/data.md">corresponding documentation page</a>;
+  if Google BigQuery is used, add the new query to <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/queries.yaml">queries.yaml</a></li>
+</ul>
+<h2 id="update-existing-mapping-information">Update existing mapping information</h2>
+<p>All mapping data are in the folder <code>mapping_information</code>. To update or add
+information about a supported ledger's mapping, you should open a Pull Request.
+This can be done either via console or as follows, via the browser:</p>
+<ul>
+<li>Open the file that you want to change (e.g., for Bitcoin, follow 
+  <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/mapping_information/identifiers/bitcoin.json">this link</a>)
+  on your browser.</li>
+<li>Click <code>Edit this file</code>.</li>
+<li>Make your changes in the file.</li>
+<li>On the bottom, initiate a Pull Request.</li>
+<li>Write a short and descriptive commit title message (e.g., "Update 2019 links for company A").</li>
+<li>Select <code>Create a new branch for this commit and start a pull request.</code></li>
+<li>In the page that opens, change the PR title (if necessary) and click on <code>Create pull request</code>.</li>
+</ul>
+<p>When updating the mapping information, the following guidelines should be
+observed:</p>
+<ul>
+<li>The link to a pool's website should be active and public. </li>
+<li>All sources cited should be publicly available and respectable. Unofficial tweets or 
+unavailable or private sources will be rejected.You can use specific keywords, in the cases when the information is 
+available on-chain. Specifically:</li>
+<li><code>homepage</code>: this keyword is used in Cardano, to denote that two pools define the same homepage in their metadata 
+(which are published on-chain)</li>
+<li>Specifically, for <code>legal_links.json</code>:</li>
+<li>The value of the pool's name (that is the first value in each array entry under a company), should be <em>the same</em> as 
+  the value that corresponds to a key <code>name</code> in the ledger-specific pool information, as defined in the 
+  corresponding <code>addresses</code>, <code>clusters</code> or <code>identifiers</code> file. If this string is not <em>exactly</em> the same 
+  (including capitalization), the link will not be identified during the mapping process.</li>
+<li>There should exist <em>no time gaps</em> in a pool's ownership structure.</li>
+</ul>
+<h2 id="add-metrics">Add metrics</h2>
+<p>To add a new metric, you should do the following steps.</p>
+<p>First, create a relevant script in the folder <code>src/metrics</code>. The script should
+include a function named <code>compute_{metric_name}</code> that, given a dictionary of
+entities (as keys) to number of blocks (as values), outputs a single value (the
+outcome of the metric).</p>
+<p>Second, import this new function to <code>src/analyze.py</code>.</p>
+<p>Finally, add the name of the metric (which should be the same as the one used in
+the filename above) and any parameter values it might require to the file
+<code>config.yaml</code>, under <code>metrics</code>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../metrics/" class="btn btn-neutral float-left" title="Metrics"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../metrics/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
