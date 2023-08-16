@@ -76,27 +76,31 @@ documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mapp
 In the directory `src/parsers`, create a file named `<project_name>_parser.py`,
 if no existing parser can be reused. In this file create a new class, which
 inherits from the `DefaultParser` class of `default_parser.py`. Then,
-override its `parse` method in order to implement the new parser.
+override its `parse` method in order to implement the new parser (or override another
+method if there are only small changes needed, e.g. `parse_identifiers` if the only thing
+that is different from the default parser is the way identifiers are decoded).
 
 In the directory `src/mappings`, create a file named
-`<project_name>_mapping.py`, if no existing parser can be reused. In this file
-create a new class, which inherits from the `Mapping` class of `mapping.py`.
+`<project_name>_mapping.py`, if no existing mapping can be reused. In this file
+create a new class, which inherits from the `DefaultMapping` class of `default_mapping.py`.
 Then, override its `process` method. This method takes as input a time period in
 the form `yyyy-mm-dd` (e.g., '2022' for the year 2022, '2022-11' for November
 2022, '2022-11-12' for 12 November 2022), returns a dictionary of the form
-`{'<entity name>': <number of resources>}`, and creates a csv file of mapped
-data in the directory `output`.
+`{'<entity name>': <number of resources>}`, and creates a csv file with the mapped
+data for this timeframe in the `output` directory.
 
 Finally, you should add support for the new ledger in the parser and mapping module scripts.
 Specifically:
 
 - in the script `src/parse.py`, import the parser class and assign it to the
-  project's name in the dictionary `ledger_parser`; 
+  project's name in the `ledger_parser` dictionary – if no new parser class was created for
+  the project, simply assign the suitable parser class (e.g. DefaultParser) to the
+  project's name in the dictionary;
 - in the script `src/map.py`, import the mapping class and assign it to the
-  project's name in the dictionary `ledger_mapping`.
+  project's name in the `ledger_mapping` dictionary – if no new mapping class was created for
+  the project, simply assign the suitable mapping class (e.g. DefaultMapping) to the
+  project's name in the dictionary.
 
-Note: You should add an entry in the dictionaries, regardless of whether you use
-a new or existing mapping or parser.
 
 ### Mapping information
 

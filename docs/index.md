@@ -58,3 +58,5 @@ request with their changes. Each PR will be reviewed before being merged to the 
 in the [Issues](https://github.com/Blockchain-Technology-Lab/pooling-analysis/issues) page. 
 Other comments and ideas can be brought up in the project's
 [Discussions](https://github.com/Blockchain-Technology-Lab/pooling-analysis/discussions).
+
+For more information on how to make specific contributions, see the [Contribute](contribute.md) page.
