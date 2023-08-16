@@ -9,7 +9,6 @@ Currently, the supported blockchains are:
 - Bitcoin
 - Bitcoin Cash
 - Cardano
-- Dash
 - Dogecoin
 - Ethereum
 - Litecoin
