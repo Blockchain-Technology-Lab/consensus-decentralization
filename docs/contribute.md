@@ -4,9 +4,11 @@ You can contribute to the tool by adding support for a ledger, updating the
 mapping process for an existing ledger, or adding a new metric. In all cases,
 the information should be submitted via a GitHub PR.
 
-## Support for ledgers
+## Add support for ledgers
 
 You can add support for a ledger that is not already supported as follows.
+
+### Mapping information
 
 In the directory `mapping_information`, there exist three folders (`addresses`,
 `clusters`, `identifiers`). In each folder, add a file named
@@ -14,6 +16,8 @@ In the directory `mapping_information`, there exist three folders (`addresses`,
 more details on what type of information each folder corresponds to see the
 [mapping
 documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/)).
+
+### Parser and mapping
 
 In the directory `src/parsers`, create a file named `<project_name>_parser.py`,
 if no existing parser can be reused. In this file create a new class, which
@@ -29,8 +33,8 @@ the form `yyyy-mm-dd` (e.g., '2022' for the year 2022, '2022-11' for November
 `{'<entity name>': <number of resources>}`, and creates a csv file of mapped
 data in the directory `output`.
 
-Finally, you should add support for the new ledger in the parser and mapping module scripts.
-Specifically:
+Then, you should enable support for the new ledger in the parser and mapping
+module scripts.  Specifically:
 
 - in the script `src/parse.py`, import the parser class and assign it to the
   project's name in the dictionary `ledger_parser`; 
@@ -40,7 +44,17 @@ Specifically:
 Note: You should add an entry in the dictionaries, regardless of whether you use
 a new or existing mapping or parser.
 
-## Mapping process
+### Documentation
+
+Finally, you should include the new ledger in the documentation pages;
+specifically:
+
+- add the ledger in the list of supported ledgers in the repository's main [README file](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/README.md)
+- add the ledger in the list of supported ledgers in the [index documentation page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/index.md)
+- document the new ledger's parser in the [corresponding documentation page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/parsers.md)
+- document how the new ledger's data is retrieved in the [corresponding documentation page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/data.md); if Google BigQuery is used, add the new query to [queries.yaml](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/queries.yaml)
+
+## Update existing mapping information
 
 All mapping data are in the folder `mapping_information`. To update or add
 information about a supported ledger's mapping, you should open a Pull Request.
@@ -72,7 +86,7 @@ available on-chain. Specifically:
   (including capitalization), the link will not be identified during the mapping process.
   - There should exist _no time gaps_ in a pool's ownership structure.
 
-## Metrics
+## Add metrics
 
 To add a new metric, you should do the following steps.
 
