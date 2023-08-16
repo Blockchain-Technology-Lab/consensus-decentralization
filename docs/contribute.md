@@ -41,8 +41,10 @@ module scripts.  Specifically:
 - in the script `src/map.py`, import the mapping class and assign it to the
   project's name in the dictionary `ledger_mapping`.
 
-Note: You should add an entry in the dictionaries, regardless of whether you use
-a new or existing mapping or parser.
+*Notes*:
+
+- You should add an entry in the dictionaries, regardless of whether you use a new or existing mapping or parser.
+- If you create a new parser/mapping, you should also add unit tests [here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests)
 
 ### Documentation
 
