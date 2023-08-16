@@ -1,7 +1,7 @@
 All Submissions:
 
-* [ ] Have you followed the guidelines in our [Contributing document](https://blockchain-technology-lab.github.io/pooling-analysis/contribute)?
-* [ ] Have you checked to ensure there aren't other open Pull Requests for the same update/change?
+* [ ] Have you followed the guidelines in our [Contributing documentation](https://blockchain-technology-lab.github.io/pooling-analysis/contribute)?
+* [ ] Have you verified that there aren't any other open Pull Requests for the same update/change?
 
 ### New Ledger Support Submissions:
 
