@@ -198,9 +198,13 @@ include a function named <code>compute_{metric_name}</code> that, given a dictio
 entities (as keys) to number of blocks (as values), outputs a single value (the
 outcome of the metric).</p>
 <p>Second, import this new function to <code>src/analyze.py</code>.</p>
-<p>Finally, add the name of the metric (which should be the same as the one used in
+<p>Third, add the name of the metric (which should be the same as the one used in
 the filename above) and any parameter values it might require to the file
 <code>config.yaml</code>, under <code>metrics</code>.</p>
+<p>Fourth, you should add unit tests for the new metric
+<a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests">here</a>.</p>
+<p>Finally, you should update the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/metrics.md">corresponding documentation
+page</a></p>
               
             </div>
           </div><footer>
