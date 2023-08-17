@@ -105,6 +105,12 @@ outcome of the metric).
 
 Second, import this new function to `src/analyze.py`.
 
-Finally, add the name of the metric (which should be the same as the one used in
+Third, add the name of the metric (which should be the same as the one used in
 the filename above) and any parameter values it might require to the file
 `config.yaml`, under `metrics`.
+
+Fourth, you should add unit tests for the new metric
+[here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests).
+
+Finally, you should update the [corresponding documentation
+page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/metrics.md)
