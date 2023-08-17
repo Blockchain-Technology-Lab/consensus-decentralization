@@ -37,8 +37,23 @@ would run the analysis for Bitcoin, while `--ledgers Bitcoin Ethereum Cardano` w
 Ethereum and Cardano. If the `ledgers` argument is omitted, then all supported ledgers are analyzed.
 - The `timeframe` argument should be of the form `YYYY-MM-DD` (month and day can be omitted). For example,
 `--timeframe 2022` would run the analysis for the year 2022, while `--timeframe 2022-02` would do it for the month of
-February 2022. If the `timeframe` argument is omitted, then a monthly analysis is performed for each month between
-January 2018 and the current month.
+February 2022 and `--timeframe 2022-02-03` would do it for a single day (Feburary 3rd 2022). If the `timeframe` 
+argument is omitted, then a monthly analysis is performed for each month between January 2010 and the current month 
+or the subset of this time period for which relevant data exists.
 
-The script will print the output of each implemented metric for the specified ledgers and timeframe.
-All output files can then be found under the `output` directory, which is automatically created the first time the tool is run.
+Additionally, there are four flags that can be used to customize an execution:
+- `--force-parse` forces the re-parsing of all raw data files, even if the corresponding parsed data files already
+exist. This can be useful for when raw data gets updated for some blockchain. By default, this flag is set to False and 
+the tool only parses blockchain data for which no parsed data file exists.
+- `--force-map` forces the re-mapping of all parsed data files, even if the corresponding mapped data files already
+exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is set to False 
+and the tool only performs the mapping when the relevant mapped data files do not exist.
+- `--plot` enables the generation of graphs at the end of the execution. Specifically, the output of each 
+implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
+specified ledger. By default, this flag is set to False and no plots are generated.
+- `animated` enables the generation of (additional) animated graphs at the end of the execution. By default, this flag
+is set to False and no animated plots are generated. Note that this flag is ignored if `--plot` is set to False.
+
+
+All output files can then be found under the `output` directory, which is automatically created the first time the tool
+is run.
