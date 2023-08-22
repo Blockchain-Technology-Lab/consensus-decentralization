@@ -119,7 +119,7 @@ the information should be submitted via a GitHub PR.</p>
 <code>clusters</code>, <code>identifiers</code>). In each folder, add a file named
 <code>&lt;project_name&gt;.json</code>, if there exist such information for the new ledger (for
 more details on what type of information each folder corresponds to see the
-<a href="https://blockchain-technology-lab.github.io/pooling-analysis/mappings/">mapping
+<a href="https://blockchain-technology-lab.github.io/consensus-decentralization/mappings/">mapping
 documentation</a>).</p>
 <h3 id="parser-and-mapping">Parser and mapping</h3>
 <p>In the directory <code>src/parsers</code>, create a file named <code>&lt;project_name&gt;_parser.py</code>,
@@ -150,17 +150,17 @@ module scripts. Specifically:</p>
   new parser or mapping class was created for the project, simply assign the suitable class (e.g. DefaultParser or
   DefaultMapping) to the project's name in the corresponding dictionary.</li>
 <li>If you create a new parser/mapping, you should also add unit
-  tests <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests">here</a></li>
+  tests <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/tree/main/tests">here</a></li>
 </ul>
 <h3 id="documentation">Documentation</h3>
 <p>Finally, you should include the new ledger in the documentation pages;
 specifically:</p>
 <ul>
-<li>add the ledger in the list of supported ledgers in the repository's main <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/README.md">README file</a></li>
-<li>add the ledger in the list of supported ledgers in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/index.md">index documentation page</a></li>
-<li>document the new ledger's parser in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/parsers.md">corresponding documentation page</a></li>
-<li>document how the new ledger's data is retrieved in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/data.md">corresponding documentation page</a>;
-  if Google BigQuery is used, add the new query to <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/queries.yaml">queries.yaml</a></li>
+<li>add the ledger in the list of supported ledgers in the repository's main <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/README.md">README file</a></li>
+<li>add the ledger in the list of supported ledgers in the <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/index.md">index documentation page</a></li>
+<li>document the new ledger's parser in the <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/parsers.md">corresponding documentation page</a></li>
+<li>document how the new ledger's data is retrieved in the <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/data.md">corresponding documentation page</a>;
+  if Google BigQuery is used, add the new query to <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml">queries.yaml</a></li>
 </ul>
 <h3 id="data">Data</h3>
 <p>You can optionally commit small sample data for the new ledger in the input folder.
@@ -172,7 +172,7 @@ information about a supported ledger's mapping, you should open a Pull Request.
 This can be done either via console or as follows, via the browser:</p>
 <ul>
 <li>Open the file that you want to change (e.g., for Bitcoin, follow 
-  <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/mapping_information/identifiers/bitcoin.json">this link</a>)
+  <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/mapping_information/identifiers/bitcoin.json">this link</a>)
   on your browser.</li>
 <li>Click <code>Edit this file</code>.</li>
 <li>Make your changes in the file.</li>
@@ -208,8 +208,8 @@ outcome of the metric).</p>
 the filename above) and any parameter values it might require to the file
 <code>config.yaml</code>, under <code>metrics</code>.</p>
 <p>Fourth, you should add unit tests for the new metric
-<a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests">here</a>.</p>
-<p>Finally, you should update the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/metrics.md">corresponding documentation
+<a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/tree/main/tests">here</a>.</p>
+<p>Finally, you should update the <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/metrics.md">corresponding documentation
 page</a></p>
               
             </div>
