@@ -8,6 +8,7 @@ from src.helper import OUTPUT_DIR, get_start_end_years
 
 ledger_mapping = {
     'bitcoin': DefaultMapping,
+    'bitcoin_new': DefaultMapping,
     'ethereum': EthereumMapping,
     'bitcoin_cash': DefaultMapping,
     'dogecoin': DefaultMapping,

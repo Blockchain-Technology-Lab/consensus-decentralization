@@ -8,6 +8,7 @@ from src.helper import INPUT_DIR, OUTPUT_DIR
 
 ledger_parser = {
     'bitcoin': DefaultParser,
+    'bitcoin_new': DefaultParser,
     'ethereum': EthereumParser,
     'bitcoin_cash': DefaultParser,
     'dogecoin': DefaultParser,
