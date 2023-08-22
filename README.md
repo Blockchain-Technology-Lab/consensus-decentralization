@@ -1,6 +1,6 @@
 # Consensus Blockchain Decentralization
 
-This repository provides a tool for analyzing pooling behavior of various blockchains and measuring their subsequent
+This repository provides a tool for analyzing block production of various blockchains and measuring their subsequent
 decentralization levels. Please refer to the project's
 [documentation pages](https://blockchain-technology-lab.github.io/pooling-analysis/) for details on its architecture,
 required input, produced output, and more.
@@ -63,7 +63,7 @@ last execution of `run.py`.
 
 You can contribute to the tool in one of the following ways:
 
-- Add support for a ledger that is not already supported as follows.
+- Add support for a ledger that is not already supported.
 - Update and/or add mapping information for a ledger.
 - Add a new metric.
 
