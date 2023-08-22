@@ -15,7 +15,7 @@ In the directory `mapping_information`, there exist three folders (`addresses`,
 `<project_name>.json`, if there exist such information for the new ledger (for
 more details on what type of information each folder corresponds to see the
 [mapping
-documentation](https://blockchain-technology-lab.github.io/pooling-analysis/mappings/)).
+documentation](https://blockchain-technology-lab.github.io/consensus-decentralization/mappings/)).
 
 ### Parser and mapping
 
@@ -49,18 +49,18 @@ module scripts. Specifically:
   new parser or mapping class was created for the project, simply assign the suitable class (e.g. DefaultParser or
   DefaultMapping) to the project's name in the corresponding dictionary.
 - If you create a new parser/mapping, you should also add unit
-  tests [here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests)
+  tests [here](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/tree/main/tests)
 
 ### Documentation
 
 Finally, you should include the new ledger in the documentation pages;
 specifically:
 
-- add the ledger in the list of supported ledgers in the repository's main [README file](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/README.md)
-- add the ledger in the list of supported ledgers in the [index documentation page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/index.md)
-- document the new ledger's parser in the [corresponding documentation page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/parsers.md)
-- document how the new ledger's data is retrieved in the [corresponding documentation page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/data.md);
-  if Google BigQuery is used, add the new query to [queries.yaml](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/queries.yaml)
+- add the ledger in the list of supported ledgers in the repository's main [README file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/README.md)
+- add the ledger in the list of supported ledgers in the [index documentation page](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/index.md)
+- document the new ledger's parser in the [corresponding documentation page](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/parsers.md)
+- document how the new ledger's data is retrieved in the [corresponding documentation page](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/data.md);
+  if Google BigQuery is used, add the new query to [queries.yaml](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml)
 
 ### Data
 
@@ -75,7 +75,7 @@ information about a supported ledger's mapping, you should open a Pull Request.
 This can be done either via console or as follows, via the browser:
 
 - Open the file that you want to change (e.g., for Bitcoin, follow 
-  [this link](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/mapping_information/identifiers/bitcoin.json))
+  [this link](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/mapping_information/identifiers/bitcoin.json))
   on your browser.
 - Click `Edit this file`.
 - Make your changes in the file.
@@ -116,7 +116,7 @@ the filename above) and any parameter values it might require to the file
 `config.yaml`, under `metrics`.
 
 Fourth, you should add unit tests for the new metric
-[here](https://github.com/Blockchain-Technology-Lab/pooling-analysis/tree/main/tests).
+[here](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/tree/main/tests).
 
 Finally, you should update the [corresponding documentation
-page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/metrics.md)
+page](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/docs/metrics.md)

@@ -166,7 +166,7 @@ information about a supported ledger's mapping, you should open a Pull Request.
 This can be done either via console or as follows, via the browser:
 
 - Open the file that you want to change (e.g., for Bitcoin, follow [this link](https://github.
-  com/Blockchain-Technology-Lab/pooling-analysis/blob/main/mapping_information/identifiers/bitcoin.json)) on
+  com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/mapping_information/identifiers/bitcoin.json)) on
   your browser.
 - Click `Edit this file`.
 - Make your changes in the file.
