@@ -17,7 +17,8 @@ SELECT block_number as number, block_timestamp as timestamp, coinbase_param as i
 FROM `bigquery-public-data.crypto_bitcoin.transactions`
 JOIN `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
 WHERE is_coinbase is TRUE
-AND timestamp > '2017-12-31'
+AND timestamp > '2018-01-01'
+ORDER BY timestamp
 ```
 
 ### Bitcoin Cash
@@ -27,7 +28,8 @@ SELECT block_number as number, block_timestamp as timestamp, coinbase_param as i
 FROM `bigquery-public-data.crypto_bitcoin_cash.transactions`
 JOIN `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
 WHERE is_coinbase is TRUE
-AND timestamp > '2018-12-31'
+AND timestamp > '2018-01-01'
+ORDER BY timestamp
 ```
 
 ### Cardano
@@ -36,7 +38,8 @@ AND timestamp > '2018-12-31'
 SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as identifiers, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp,`iog-data-analytics.cardano_mainnet.block`.pool_hash as reward_addresses
 FROM `iog-data-analytics.cardano_mainnet.block`
 LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
-WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2020-12-31'
+WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2018-01-01'
+ORDER BY `iog-data-analytics.cardano_mainnet.block`.block_time
 ```
 
 ### Dogecoin
@@ -46,7 +49,8 @@ SELECT block_number as number, block_timestamp as timestamp, coinbase_param as i
 FROM `bigquery-public-data.crypto_dogecoin.transactions`
 JOIN `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.crypto_dogecoin.transactions`.block_number = `bigquery-public-data.crypto_dogecoin.blocks`.number
 WHERE is_coinbase is TRUE
-AND timestamp > '2019-12-31'
+AND timestamp > '2018-01-01'
+ORDER BY timestamp
 ```
 
 ### Ethereum
@@ -54,7 +58,8 @@ AND timestamp > '2019-12-31'
 ```
 SELECT number, timestamp, miner as reward_addresses, extra_data as identifiers
 FROM `bigquery-public-data.crypto_ethereum.blocks`
-WHERE timestamp > '2018-12-31'
+WHERE timestamp > '2018-01-01'
+ORDER BY timestamp
 ```
 
 ### Litecoin
@@ -64,7 +69,8 @@ SELECT block_number as number, block_timestamp as timestamp, coinbase_param as i
 FROM `bigquery-public-data.crypto_litecoin.transactions`
 JOIN `bigquery-public-data.crypto_litecoin.blocks` ON `bigquery-public-data.crypto_litecoin.transactions`.block_number = `bigquery-public-data.crypto_litecoin.blocks`.number
 WHERE is_coinbase is TRUE
-AND timestamp > '2018-12-31'
+AND timestamp > '2018-01-01'
+ORDER BY timestamp
 ```
 
 ### Tezos
@@ -72,7 +78,8 @@ AND timestamp > '2018-12-31'
 ```
 SELECT level as number, timestamp, baker as reward_addresses
 FROM `public-data-finance.crypto_tezos.blocks`
-WHERE timestamp > '2020-12-31'
+WHERE timestamp > '2018-01-01'
+ORDER BY timestamp
 ```
 
 ### Zcash
@@ -82,7 +89,8 @@ SELECT block_number as number, block_timestamp as timestamp, coinbase_param as i
 FROM `bigquery-public-data.crypto_zcash.transactions`
 JOIN `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_zcash.transactions`.block_number = `bigquery-public-data.crypto_zcash.blocks`.number
 WHERE is_coinbase is TRUE
-AND timestamp > '2018-12-31'
+AND timestamp > '2018-01-01'
+ORDER BY timestamp
 ```
 
 ## Automating the data collection process
