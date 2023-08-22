@@ -4,7 +4,7 @@ This is the documentation for the Consensus Decentralization Analysis tool devel
 Blockchain Technology Lab. The tool is responsible for analyzing the block production of various blockchains and measuring their 
 subsequent levels of decentralization.
 
-The relevant source code is available on [GitHub](https://github.com/Blockchain-Technology-Lab/pooling-analysis).
+The relevant source code is available on [GitHub](https://github.com/Blockchain-Technology-Lab/consensus-decentralization).
 
 ## Overview
 The tool consists of the following modules:
@@ -43,7 +43,7 @@ We intend to add more ledgers to this list in the future.
 ## Contributing
 
 This is an open source project licensed under the terms and conditions of the 
-[MIT license](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/LICENSE) and
+[MIT license](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/LICENSE) and
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 Everyone is welcome to contribute to it by proposing or implementing their
 ideas. Example contributions include, but are not limited to, reporting
@@ -54,8 +54,8 @@ license.
 
 When making changes in the code, contributors are required to fork the project's repository first and then issue a pull 
 request with their changes. Each PR will be reviewed before being merged to the main branch. Bugs can be reported 
-in the [Issues](https://github.com/Blockchain-Technology-Lab/pooling-analysis/issues) page. 
+in the [Issues](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/issues) page. 
 Other comments and ideas can be brought up in the project's
-[Discussions](https://github.com/Blockchain-Technology-Lab/pooling-analysis/discussions).
+[Discussions](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/discussions).
 
 For more information on how to make specific contributions, see [How to Contribute](contribute.md).

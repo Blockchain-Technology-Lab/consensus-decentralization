@@ -2,7 +2,7 @@
 
 This repository provides a CLI tool for analyzing the block production of various blockchains and measuring their 
 subsequent levels of decentralization. Please refer to the project's
-[documentation pages](https://blockchain-technology-lab.github.io/pooling-analysis/) for details on its architecture,
+[documentation pages](https://blockchain-technology-lab.github.io/consensus-decentralization/) for details on its architecture,
 required input, produced output, and more.
 
 Currently, the supported blockchains are:
@@ -19,7 +19,7 @@ Currently, the supported blockchains are:
 
 To install the tool, simply clone this project:
 
-    git clone https://github.com/Blockchain-Technology-Lab/pooling-analysis.git
+    git clone https://github.com/Blockchain-Technology-Lab/consensus-decentralization.git
 
 The [requirements file](requirements.txt) lists the dependencies of the project.
 Make sure you have all of them installed before running the scripts. To install
@@ -34,7 +34,7 @@ Place all raw data (which could be collected from BigQuery for example) in the `
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there
 is a (very small) sample input file for some supported projects. To use the
 samples, remove the prefix `sample_`. For more extended raw data and instructions on how to retrieve it, see
-[here](https://blockchain-technology-lab.github.io/pooling-analysis/data/).
+[here](https://blockchain-technology-lab.github.io/consensus-decentralization/data/).
 
 Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data.
 Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values
@@ -68,7 +68,7 @@ You can contribute to the tool in one of the following ways:
 - Add a new metric.
 
 For detailed information on how to contribute see the relevant [documentation
-page](https://blockchain-technology-lab.github.io/pooling-analysis/contribute/).
+page](https://blockchain-technology-lab.github.io/consensus-decentralization/contribute/).
 
 ## Maintainers
 
@@ -82,5 +82,5 @@ people in the above list.
 
 ## License
 
-The code of this repository is released under the [MIT License](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/LICENSE).
+The code of this repository is released under the [MIT License](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/LICENSE).
 The documentation pages are released under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).

@@ -89,9 +89,9 @@ AND timestamp > '2018-12-31'
 
 Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is
 also possible to automate the process using
-a [script](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/src/collect_data.py) and collect all
+a [script](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/src/collect_data.py) and collect all
 relevant data in one go. Executing this script will run all queries
-in [this file](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/queries.yaml), so you can also
+in [this file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml), so you can also
 control which queries are run by adding them to or removing them from the file (or turning them into comments by 
 adding a `#` in front of each relevant line).
 
@@ -99,7 +99,7 @@ IMPORTANT: the script uses service account credentials for authentication, there
 generate the relevant credentials from Google, as described 
 [here](https://developers.google.com/workspace/guides/create-credentials#service-account) and save your key in the
 root directory of the project under the name 'google-service-account-key.json'. There is a
-[sample file](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/google-service-account-key-SAMPLE.json) 
+[sample file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/google-service-account-key-SAMPLE.json) 
 that you can consult, which shows what your credentials are supposed to look like (but note that this is for
 informational purposes only, this file is not used in the code).
 

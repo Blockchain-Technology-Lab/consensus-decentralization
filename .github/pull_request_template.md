@@ -1,6 +1,6 @@
 All Submissions:
 
-* [ ] Have you followed the guidelines in our [Contributing documentation](https://blockchain-technology-lab.github.io/pooling-analysis/contribute)?
+* [ ] Have you followed the guidelines in our [Contributing documentation](https://blockchain-technology-lab.github.io/consensus-decentralization/contribute)?
 * [ ] Have you verified that there aren't any other open Pull Requests for the same update/change?
 * [ ] Does the Pull Request pass all tests?
 
@@ -35,7 +35,7 @@ All Submissions:
     - [ ] TezosMapping
 - [ ] Did you enable the parser for the new ledger in `src/parse.py`?
 - [ ] Did you enable the mapping for the new ledger in `src/map.py`?
-- [ ] Did you document support for the new ledger as described in our [Contributing documentation](https://blockchain-technology-lab.github.io/pooling-analysis/contribute)?
+- [ ] Did you document support for the new ledger as described in our [Contributing documentation](https://blockchain-technology-lab.github.io/consensus-decentralization/contribute)?
 
 ### Update Mapping Support Information Submissions:
 
