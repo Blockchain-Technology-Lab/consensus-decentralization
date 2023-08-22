@@ -62,6 +62,12 @@ specifically:
 - document how the new ledger's data is retrieved in the [corresponding documentation page](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/docs/data.md);
   if Google BigQuery is used, add the new query to [queries.yaml](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/queries.yaml)
 
+### Data
+
+You can optionally commit small sample data for the new ledger in the input folder.
+Alternatively, make sure to add your raw data file in the input folder before
+running the tool on the new ledger.
+
 ## Update existing mapping information
 
 All mapping data are in the folder `mapping_information`. To update or add
