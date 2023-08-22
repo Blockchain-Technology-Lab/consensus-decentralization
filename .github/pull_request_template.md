@@ -12,17 +12,6 @@ All Submissions:
 
 /* Keep from below the appropriate checklist for your Pull Request and remove the others */
 
-### Update Mapping Support Information Submissions:
-
-- For which ledger do you update the mapping information?
-  - [ ] /* ledger name */
-- What mapping information do you update?
-  - [ ] identifiers
-  - [ ] addresses
-  - [ ] clusters
-  - [ ] legal links
-- [ ] Did you update the tests (if needed)?
-
 ### New Ledger Support Submissions:
 
 - What mapping information did you add for the new ledger?
@@ -39,6 +28,17 @@ All Submissions:
 - [ ] Did you enable the parser for the new ledger in `src/parse.py`?
 - [ ] Did you enable the mapping for the new ledger in `src/map.py`?
 - [ ] Did you document support for the new ledger as described in our [Contributing documentation](https://blockchain-technology-lab.github.io/pooling-analysis/contribute)?
+
+### Update Mapping Support Information Submissions:
+
+- For which ledger do you update the mapping information?
+  - [ ] /* ledger name */
+- What mapping information do you update?
+  - [ ] identifiers
+  - [ ] addresses
+  - [ ] clusters
+  - [ ] legal links
+- [ ] Did you update the tests (if needed)?
 
 ### New Metric Support Submissions:
 
