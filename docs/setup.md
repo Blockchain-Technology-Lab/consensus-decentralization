@@ -2,7 +2,7 @@
 
 ## Installation
 
-To install the pooling analysis tool, simply clone this GitHub repository:
+To install the consensus decentralization analysis tool, simply clone this GitHub repository:
 
     git clone https://github.com/Blockchain-Technology-Lab/pooling-analysis.git
 
@@ -19,7 +19,7 @@ project:
 
 ## Execution
 
-The pooling analysis tool is a CLI tool.
+The consensus decentralization analysis tool is a CLI tool.
 The `run.py` script in the root directory of the project invokes the required parsers, mappings and metrics, but it is
 also possible to execute each module individually. The following process describes the most typical workflow.
 

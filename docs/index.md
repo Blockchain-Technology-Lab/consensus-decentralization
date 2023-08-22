@@ -1,8 +1,8 @@
-# Blockchain Pooling Analysis - Documentation
+# Consensus Blockchain Decentralization - Documentation
 
-This is the documentation for the Blockchain Pooling Analysis tool developed by the University of Edinburgh's Blockchain 
-Technology Lab. The tool is responsible for analyzing pooling behavior of various blockchains and measuring their 
-subsequent decentralization levels.
+This is the documentation for the Consensus Decentralization Analysis tool developed by the University of Edinburgh's 
+Blockchain Technology Lab. The tool is responsible for analyzing the block production of various blockchains and measuring their 
+subsequent levels of decentralization.
 
 The relevant source code is available on [GitHub](https://github.com/Blockchain-Technology-Lab/pooling-analysis).
 
@@ -18,11 +18,11 @@ with all the information that is needed for the mapping.
 
 The mapping takes the output of the parser and combines it with some other
 sources of information. It then outputs a file that reveals the distribution of
-resources to different entities.  In this context, "resources" correspond to the
-number of produced blocks. 
+resources to different entities. In this context, "resources" correspond to the
+number of produced blocks.
 
 This distribution is the input for the metrics module, which tracks various
-decentralization-related metrics and produces files with the results. 
+decentralization-related metrics and produces files with the results.
 
 More details about the different modules can be found in the corresponding [Parser](parsers.md), [Mapping](mappings.md)
 and [Metrics](metrics.md) pages.
@@ -58,4 +58,4 @@ in the [Issues](https://github.com/Blockchain-Technology-Lab/pooling-analysis/is
 Other comments and ideas can be brought up in the project's
 [Discussions](https://github.com/Blockchain-Technology-Lab/pooling-analysis/discussions).
 
-For more information on how to make specific contributions, see the [Contribute](contribute.md) page.
+For more information on how to make specific contributions, see [How to Contribute](contribute.md).

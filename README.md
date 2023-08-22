@@ -1,7 +1,7 @@
 # Consensus Blockchain Decentralization
 
-This repository provides a tool for analyzing block production of various blockchains and measuring their subsequent
-decentralization levels. Please refer to the project's
+This repository provides a CLI tool for analyzing the block production of various blockchains and measuring their 
+subsequent levels of decentralization. Please refer to the project's
 [documentation pages](https://blockchain-technology-lab.github.io/pooling-analysis/) for details on its architecture,
 required input, produced output, and more.
 
@@ -15,9 +15,9 @@ Currently, the supported blockchains are:
 - Tezos
 - Zcash
 
-## Installation 
+## Installation
 
-To install the pooling analysis tool, simply clone this project:
+To install the tool, simply clone this project:
 
     git clone https://github.com/Blockchain-Technology-Lab/pooling-analysis.git
 
