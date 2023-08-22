@@ -1,4 +1,4 @@
-# Pooling Analysis
+# Consensus Blockchain Decentralization
 
 This repository provides a tool for analyzing pooling behavior of various blockchains and measuring their subsequent
 decentralization levels. Please refer to the project's
