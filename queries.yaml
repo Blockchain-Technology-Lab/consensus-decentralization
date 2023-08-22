@@ -1,16 +1,16 @@
-#bitcoin:
-#  SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
-#  FROM `bigquery-public-data.crypto_bitcoin.transactions`
-#  JOIN `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
-#  WHERE is_coinbase is TRUE
-#  AND timestamp > '2017-12-31'
+bitcoin:
+  SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_bitcoin.transactions`.outputs
+  FROM `bigquery-public-data.crypto_bitcoin.transactions`
+  JOIN `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
+  WHERE is_coinbase is TRUE
+  AND timestamp > '2017-12-31'
 
-#bitcoin_cash:
-#  SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
-#  FROM `bigquery-public-data.crypto_bitcoin_cash.transactions`
-#  JOIN `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
-#  WHERE is_coinbase is TRUE
-#  AND timestamp > '2018-12-31'
+bitcoin_cash:
+  SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_bitcoin_cash.transactions`.outputs
+  FROM `bigquery-public-data.crypto_bitcoin_cash.transactions`
+  JOIN `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
+  WHERE is_coinbase is TRUE
+  AND timestamp > '2018-12-31'
 
 cardano:
   SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as identifiers, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp,`iog-data-analytics.cardano_mainnet.block`.pool_hash as reward_addresses
