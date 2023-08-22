@@ -21,10 +21,18 @@ All Submissions:
   - [ ] legal links
 - Did you create a new parser?
   - [ ] If yes, did you create a unit test for the new parser?
-  - [ ] If no, which parser did you reuse? /* parser name */
+  - [ ] If no, which parser did you reuse?
+    - [ ] DefaultParser
+    - [ ] DummyParser
+    - [ ] EthereumParser
 - Did you create a new mapping?
   - [ ] If yes, did you create a unit test for the new mapping?
   - [ ] If no, which mapping did you reuse? /* mapping name */
+    - [ ] DefaultMapping
+    - [ ] DummyMapping
+    - [ ] EthereumMapping
+    - [ ] CardanoMapping
+    - [ ] TezosMapping
 - [ ] Did you enable the parser for the new ledger in `src/parse.py`?
 - [ ] Did you enable the mapping for the new ledger in `src/map.py`?
 - [ ] Did you document support for the new ledger as described in our [Contributing documentation](https://blockchain-technology-lab.github.io/pooling-analysis/contribute)?
