@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Metrics - Blockchain Pooling Analysis - Docs</title>
+    <title>Metrics - Consensus Blockchain Decentralization - Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> Blockchain Pooling Analysis - Docs
+          <a href=".." class="icon icon-home"> Consensus Blockchain Decentralization - Docs
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -76,7 +76,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">Blockchain Pooling Analysis - Docs</a>
+          <a href="..">Consensus Blockchain Decentralization - Docs</a>
         
       </nav>
       <div class="wy-nav-content">
@@ -104,23 +104,23 @@ output of the metric is a decimal number in [0,1]. Values close to 0 indicate eq
 the system produce the same number of blocks) and values close to 1 indicate inequality (one entity
 produces most or all blocks).</li>
 <li><strong>Entropy</strong>: Entropy represents the expected amount of information in the distribution of blocks across entities.
-Entropy is parameterized by a base rate α, which defines different types of
-entropy: </li>
+The output of the metric is a real number. Typically, a higher value of entropy indicates higher decentralization
+(lower predictability). Entropy is parameterized by a base rate α, which defines different types of entropy: </li>
 <li>α = -1: min entropy</li>
 <li>α = 0: Hartley entropy</li>
-<li>α = 1: Shannon entropy</li>
+<li>α = 1: Shannon entropy (this is used by default)</li>
 <li>α = 2: collision entropy</li>
-</ol>
-<p>The output of the metric is a real number. Typically, a higher value of entropy indicates higher decentralization
-   (lower predictability). By default, the Shannon entropy (α = 1) is used.
-4. <strong>HHI</strong>: The Herfindahl-Hirschman Index (HHI) is a measure of market concentration. It is defined as the sum of the
+<li><strong>HHI</strong>: The Herfindahl-Hirschman Index (HHI) is a measure of market concentration. It is defined as the sum of the
 squares of the market shares (as whole numbers, e.g. 40 for 40%) of the entities in the system. The output of the metric
 is a real number in (0, 10000]. Values close to 0 indicate low concentration (many entities produce a similar number of
 blocks) and values close to 1 indicate high concentration (one entity produces most or all blocks). 
-The U.S. Department of Justice has set the following thresholds for interpreting HHI values (in traditional markets):
-    - (0, 1500): Competitive market
-    - [1500, 2500]: Moderately concentrated market
-    - (2500, 10000]: Highly concentrated market</p>
+The U.S. Department of Justice has set the following thresholds for interpreting HHI values (in traditional markets):<ul>
+<li>(0, 1500): Competitive market</li>
+<li>[1500, 2500]: Moderately concentrated market</li>
+<li>(2500, 10000]: Highly concentrated market</li>
+</ul>
+</li>
+</ol>
 <p>Each metric is implemented in a separate Python script in the folder <code>metrics</code>. Each script defines a function named <code>compute_&lt;metric_name&gt;</code>, which takes as input a dictionary of the form <code>{'&lt;entity name&gt;': &lt;number of resources&gt;}</code> (and possibly other relevant arguments) and outputs the corresponding metric values.</p>
               
             </div>
