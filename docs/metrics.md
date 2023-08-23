@@ -13,7 +13,6 @@ produces most or all blocks).
 3. **Entropy**: Entropy represents the expected amount of information in the distribution of blocks across entities.
 The output of the metric is a real number. Typically, a higher value of entropy indicates higher decentralization
 (lower predictability). Entropy is parameterized by a base rate α, which defines different types of entropy:
-
     - α = -1: min entropy
     - α = 0: Hartley entropy
     - α = 1: Shannon entropy (this is used by default)
