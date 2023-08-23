@@ -103,20 +103,20 @@ integer.</li>
 output of the metric is a decimal number in [0,1]. Values close to 0 indicate equality (all entities in
 the system produce the same number of blocks) and values close to 1 indicate inequality (one entity
 produces most or all blocks).</li>
-<li>
-<p><strong>Entropy</strong>: Entropy represents the expected amount of information in the distribution of blocks across entities.
+<li><strong>Entropy</strong>: Entropy represents the expected amount of information in the distribution of blocks across entities.
 The output of the metric is a real number. Typically, a higher value of entropy indicates higher decentralization
-(lower predictability). Entropy is parameterized by a base rate α, which defines different types of entropy:</p>
-<ul>
+(lower predictability). Entropy is parameterized by a base rate α, which defines different types of entropy:<ul>
 <li>α = -1: min entropy</li>
 <li>α = 0: Hartley entropy</li>
 <li>α = 1: Shannon entropy (this is used by default)</li>
 <li>α = 2: collision entropy</li>
+</ul>
+</li>
 <li><strong>HHI</strong>: The Herfindahl-Hirschman Index (HHI) is a measure of market concentration. It is defined as the sum of the
 squares of the market shares (as whole numbers, e.g. 40 for 40%) of the entities in the system. The output of the metric
 is a real number in (0, 10000]. Values close to 0 indicate low concentration (many entities produce a similar number of
 blocks) and values close to 1 indicate high concentration (one entity produces most or all blocks). 
-The U.S. Department of Justice has set the following thresholds for interpreting HHI values (in traditional markets):</li>
+The U.S. Department of Justice has set the following thresholds for interpreting HHI values (in traditional markets):<ul>
 <li>(0, 1500): Competitive market</li>
 <li>[1500, 2500]: Moderately concentrated market</li>
 <li>(2500, 10000]: Highly concentrated market</li>
