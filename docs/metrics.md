@@ -12,11 +12,12 @@ the system produce the same number of blocks) and values close to 1 indicate ine
 produces most or all blocks).
 3. **Entropy**: Entropy represents the expected amount of information in the distribution of blocks across entities.
 The output of the metric is a real number. Typically, a higher value of entropy indicates higher decentralization
-(lower predictability). Entropy is parameterized by a base rate α, which defines different types of entropy: 
-   - α = -1: min entropy
-   - α = 0: Hartley entropy
-   - α = 1: Shannon entropy (this is used by default)
-   - α = 2: collision entropy
+(lower predictability). Entropy is parameterized by a base rate α, which defines different types of entropy:
+
+    - α = -1: min entropy
+    - α = 0: Hartley entropy
+    - α = 1: Shannon entropy (this is used by default)
+    - α = 2: collision entropy
 4. **HHI**: The Herfindahl-Hirschman Index (HHI) is a measure of market concentration. It is defined as the sum of the
 squares of the market shares (as whole numbers, e.g. 40 for 40%) of the entities in the system. The output of the metric
 is a real number in (0, 10000]. Values close to 0 indicate low concentration (many entities produce a similar number of
