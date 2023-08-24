@@ -30,7 +30,7 @@ project:
 
 ## Run the tool
 
-Place all raw data (which could be collected from BigQuery for example) in the `input` directory, each file named as
+Place all raw data (which could be collected from BigQuery for example) in the `raw_block_data` directory, each file named as
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there
 is a (very small) sample input file for some supported projects. To use the
 samples, remove the prefix `sample_`. For more extended raw data and instructions on how to retrieve it, see

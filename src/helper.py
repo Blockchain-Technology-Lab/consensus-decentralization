@@ -12,7 +12,7 @@ from functools import lru_cache
 from yaml import safe_load
 
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
-INPUT_DIR = ROOT_DIR / 'input'
+RAW_DATA_DIR = ROOT_DIR / 'raw_block_data'
 OUTPUT_DIR = ROOT_DIR / 'output'
 MAPPING_INFO_DIR = ROOT_DIR / 'mapping_information'
 

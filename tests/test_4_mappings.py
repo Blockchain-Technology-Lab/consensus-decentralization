@@ -12,7 +12,7 @@ from src.mappings.default_mapping import DefaultMapping
 from src.mappings.ethereum_mapping import EthereumMapping
 from src.mappings.cardano_mapping import CardanoMapping
 from src.mappings.tezos_mapping import TezosMapping
-from src.helper import INPUT_DIR, OUTPUT_DIR
+from src.helper import RAW_DATA_DIR, OUTPUT_DIR
 
 
 @pytest.fixture
@@ -32,15 +32,15 @@ def setup_and_cleanup():
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'  # todo better to have separate helper files for the tests s.t. the tests don't break just because the info changes
-    test_input_dir = INPUT_DIR
+    test_raw_data_dir = RAW_DATA_DIR
     test_output_dir = OUTPUT_DIR / "test_output"
-    yield mapping_info_dir, test_input_dir, test_output_dir
+    yield mapping_info_dir, test_raw_data_dir, test_output_dir
     # Clean up
     shutil.rmtree(test_output_dir)
 
 
 def test_map(setup_and_cleanup):
-    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
+    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_bitcoin'
 
     try:
@@ -64,7 +64,7 @@ def test_map(setup_and_cleanup):
     timeframes = ['2010', '2018-02', '2018-03']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     output_file = test_output_dir / project / f'{timeframes[0]}.csv'
@@ -88,7 +88,7 @@ def test_map(setup_and_cleanup):
 
 
 def test_bitcoin_mapping(setup_and_cleanup):
-    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
+    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_bitcoin'
 
     try:
@@ -121,7 +121,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
     timeframes = ['2018-02']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
@@ -152,7 +152,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
     timeframes = ['2020']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
@@ -181,7 +181,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
 
 
 def test_ethereum_mapping(setup_and_cleanup):
-    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
+    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_ethereum'
 
     try:
@@ -223,7 +223,7 @@ def test_ethereum_mapping(setup_and_cleanup):
     timeframes = ['2020-11']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
@@ -246,7 +246,7 @@ def test_ethereum_mapping(setup_and_cleanup):
     timeframes = ['2023']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
@@ -274,7 +274,7 @@ def test_ethereum_mapping(setup_and_cleanup):
 
 
 def test_cardano_mapping(setup_and_cleanup):
-    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
+    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_cardano'
 
     try:
@@ -301,7 +301,7 @@ def test_cardano_mapping(setup_and_cleanup):
     timeframes = ['2020-12']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
@@ -338,7 +338,7 @@ def test_cardano_mapping(setup_and_cleanup):
 
 
 def test_tezos_mapping(setup_and_cleanup):
-    pool_info_dir, test_input_dir, test_output_dir = setup_and_cleanup
+    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_tezos'
 
     try:
@@ -374,7 +374,7 @@ def test_tezos_mapping(setup_and_cleanup):
     timeframes = ['2021-08']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [
@@ -398,7 +398,7 @@ def test_tezos_mapping(setup_and_cleanup):
     timeframes = ['2018']
     force_map = True
 
-    parse(project, test_input_dir, test_output_dir)
+    parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
     expected_output = [

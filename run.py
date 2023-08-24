@@ -4,7 +4,7 @@ from src.map import apply_mapping
 from src.analyze import analyze
 from src.parse import parse
 from src.plot import plot
-from src.helper import valid_date, INPUT_DIR, OUTPUT_DIR, get_default_ledgers, get_start_end_years
+from src.helper import valid_date, RAW_DATA_DIR, OUTPUT_DIR, get_default_ledgers, get_start_end_years
 
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
@@ -25,7 +25,7 @@ def main(projects, timeframes, force_parse, force_map, make_plots, make_animated
     """
     logging.info(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
-        parse(project, INPUT_DIR, output_dir, force_parse)
+        parse(project, RAW_DATA_DIR, output_dir, force_parse)
         apply_mapping(project, timeframes, output_dir, force_map)
 
     used_metrics = analyze(projects, timeframes, output_dir)

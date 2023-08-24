@@ -3,7 +3,7 @@ import logging
 from src.parsers.default_parser import DefaultParser
 from src.parsers.dummy_parser import DummyParser
 from src.parsers.ethereum_parser import EthereumParser
-from src.helper import INPUT_DIR, OUTPUT_DIR
+from src.helper import RAW_DATA_DIR, OUTPUT_DIR
 
 
 ledger_parser = {
@@ -51,4 +51,4 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    parse(args.ledger, INPUT_DIR, OUTPUT_DIR, args.force_parse)
+    parse(args.ledger, RAW_DATA_DIR, OUTPUT_DIR, args.force_parse)
