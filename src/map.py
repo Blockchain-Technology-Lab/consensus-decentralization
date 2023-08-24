@@ -34,6 +34,7 @@ def apply_mapping(project, timeframes, output_dir, force_map):
     project_output_dir = output_dir / f'{project}'
     mapping = ledger_mapping[project](project, project_output_dir)
 
+    computed_yearly_mappings = set()  # Keep track of computed yearly mappings to avoid recomputing them in the same run
     for timeframe in timeframes:
         output_file = project_output_dir / f'{timeframe}.csv'
         if not output_file.is_file() or force_map:
@@ -43,8 +44,9 @@ def apply_mapping(project, timeframes, output_dir, force_map):
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
             year_file = project_output_dir / f'{year}.csv'
-            if not year_file.is_file() or force_map:
+            if not year_file.is_file() or (force_map and year not in computed_yearly_mappings):
                 mapping.perform_mapping(year)
+                computed_yearly_mappings.add(year)
 
 
 if __name__ == '__main__':
