@@ -114,7 +114,7 @@ project:</p>
 The <code>run.py</code> script in the root directory of the project invokes the required parsers, mappings and metrics, but it is
 also possible to execute each module individually. The following process describes the most typical workflow.</p>
 <p>Place all raw data (which could be collected from BigQuery for example; see <a href="../data/">Data Collection</a> for more details)
-in the <code>input</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g., <code>bitcoin_raw_data.json</code>). By default,
+in the <code>raw_block_data</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g., <code>bitcoin_raw_data.json</code>). By default,
 there is a (very small) sample input file for some supported projects; to use it, remove the prefix <code>sample_</code>.</p>
 <p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt;</code> to
 analyze the n specified ledgers for the given timeframe.

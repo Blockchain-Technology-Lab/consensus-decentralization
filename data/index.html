@@ -183,7 +183,7 @@ ORDER BY timestamp
 <h2 id="automating-the-data-collection-process">Automating the data collection process</h2>
 <p>Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is
 also possible to automate the process using
-a <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/src/collect_data.py">script</a> and collect all
+a <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/consensus_decentralization/collect_data.py">script</a> and collect all
 relevant data in one go. Executing this script will run all queries
 in <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml">this file</a>, so you can also
 control which queries are run by adding them to or removing them from the file (or turning them into comments by 
@@ -195,7 +195,7 @@ root directory of the project under the name 'google-service-account-key.json'. 
 <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/google-service-account-key-SAMPLE.json">sample file</a> 
 that you can consult, which shows what your credentials are supposed to look like (but note that this is for
 informational purposes only, this file is not used in the code).</p>
-<p>Once you have set up the credentials, you can just run the following command from the <code>src</code> directory to retrieve data
+<p>Once you have set up the credentials, you can just run the following command from the <code>consensus_decentralization</code> directory to retrieve data
 for all supported blockchains:</p>
 <p><code>python collect_data.py</code></p>
               

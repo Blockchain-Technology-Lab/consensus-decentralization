@@ -122,13 +122,13 @@ more details on what type of information each folder corresponds to see the
 <a href="https://blockchain-technology-lab.github.io/consensus-decentralization/mappings/">mapping
 documentation</a>).</p>
 <h3 id="parser-and-mapping">Parser and mapping</h3>
-<p>In the directory <code>src/parsers</code>, create a file named <code>&lt;project_name&gt;_parser.py</code>,
+<p>In the directory <code>consensus_decentralization/parsers</code>, create a file named <code>&lt;project_name&gt;_parser.py</code>,
 if no existing parser can be reused. In this file create a new class, which
 inherits from the <code>DefaultParser</code> class of <code>default_parser.py</code>. Then,
 override its <code>parse</code> method in order to implement the new parser (or override another
 method if there are only small changes needed, e.g. <code>parse_identifiers</code> if the only thing
 that is different from the default parser is the way identifiers are decoded).</p>
-<p>In the directory <code>src/mappings</code>, create a file named
+<p>In the directory <code>consensus_decentralization/mappings</code>, create a file named
 <code>&lt;project_name&gt;_mapping.py</code>, if no existing mapping can be reused. In this file
 create a new class, which inherits from the <code>DefaultMapping</code> class of <code>default_mapping.py</code>.
 Then, override its <code>process</code> method. This method takes as input a time period in
@@ -139,9 +139,9 @@ data for this timeframe in the <code>output</code> directory.</p>
 <p>Then, you should enable support for the new ledger in the parser and mapping
 module scripts. Specifically:</p>
 <ul>
-<li>in the script <code>src/parse.py</code>, import the parser class and assign it to the
+<li>in the script <code>consensus_decentralization/parse.py</code>, import the parser class and assign it to the
   project's name in the <code>ledger_parser</code> dictionary;</li>
-<li>in the script <code>src/map.py</code>, import the mapping class and assign it to the
+<li>in the script <code>consensus_decentralization/map.py</code>, import the mapping class and assign it to the
   project's name in the dictionary <code>ledger_mapping</code>.</li>
 </ul>
 <p><em>Notes</em>:</p>
@@ -163,8 +163,8 @@ specifically:</p>
   if Google BigQuery is used, add the new query to <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml">queries.yaml</a></li>
 </ul>
 <h3 id="data">Data</h3>
-<p>You can optionally commit small sample data for the new ledger in the input folder.
-Alternatively, make sure to add your raw data file in the input folder before
+<p>You can optionally commit small sample data for the new ledger in the raw_block_data folder.
+Alternatively, make sure to add your raw data file in the raw_block_data folder before
 running the tool on the new ledger.</p>
 <h2 id="update-existing-mapping-information">Update existing mapping information</h2>
 <p>All mapping data are in the folder <code>mapping_information</code>. To update or add
@@ -199,11 +199,11 @@ available on-chain. Specifically:</li>
 </ul>
 <h2 id="add-metrics">Add metrics</h2>
 <p>To add a new metric, you should do the following steps.</p>
-<p>First, create a relevant script in the folder <code>src/metrics</code>. The script should
+<p>First, create a relevant script in the folder <code>consensus_decentralization/metrics</code>. The script should
 include a function named <code>compute_{metric_name}</code> that, given a dictionary of
 entities (as keys) to number of blocks (as values), outputs a single value (the
 outcome of the metric).</p>
-<p>Second, import this new function to <code>src/analyze.py</code>.</p>
+<p>Second, import this new function to <code>consensus_decentralization/analyze.py</code>.</p>
 <p>Third, add the name of the metric (which should be the same as the one used in
 the filename above) and any parameter values it might require to the file
 <code>config.yaml</code>, under <code>metrics</code>.</p>
