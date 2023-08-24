@@ -64,8 +64,8 @@ specifically:
 
 ### Data
 
-You can optionally commit small sample data for the new ledger in the input folder.
-Alternatively, make sure to add your raw data file in the input folder before
+You can optionally commit small sample data for the new ledger in the raw_block_data folder.
+Alternatively, make sure to add your raw data file in the raw_block_data folder before
 running the tool on the new ledger.
 
 ## Update existing mapping information

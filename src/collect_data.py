@@ -1,6 +1,6 @@
 """
-    This script can be used to run queries on BigQuery for any number of blockchains, and save the results in the input
-    directory of the project.
+    This script can be used to run queries on BigQuery for any number of blockchains, and save the results in the
+    raw_block_data directory of the project.
     The relevant queries must be stored in a file named 'queries.yaml' in the root directory of the project.
 
     Attention! Before running this script, you need to generate service account credentials from Google, as described
@@ -13,12 +13,12 @@ import argparse
 import logging
 from yaml import safe_load
 
-from src.helper import ROOT_DIR, INPUT_DIR
+from src.helper import ROOT_DIR, RAW_DATA_DIR
 
 
 def collect_data(force_query):
-    if not INPUT_DIR.is_dir():
-        INPUT_DIR.mkdir()
+    if not RAW_DATA_DIR.is_dir():
+        RAW_DATA_DIR.mkdir()
 
     with open(ROOT_DIR / "queries.yaml") as f:
         queries = safe_load(f)
@@ -27,7 +27,7 @@ def collect_data(force_query):
 
     for ledger in queries.keys():
         filename = f'{ledger}_raw_data.json'
-        file = INPUT_DIR / filename
+        file = RAW_DATA_DIR / filename
         if not force_query and file.is_file():
             logging.info(f'{ledger} data already exists locally. '
                          f'For querying {ledger} anyway please run the script using the flag --force-query')
