@@ -1,6 +1,6 @@
 from collections import defaultdict
-from src.mappings.default_mapping import DefaultMapping
-import src.helper as hlp
+from consensus_decentralization.mappings.default_mapping import DefaultMapping
+import consensus_decentralization.helper as hlp
 
 
 class CardanoMapping(DefaultMapping):

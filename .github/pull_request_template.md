@@ -33,8 +33,8 @@ All Submissions:
     - [ ] EthereumMapping
     - [ ] CardanoMapping
     - [ ] TezosMapping
-- [ ] Did you enable the parser for the new ledger in `src/parse.py`?
-- [ ] Did you enable the mapping for the new ledger in `src/map.py`?
+- [ ] Did you enable the parser for the new ledger in `consensus_decentralization/parse.py`?
+- [ ] Did you enable the mapping for the new ledger in `consensus_decentralization/map.py`?
 - [ ] Did you document support for the new ledger as described in our [Contributing documentation](https://blockchain-technology-lab.github.io/consensus-decentralization/contribute)?
 
 ### Update Mapping Support Information Submissions:
@@ -50,9 +50,9 @@ All Submissions:
 
 ### New Metric Support Submissions:
 
-- [ ] Did you put the metric's script under `src/metrics`?
+- [ ] Did you put the metric's script under `consensus_decentralization/metrics`?
 - [ ] Did you name the metric's main function of the script `compute_{metric name}`?
-- [ ] Did you import the metric's main function to `src/analyze.py`?
+- [ ] Did you import the metric's main function to `consensus_decentralization/analyze.py`?
 - [ ] Did you add the new metric (and possible parameter values) to `config.yaml`?
 - [ ] Did you write unit tests for the new metric?
 - [ ] Did you document the new metric in the documentation pages?

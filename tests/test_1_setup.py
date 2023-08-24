@@ -1,5 +1,5 @@
-from src.map import ledger_mapping
-from src.parse import ledger_parser
+from consensus_decentralization.map import ledger_mapping
+from consensus_decentralization.parse import ledger_parser
 
 
 def test_project_dicts():

@@ -1,10 +1,10 @@
 import argparse
 import logging
-from src.mappings.default_mapping import DefaultMapping
-from src.mappings.ethereum_mapping import EthereumMapping
-from src.mappings.cardano_mapping import CardanoMapping
-from src.mappings.tezos_mapping import TezosMapping
-from src.helper import OUTPUT_DIR, get_start_end_years
+from consensus_decentralization.mappings.default_mapping import DefaultMapping
+from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
+from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
+from consensus_decentralization.mappings.tezos_mapping import TezosMapping
+from consensus_decentralization.helper import OUTPUT_DIR, get_start_end_years
 
 ledger_mapping = {
     'bitcoin': DefaultMapping,

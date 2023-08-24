@@ -3,16 +3,16 @@ import pytest
 import shutil
 import os
 import json
-from src.parse import parse, ledger_parser
-from src.parsers.default_parser import DefaultParser
-from src.parsers.dummy_parser import DummyParser
-from src.parsers.ethereum_parser import EthereumParser
-from src.map import apply_mapping, ledger_mapping
-from src.mappings.default_mapping import DefaultMapping
-from src.mappings.ethereum_mapping import EthereumMapping
-from src.mappings.cardano_mapping import CardanoMapping
-from src.mappings.tezos_mapping import TezosMapping
-from src.helper import RAW_DATA_DIR, OUTPUT_DIR
+from consensus_decentralization.parse import parse, ledger_parser
+from consensus_decentralization.parsers.default_parser import DefaultParser
+from consensus_decentralization.parsers.dummy_parser import DummyParser
+from consensus_decentralization.parsers.ethereum_parser import EthereumParser
+from consensus_decentralization.map import apply_mapping, ledger_mapping
+from consensus_decentralization.mappings.default_mapping import DefaultMapping
+from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
+from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
+from consensus_decentralization.mappings.tezos_mapping import TezosMapping
+from consensus_decentralization.helper import RAW_DATA_DIR, OUTPUT_DIR
 
 
 @pytest.fixture

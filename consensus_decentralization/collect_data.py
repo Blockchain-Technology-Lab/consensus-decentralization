@@ -13,7 +13,7 @@ import argparse
 import logging
 from yaml import safe_load
 
-from src.helper import ROOT_DIR, RAW_DATA_DIR
+from consensus_decentralization.helper import ROOT_DIR, RAW_DATA_DIR
 
 
 def collect_data(force_query):

@@ -1,4 +1,4 @@
-from src.parsers.default_parser import DefaultParser
+from consensus_decentralization.parsers.default_parser import DefaultParser
 
 
 class DummyParser(DefaultParser):

@@ -1,6 +1,6 @@
 import logging
 import sys
-import src.helper as hlp
+import consensus_decentralization.helper as hlp
 
 
 def compute_nakamoto_coefficient(blocks_per_entity):
