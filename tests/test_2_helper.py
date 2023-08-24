@@ -3,10 +3,10 @@ import argparse
 import os
 import shutil
 import pytest
-from src.helper import get_known_entities, get_pool_identifiers, get_pool_links, get_known_addresses, write_blocks_per_entity_to_file, \
+from consensus_decentralization.helper import get_known_entities, get_pool_identifiers, get_pool_links, get_known_addresses, write_blocks_per_entity_to_file, \
     get_blocks_per_entity_from_file, get_blocks_per_entity_group_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
-from src.map import ledger_mapping
+from consensus_decentralization.map import ledger_mapping
 
 
 @pytest.fixture

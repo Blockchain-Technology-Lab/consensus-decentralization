@@ -1,6 +1,6 @@
 from collections import defaultdict
 import json
-import src.helper as hlp
+import consensus_decentralization.helper as hlp
 
 
 class DefaultMapping:

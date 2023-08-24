@@ -19,14 +19,14 @@ documentation](https://blockchain-technology-lab.github.io/consensus-decentraliz
 
 ### Parser and mapping
 
-In the directory `src/parsers`, create a file named `<project_name>_parser.py`,
+In the directory `consensus_decentralization/parsers`, create a file named `<project_name>_parser.py`,
 if no existing parser can be reused. In this file create a new class, which
 inherits from the `DefaultParser` class of `default_parser.py`. Then,
 override its `parse` method in order to implement the new parser (or override another
 method if there are only small changes needed, e.g. `parse_identifiers` if the only thing
 that is different from the default parser is the way identifiers are decoded).
 
-In the directory `src/mappings`, create a file named
+In the directory `consensus_decentralization/mappings`, create a file named
 `<project_name>_mapping.py`, if no existing mapping can be reused. In this file
 create a new class, which inherits from the `DefaultMapping` class of `default_mapping.py`.
 Then, override its `process` method. This method takes as input a time period in
@@ -38,9 +38,9 @@ data for this timeframe in the `output` directory.
 Then, you should enable support for the new ledger in the parser and mapping
 module scripts. Specifically:
 
-- in the script `src/parse.py`, import the parser class and assign it to the
+- in the script `consensus_decentralization/parse.py`, import the parser class and assign it to the
   project's name in the `ledger_parser` dictionary;
-- in the script `src/map.py`, import the mapping class and assign it to the
+- in the script `consensus_decentralization/map.py`, import the mapping class and assign it to the
   project's name in the dictionary `ledger_mapping`.
 
 *Notes*:
@@ -104,12 +104,12 @@ available on-chain. Specifically:
 
 To add a new metric, you should do the following steps.
 
-First, create a relevant script in the folder `src/metrics`. The script should
+First, create a relevant script in the folder `consensus_decentralization/metrics`. The script should
 include a function named `compute_{metric_name}` that, given a dictionary of
 entities (as keys) to number of blocks (as values), outputs a single value (the
 outcome of the metric).
 
-Second, import this new function to `src/analyze.py`.
+Second, import this new function to `consensus_decentralization/analyze.py`.
 
 Third, add the name of the metric (which should be the same as the one used in
 the filename above) and any parameter values it might require to the file

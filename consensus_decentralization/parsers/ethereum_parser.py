@@ -1,4 +1,4 @@
-from src.parsers.dummy_parser import DummyParser
+from consensus_decentralization.parsers.dummy_parser import DummyParser
 
 
 class EthereumParser(DummyParser):

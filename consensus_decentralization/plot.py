@@ -5,7 +5,7 @@ import matplotlib.animation as animation
 import seaborn as sns
 import numpy as np
 from collections import defaultdict
-import src.helper as hlp
+import consensus_decentralization.helper as hlp
 import heapq
 import colorcet as cc
 import pandas as pd

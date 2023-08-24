@@ -1,7 +1,7 @@
 import logging
 from math import log
 import sys
-import src.helper as hlp
+import consensus_decentralization.helper as hlp
 
 
 def compute_entropy(blocks_per_entity, alpha):

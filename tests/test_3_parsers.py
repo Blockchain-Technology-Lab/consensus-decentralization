@@ -1,10 +1,10 @@
 import json
 import shutil
 import pytest
-from src.parse import parse, ledger_parser
-from src.parsers.default_parser import DefaultParser
-from src.parsers.dummy_parser import DummyParser
-from src.helper import RAW_DATA_DIR, OUTPUT_DIR
+from consensus_decentralization.parse import parse, ledger_parser
+from consensus_decentralization.parsers.default_parser import DefaultParser
+from consensus_decentralization.parsers.dummy_parser import DummyParser
+from consensus_decentralization.helper import RAW_DATA_DIR, OUTPUT_DIR
 
 
 @pytest.fixture

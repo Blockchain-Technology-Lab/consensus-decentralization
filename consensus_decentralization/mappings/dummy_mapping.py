@@ -1,6 +1,6 @@
 from collections import defaultdict
-from src.helper import write_blocks_per_entity_to_file
-from src.mappings.default_mapping import DefaultMapping
+from consensus_decentralization.helper import write_blocks_per_entity_to_file
+from consensus_decentralization.mappings.default_mapping import DefaultMapping
 
 
 class DummyMapping(DefaultMapping):

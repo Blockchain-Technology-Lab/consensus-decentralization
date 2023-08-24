@@ -1,4 +1,4 @@
-from src.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index
+from consensus_decentralization.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index
 import numpy as np
 
 

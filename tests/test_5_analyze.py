@@ -1,8 +1,8 @@
 import os
 import shutil
 import pytest
-from src.helper import OUTPUT_DIR
-from src.analyze import analyze
+from consensus_decentralization.helper import OUTPUT_DIR
+from consensus_decentralization.analyze import analyze
 
 
 @pytest.fixture

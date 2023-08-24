@@ -2,13 +2,13 @@ import os
 import pathlib
 import shutil
 from run import main
-from src.parse import ledger_parser
-from src.parsers.default_parser import DefaultParser
-from src.parsers.dummy_parser import DummyParser
-from src.map import ledger_mapping
-from src.mappings.default_mapping import DefaultMapping
-from src.mappings.cardano_mapping import CardanoMapping
-from src.helper import OUTPUT_DIR
+from consensus_decentralization.parse import ledger_parser
+from consensus_decentralization.parsers.default_parser import DefaultParser
+from consensus_decentralization.parsers.dummy_parser import DummyParser
+from consensus_decentralization.map import ledger_mapping
+from consensus_decentralization.mappings.default_mapping import DefaultMapping
+from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
+from consensus_decentralization.helper import OUTPUT_DIR
 import pytest
 
 

@@ -1,4 +1,4 @@
-from src.mappings.default_mapping import DefaultMapping
+from consensus_decentralization.mappings.default_mapping import DefaultMapping
 
 
 class EthereumMapping(DefaultMapping):
