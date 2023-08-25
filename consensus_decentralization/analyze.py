@@ -32,6 +32,10 @@ def analyze(projects, timeframes, output_dir):
             csv_contents[metric]['0'] += f',{project},{project}_unknowns_grouped'
 
         for timeframe in timeframes:
+            timeframe_mapped_data_file = output_dir / f'{project}/mapped_data/{timeframe}.csv'
+            if not timeframe_mapped_data_file.is_file():
+                continue  # Only analyze timeframes for which mapped data exist
+
             for metric in metrics.keys():
                 if timeframe not in csv_contents[metric].keys():
                     csv_contents[metric][timeframe] = timeframe
@@ -48,7 +52,7 @@ def analyze(projects, timeframes, output_dir):
                     yearly_entity_groups.add(entity_group)
 
             # Get mapped data for the defined timeframe.
-            with open(output_dir / f'{project}/mapped_data/{timeframe}.csv') as f:
+            with open(timeframe_mapped_data_file) as f:
                 blocks_per_entity = {}
                 blocks_per_entity_group = defaultdict(int, {'Unknown': 0})
                 for line in f.readlines()[1:]:

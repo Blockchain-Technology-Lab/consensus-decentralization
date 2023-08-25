@@ -174,7 +174,8 @@ class DefaultMapping:
             blocks_per_entity[entity.replace(',', '')] += 1
 
         groups = self.map_block_creators_to_groups(blocks_per_entity.keys())
-        hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, groups, timeframe)
+        if len(blocks_per_entity) > 0:
+            hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, groups, timeframe)
 
         if len(timeframe) == 4:  # If timeframe is a year, also write multi-pool addresses and blocks to file
             self.write_multi_pool_files(timeframe)
