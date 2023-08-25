@@ -71,6 +71,6 @@ class CardanoMapping(DefaultMapping):
             blocks_per_entity[entity.replace(',', '')] += 1
 
         groups = self.map_block_creators_to_groups(blocks_per_entity.keys())
-        hlp.write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
+        hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, groups, timeframe)
 
         return blocks_per_entity

@@ -9,7 +9,9 @@ class DefaultMapping:
     methods must use a mapping class that inherits from this one.
 
     :ivar project_name: the name of the project associated with a specific mapping instance
-    :ivar io_dir: the directory that includes the parsed data related to the project
+    :ivar parsed_data_dir: the directory that includes the parsed data related to the project
+    :ivar mapped_data_dir: the directory to save the mapped data files in
+    :ivar multi_pool_dir: the directory to save the multi pool data files in
     :ivar dataset: a dictionary with the parsed data of the project
     :ivar special_addresses: a set with the special addresses of the project (addresses that don't count in the
     context of out analysis)
@@ -23,7 +25,11 @@ class DefaultMapping:
 
     def __init__(self, project_name, io_dir):
         self.project_name = project_name
-        self.io_dir = io_dir
+        self.parsed_data_dir = io_dir
+        self.mapped_data_dir = io_dir / 'mapped_data'
+        self.mapped_data_dir.mkdir(parents=True, exist_ok=True)
+        self.multi_pool_dir = io_dir / 'multi_pool_data'
+        self.multi_pool_dir.mkdir(parents=True, exist_ok=True)
         self.dataset = None
         self.special_addresses = hlp.get_special_addresses(project_name)
         self.known_addresses = hlp.get_known_addresses(project_name)
@@ -47,7 +53,7 @@ class DefaultMapping:
         Reads the parsed data from the directory specified by the instance
         :returns: a dictionary with the parsed data
         """
-        with open(self.io_dir / 'parsed_data.json') as f:
+        with open(self.parsed_data_dir / 'parsed_data.json') as f:
             data = json.load(f)
         return data
 
@@ -137,11 +143,11 @@ class DefaultMapping:
         with multiple pools, if any such blocks/addresses were found for the project
         """
         if self.multi_pool_addresses:
-            with open(self.io_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
+            with open(self.multi_pool_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
                 f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(self.multi_pool_addresses))
 
         if self.multi_pool_blocks:
-            with open(self.io_dir / f'multi_pool_blocks_{timeframe}.csv', 'w') as f:
+            with open(self.multi_pool_dir / f'multi_pool_blocks_{timeframe}.csv', 'w') as f:
                 f.write('Block No,Timestamp,Entities\n' + '\n'.join(self.multi_pool_blocks))
 
     def process(self, timeframe):
@@ -168,7 +174,7 @@ class DefaultMapping:
             blocks_per_entity[entity.replace(',', '')] += 1
 
         groups = self.map_block_creators_to_groups(blocks_per_entity.keys())
-        hlp.write_blocks_per_entity_to_file(self.io_dir, blocks_per_entity, groups, timeframe)
+        hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, groups, timeframe)
 
         if len(timeframe) == 4:  # If timeframe is a year, also write multi-pool addresses and blocks to file
             self.write_multi_pool_files(timeframe)

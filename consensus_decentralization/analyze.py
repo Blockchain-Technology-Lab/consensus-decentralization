@@ -41,14 +41,14 @@ def analyze(projects, timeframes, output_dir):
             year = timeframe[:4]
             yearly_entities = set()
             yearly_entity_groups = set()
-            with open(output_dir / f'{project}/{year}.csv') as f:
+            with open(output_dir / f'{project}/mapped_data/{year}.csv') as f:
                 for line in f.readlines()[1:]:
                     entity_group, entity, _ = line.split(',')
                     yearly_entities.add(entity)
                     yearly_entity_groups.add(entity_group)
 
             # Get mapped data for the defined timeframe.
-            with open(output_dir / f'{project}/{timeframe}.csv') as f:
+            with open(output_dir / f'{project}/mapped_data/{timeframe}.csv') as f:
                 blocks_per_entity = {}
                 blocks_per_entity_group = defaultdict(int, {'Unknown': 0})
                 for line in f.readlines()[1:]:
