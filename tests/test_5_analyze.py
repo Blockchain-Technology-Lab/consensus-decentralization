@@ -23,11 +23,11 @@ def setup_and_cleanup():
                                   'BTC.TOP,BTC.TOP,2\n'
                                   'GBMiners,GBMiners,2\n'
                                   'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1',
-        '2018-02': 'Entity Group,Entity,Resources\n'
-                   '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n'
-                   'BTC.TOP,BTC.TOP,2\n'
-                   'GBMiners,GBMiners,2', '2018-03': 'Entity Group,Entity,Resources\n'
-                                                     'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'}
+                          '2018-02': 'Entity Group,Entity,Resources\n'
+                                     '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n'
+                                     'BTC.TOP,BTC.TOP,2\n'
+                                     'GBMiners,GBMiners,2', '2018-03': 'Entity Group,Entity,Resources\n'
+                                                                       'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'}
     mapped_data_path = test_bitcoin_dir / 'mapped_data'
     mapped_data_path.mkdir(parents=True, exist_ok=True)
     for timeframe, content in csv_per_timeframes.items():
@@ -112,5 +112,3 @@ def test_analyze(setup_and_cleanup):
             assert len(lines) == 2
             assert lines[0] == 'timeframe,sample_bitcoin,sample_bitcoin_unknowns_grouped\n'
             assert lines[1] == '2010,,'
-
-
