@@ -14,6 +14,7 @@ Currently, the supported blockchains are:
 - Litecoin
 - Tezos
 - Zcash
+We intend to add more ledgers to this list in the future.
 
 ## Installation
 
@@ -30,13 +31,13 @@ project:
 
 ## Run the tool
 
-Place all raw data (which could be collected from BigQuery for example) in the `raw_block_data` directory, each file named as
+Place all raw data (which could be collected from [BigQuery](https://cloud.google.com/bigquery/) for example) in the `raw_block_data` directory, each file named as
 `<project_name>_raw_data.json` (e.g. `bitcoin_raw_data.json`). By default, there
 is a (very small) sample input file for some supported projects. To use the
 samples, remove the prefix `sample_`. For more extended raw data and instructions on how to retrieve it, see
 [here](https://blockchain-technology-lab.github.io/consensus-decentralization/data/).
 
-Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data.
+Run `python run.py --ledgers <ledger_1> ... <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data.
 Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values
 will be used). Specifically:
 
@@ -61,7 +62,7 @@ last execution of `run.py`.
 
 ## Contributing
 
-You can contribute to the tool in one of the following ways:
+Everyone is welcome to contribute ideas, report bugs, and make the code more efficient. We especially welcome contributions to the following areas:
 
 - Add support for a ledger that is not already supported.
 - Update and/or add mapping information for a ledger.
