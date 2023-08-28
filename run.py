@@ -4,7 +4,8 @@ from consensus_decentralization.map import apply_mapping
 from consensus_decentralization.analyze import analyze
 from consensus_decentralization.parse import parse
 from consensus_decentralization.plot import plot
-from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_DIR, get_default_ledgers, get_start_end_years
+from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_DIR, get_default_ledgers, \
+    get_start_end_years
 
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 

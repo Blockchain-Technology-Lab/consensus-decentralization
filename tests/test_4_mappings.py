@@ -67,11 +67,20 @@ def test_map(setup_and_cleanup):
     parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, timeframes, test_output_dir, force_map)
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
+    assert not output_file.is_file()  # since there is no data from 2010 in the sample
+
+    yearly_output_file = test_output_dir / project / f'mapped_data/{timeframes[0][:4]}.csv'
+    assert not yearly_output_file.is_file()
+
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[1]}.csv'
     assert output_file.is_file()
 
-    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'mapped_data/{timeframes[1][:4]}.csv'
     assert yearly_output_file.is_file()
+
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[2]}.csv'
+    assert output_file.is_file()
 
     try:
         os.remove(str(pool_info_dir / f'clusters/{project}.json'))  # Remove temp pool info file
@@ -131,7 +140,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
         'GBMiners,GBMiners,2'
     ]
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -144,7 +153,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
         'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
     ]
 
-    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'mapped_data/{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -161,7 +170,7 @@ def test_bitcoin_mapping(setup_and_cleanup):
         'Bitmain,Bitmain,1',
     ]
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -233,12 +242,12 @@ def test_ethereum_mapping(setup_and_cleanup):
         'Unknown,0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6,1'
     ]
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'mapped_data/{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -254,7 +263,7 @@ def test_ethereum_mapping(setup_and_cleanup):
         'MEV Builder: 0x3B...436,MEV Builder: 0x3B...436,1'
     ]
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -313,12 +322,12 @@ def test_cardano_mapping(setup_and_cleanup):
         '1percentpool,1percentpool,1'
     ]
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'mapped_data/{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -385,12 +394,12 @@ def test_tezos_mapping(setup_and_cleanup):
         'Unknown,----- UNDEFINED MINER -----,1'
     ]
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
 
-    yearly_output_file = test_output_dir / project / f'{timeframes[0][:4]}.csv'
+    yearly_output_file = test_output_dir / project / f'mapped_data/{timeframes[0][:4]}.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -406,7 +415,7 @@ def test_tezos_mapping(setup_and_cleanup):
         'Unknown,tz0000000000000000000000000000000000,1'
     ]
 
-    output_file = test_output_dir / project / f'{timeframes[0]}.csv'
+    output_file = test_output_dir / project / f'mapped_data/{timeframes[0]}.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert expected_output[idx] == line
@@ -426,7 +435,8 @@ def test_tezos_mapping(setup_and_cleanup):
 
 
 def test_get_reward_addresses():
-    default_mapping = DefaultMapping("sample_bitcoin", None)
+    some_path = pathlib.Path()
+    default_mapping = DefaultMapping("sample_bitcoin", some_path)
 
     block = {
         "number": 625113,
@@ -465,7 +475,8 @@ def test_get_reward_addresses():
     reward_addresses = default_mapping.get_reward_addresses(block)
     assert reward_addresses is None
 
-    eth_mapping = EthereumMapping("sample_ethereum", None)
+    some_path = pathlib.Path()
+    eth_mapping = EthereumMapping("sample_ethereum", some_path)
     block = {
         "number": 6982695,
         "timestamp": "2018-12-31 00:00:12+00:00",
@@ -477,7 +488,8 @@ def test_get_reward_addresses():
 
 
 def test_from_known_addresses():
-    cardano_mapping = CardanoMapping("sample_cardano", None)
+    some_path = pathlib.Path()
+    cardano_mapping = CardanoMapping("sample_cardano", some_path)
 
     block = {
         "number": 92082690,

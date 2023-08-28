@@ -18,22 +18,21 @@ def setup_and_cleanup():
     if not os.path.exists(test_bitcoin_dir):
         os.makedirs(test_bitcoin_dir)
     # create files that would be the output of mapping
-    csv_per_timeframes = {
-        '2010': 'Entity Group,Entity,Resources',
-        '2018': 'Entity Group,Entity,Resources\n'
-                '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n'
-                'BTC.TOP,BTC.TOP,2\n'
-                'GBMiners,GBMiners,2\n'
-                'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1',
-        '2018-02': 'Entity Group,Entity,Resources\n'
-                   '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n'
-                   'BTC.TOP,BTC.TOP,2\n'
-                   'GBMiners,GBMiners,2',
-        '2018-03': 'Entity Group,Entity,Resources\n'
-                   'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'
-    }
+    csv_per_timeframes = {'2018': 'Entity Group,Entity,Resources\n'
+                                  '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n'
+                                  'BTC.TOP,BTC.TOP,2\n'
+                                  'GBMiners,GBMiners,2\n'
+                                  'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1',
+                          '2018-02': 'Entity Group,Entity,Resources\n'
+                                     '1AM2f...9pJUx/3G7y1...gPPWb,1AM2f...9pJUx/3G7y1...gPPWb,4\n'
+                                     'BTC.TOP,BTC.TOP,2\n'
+                                     'GBMiners,GBMiners,2',
+                          '2018-03': 'Entity Group,Entity,Resources\n'
+                                     'Unknown,1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'}
+    mapped_data_path = test_bitcoin_dir / 'mapped_data'
+    mapped_data_path.mkdir(parents=True, exist_ok=True)
     for timeframe, content in csv_per_timeframes.items():
-        with open(test_bitcoin_dir / f'{timeframe}.csv', 'w') as f:
+        with open(test_bitcoin_dir / f'mapped_data/{timeframe}.csv', 'w') as f:
             f.write(content)
     yield test_io_dir
     # Clean up
@@ -107,7 +106,7 @@ def test_analyze(setup_and_cleanup):
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
-        assert output_file.is_file()
+        assert output_file.is_file()  # since there is no data for 2010
 
         with open(output_file) as f:
             lines = f.readlines()

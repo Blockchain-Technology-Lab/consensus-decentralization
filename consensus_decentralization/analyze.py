@@ -36,25 +36,31 @@ def analyze(projects, timeframes, output_dir):
                 if timeframe not in csv_contents[metric].keys():
                     csv_contents[metric][timeframe] = timeframe
 
-            # Get mapped data for the year that corresponds to the timeframe.
+            # Get mapped data for the year that corresponds to the timeframe, if such data exists
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
             yearly_entities = set()
             yearly_entity_groups = set()
-            with open(output_dir / f'{project}/{year}.csv') as f:
-                for line in f.readlines()[1:]:
-                    entity_group, entity, _ = line.split(',')
-                    yearly_entities.add(entity)
-                    yearly_entity_groups.add(entity_group)
+            try:
+                with open(output_dir / f'{project}/mapped_data/{year}.csv') as f:
+                    for line in f.readlines()[1:]:
+                        entity_group, entity, _ = line.split(',')
+                        yearly_entities.add(entity)
+                        yearly_entity_groups.add(entity_group)
+            except FileNotFoundError:
+                pass
 
-            # Get mapped data for the defined timeframe.
-            with open(output_dir / f'{project}/{timeframe}.csv') as f:
-                blocks_per_entity = {}
-                blocks_per_entity_group = defaultdict(int, {'Unknown': 0})
-                for line in f.readlines()[1:]:
-                    entity_group, entity, resources = line.split(',')
-                    blocks_per_entity[entity] = int(resources)
-                    blocks_per_entity_group[entity_group] += int(resources)
+            blocks_per_entity = {}
+            blocks_per_entity_group = defaultdict(int, {'Unknown': 0})
+            try:
+                # Get mapped data for the defined timeframe, if such data exists
+                with open(output_dir / f'{project}/mapped_data/{timeframe}.csv') as f:
+                    for line in f.readlines()[1:]:
+                        entity_group, entity, resources = line.split(',')
+                        blocks_per_entity[entity] = int(resources)
+                        blocks_per_entity_group[entity_group] += int(resources)
+            except FileNotFoundError:
+                pass
 
             results = {}
             results_unknowns_grouped = {}

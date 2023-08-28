@@ -36,14 +36,14 @@ def apply_mapping(project, timeframes, output_dir, force_map):
 
     computed_yearly_mappings = set()  # Keep track of computed yearly mappings to avoid recomputing them in the same run
     for timeframe in timeframes:
-        output_file = project_output_dir / f'{timeframe}.csv'
+        output_file = mapping.mapped_data_dir / f'{timeframe}.csv'
         if not output_file.is_file() or force_map:
             mapping.perform_mapping(timeframe)
 
             # Get mapped data for the year that corresponds to the timeframe.
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
-            year_file = project_output_dir / f'{year}.csv'
+            year_file = mapping.mapped_data_dir / f'{year}.csv'
             if not year_file.is_file() or (force_map and year not in computed_yearly_mappings):
                 mapping.perform_mapping(year)
                 computed_yearly_mappings.add(year)
