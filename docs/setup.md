@@ -52,7 +52,7 @@ and the tool only performs the mapping when the relevant mapped data files do no
 - `--plot` enables the generation of graphs at the end of the execution. Specifically, the output of each 
 implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
 specified ledger. By default, this flag is set to False and no plots are generated.
-- `animated` enables the generation of (additional) animated graphs at the end of the execution. By default, this flag
+- `--animated` enables the generation of (additional) animated graphs at the end of the execution. By default, this flag
 is set to False and no animated plots are generated. Note that this flag is ignored if `--plot` is set to False.
 
 
