@@ -5,7 +5,7 @@ subsequent levels of decentralization. Please refer to the project's
 [documentation pages](https://blockchain-technology-lab.github.io/consensus-decentralization/) for details on its architecture,
 required input, produced output, and more.
 
-Currently, the supported blockchains are :
+Currently, the supported blockchains are:
 - Bitcoin
 - Bitcoin Cash
 - Cardano
@@ -19,14 +19,14 @@ We intend to add more ledgers to this list in the future.
 
 ## Installation
 
-To install the tool, simply clone this project :
+To install the tool, simply clone this project:
 
     git clone https://github.com/Blockchain-Technology-Lab/consensus-decentralization.git
 
 The [requirements file](requirements.txt) lists the dependencies of the project.
 Make sure you have all of them installed (preferably within a [`virtualenv`](https://docs.python.org/3/library/venv.html)) 
 before running the scripts. To install all of them in one go, 
-run the following commands from the root directory of the project :
+run the following commands from the root directory of the project:
 
     python -m pip install -r requirements.txt
 
@@ -40,7 +40,7 @@ samples, remove the prefix `sample_`. For more extended raw data and instruction
 
 Run `python run.py --ledgers <ledger_1> ... <ledger_n> --timeframe <timeframe>` to produce a csv of the mapped data.
 Note that both arguments are optional, so it's possible to omit one or both of them (in which case the default values
-will be used). Specifically :
+will be used). Specifically:
 
 - The `ledgers` argument accepts any number of supported ledgers (case-insensitive). 
 For example, `--ledgers bitcoin` runs the analysis for Bitcoin, `--ledgers Bitcoin Ethereum Cardano` runs the analysis 
@@ -63,7 +63,7 @@ last execution of `run.py`.
 
 ## Contributing
 
-Everyone is welcome to contribute ideas, report bugs, and make the code more efficient. We especially welcome contributions to the following areas :
+Everyone is welcome to contribute ideas, report bugs, and make the code more efficient. We especially welcome contributions to the following areas:
 
 - Add support for a ledger that is not already supported.
 - Update and/or add mapping information for a ledger.
@@ -74,12 +74,12 @@ page](https://blockchain-technology-lab.github.io/consensus-decentralization/con
 
 ## Maintainers
 
-The tool is actively maintained by the following developers :
+The tool is actively maintained by the following developers:
 
 - [Dimitris Karakostas](https://github.com/dimkarakostas)
 - [Christina Ovezik](https://github.com/LadyChristina)
 
-*Note* : When opening a Pull Request, you must request a review from at least *2*
+*Note*: When opening a Pull Request, you must request a review from at least *2*
 people in the above list.
 
 ## License
