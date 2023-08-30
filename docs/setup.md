@@ -42,6 +42,7 @@ argument is omitted, then a monthly analysis is performed for each month between
 or the subset of this time period for which relevant data exists.
 
 Additionally, there are four flags that can be used to customize an execution:
+
 - `--force-parse` forces the re-parsing of all raw data files, even if the corresponding parsed data files already
 exist. This can be useful for when raw data gets updated for some blockchain. By default, this flag is set to False and 
 the tool only parses blockchain data for which no parsed data file exists.
