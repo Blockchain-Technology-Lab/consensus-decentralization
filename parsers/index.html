@@ -123,8 +123,8 @@ It parses the data and outputs a <code>json</code> file with a list of entries, 
 <li><code>Tezos</code>: there is no such field</li>
 </ul>
 <p>If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash (see <a href="../data/">Data Collection</a>)
-return data that are parsed with the <code>default_parser</code> script in <code>parsers</code>.
-The query for Cardano returns data that is parsed using the <code>cardano_parser</code> script in <code>parsers</code>.
+return data that are parsed with the <code>default_parser</code> module in <code>parsers</code>.
+The query for Ethereum returns data that is parsed using the <code>ethereum_parser</code> module in <code>parsers</code>.
 All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser.</p>
               
             </div>

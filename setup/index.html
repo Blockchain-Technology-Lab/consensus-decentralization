@@ -130,18 +130,20 @@ February 2022 and <code>--timeframe 2022-02-03</code> would do it for a single d
 argument is omitted, then a monthly analysis is performed for each month between January 2010 and the current month 
 or the subset of this time period for which relevant data exists.</li>
 </ul>
-<p>Additionally, there are four flags that can be used to customize an execution:
-- <code>--force-parse</code> forces the re-parsing of all raw data files, even if the corresponding parsed data files already
+<p>Additionally, there are four flags that can be used to customize an execution:</p>
+<ul>
+<li><code>--force-parse</code> forces the re-parsing of all raw data files, even if the corresponding parsed data files already
 exist. This can be useful for when raw data gets updated for some blockchain. By default, this flag is set to False and 
-the tool only parses blockchain data for which no parsed data file exists.
-- <code>--force-map</code> forces the re-mapping of all parsed data files, even if the corresponding mapped data files already
+the tool only parses blockchain data for which no parsed data file exists.</li>
+<li><code>--force-map</code> forces the re-mapping of all parsed data files, even if the corresponding mapped data files already
 exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is set to False 
-and the tool only performs the mapping when the relevant mapped data files do not exist.
-- <code>--plot</code> enables the generation of graphs at the end of the execution. Specifically, the output of each 
+and the tool only performs the mapping when the relevant mapped data files do not exist.</li>
+<li><code>--plot</code> enables the generation of graphs at the end of the execution. Specifically, the output of each 
 implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
-specified ledger. By default, this flag is set to False and no plots are generated.
-- <code>animated</code> enables the generation of (additional) animated graphs at the end of the execution. By default, this flag
-is set to False and no animated plots are generated. Note that this flag is ignored if <code>--plot</code> is set to False.</p>
+specified ledger. By default, this flag is set to False and no plots are generated.</li>
+<li><code>--animated</code> enables the generation of (additional) animated graphs at the end of the execution. By default, this flag
+is set to False and no animated plots are generated. Note that this flag is ignored if <code>--plot</code> is set to False.</li>
+</ul>
 <p>All output files can then be found under the <code>output</code> directory, which is automatically created the first time the tool
 is run.</p>
               
