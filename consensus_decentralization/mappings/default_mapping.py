@@ -125,18 +125,6 @@ class DefaultMapping:
                 ])
         return entity
 
-    def map_block_creators_to_groups(self, block_producers):
-        """
-        Maps the project's block producers to groups. A group is either the name of the entity behind the block
-        producer, or "Unknown" if we only have address information about the block producer
-        :param blocks_per_entity:
-        """
-        known_entities = hlp.get_known_entities(self.project_name)
-        groups = dict()
-        for block_producer in block_producers:
-            groups[block_producer] = block_producer if block_producer in known_entities else 'Unknown'
-        return groups
-
     def write_multi_pool_files(self, timeframe):
         """
         Writes the files with the blocks that were produced by multiple pools and the addresses that were associated
@@ -173,9 +161,8 @@ class DefaultMapping:
 
             blocks_per_entity[entity.replace(',', '')] += 1
 
-        groups = self.map_block_creators_to_groups(blocks_per_entity.keys())
         if len(blocks_per_entity) > 0:
-            hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, groups, timeframe)
+            hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, timeframe)
 
         if len(timeframe) == 4:  # If timeframe is a year, also write multi-pool addresses and blocks to file
             self.write_multi_pool_files(timeframe)

@@ -22,6 +22,6 @@ class DummyMapping(DefaultMapping):
 
             blocks_per_entity[entity] += 1
 
-        write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, blocks_per_entity.keys, timeframe)
+        write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, timeframe)
 
         return blocks_per_entity
