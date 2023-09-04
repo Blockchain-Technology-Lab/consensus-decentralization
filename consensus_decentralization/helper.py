@@ -6,7 +6,6 @@ import json
 import datetime
 import calendar
 import argparse
-from collections import defaultdict
 from functools import lru_cache
 
 from yaml import safe_load

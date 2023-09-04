@@ -170,21 +170,36 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
                     pool_blocks_by_month_matrix[entity][i] = blocks
             if key == 'relative_values':
                 threshold = 5
-                labels = [f"{pool_name if len(pool_name) <= 15 else pool_name[:15] + '..'} "
-                          f"({round(max(contributions_list), 1)}%)" if any(
-                    contribution > threshold for contribution in contributions_list) else f"_{pool_name}" for
-                    (pool_name, contributions_list) in pool_blocks_by_month_matrix.items()]
+                labels = [
+                    f"{pool_name if len(pool_name) <= 15 else pool_name[:15] + '..'} "
+                    f"({round(max(contributions_list), 1)}%)"
+                    if any(contribution > threshold for contribution in contributions_list)
+                    else f"_{pool_name}"
+                    for (pool_name, contributions_list) in pool_blocks_by_month_matrix.items()
+                ]
             else:
                 labels = []
             values = np.array(list(pool_blocks_by_month_matrix.values()))
             if animated:
-                plot_animated_stack_area_chart(values=values,
+                plot_animated_stack_area_chart(
+                    values=values,
                     execution_id=f'{ledger}_{key}_top_{top_k}' if top_k > 0 else f'{ledger}_{key}_all',
-                    path=figures_path, ylabel=ylabels[key], legend_labels=labels, tick_labels=months, legend=legend)
+                    path=figures_path,
+                    ylabel=ylabels[key],
+                    legend_labels=labels,
+                    tick_labels=months,
+                    legend=legend
+                )
             else:
-                plot_stack_area_chart(values=values,
+                plot_stack_area_chart(
+                    values=values,
                     execution_id=f'{ledger}_{key}_top_{top_k}' if top_k > 0 else f'{ledger}_{key}_all',
-                    path=figures_path, ylabel=ylabels[key], legend_labels=labels, tick_labels=months, legend=legend)
+                    path=figures_path,
+                    ylabel=ylabels[key],
+                    legend_labels=labels,
+                    tick_labels=months,
+                    legend=legend
+                )
 
 
 def plot_comparative_metrics(ledgers, metrics, animated=False):

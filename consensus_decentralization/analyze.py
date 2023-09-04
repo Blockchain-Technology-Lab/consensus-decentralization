@@ -1,6 +1,5 @@
 import argparse
 import logging
-from collections import defaultdict
 from consensus_decentralization.metrics.gini import compute_gini  # noqa: F401
 from consensus_decentralization.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
 from consensus_decentralization.metrics.entropy import compute_entropy, compute_entropy_percentage  # noqa: F401
