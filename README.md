@@ -14,6 +14,7 @@ Currently, the supported blockchains are:
 - Litecoin
 - Tezos
 - Zcash
+
 We intend to add more ledgers to this list in the future.
 
 ## Installation
@@ -23,9 +24,9 @@ To install the tool, simply clone this project:
     git clone https://github.com/Blockchain-Technology-Lab/consensus-decentralization.git
 
 The [requirements file](requirements.txt) lists the dependencies of the project.
-Make sure you have all of them installed before running the scripts. To install
-all of them in one go, run the following command from the root directory of the
-project:
+Make sure you have all of them installed (preferably within a [`virtualenv`](https://docs.python.org/3/library/venv.html)) 
+before running the scripts. To install all of them in one go, 
+run the following command from the root directory of the project:
 
     python -m pip install -r requirements.txt
 
