@@ -36,6 +36,6 @@ The field `identifiers` corresponds to:
 - `Tezos`: there is no such field
 
 If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash (see [Data Collection](data.md))
-return data that are parsed with the `default_parser` script in `parsers`.
-The query for Cardano returns data that is parsed using the `cardano_parser` script in `parsers`.
+return data that are parsed with the `default_parser` module in `parsers`.
+The query for Ethereum returns data that is parsed using the `ethereum_parser` module in `parsers`.
 All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser.
