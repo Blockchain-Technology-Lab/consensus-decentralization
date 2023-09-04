@@ -29,7 +29,7 @@ def analyze(projects, timeframes, output_dir):
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv header
         for metric in metrics.keys():
-            csv_contents[metric]['0'] += f',{project},{project}_unknowns_grouped'
+            csv_contents[metric]['0'] += f',{project}'
 
         for timeframe in timeframes:
             for metric in metrics.keys():
@@ -40,50 +40,40 @@ def analyze(projects, timeframes, output_dir):
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
             yearly_entities = set()
-            yearly_entity_groups = set()
             try:
                 with open(output_dir / f'{project}/mapped_data/{year}.csv') as f:
                     for line in f.readlines()[1:]:
-                        entity_group, entity, _ = line.split(',')
+                        entity, _ = line.split(',')
                         yearly_entities.add(entity)
-                        yearly_entity_groups.add(entity_group)
             except FileNotFoundError:
                 pass
 
             blocks_per_entity = {}
-            blocks_per_entity_group = defaultdict(int, {'Unknown': 0})
             try:
                 # Get mapped data for the defined timeframe, if such data exists
                 with open(output_dir / f'{project}/mapped_data/{timeframe}.csv') as f:
                     for line in f.readlines()[1:]:
-                        entity_group, entity, resources = line.split(',')
+                        entity, resources = line.split(',')
                         blocks_per_entity[entity] = int(resources)
-                        blocks_per_entity_group[entity_group] += int(resources)
             except FileNotFoundError:
                 pass
 
             results = {}
-            results_unknowns_grouped = {}
             # If the project data exist for the given timeframe, compute the metrics on them.
             if blocks_per_entity.keys():
                 for entity in yearly_entities:
                     if entity not in blocks_per_entity.keys():
                         blocks_per_entity[entity] = 0
-                        if entity in yearly_entity_groups:
-                            blocks_per_entity_group[entity] = 0
 
                 for metric, args_dict in metrics.items():
                     func = eval(f'compute_{metric}')
                     results[metric] = func(blocks_per_entity, **args_dict) if args_dict else func(blocks_per_entity)
-                    results_unknowns_grouped[metric] = func(blocks_per_entity_group,
-                                                            **args_dict) if args_dict else func(blocks_per_entity_group)
             else:
                 for metric in metrics.keys():
                     results[metric] = ''
-                    results_unknowns_grouped[metric] = ''
 
             for metric in metrics.keys():
-                csv_contents[metric][timeframe] += f',{results[metric]},{results_unknowns_grouped[metric]}'
+                csv_contents[metric][timeframe] += f',{results[metric]}'
 
     for metric in metrics.keys():
         with open(output_dir / f'{metric}.csv', 'w') as f:

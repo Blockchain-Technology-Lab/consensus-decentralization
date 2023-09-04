@@ -3,8 +3,8 @@ import argparse
 import os
 import shutil
 import pytest
-from consensus_decentralization.helper import get_known_entities, get_pool_identifiers, get_pool_links, get_known_addresses, write_blocks_per_entity_to_file, \
-    get_blocks_per_entity_from_file, get_blocks_per_entity_group_from_file, get_timeframe_beginning, \
+from consensus_decentralization.helper import get_known_entities, get_pool_identifiers, get_pool_links, \
+    get_known_addresses, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
 from consensus_decentralization.map import ledger_mapping
 
@@ -81,9 +81,8 @@ def test_write_read_blocks_per_entity(setup_and_cleanup):
     output_dir = setup_and_cleanup
 
     blocks_per_entity = {'Entity 1': 1, 'Entity 2': 2}
-    groups = {'Entity 1': 'Entity 1', 'Entity 2': 'Entity 2'}
 
-    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, groups, 'test')
+    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, 'test')
     # test that reading works for filepaths in both pathlib.PosixPath and string formats
     get_blocks_per_entity_from_file(output_dir / 'test.csv')
     bpe = get_blocks_per_entity_from_file(str(output_dir) + '/test.csv')
@@ -91,30 +90,6 @@ def test_write_read_blocks_per_entity(setup_and_cleanup):
     assert all([
         bpe['Entity 1'] == 1,
         bpe['Entity 2'] == 2,
-    ])
-
-
-def test_write_read_blocks_per_entity_group(setup_and_cleanup):
-    output_dir = setup_and_cleanup
-
-    blocks_per_entity = {
-        'Entity 1': 1,
-        'Entity 2': 2,
-        'Entity 123456789012345678901234567': 2,
-        'Entity 234567890123456789012345678': 3
-    }
-    groups = {'Entity 1': 'Entity 1', 'Entity 2': 'Entity 2', 'Entity 123456789012345678901234567': 'Unknown',
-              'Entity 234567890123456789012345678': 'Unknown'}
-
-    write_blocks_per_entity_to_file(output_dir, blocks_per_entity, groups, 'test')
-    # test that reading works for filepaths in both pathlib.PosixPath and string formats
-    get_blocks_per_entity_group_from_file(output_dir / 'test.csv')
-    bpg = get_blocks_per_entity_group_from_file(str(output_dir) + '/test.csv')
-
-    assert all([
-        bpg['Entity 1'] == 1,
-        bpg['Entity 2'] == 2,
-        bpg['Unknown'] == 5
     ])
 
 

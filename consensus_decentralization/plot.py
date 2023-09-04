@@ -77,8 +77,7 @@ def plot_stack_area_chart(values, execution_id, path, ylabel, legend_labels, tic
         if len(visible_legend_labels) > 0:
             max_labels_per_column = 25
             ncols = len(visible_legend_labels) // (max_labels_per_column + 1) + 1
-            fig.legend(loc='upper right', bbox_to_anchor=(0.9, -0.1), ncol=ncols, fancybox=True,
-                       borderpad=0.2,
+            fig.legend(loc='upper right', bbox_to_anchor=(0.9, -0.1), ncol=ncols, fancybox=True, borderpad=0.2,
                        labelspacing=0.3, handlelength=1)
     filename = "poolDynamics-" + execution_id + ".png"
     plt.savefig(path / filename, bbox_inches='tight')
@@ -113,10 +112,8 @@ def plot_animated_stack_area_chart(values, execution_id, path, ylabel, legend_la
             if len(visible_legend_labels) > 0:
                 max_labels_per_column = 25
                 ncols = len(visible_legend_labels) // (max_labels_per_column + 1) + 1
-                fig.legend(loc='upper left', bbox_to_anchor=(0.9, 0.9), ncol=ncols, fancybox=True,
-                           shadow=True,
-                           borderpad=0.2,
-                           labelspacing=0.3, handlelength=1)
+                fig.legend(loc='upper left', bbox_to_anchor=(0.9, 0.9), ncol=ncols, fancybox=True, shadow=True,
+                           borderpad=0.2, labelspacing=0.3, handlelength=1)
         x = list(range(num_time_steps))[:n]
         y = [entity[:n] for entity in values]
         im = plt.stackplot(x, y, colors=col, edgecolor='face', linewidth=0.0001, labels=legend_labels)
@@ -167,44 +164,27 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
         ylabels = {'absolute_values': 'Number of produced blocks', 'relative_values': 'Share of produced blocks (%)'}
         for key, values_by_month in values_to_plot.items():
             pool_blocks = values_by_month.values()
-            pool_blocks_by_month_matrix = defaultdict(
-                lambda: [0] * len(pool_blocks)
-            )
+            pool_blocks_by_month_matrix = defaultdict(lambda: [0] * len(pool_blocks))
             for i, values_by_month in enumerate(pool_blocks):
                 for entity, blocks in values_by_month.items():
                     pool_blocks_by_month_matrix[entity][i] = blocks
             if key == 'relative_values':
                 threshold = 5
-                labels = [
-                    f"{pool_name if len(pool_name) <= 15 else pool_name[:15] + '..'} "
-                    f"({round(max(contributions_list), 1)}%)" if any(
-                        contribution > threshold for contribution in contributions_list)
-                    else f"_{pool_name}"
-                    for (pool_name, contributions_list) in pool_blocks_by_month_matrix.items()
-                ]
+                labels = [f"{pool_name if len(pool_name) <= 15 else pool_name[:15] + '..'} "
+                          f"({round(max(contributions_list), 1)}%)" if any(
+                    contribution > threshold for contribution in contributions_list) else f"_{pool_name}" for
+                    (pool_name, contributions_list) in pool_blocks_by_month_matrix.items()]
             else:
                 labels = []
             values = np.array(list(pool_blocks_by_month_matrix.values()))
             if animated:
-                plot_animated_stack_area_chart(
-                    values=values,
+                plot_animated_stack_area_chart(values=values,
                     execution_id=f'{ledger}_{key}_top_{top_k}' if top_k > 0 else f'{ledger}_{key}_all',
-                    path=figures_path,
-                    ylabel=ylabels[key],
-                    legend_labels=labels,
-                    tick_labels=months,
-                    legend=legend
-                )
+                    path=figures_path, ylabel=ylabels[key], legend_labels=labels, tick_labels=months, legend=legend)
             else:
-                plot_stack_area_chart(
-                    values=values,
+                plot_stack_area_chart(values=values,
                     execution_id=f'{ledger}_{key}_top_{top_k}' if top_k > 0 else f'{ledger}_{key}_all',
-                    path=figures_path,
-                    ylabel=ylabels[key],
-                    legend_labels=labels,
-                    tick_labels=months,
-                    legend=legend
-                )
+                    path=figures_path, ylabel=ylabels[key], legend_labels=labels, tick_labels=months, legend=legend)
 
 
 def plot_comparative_metrics(ledgers, metrics, animated=False):
@@ -221,54 +201,21 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
             metric_df = metric_df[['timeframe'] + ledger_columns_to_keep]
             if animated:
                 plot_animated_lines(metric_df, x_label='Time', y_label=metric,
-                                    filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}",
-                                    path=figures_path,
-                                    colors=colors
-                                    )
+                                    filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}", path=figures_path,
+                                    colors=colors)
             else:
                 plot_lines(metric_df, x_label='Time', y_label=metric,
-                           filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}",
-                           path=figures_path, xtick_labels=metric_df['timeframe'], colors=colors
-                           )
+                           filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}", path=figures_path,
+                           xtick_labels=metric_df['timeframe'], colors=colors)
 
 
-def plot_confidence_intervals(ledgers, metrics):
-    for metric in metrics:
-        figures_path = hlp.OUTPUT_DIR / 'figures'
-        if not figures_path.is_dir():
-            figures_path.mkdir()
-        filename = f'{metric}.csv'
-        metric_df = pd.read_csv(hlp.OUTPUT_DIR / filename)
-        num_lines = metric_df.shape[1]
-        colors = sns.color_palette(cc.glasbey, n_colors=num_lines)
-        ledger_columns_to_keep = [col for col in metric_df.columns if col in ledgers]
-        if len(ledger_columns_to_keep) > 0:
-            data = metric_df[['timeframe'] + ledger_columns_to_keep]
-            ax = data.plot(figsize=(10, 6), color=colors)
-            for i, ledger in enumerate(ledgers):
-                ax.fill_between(metric_df.index, metric_df[ledger], metric_df[f'{ledger}_unknowns_grouped'], alpha=0.1,
-                                color=colors[i])
-            plt.xlabel('Time')
-            plt.ylabel(metric)
-            plt.legend(frameon=False)
-            num_time_steps = metric_df.shape[0]
-            plt.xticks(ticks=range(num_time_steps), labels=metric_df['timeframe'], rotation=45)
-            ax = plt.gca()
-            n = 5
-            ax.set_xticks(ax.get_xticks()[::n])
-            filename = f"{metric}_ci_{'_'.join(ledgers)}.png"
-            plt.savefig(figures_path / filename, bbox_inches='tight')
-
-
-def plot(ledgers, metrics, animated, show_confidence=False):
+def plot(ledgers, metrics, animated):
     logging.info("Creating plots..")
     plot_dynamics_per_ledger(ledgers, animated=False, legend=True)
     plot_comparative_metrics(ledgers, metrics, animated=False)
     if animated:
         plot_dynamics_per_ledger(ledgers, animated=True)
         plot_comparative_metrics(ledgers, metrics, animated=True)
-    if show_confidence:
-        plot_confidence_intervals(ledgers, metrics)
 
 
 if __name__ == '__main__':
@@ -297,10 +244,5 @@ if __name__ == '__main__':
         action='store_true',
         help='Flag to specify whether to also generate animated plots.'
     )
-    parser.add_argument(
-        '--show-confidence',
-        action='store_true',
-        help='Flag to specify whether to also generate plots with confidence intervals.'
-    )
     args = parser.parse_args()
-    plot(args.ledgers, args.metrics, args.animated, args.show_confidence)
+    plot(args.ledgers, args.metrics, args.animated)

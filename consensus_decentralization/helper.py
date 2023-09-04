@@ -191,7 +191,7 @@ def get_known_addresses(project_name):
     return {address: addr_info['name'] for address, addr_info in address_data.items()}
 
 
-def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, groups, timeframe):
+def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
@@ -202,9 +202,9 @@ def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, groups, time
     format). Also used for naming the produced file.
     """
     with open(project_dir / f'{timeframe}.csv', 'w') as f:
-        csv_output = ['Entity Group,Entity,Resources']
+        csv_output = ['Entity,Resources']
         for entity, resources in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-            csv_output.append(','.join([groups[entity], entity, str(resources)]))
+            csv_output.append(','.join([entity, str(resources)]))
         f.write('\n'.join(csv_output))
 
 
@@ -218,25 +218,9 @@ def get_blocks_per_entity_from_file(filepath):
     blocks_per_entity = {}
     with open(filepath) as f:
         for idx, line in enumerate(f.readlines()[1:]):
-            group, entity, resources = line.split(',')
+            entity, resources = line.split(',')
             blocks_per_entity[entity] = int(resources)
     return blocks_per_entity
-
-
-def get_blocks_per_entity_group_from_file(filepath):
-    """
-    Retrieves information about the number of blocks that each entity group produced over some timeframe for some
-    project. Note that all unidentified addresses are merged into one 'Unknown' group
-    :param filepath: the path to the file with the relevant information. It can be either an absolute or a relative
-    path in either a pathlib.PosixPath object or a string.
-    :returns: a dictionary with entity groups and the number of blocks they produced
-    """
-    blocks_per_entity_group = defaultdict(int)
-    with open(filepath) as f:
-        for idx, line in enumerate(f.readlines()[1:]):
-            group, entity, resources = line.split(',')
-            blocks_per_entity_group[group] += int(resources)
-    return blocks_per_entity_group
 
 
 def get_special_addresses(project_name):
