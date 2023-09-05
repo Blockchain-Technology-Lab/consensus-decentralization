@@ -312,7 +312,6 @@ def test_get_reward_addresses():
     reward_addresses = default_mapping.get_reward_addresses(block)
     assert reward_addresses is None
 
-    some_path = pathlib.Path()
     eth_mapping = EthereumMapping("sample_ethereum", io_dir=pathlib.Path(), data_to_map=None)
     block = {"number": 6982695, "timestamp": "2018-12-31 00:00:12+00:00",
              "reward_addresses": "0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c", "identifiers": "sparkpool-eth-cn-hz2"}

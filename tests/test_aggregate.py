@@ -38,7 +38,7 @@ def mock_sample_bitcoin_mapped_data(setup_and_cleanup):
         '{"number": "649061", "timestamp": "2020-09-19 11:17:15 UTC", "reward_addresses": "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B", "creator": "Bitmain", "mapping_method": "known_identifiers"},'\
         '{"number": "649064", "timestamp": "2020-09-20 11:17:00 UTC", "reward_addresses": "0000000000000000000000000000000000000000", "creator": "TEST2", "mapping_method": "known_identifiers"},' \
         '{"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "reward_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX", "creator": "ViaBTC", "mapping_method": "known_identifiers"}'\
-    ']'
+        ']'
     with open(test_bitcoin_dir / 'mapped_data.json', 'w') as f:
         f.write(mapped_data)
 
@@ -60,7 +60,7 @@ def mock_sample_ethereum_mapped_data(setup_and_cleanup):
         '{"number":"11183969","timestamp":"2020-11-03 11:33:44 UTC","reward_addresses":"0x8595dd9e0438640b5e1254f9df579ac12a86865f","creator":"TEST", "mapping_method": "known_identifiers"},' \
         '{"number":"11184329","timestamp":"2020-11-03 12:56:41 UTC","reward_addresses":"0x8595dd9e0438640b5e1254f9df579ac12a86865f","creator":"TEST", "mapping_method": "known_identifiers"},' \
         '{"number":"11183793","timestamp":"2020-11-03 10:56:07 UTC","reward_addresses":"0x8595dd9e0438640b5e1254f9df579ac12a86865f","creator":"TEST", "mapping_method": "known_identifiers"}' \
-    ']'
+        ']'
     with open(test_ethereum_dir / 'mapped_data.json', 'w') as f:
         f.write(mapped_data)
 
@@ -77,7 +77,7 @@ def mock_sample_cardano_mapped_data(setup_and_cleanup):
         '{"number":"00000000001","timestamp":"2020-12-31T06:00:00", "creator":"Input Output (iohk.io)", "mapping_method": "known_identifiers"},'\
         '{"number":"00000000000","timestamp":"2020-12-31T06:42:00","creator":"Arrakis", "mapping_method": "known_identifiers"},'\
         '{"number":"55555555555","timestamp":"2020-12-31T06:42:01","creator":"1percentpool", "mapping_method": "known_identifiers"}'\
-    ']'
+        ']'
     with open(test_cardano_dir / 'mapped_data.json', 'w') as f:
         f.write(mapped_data)
 
@@ -95,7 +95,7 @@ def mock_sample_tezos_mapped_data(setup_and_cleanup):
         '{"number": "1650309", "timestamp": "2021-08-30 04:49:28 UTC", "reward_addresses": "tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY", "creator": "Tezos Seoul", "mapping_method": "known_addresses"},' \
         '{"number": "1650474", "timestamp": "2021-08-30 06:11:58 UTC", "reward_addresses": "tz1Vd1rXpV8hTHbFXCXN3c3qzCsgcU5BZw1e", "creator": "TEST", "mapping_method": "known_addresses"},' \
         '{"number": "1651794", "timestamp": "2021-08-30 17:41:08 UTC", "reward_addresses": "None", "creator": "----- UNDEFINED MINER -----", "mapping_method": "known_addresses"}' \
-    ']'
+        ']'
     with open(test_tezos_dir / 'mapped_data.json', 'w') as f:
         f.write(mapped_data)
 
