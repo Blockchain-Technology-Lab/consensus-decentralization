@@ -1,6 +1,5 @@
 import datetime
 import argparse
-import os
 import shutil
 import pytest
 from consensus_decentralization.helper import get_known_entities, get_pool_identifiers, get_pool_links, \
@@ -18,8 +17,7 @@ def setup_and_cleanup():
     """
     # Setting up
     test_output_dir = OUTPUT_DIR / "test_output"
-    if not os.path.exists(test_output_dir):
-        os.makedirs(test_output_dir)
+    test_output_dir.mkdir(parents=True, exist_ok=True)
     yield test_output_dir
     # Cleaning up
     shutil.rmtree(test_output_dir)

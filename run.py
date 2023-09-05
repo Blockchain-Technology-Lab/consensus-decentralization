@@ -1,5 +1,6 @@
 import argparse
 import logging
+from consensus_decentralization.aggregate import aggregate
 from consensus_decentralization.map import apply_mapping
 from consensus_decentralization.analyze import analyze
 from consensus_decentralization.parse import parse
@@ -10,7 +11,8 @@ from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_D
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
 
-def main(projects, timeframes, force_parse, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+def main(projects, timeframes, force_parse, force_map, force_aggregate, make_plots, make_animated_plots,
+         output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -27,7 +29,8 @@ def main(projects, timeframes, force_parse, force_map, make_plots, make_animated
     logging.info(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
         parse(project, RAW_DATA_DIR, output_dir, force_parse)
-        apply_mapping(project, timeframes, output_dir, force_map)
+        apply_mapping(project, output_dir, force_map)
+        aggregate(project, output_dir, timeframes, force_aggregate)
 
     used_metrics = analyze(projects, timeframes, output_dir)
 
@@ -65,6 +68,11 @@ if __name__ == '__main__':
         help='Flag to specify whether to map the parsed data, regardless if the mapped data files exist.'
     )
     parser.add_argument(
+        '--force-aggregate',
+        action='store_true',
+        help='Flag to specify whether to aggregate the mapped data, regardless if the aggregated data files exist.'
+    )
+    parser.add_argument(
         '--plot',
         action='store_true',
         help='Flag to specify whether to produce and save plots of the results.'
@@ -89,5 +97,5 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    main(projects, timeframes, args.force_parse, args.force_map, args.plot, args.animated)
+    main(projects, timeframes, args.force_parse, args.force_map, args.force_aggregate, args.plot, args.animated)
     logging.info('Done. Please check the output directory for results.')

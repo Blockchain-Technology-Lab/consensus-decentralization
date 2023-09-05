@@ -66,4 +66,4 @@ class DefaultParser:
         path.mkdir(parents=True, exist_ok=True)  # create project output directory if it doesn't already exist
         filename = 'parsed_data.json'
         with open(path / filename, 'w') as f:
-            f.write('[' + ',\n'.join(json.dumps(i) for i in data) + ']\n')
+            f.write('[' + ',\n'.join(json.dumps(block) for block in data) + ']\n')

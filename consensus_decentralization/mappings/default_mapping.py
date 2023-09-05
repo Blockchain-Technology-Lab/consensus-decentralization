@@ -1,4 +1,3 @@
-from collections import defaultdict
 import json
 import consensus_decentralization.helper as hlp
 
@@ -9,10 +8,10 @@ class DefaultMapping:
     methods must use a mapping class that inherits from this one.
 
     :ivar project_name: the name of the project associated with a specific mapping instance
-    :ivar parsed_data_dir: the directory that includes the parsed data related to the project
+    :ivar io_dir: the directory that includes the parsed data related to the project
     :ivar mapped_data_dir: the directory to save the mapped data files in
     :ivar multi_pool_dir: the directory to save the multi pool data files in
-    :ivar dataset: a dictionary with the parsed data of the project
+    :ivar data_to_map: a list with the parsed data of the project (list of dictionaries with block information
     :ivar special_addresses: a set with the special addresses of the project (addresses that don't count in the
     context of out analysis)
     :ivar known_addresses: a dictionary with the known addresses of the project (addresses that are known to belong to
@@ -23,39 +22,53 @@ class DefaultMapping:
     :ivar multi_pool_addresses: a list to be populated with addresses that were associated with multiple pools
     """
 
-    def __init__(self, project_name, io_dir):
+    def __init__(self, project_name, io_dir, data_to_map):
         self.project_name = project_name
-        self.parsed_data_dir = io_dir
-        self.mapped_data_dir = io_dir / 'mapped_data'
-        self.mapped_data_dir.mkdir(parents=True, exist_ok=True)
-        self.multi_pool_dir = io_dir / 'multi_pool_data'
-        self.multi_pool_dir.mkdir(parents=True, exist_ok=True)
-        self.dataset = None
+        self.io_dir = io_dir
+        self.data_to_map = data_to_map
+        self.mapped_data = list()
         self.special_addresses = hlp.get_special_addresses(project_name)
         self.known_addresses = hlp.get_known_addresses(project_name)
         self.known_identifiers = hlp.get_pool_identifiers(project_name)
         self.multi_pool_blocks = list()
         self.multi_pool_addresses = list()
 
-    def perform_mapping(self, timeframe):
+    def perform_mapping(self):
         """
-        Makes sure that the parsed data are loaded into the instance and calls process to perform the mapping
-        :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
-        format)
-        :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
+        Processes the parsed data and outputs the mapped data. The mapped data is a list that contains an entry
+        (dictionary) for each block with the number of the block, its timestamp, the addresses that received rewards
+        for it, the name of the entity that it was mapped to and the mapping method that was used to identify the entity.
+        The mapped data is also saved in a file in the project's output directory.
+        Also outputs a file with the blocks that were produced by multiple pools and a file
+        with the addresses that were associated with multiple pools, if any such blocks/addresses were found for the
+        project.
+        :returns: a list of mapped block data
         """
-        if self.dataset is None:
-            self.dataset = self.read_project_data()
-        return self.process(timeframe)
+        for block in self.data_to_map:
+            entity = self.map_from_known_identifiers(block)
+            if entity:
+                mapping_method = 'known_identifiers'
+            else:
+                entity = self.map_from_known_addresses(block)
+                mapping_method = 'known_addresses'  # todo add separate clause for unmapped blocks?
 
-    def read_project_data(self):
-        """
-        Reads the parsed data from the directory specified by the instance
-        :returns: a dictionary with the parsed data
-        """
-        with open(self.parsed_data_dir / 'parsed_data.json') as f:
-            data = json.load(f)
-        return data
+            day = block['timestamp'][:10]
+            pool_links = hlp.get_pool_links(self.project_name, day)
+            if entity in pool_links.keys():
+                entity = pool_links[entity]
+            self.mapped_data.append({
+                "number": block['number'],
+                "timestamp": block['timestamp'],
+                "reward_addresses": block['reward_addresses'],
+                "creator": entity,
+                "mapping_method": mapping_method
+            })
+
+        if len(self.mapped_data) > 0:
+            self.write_mapped_data()
+        self.write_multi_pool_files()
+
+        return self.mapped_data
 
     def get_reward_addresses(self, block):
         """
@@ -87,7 +100,8 @@ class DefaultMapping:
                 if reward_addresses:
                     for address in reward_addresses:
                         if address in self.known_addresses.keys() and self.known_addresses[address] != entity:
-                            self.multi_pool_addresses.append(f'{block["number"]},{block["timestamp"]},{address},{entity}')
+                            self.multi_pool_addresses.append(
+                                f'{block["number"]},{block["timestamp"]},{address},{entity}')
                         self.known_addresses[address] = entity
                 return entity
         return None
@@ -120,50 +134,27 @@ class DefaultMapping:
             elif len(reward_addresses) == 0:  # the reward addresses associated with the block are all special
                 entity = '----- SPECIAL ADDRESS -----'
             else:
-                entity = '/'.join([
-                    addr[:5] + '...' + addr[-5:] for addr in sorted(reward_addresses)
-                ])
+                entity = '/'.join([addr[:5] + '...' + addr[-5:] for addr in sorted(reward_addresses)])
         return entity
 
-    def write_multi_pool_files(self, timeframe):
+    def write_multi_pool_files(self):
         """
         Writes the files with the blocks that were produced by multiple pools and the addresses that were associated
         with multiple pools, if any such blocks/addresses were found for the project
         """
         if self.multi_pool_addresses:
-            with open(self.multi_pool_dir / f'multi_pool_addresses_{timeframe}.csv', 'w') as f:
+            with open(self.io_dir / 'multi_pool_addresses.csv', 'w') as f:
                 f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(self.multi_pool_addresses))
 
         if self.multi_pool_blocks:
-            with open(self.multi_pool_dir / f'multi_pool_blocks_{timeframe}.csv', 'w') as f:
+            with open(self.io_dir / 'multi_pool_blocks.csv', 'w') as f:
                 f.write('Block No,Timestamp,Entities\n' + '\n'.join(self.multi_pool_blocks))
 
-    def process(self, timeframe):
+    def write_mapped_data(self):
         """
-        Processes the parsed data and outputs the mapped data.
-        :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
-        format)
-        :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
+        Writes the mapped data into a file in a directory associated with the mapping instance. Specifically,
+        into a folder named after the project, inside the general output directory
         """
-        blocks = [block for block in self.dataset if block['timestamp'][:len(timeframe)] == timeframe]
-        blocks_per_entity = defaultdict(int)
-
-        for block in blocks:
-            entity = self.map_from_known_identifiers(block)
-
-            if entity is None:
-                entity = self.map_from_known_addresses(block)
-
-            day = block['timestamp'][:10]
-            pool_links = hlp.get_pool_links(self.project_name, day)
-            if entity in pool_links.keys():
-                entity = pool_links[entity]
-
-            blocks_per_entity[entity.replace(',', '')] += 1
-
-        if len(blocks_per_entity) > 0:
-            hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, timeframe)
-
-        if len(timeframe) == 4:  # If timeframe is a year, also write multi-pool addresses and blocks to file
-            self.write_multi_pool_files(timeframe)
-        return blocks_per_entity
+        filename = 'mapped_data.json'
+        with open(self.io_dir / filename, 'w') as f:
+            json.dump(self.mapped_data, f, indent=4)

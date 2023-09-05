@@ -1,4 +1,3 @@
-from collections import defaultdict
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
 import consensus_decentralization.helper as hlp
 
@@ -8,8 +7,8 @@ class CardanoMapping(DefaultMapping):
     Mapping class tailored to Cardano data. Inherits from Mapping class.
     """
 
-    def __init__(self, project_name, dataset):
-        super().__init__(project_name, dataset)
+    def __init__(self, project_name, io_dir, data_to_map):
+        super().__init__(project_name, io_dir, data_to_map)
 
     def map_from_known_identifiers(self, block):
         """
@@ -51,25 +50,30 @@ class CardanoMapping(DefaultMapping):
             return self.known_addresses[reward_address]
         return reward_address
 
-    def process(self, timeframe):
+    def perform_mapping(self):
         """
         Overrides process method of parent class to use project-specific information and extract the distribution of
         blocks to different entities.
-        :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
-        format)
         :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
         """
-        blocks = [block for block in self.dataset if block['timestamp'][:len(timeframe)] == timeframe]
-        blocks_per_entity = defaultdict(int)
-
-        for block in blocks:
+        for block in self.data_to_map:
             entity = self.map_from_known_identifiers(block)
 
-            if entity is None:
+            if entity:
+                mapping_method = 'known_identifiers'
+            else:
                 entity = self.map_from_known_addresses(block)
+                mapping_method = 'known_addresses'
 
-            blocks_per_entity[entity.replace(',', '')] += 1
+            self.mapped_data.append({
+                "number": block['number'],
+                "timestamp": block['timestamp'],
+                "reward_addresses": block['reward_addresses'],
+                "creator": entity,
+                "mapping_method": mapping_method
+            })
 
-        hlp.write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, timeframe)
+        if len(self.mapped_data) > 0:
+            self.write_mapped_data()
 
-        return blocks_per_entity
+        return self.mapped_data

@@ -51,4 +51,5 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    parse(args.ledger, RAW_DATA_DIR, OUTPUT_DIR, args.force_parse)
+    for ledger in args.ledgers:
+        parse(ledger, RAW_DATA_DIR, OUTPUT_DIR, args.force_parse)

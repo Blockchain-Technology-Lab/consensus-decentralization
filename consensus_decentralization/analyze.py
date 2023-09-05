@@ -1,10 +1,10 @@
 import argparse
 import logging
+import consensus_decentralization.helper as hlp
 from consensus_decentralization.metrics.gini import compute_gini  # noqa: F401
 from consensus_decentralization.metrics.nakamoto_coefficient import compute_nakamoto_coefficient  # noqa: F401
 from consensus_decentralization.metrics.entropy import compute_entropy, compute_entropy_percentage  # noqa: F401
 from consensus_decentralization.metrics.herfindahl_hirschman_index import compute_hhi  # noqa: F401
-from consensus_decentralization.helper import OUTPUT_DIR, get_metrics_config, get_start_end_years
 
 
 def analyze(projects, timeframes, output_dir):
@@ -17,7 +17,7 @@ def analyze(projects, timeframes, output_dir):
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
     """
-    metrics = get_metrics_config()
+    metrics = hlp.get_metrics_config()
 
     csv_contents = {}
     for metric in metrics.keys():
@@ -35,27 +35,20 @@ def analyze(projects, timeframes, output_dir):
                 if timeframe not in csv_contents[metric].keys():
                     csv_contents[metric][timeframe] = timeframe
 
+            aggregated_data_dir = output_dir / f'{project}/blocks_per_entity'
             # Get mapped data for the year that corresponds to the timeframe, if such data exists
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
-            yearly_entities = set()
             try:
-                with open(output_dir / f'{project}/mapped_data/{year}.csv') as f:
-                    for line in f.readlines()[1:]:
-                        entity, _ = line.split(',')
-                        yearly_entities.add(entity)
+                yearly_blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / f'{year}.csv')
+                yearly_entities = yearly_blocks_per_entity.keys()
             except FileNotFoundError:
-                pass
-
-            blocks_per_entity = {}
+                yearly_entities = set()
             try:
-                # Get mapped data for the defined timeframe, if such data exists
-                with open(output_dir / f'{project}/mapped_data/{timeframe}.csv') as f:
-                    for line in f.readlines()[1:]:
-                        entity, resources = line.split(',')
-                        blocks_per_entity[entity] = int(resources)
+                # Get aggregated data for the defined timeframe, if such data exists
+                blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / f'{timeframe}.csv')
             except FileNotFoundError:
-                pass
+                blocks_per_entity = dict()
 
             results = {}
             # If the project data exist for the given timeframe, compute the metrics on them.
@@ -101,7 +94,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    start_year, end_year = get_start_end_years()
+    start_year, end_year = hlp.get_start_end_years()
 
     timeframe = args.timeframe
     if timeframe:
@@ -112,4 +105,4 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    analyze(args.ledgers, timeframes, OUTPUT_DIR)
+    analyze(args.ledgers, timeframes, hlp.OUTPUT_DIR)

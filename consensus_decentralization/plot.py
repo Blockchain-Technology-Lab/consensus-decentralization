@@ -142,7 +142,7 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
             for month in range(1, 13):
                 timeframe = f'{year}-0{month}' if month < 10 else f'{year}-{month}'
                 filename = f'{timeframe}.csv'
-                file = path / "mapped_data" / filename
+                file = path / "blocks_per_entity" / filename
                 if not file.is_file():
                     continue  # Only plot timeframes for which mapped data exist
                 blocks = hlp.get_blocks_per_entity_from_file(file)

@@ -1,6 +1,7 @@
 """
 Module with helper functions
 """
+import csv
 import pathlib
 import json
 import datetime
@@ -190,21 +191,19 @@ def get_known_addresses(project_name):
     return {address: addr_info['name'] for address, addr_info in address_data.items()}
 
 
-def write_blocks_per_entity_to_file(project_dir, blocks_per_entity, timeframe):
+def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, timeframe):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
-    :param project_dir: pathlib.PosixPath object of the output directory corresponding to the project. This is where
-    the produced csv file is written to.
+    :param output_dir: pathlib.PosixPath object of the output directory where the produced csv file is written to.
     :param blocks_per_entity: a dictionary with entities and the number of blocks they produced over the given timeframe
     :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
     format). Also used for naming the produced file.
     """
-    with open(project_dir / f'{timeframe}.csv', 'w') as f:
-        csv_output = ['Entity,Resources']
-        for entity, resources in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-            csv_output.append(','.join([entity, str(resources)]))
-        f.write('\n'.join(csv_output))
+    with open(output_dir / f'{timeframe}.csv', 'w', newline='') as f:
+        csv_writer = csv.writer(f)
+        csv_writer.writerow(['Entity', 'Resources'])
+        csv_writer.writerows(sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True))
 
 
 def get_blocks_per_entity_from_file(filepath):
@@ -214,11 +213,10 @@ def get_blocks_per_entity_from_file(filepath):
     path in either a pathlib.PosixPath object or a string.
     :returns: a dictionary with entities and the number of blocks they produced
     """
-    blocks_per_entity = {}
-    with open(filepath) as f:
-        for idx, line in enumerate(f.readlines()[1:]):
-            entity, resources = line.split(',')
-            blocks_per_entity[entity] = int(resources)
+    with open(filepath, newline='') as f:
+        csv_reader = csv.reader(f)
+        next(csv_reader, None)  # skip header
+        blocks_per_entity = {line[0]: int(line[1]) for line in csv_reader}
     return blocks_per_entity
 
 
@@ -295,3 +293,25 @@ def get_start_end_years():
     """
     config = get_config_data()
     return config['max_timeframe']['start_year'], config['max_timeframe']['end_year']
+
+
+def read_parsed_project_data(project_dir):
+    """
+    Reads the parsed data from a project's output directory
+    :param project_dir: pathlib.PosixPath object of the output directory corresponding to the project
+    :returns: a dictionary with the parsed data
+    """
+    with open(project_dir / 'parsed_data.json') as f:
+        data = json.load(f)
+    return data
+
+
+def read_mapped_project_data(project_dir):
+    """
+    Reads the mapped data from a project's output directory
+    :param project_dir: pathlib.PosixPath object of the output directory corresponding to the project
+    :returns: a dictionary with the mapped data
+    """
+    with open(project_dir / 'mapped_data.json') as f:
+        data = json.load(f)
+    return data

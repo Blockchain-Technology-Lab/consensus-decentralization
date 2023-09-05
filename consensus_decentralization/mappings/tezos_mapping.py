@@ -6,8 +6,8 @@ class TezosMapping(DefaultMapping):
     Mapping class tailored to Tezos data. Inherits from Mapping.
     """
 
-    def __init__(self, project_name, dataset):
-        super().__init__(project_name, dataset)
+    def __init__(self, project_name, io_dir, data_to_map):
+        super().__init__(project_name, io_dir, data_to_map)
 
     def map_from_known_identifiers(self, block):
         """

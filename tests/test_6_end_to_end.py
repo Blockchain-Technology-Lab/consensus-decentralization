@@ -52,9 +52,10 @@ def test_end_to_end(setup_and_cleanup):
     timeframes = ['2010', '2018-02', '2018-03', '2020-12']
     force_parse = False
     force_map = False
+    force_aggregate = False
 
     test_projects = [f'sample_{i}' for i in projects]
-    main(test_projects, timeframes, force_parse, force_map, False, False, test_output_dir)
+    main(test_projects, timeframes, force_parse, force_map, force_aggregate, False, False, test_output_dir)
 
     for project in test_projects:
         try:
