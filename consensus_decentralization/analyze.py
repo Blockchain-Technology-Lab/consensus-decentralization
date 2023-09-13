@@ -73,36 +73,3 @@ def analyze(projects, timeframes, output_dir):
 
     return list(metrics.keys())
 
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        '--ledgers',
-        nargs="*",
-        type=str.lower,
-        default=None,
-        help='The ledgers that will be analyzed.'
-    )
-    parser.add_argument(
-        '--timeframe',
-        nargs="?",
-        type=str,
-        default=None,
-        help='The timeframe that will be analyzed.'
-    )
-
-    args = parser.parse_args()
-
-    start_year, end_year = hlp.get_start_end_years()
-
-    timeframe = args.timeframe
-    if timeframe:
-        timeframes = [timeframe]
-    else:
-        timeframes = []
-        for year in range(start_year, end_year + 1):
-            for month in range(1, 13):
-                timeframes.append(f'{year}-{str(month).zfill(2)}')
-
-    analyze(args.ledgers, timeframes, hlp.OUTPUT_DIR)

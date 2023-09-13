@@ -37,24 +37,3 @@ def apply_mapping(project, output_dir, force_map):
     if not output_file.is_file() or force_map:
         logging.info(f'Mapping {project} blocks to their creators..')
         mapping.perform_mapping()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        '--ledgers',
-        nargs="*",
-        type=str.lower,
-        default=None,
-        choices=[ledger for ledger in ledger_mapping],
-        help='The ledgers that will be analyzed.'
-    )
-    parser.add_argument(
-        '--force-map',
-        action='store_true',
-        help='Flag to specify whether to map the parsed data, regardless if the mapped data files exist.'
-    )
-    args = parser.parse_args()
-
-    apply_mapping(args.ledgers, OUTPUT_DIR, args.force_map)

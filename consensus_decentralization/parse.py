@@ -31,25 +31,3 @@ def parse(project, input_dir, output_dir, force_parse=False):
         logging.info(f'Parsing {project} data..')
         parser = ledger_parser[project](project, input_dir, output_dir)
         parser.parse()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        '--ledgers',
-        nargs="*",
-        type=str.lower,
-        default=None,
-        choices=[ledger for ledger in ledger_parser],
-        help='The ledgers that will be analyzed.'
-    )
-    parser.add_argument(
-        '--force-parse',
-        action='store_true',
-        help='Flag to specify whether to parse the raw data, regardless if the parsed data file exists.'
-    )
-    args = parser.parse_args()
-
-    for ledger in args.ledgers:
-        parse(ledger, RAW_DATA_DIR, OUTPUT_DIR, args.force_parse)
