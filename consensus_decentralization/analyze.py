@@ -1,4 +1,3 @@
-import argparse
 import logging
 import consensus_decentralization.helper as hlp
 from consensus_decentralization.metrics.gini import compute_gini  # noqa: F401
@@ -72,4 +71,3 @@ def analyze(projects, timeframes, output_dir):
             f.write('\n'.join([i[1] for i in sorted(csv_contents[metric].items(), key=lambda x: x[0])]))
 
     return list(metrics.keys())
-

@@ -1,11 +1,9 @@
-import argparse
 import logging
 import consensus_decentralization.helper as hlp
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
 from consensus_decentralization.mappings.tezos_mapping import TezosMapping
-from consensus_decentralization.helper import OUTPUT_DIR
 
 ledger_mapping = {
     'bitcoin': DefaultMapping,
