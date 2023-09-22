@@ -31,7 +31,7 @@ def setup_and_cleanup():
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
-    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'  # todo better to have separate helper files for the tests s.t. the tests don't break just because the info changes
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     test_raw_data_dir = RAW_DATA_DIR
     test_output_dir = OUTPUT_DIR / "test_output"
     yield mapping_info_dir, test_raw_data_dir, test_output_dir
@@ -43,23 +43,9 @@ def test_map(setup_and_cleanup):
     pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_bitcoin'
 
-    try:
-        shutil.copy2(str(pool_info_dir / 'clusters/bitcoin.json'),
-                     str(pool_info_dir / f'clusters/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'addresses/bitcoin.json'),
-                     str(pool_info_dir / f'addresses/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'),
-                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
+    # Create temp mapping info files for sample project
+    shutil.copy2(str(pool_info_dir / 'addresses/bitcoin.json'), str(pool_info_dir / f'addresses/{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'), str(pool_info_dir / f'identifiers/{project}.json'))
 
     parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, test_output_dir, force_map=True)
@@ -67,47 +53,21 @@ def test_map(setup_and_cleanup):
     mapped_data_file = test_output_dir / project / 'mapped_data.json'
     assert mapped_data_file.is_file()
 
-    try:
-        os.remove(str(pool_info_dir / f'clusters/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'addresses/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
+    # Remove temp mapping info files
+    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
+    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
 
 
 def test_bitcoin_mapping(setup_and_cleanup):
     pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_bitcoin'
 
-    try:
-        shutil.copy2(str(pool_info_dir / 'clusters/bitcoin.json'),
-                     str(pool_info_dir / f'clusters/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
+    # Create temp mapping info files for sample project
+    shutil.copy2(str(pool_info_dir / 'addresses/bitcoin.json'), str(pool_info_dir / f'addresses/{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'), str(pool_info_dir / f'identifiers/{project}.json'))
 
-    try:
-        shutil.copy2(str(pool_info_dir / 'addresses/bitcoin.json'),
-                     str(pool_info_dir / f'addresses/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'),
-                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        with open(str(pool_info_dir / f'addresses/{project}.json')) as f:
-            pool_addresses = json.load(f)
-    except FileNotFoundError:
-        pool_addresses = {}
+    with open(str(pool_info_dir / f'addresses/{project}.json')) as f:
+        pool_addresses = json.load(f)
     pool_addresses['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'source': ''}
     with open(str(pool_info_dir / f'addresses/{project}.json'), 'w') as f:
         f.write(json.dumps(pool_addresses))
@@ -117,56 +77,25 @@ def test_bitcoin_mapping(setup_and_cleanup):
 
     # todo add assertion for mapped data content
 
-    try:
-        os.remove(str(pool_info_dir / f'clusters/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'addresses/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
+    # Remove temp mapping info files
+    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
+    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
 
 
 def test_ethereum_mapping(setup_and_cleanup):
     pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_ethereum'
 
-    try:
-        shutil.copy2(str(pool_info_dir / 'clusters/ethereum.json'),
-                     str(pool_info_dir / f'clusters/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
+    # Create temp mapping info files for sample project
+    shutil.copy2(str(pool_info_dir / 'addresses/ethereum.json'), str(pool_info_dir / f'addresses/{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'identifiers/ethereum.json'), str(pool_info_dir / f'identifiers/{project}.json'))
 
-    try:
-        shutil.copy2(str(pool_info_dir / 'addresses/ethereum.json'),
-                     str(pool_info_dir / f'addresses/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'identifiers/ethereum.json'),
-                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        with open(str(pool_info_dir / f'clusters/{project}.json')) as f:
-            clusters = json.load(f)
-    except FileNotFoundError:
-        clusters = {}
-    clusters['TEST'] = [{'name': 'ezil.me', 'from': '', 'to': '', 'source': 'homepage'}]
+    clusters = {'TEST': [{'name': 'ezil.me', 'from': '', 'to': '', 'source': 'homepage'}]}
     with open(str(pool_info_dir / f'clusters/{project}.json'), 'w') as f:
         f.write(json.dumps(clusters))
 
-    try:
-        with open(str(pool_info_dir / f'addresses/{project}.json')) as f:
-            addresses = json.load(f)
-    except FileNotFoundError:
-        addresses = {}
+    with open(str(pool_info_dir / f'addresses/{project}.json')) as f:
+        addresses = json.load(f)
     addresses['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'source': ''}
     with open(str(pool_info_dir / f'addresses/{project}.json'), 'w') as f:
         f.write(json.dumps(addresses))
@@ -176,41 +105,19 @@ def test_ethereum_mapping(setup_and_cleanup):
 
     # todo add assertion for mapped data content
 
-    try:
-        os.remove(str(pool_info_dir / f'clusters/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'addresses/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
+    # Remove temp mapping info files
+    os.remove(str(pool_info_dir / f'clusters/{project}.json'))
+    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
+    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
 
 
 def test_cardano_mapping(setup_and_cleanup):
     pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_cardano'
 
-    try:
-        shutil.copy2(str(pool_info_dir / 'clusters/cardano.json'),
-                     str(pool_info_dir / f'clusters/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'addresses/cardano.json'),
-                     str(pool_info_dir / f'addresses/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'identifiers/cardano.json'),
-                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
+    # Create temp mapping info files for sample project
+    shutil.copy2(str(pool_info_dir / 'clusters/cardano.json'), str(pool_info_dir / f'clusters/{project}.json'))
+    shutil.copy2(str(pool_info_dir / 'identifiers/cardano.json'), str(pool_info_dir / f'identifiers/{project}.json'))
 
     ledger_mapping[project] = CardanoMapping
     ledger_parser[project] = DummyParser
@@ -220,48 +127,17 @@ def test_cardano_mapping(setup_and_cleanup):
 
     # todo add assertion for mapped data content
 
-    try:
-        os.remove(str(pool_info_dir / f'clusters/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'addresses/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
+    # Remove temp mapping info files
+    os.remove(str(pool_info_dir / f'clusters/{project}.json'))
+    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
 
 
 def test_tezos_mapping(setup_and_cleanup):
     pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
     project = 'sample_tezos'
 
-    try:
-        shutil.copy2(str(pool_info_dir / 'clusters/tezos.json'),
-                     str(pool_info_dir / f'clusters/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'addresses/tezos.json'),
-                     str(pool_info_dir / f'addresses/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        shutil.copy2(str(pool_info_dir / 'identifiers/tezos.json'),
-                     str(pool_info_dir / f'identifiers/{project}.json'))  # Create a temp pool info file for sample
-    except FileNotFoundError:
-        pass
-
-    try:
-        with open(str(pool_info_dir / f'clusters/{project}.json')) as f:
-            clusters = json.load(f)
-    except FileNotFoundError:
-        clusters = {}
-    clusters['TEST'] = [{'name': 'TzNode', 'from': '2021', 'to': '2022', 'source': 'homepage'}]
+    shutil.copy2(str(pool_info_dir / 'addresses/tezos.json'), str(pool_info_dir / f'addresses/{project}.json'))
+    clusters = {'TEST': [{'name': 'TzNode', 'from': '2021', 'to': '2022', 'source': 'homepage'}]}
     with open(str(pool_info_dir / f'clusters/{project}.json'), 'w') as f:
         f.write(json.dumps(clusters))
 
@@ -273,18 +149,9 @@ def test_tezos_mapping(setup_and_cleanup):
 
     # todo add assertion for mapped data content
 
-    try:
-        os.remove(str(pool_info_dir / f'clusters/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'addresses/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(str(pool_info_dir / f'identifiers/{project}.json'))  # Remove temp pool info file
-    except FileNotFoundError:
-        pass
+    # Remove temp mapping info files
+    os.remove(str(pool_info_dir / f'clusters/{project}.json'))
+    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
 
 
 def test_get_reward_addresses():
