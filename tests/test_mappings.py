@@ -31,127 +31,127 @@ def setup_and_cleanup():
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
-    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     test_raw_data_dir = RAW_DATA_DIR
     test_output_dir = OUTPUT_DIR / "test_output"
-    yield mapping_info_dir, test_raw_data_dir, test_output_dir
+    yield test_raw_data_dir, test_output_dir
     # Clean up
     shutil.rmtree(test_output_dir)
 
 
-def test_map(setup_and_cleanup):
-    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
-    project = 'sample_bitcoin'
-
+@pytest.fixture
+def prep_sample_bitcoin_mapping_info():
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     # Create temp mapping info files for sample project
-    shutil.copy2(str(pool_info_dir / 'addresses/bitcoin.json'), str(pool_info_dir / f'addresses/{project}.json'))
-    shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'), str(pool_info_dir / f'identifiers/{project}.json'))
-
-    parse(project, test_raw_data_dir, test_output_dir)
-    apply_mapping(project, test_output_dir, force_map=True)
-
-    mapped_data_file = test_output_dir / project / 'mapped_data.json'
-    assert mapped_data_file.is_file()
-
-    # Remove temp mapping info files
-    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
-    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
-
-
-def test_bitcoin_mapping(setup_and_cleanup):
-    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
-    project = 'sample_bitcoin'
-
-    # Create temp mapping info files for sample project
-    shutil.copy2(str(pool_info_dir / 'addresses/bitcoin.json'), str(pool_info_dir / f'addresses/{project}.json'))
-    shutil.copy2(str(pool_info_dir / 'identifiers/bitcoin.json'), str(pool_info_dir / f'identifiers/{project}.json'))
-
-    with open(str(pool_info_dir / f'addresses/{project}.json')) as f:
+    shutil.copy2(str(mapping_info_dir / 'addresses/bitcoin.json'),
+                 str(mapping_info_dir / 'addresses/sample_bitcoin.json'))
+    shutil.copy2(str(mapping_info_dir / 'identifiers/bitcoin.json'),
+                 str(mapping_info_dir / 'identifiers/sample_bitcoin.json'))
+    with open(mapping_info_dir / 'addresses/sample_bitcoin.json') as f:
         pool_addresses = json.load(f)
     pool_addresses['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'source': ''}
-    with open(str(pool_info_dir / f'addresses/{project}.json'), 'w') as f:
+    with open(mapping_info_dir / 'addresses/sample_bitcoin.json', 'w') as f:
         f.write(json.dumps(pool_addresses))
-
-    parse(project, test_raw_data_dir, test_output_dir)
-    apply_mapping(project, test_output_dir, force_map=True)
-
-    # todo add assertion for mapped data content
-
+    yield
     # Remove temp mapping info files
-    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
-    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
+    os.remove(str(mapping_info_dir / 'addresses/sample_bitcoin.json'))
+    os.remove(str(mapping_info_dir / 'identifiers/sample_bitcoin.json'))
 
 
-def test_ethereum_mapping(setup_and_cleanup):
-    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
-    project = 'sample_ethereum'
-
+@pytest.fixture
+def prep_sample_ethereum_mapping_info():
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     # Create temp mapping info files for sample project
-    shutil.copy2(str(pool_info_dir / 'addresses/ethereum.json'), str(pool_info_dir / f'addresses/{project}.json'))
-    shutil.copy2(str(pool_info_dir / 'identifiers/ethereum.json'), str(pool_info_dir / f'identifiers/{project}.json'))
+    shutil.copy2(mapping_info_dir / 'addresses/ethereum.json', mapping_info_dir / 'addresses/sample_ethereum.json')
+    shutil.copy2(mapping_info_dir / 'identifiers/ethereum.json', mapping_info_dir / 'identifiers/sample_ethereum.json')
 
     clusters = {'TEST': [{'name': 'ezil.me', 'from': '', 'to': '', 'source': 'homepage'}]}
-    with open(str(pool_info_dir / f'clusters/{project}.json'), 'w') as f:
+    with open(mapping_info_dir / 'clusters/sample_ethereum.json', 'w') as f:
         f.write(json.dumps(clusters))
 
-    with open(str(pool_info_dir / f'addresses/{project}.json')) as f:
+    with open(mapping_info_dir / 'addresses/sample_ethereum.json') as f:
         addresses = json.load(f)
     addresses['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'source': ''}
-    with open(str(pool_info_dir / f'addresses/{project}.json'), 'w') as f:
+    with open(mapping_info_dir / 'addresses/sample_ethereum.json', 'w') as f:
         f.write(json.dumps(addresses))
-
-    parse(project, test_raw_data_dir, test_output_dir)
-    apply_mapping(project, test_output_dir, force_map=True)
-
-    # todo add assertion for mapped data content
-
+    yield
     # Remove temp mapping info files
-    os.remove(str(pool_info_dir / f'clusters/{project}.json'))
-    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
-    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
+    os.remove(mapping_info_dir / 'clusters/sample_ethereum.json')
+    os.remove(mapping_info_dir / 'addresses/sample_ethereum.json')
+    os.remove(mapping_info_dir / 'identifiers/sample_ethereum.json')
 
 
-def test_cardano_mapping(setup_and_cleanup):
-    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
-    project = 'sample_cardano'
-
+@pytest.fixture
+def prep_sample_cardano_mapping_info():
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     # Create temp mapping info files for sample project
-    shutil.copy2(str(pool_info_dir / 'clusters/cardano.json'), str(pool_info_dir / f'clusters/{project}.json'))
-    shutil.copy2(str(pool_info_dir / 'identifiers/cardano.json'), str(pool_info_dir / f'identifiers/{project}.json'))
-
-    ledger_mapping[project] = CardanoMapping
-    ledger_parser[project] = DummyParser
-
-    parse(project, test_raw_data_dir, test_output_dir)
-    apply_mapping(project, test_output_dir, force_map=True)
-
-    # todo add assertion for mapped data content
-
+    shutil.copy2(mapping_info_dir / 'clusters/cardano.json', mapping_info_dir / 'clusters/sample_cardano.json')
+    shutil.copy2(mapping_info_dir / 'identifiers/cardano.json', mapping_info_dir / 'identifiers/sample_cardano.json')
+    yield
     # Remove temp mapping info files
-    os.remove(str(pool_info_dir / f'clusters/{project}.json'))
-    os.remove(str(pool_info_dir / f'identifiers/{project}.json'))
+    os.remove(mapping_info_dir / 'clusters/sample_cardano.json')
+    os.remove(mapping_info_dir / 'identifiers/sample_cardano.json')
 
 
-def test_tezos_mapping(setup_and_cleanup):
-    pool_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
-    project = 'sample_tezos'
-
-    shutil.copy2(str(pool_info_dir / 'addresses/tezos.json'), str(pool_info_dir / f'addresses/{project}.json'))
+@pytest.fixture
+def prep_sample_tezos_mapping_info():
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
+    # Create temp mapping info files for sample project
+    shutil.copy2(mapping_info_dir / 'addresses/tezos.json', mapping_info_dir / 'addresses/sample_tezos.json')
     clusters = {'TEST': [{'name': 'TzNode', 'from': '2021', 'to': '2022', 'source': 'homepage'}]}
-    with open(str(pool_info_dir / f'clusters/{project}.json'), 'w') as f:
+    with open(mapping_info_dir / 'clusters/sample_tezos.json', 'w') as f:
         f.write(json.dumps(clusters))
+    yield
+    # Remove temp mapping info files
+    os.remove(str(mapping_info_dir / 'clusters/sample_tezos.json'))
+    os.remove(str(mapping_info_dir / 'addresses/sample_tezos.json'))
 
-    ledger_mapping[project] = TezosMapping
-    ledger_parser[project] = DummyParser
+
+def test_map(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
+    test_raw_data_dir, test_output_dir = setup_and_cleanup
+    # add_remove_bitcoin_sample_files(mapping_info_dir)
+
+    parse('sample_bitcoin', test_raw_data_dir, test_output_dir)
+    apply_mapping('sample_bitcoin', test_output_dir, force_map=True)
+
+    mapped_data_file = test_output_dir / 'sample_bitcoin/mapped_data.json'
+    assert mapped_data_file.is_file()
+
+
+def test_bitcoin_mapping(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
+    test_raw_data_dir, test_output_dir = setup_and_cleanup
+    project = 'sample_bitcoin'
 
     parse(project, test_raw_data_dir, test_output_dir)
     apply_mapping(project, test_output_dir, force_map=True)
 
     # todo add assertion for mapped data content
 
-    # Remove temp mapping info files
-    os.remove(str(pool_info_dir / f'clusters/{project}.json'))
-    os.remove(str(pool_info_dir / f'addresses/{project}.json'))
+
+def test_ethereum_mapping(setup_and_cleanup, prep_sample_ethereum_mapping_info):
+    test_raw_data_dir, test_output_dir = setup_and_cleanup
+
+    parse('sample_ethereum', test_raw_data_dir, test_output_dir)
+    apply_mapping('sample_ethereum', test_output_dir, force_map=True)
+
+    # todo add assertion for mapped data content
+
+
+def test_cardano_mapping(setup_and_cleanup, prep_sample_cardano_mapping_info):
+    test_raw_data_dir, test_output_dir = setup_and_cleanup
+
+    parse('sample_cardano', test_raw_data_dir, test_output_dir)
+    apply_mapping('sample_cardano', test_output_dir, force_map=True)
+
+    # todo add assertion for mapped data content
+
+
+def test_tezos_mapping(setup_and_cleanup, prep_sample_tezos_mapping_info):
+    test_raw_data_dir, test_output_dir = setup_and_cleanup
+
+    parse('sample_tezos', test_raw_data_dir, test_output_dir)
+    apply_mapping('sample_tezos', test_output_dir, force_map=True)
+
+    # todo add assertion for mapped data content
 
 
 def test_get_reward_addresses():
