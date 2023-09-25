@@ -20,7 +20,7 @@ class DummyMapping(DefaultMapping):
                 "timestamp": block['timestamp'],
                 "reward_addresses": block['reward_addresses'],
                 "creator": entity,
-                "mapping_method": 'dummy'
+                "mapping_method": 'no_mapping'
             })
 
         if len(self.mapped_data) > 0:

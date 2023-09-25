@@ -56,6 +56,7 @@ class DefaultMapping:
             pool_links = hlp.get_pool_links(self.project_name, day)
             if entity in pool_links.keys():
                 entity = pool_links[entity]
+                mapping_method = 'known_pool_links'
             self.mapped_data.append({
                 "number": block['number'],
                 "timestamp": block['timestamp'],

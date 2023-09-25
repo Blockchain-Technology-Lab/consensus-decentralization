@@ -19,7 +19,7 @@ class CardanoMapping(DefaultMapping):
         """
         block_identifier = block['identifiers']
         day = block['timestamp'][:10]
-        pool_links = hlp.get_pool_links(self.project_name, day)
+        pool_links = hlp.get_pool_links(self.project_name, day)  # todo move out of method after updating cardano data
         if block_identifier in pool_links.keys():
             return pool_links[block_identifier]
         if block_identifier in self.known_identifiers.keys():
