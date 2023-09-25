@@ -24,7 +24,8 @@ The `run.py` script in the root directory of the project invokes the required pa
 also possible to execute each module individually. The following process describes the most typical workflow.
 
 Place all raw data (which could be collected from BigQuery for example; see [Data Collection](data.md) for more details)
-in the `raw_block_data` directory, each file named as `<project_name>_raw_data.json` (e.g., `bitcoin_raw_data.json`). By default,
+in the `raw_block_data/` directory, each file named as `<project_name>_raw_data.json` (e.g., `bitcoin_raw_data.json`).
+By default,
 there is a (very small) sample input file for some supported projects; to use it, remove the prefix `sample_`.
 
 Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to
@@ -56,5 +57,5 @@ specified ledger. By default, this flag is set to False and no plots are generat
 is set to False and no animated plots are generated. Note that this flag is ignored if `--plot` is set to False.
 
 
-All output files can then be found under the `output` directory, which is automatically created the first time the tool
+All output files can then be found under the `output/` directory, which is automatically created the first time the tool
 is run.

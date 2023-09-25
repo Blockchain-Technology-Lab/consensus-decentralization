@@ -111,8 +111,8 @@ root directory of the project under the name 'google-service-account-key.json'. 
 that you can consult, which shows what your credentials are supposed to look like (but note that this is for
 informational purposes only, this file is not used in the code).
 
-Once you have set up the credentials, you can just run the following command from the `consensus_decentralization` directory to retrieve data
-for all supported blockchains:
+Once you have set up the credentials, you can just run the following command from the `consensus_decentralization/`
+directory to retrieve data for all supported blockchains:
 
 `python collect_data.py`
 

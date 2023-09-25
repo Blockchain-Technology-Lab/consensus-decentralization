@@ -1,6 +1,6 @@
 # Metrics
 
-A metric gets the mapped data (see above `Mapping`) and outputs a relevant value.
+A metric gets the aggregated data (see [Aggregator](aggregator.md)) and outputs a relevant value.
 The metrics that have been implemented so far are the following:
 
 1. **Nakamoto coefficient**: The Nakamoto coefficient represents the minimum number of entities that
@@ -26,4 +26,7 @@ The U.S. Department of Justice has set the following thresholds for interpreting
     - [1500, 2500]: Moderately concentrated market
     - (2500, 10000]: Highly concentrated market
 
-Each metric is implemented in a separate Python script in the folder `metrics`. Each script defines a function named `compute_<metric_name>`, which takes as input a dictionary of the form `{'<entity name>': <number of resources>}` (and possibly other relevant arguments) and outputs the corresponding metric values.
+Each metric is implemented in a separate Python script in the folder `metrics`. 
+Each script defines a function named `compute_<metric_name>`, which takes as input a dictionary of the form
+`{'<entity name>': <number of resources>}` (and possibly other relevant arguments) and outputs the corresponding 
+metric values.

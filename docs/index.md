@@ -11,17 +11,20 @@ The tool consists of the following modules:
 
 - Parser
 - Mapping
+- Aggregator
 - Metrics
 
 The parser is responsible for pre-processing the raw data that comes from a full node. It produces a file
 with all the information that is needed for the mapping.
 
-The mapping takes the output of the parser and combines it with some other
-sources of information. It then outputs a file that reveals the distribution of
-resources to different entities. In this context, "resources" correspond to the
-number of produced blocks.
+The mapping takes the output of the parser, combines it with some other sources of information, and produces a new 
+file that includes attribution data for each block and which mapping method was used to obtain it.
 
-This distribution is the input for the metrics module, which tracks various
+The aggregator takes as input the output of the mapping, as well as one or more time frames to aggregate over. It then 
+outputs a file for each time frame that reveals the distribution of resources to different entities during that time 
+frame. In this context, "resources" correspond to the number of produced blocks.
+
+These distributions are then the input for the metrics module, which tracks various
 decentralization-related metrics and produces files with the results.
 
 More details about the different modules can be found in the corresponding [Parser](parsers.md), [Mapping](mappings.md)

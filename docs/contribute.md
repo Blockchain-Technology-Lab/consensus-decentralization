@@ -10,7 +10,7 @@ You can add support for a ledger that is not already supported as follows.
 
 ### Mapping information
 
-In the directory `mapping_information`, there exist three folders (`addresses`,
+In the directory `mapping_information/`, there exist three folders (`addresses`,
 `clusters`, `identifiers`). In each folder, add a file named
 `<project_name>.json`, if there exist such information for the new ledger (for
 more details on what type of information each folder corresponds to see the
@@ -19,21 +19,19 @@ documentation](https://blockchain-technology-lab.github.io/consensus-decentraliz
 
 ### Parser and mapping
 
-In the directory `consensus_decentralization/parsers`, create a file named `<project_name>_parser.py`,
-if no existing parser can be reused. In this file create a new class, which
+If no existing parser can be reused, create a file named `<project_name>_parser.py` in the directory
+`consensus_decentralization/parsers/`.
+In this file create a new class, which
 inherits from the `DefaultParser` class of `default_parser.py`. Then,
 override its `parse` method in order to implement the new parser (or override another
 method if there are only small changes needed, e.g. `parse_identifiers` if the only thing
 that is different from the default parser is the way identifiers are decoded).
 
-In the directory `consensus_decentralization/mappings`, create a file named
-`<project_name>_mapping.py`, if no existing mapping can be reused. In this file
+If no existing mapping can be reused, create a file named `<project_name>_mapping.py` in the directory
+`consensus_decentralization/mappings/`. In this file
 create a new class, which inherits from the `DefaultMapping` class of `default_mapping.py`.
-Then, override its `process` method. This method takes as input a time period in
-the form `yyyy-mm-dd` (e.g., '2022' for the year 2022, '2022-11' for November
-2022, '2022-11-12' for 12 November 2022), returns a dictionary of the form
-`{'<entity name>': <number of resources>}`, and creates a csv file with the mapped
-data for this timeframe in the `output` directory.
+Then, override its `perform_mapping` method and/or any other methods that are required
+(e.g. `map_from_known_identifiers`).
 
 Then, you should enable support for the new ledger in the parser and mapping
 module scripts. Specifically:
@@ -46,8 +44,8 @@ module scripts. Specifically:
 *Notes*:
 
 - You should add an entry in each dictionary, regardless of whether you use a new or existing parser or mapping – if no
-  new parser or mapping class was created for the project, simply assign the suitable class (e.g. DefaultParser or
-  DefaultMapping) to the project's name in the corresponding dictionary.
+  new parser or mapping class was created for the project, simply assign the suitable class (e.g. `DefaultParser` or
+  `DefaultMapping`) to the project's name in the corresponding dictionary.
 - If you create a new parser/mapping, you should also add unit
   tests [here](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/tree/main/tests)
 

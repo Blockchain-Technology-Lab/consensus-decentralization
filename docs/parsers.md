@@ -3,7 +3,7 @@
 The parser obtains raw data from a full node (see [Data Collection](data.md) page on how to obtain the required data).
 It parses the data and outputs a `json` file with a list of entries, each entry corresponding to a block.
 
-The input file should be placed in the `raw_block_data` directory and named as `<project_name>_raw_data.json`.
+The input file should be placed in the `raw_block_data/` directory and named as `<project_name>_raw_data.json`.
 
 The output file is stored under `output/<project_name>/parsed_data.json` and is structured as follows:
 
