@@ -4,6 +4,7 @@ import pytest
 from consensus_decentralization.parse import parse, ledger_parser
 from consensus_decentralization.parsers.default_parser import DefaultParser
 from consensus_decentralization.parsers.dummy_parser import DummyParser
+from consensus_decentralization.parsers.ethereum_parser import EthereumParser
 from consensus_decentralization.helper import RAW_DATA_DIR, OUTPUT_DIR
 
 
@@ -132,3 +133,8 @@ def test_parse(setup_and_cleanup):
 def test_default_parse_identifiers():
     parsed_identifiers = DefaultParser.parse_identifiers('0343bf07132f6d696e65642062792067626d696e6572732f2cfabe6d6d94976ecebbc73b3d4214b3d7ab330dca2129ebfcc863fa75623c6f95891e7346010000000000000010af8b66002da910ef408c776852840100')
     assert parsed_identifiers == "b'\\x03C\\xbf\\x07\\x13/mined by gbminers/,\\xfa\\xbemm\\x94\\x97n\\xce\\xbb\\xc7;=B\\x14\\xb3\\xd7\\xab3\\r\\xca!)\\xeb\\xfc\\xc8c\\xfaub<o\\x95\\x89\\x1esF\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x10\\xaf\\x8bf\\x00-\\xa9\\x10\\xef@\\x8cwhR\\x84\\x01\\x00'"
+
+
+def test_ethereum_parse_identifiers():
+    parsed_identifiers = EthereumParser.parse_identifiers('0x657a696c2e6d65')
+    assert parsed_identifiers == 'ezil.me'
