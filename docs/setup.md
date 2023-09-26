@@ -42,15 +42,11 @@ February 2022 and `--timeframe 2022-02-03` would do it for a single day (Feburar
 argument is omitted, then a monthly analysis is performed for each month between January 2010 and the current month 
 or the subset of this time period for which relevant data exists.
 
-Additionally, there are four flags that can be used to customize an execution:
+Additionally, there are three flags that can be used to customize an execution:
 
-- `--force-map` forces the mapping to be performed on all data, even if the relevant mapped data files already exist.
-  This can be useful for when mapping info is updated for some blockchain. By default, this flag is
+- `--force-map` forces the mapping and aggregation to be performed on all data, even if the relevant mapped data 
+  files already exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is
   set to False and the tool only performs the mapping when the relevant mapped data files do not exist.
-- `--force-aggregate` forces the aggregation to be performed on all data, even if some or all of the relevant 
-  aggregated data files already exist. By default, this flag is
-  set to False and the tool only performs the aggregation when the relevant aggregated data files do not exist. 
-  However, if the `--force-map` flag is set to True, then the `--force-aggregate` flag is automatically set to True too.
 - `--plot` enables the generation of graphs at the end of the execution. Specifically, the output of each 
 implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
 specified ledger. By default, this flag is set to False and no plots are generated.

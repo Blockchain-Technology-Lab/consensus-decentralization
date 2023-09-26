@@ -79,11 +79,6 @@ if __name__ == '__main__':
         default=None,
         help='The timeframe that will be analyzed.'
     )
-    parser.add_argument(
-        '--force-aggregate',
-        action='store_true',
-        help='Flag to specify whether to aggregate the mapped data, regardless if the aggregated data files exist.'
-    )
     args = parser.parse_args()
 
     start_year, end_year = hlp.get_start_end_years()
@@ -98,4 +93,4 @@ if __name__ == '__main__':
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
     for ledger in args.ledgers:
-        aggregate(ledger, hlp.OUTPUT_DIR, timeframes, args.force_aggregate)
+        aggregate(ledger, hlp.OUTPUT_DIR, timeframes, force_aggregate=False)

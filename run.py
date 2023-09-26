@@ -11,7 +11,7 @@ from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_D
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
 
-def main(projects, timeframes, force_map, force_aggregate, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+def main(projects, timeframes, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -19,8 +19,6 @@ def main(projects, timeframes, force_map, force_aggregate, make_plots, make_anim
         YYYY-MM or YYYY format)
     :param force_map: bool. If True, then the parsing and mapping will be performed, regardless of whether
         mapped data for some or all of the projects already exist
-    :param force_aggregate: bool. If True, then the aggregation will be performed, regardless of whether
-        aggregated data for some or all of the projects already exist
     :param make_plots: bool. If True, then plots are generated and saved for the results
     :param make_animated_plots: bool. If True (and make_plots also True) then animated plots are also generated.
         Warning: generating animated plots might take a long time
@@ -32,9 +30,9 @@ def main(projects, timeframes, force_map, force_aggregate, make_plots, make_anim
         project_dir.mkdir(parents=True, exist_ok=True)  # create project output directory if it doesn't already exist
         mapped_data_file = project_dir / 'mapped_data.json'
         if force_map or not mapped_data_file.is_file():
-            parsed_data = parse(project, RAW_DATA_DIR)
-            apply_mapping(project, parsed_data, output_dir, force_map)
-        aggregate(project, output_dir, timeframes, force_aggregate)
+            parsed_data = parse(project=project, input_dir=RAW_DATA_DIR)
+            apply_mapping(project=project, parsed_data=parsed_data, output_dir=output_dir, force_map=force_map)
+        aggregate(project=project, output_dir=output_dir, timeframes=timeframes, force_aggregate=force_map)
 
     used_metrics = analyze(projects, timeframes, output_dir)
 
@@ -67,11 +65,6 @@ if __name__ == '__main__':
         help='Flag to specify whether to map the parsed data, regardless if the mapped data files exist.'
     )
     parser.add_argument(
-        '--force-aggregate',
-        action='store_true',
-        help='Flag to specify whether to aggregate the mapped data, regardless if the aggregated data files exist.'
-    )
-    parser.add_argument(
         '--plot',
         action='store_true',
         help='Flag to specify whether to produce and save plots of the results.'
@@ -96,5 +89,6 @@ if __name__ == '__main__':
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 
-    main(projects, timeframes, args.force_map, args.force_aggregate, args.plot, args.animated)
+    main(projects=projects, timeframes=timeframes, force_map=args.force_map, make_plots=args.plot,
+         make_animated_plots=args.animated)
     logging.info('Done. Please check the output directory for results.')

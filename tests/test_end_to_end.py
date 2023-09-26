@@ -72,7 +72,7 @@ def test_end_to_end(setup_and_cleanup):
 
     timeframes = ['2010', '2018-02', '2018-03', '2020-12']
 
-    main(projects=['sample_bitcoin', 'sample_cardano'], timeframes=timeframes, force_map=True, force_aggregate=True,
+    main(projects=['sample_bitcoin', 'sample_cardano'], timeframes=timeframes, force_map=True,
          make_plots=False, make_animated_plots=False, output_dir=test_output_dir)
 
     expected_entropy = [
