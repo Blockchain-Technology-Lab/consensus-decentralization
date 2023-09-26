@@ -44,9 +44,9 @@ or the subset of this time period for which relevant data exists.
 
 Additionally, there are three flags that can be used to customize an execution:
 
-- `--force-map` forces the mapping and aggregation to be performed on all data, even if the relevant mapped data 
+- `--force-map` forces the parsing, mapping and aggregation to be performed on all data, even if the relevant output
   files already exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is
-  set to False and the tool only performs the mapping when the relevant mapped data files do not exist.
+  set to False and the tool only performs the mapping and aggregation when the relevant output files do not exist.
 - `--plot` enables the generation of graphs at the end of the execution. Specifically, the output of each 
 implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
 specified ledger. By default, this flag is set to False and no plots are generated.
