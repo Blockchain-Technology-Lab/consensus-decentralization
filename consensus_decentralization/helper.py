@@ -295,17 +295,6 @@ def get_start_end_years():
     return config['max_timeframe']['start_year'], config['max_timeframe']['end_year']
 
 
-def read_parsed_project_data(project_dir):
-    """
-    Reads the parsed data from a project's output directory
-    :param project_dir: pathlib.PosixPath object of the output directory corresponding to the project
-    :returns: a dictionary with the parsed data
-    """
-    with open(project_dir / 'parsed_data.json') as f:
-        data = json.load(f)
-    return data
-
-
 def read_mapped_project_data(project_dir):
     """
     Reads the mapped data from a project's output directory

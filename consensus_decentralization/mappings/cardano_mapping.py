@@ -7,8 +7,8 @@ class CardanoMapping(DefaultMapping):
     Mapping class tailored to Cardano data. Inherits from Mapping class.
     """
 
-    def __init__(self, project_name, io_dir, data_to_map):
-        super().__init__(project_name, io_dir, data_to_map)
+    def __init__(self, project_name, output_dir, data_to_map):
+        super().__init__(project_name, output_dir, data_to_map)
 
     def map_from_known_identifiers(self, block):
         """

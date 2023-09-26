@@ -8,7 +8,7 @@ class DefaultMapping:
     methods must use a mapping class that inherits from this one.
 
     :ivar project_name: the name of the project associated with a specific mapping instance
-    :ivar io_dir: the directory that includes the parsed data related to the project
+    :ivar output_dir: the directory that includes the parsed data related to the project
     :ivar mapped_data_dir: the directory to save the mapped data files in
     :ivar multi_pool_dir: the directory to save the multi pool data files in
     :ivar data_to_map: a list with the parsed data of the project (list of dictionaries with block information
@@ -22,9 +22,9 @@ class DefaultMapping:
     :ivar multi_pool_addresses: a list to be populated with addresses that were associated with multiple pools
     """
 
-    def __init__(self, project_name, io_dir, data_to_map):
+    def __init__(self, project_name, output_dir, data_to_map):
         self.project_name = project_name
-        self.io_dir = io_dir
+        self.output_dir = output_dir
         self.data_to_map = data_to_map
         self.mapped_data = list()
         self.special_addresses = hlp.get_special_addresses(project_name)
@@ -144,11 +144,11 @@ class DefaultMapping:
         with multiple pools, if any such blocks/addresses were found for the project
         """
         if self.multi_pool_addresses:
-            with open(self.io_dir / 'multi_pool_addresses.csv', 'w') as f:
+            with open(self.output_dir / 'multi_pool_addresses.csv', 'w') as f:
                 f.write('Block No,Timestamp,Address,Entity\n' + '\n'.join(self.multi_pool_addresses))
 
         if self.multi_pool_blocks:
-            with open(self.io_dir / 'multi_pool_blocks.csv', 'w') as f:
+            with open(self.output_dir / 'multi_pool_blocks.csv', 'w') as f:
                 f.write('Block No,Timestamp,Entities\n' + '\n'.join(self.multi_pool_blocks))
 
     def write_mapped_data(self):
@@ -157,5 +157,5 @@ class DefaultMapping:
         into a folder named after the project, inside the general output directory
         """
         filename = 'mapped_data.json'
-        with open(self.io_dir / filename, 'w') as f:
+        with open(self.output_dir / filename, 'w') as f:
             json.dump(self.mapped_data, f, indent=4)

@@ -16,16 +16,13 @@ ledger_parser = {
 }
 
 
-def parse(project, input_dir, output_dir, force_parse=False):
+def parse(project, input_dir):
     """
     Parses raw data
     :param project: string that corresponds to the ledger whose data should be parsed
-    :param force_parse: boolean. If True, then raw data will be parsed, regardless of whether parsed data for some or
-    all of the projects already exist. If False, then data will be parsed only if they have not been parsed before (the
-    relevant file does not exist)
+    :param input_dir: path to the directory of the raw block data
+    :returns: list of dictionaries (the parsed data of the project) or None if parsing didn't occur
     """
-    parsed_data_file = output_dir / project / 'parsed_data.json'
-    if force_parse or not parsed_data_file.is_file():
-        logging.info(f'Parsing {project} data..')
-        parser = ledger_parser[project](project, input_dir, output_dir)
-        parser.parse()
+    logging.info(f'Parsing {project} data..')
+    parser = ledger_parser[project](project, input_dir)
+    return parser.parse()
