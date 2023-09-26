@@ -2,7 +2,7 @@ import datetime
 import argparse
 import shutil
 import pytest
-from consensus_decentralization.helper import get_known_entities, get_pool_identifiers, get_pool_links, \
+from consensus_decentralization.helper import get_pool_identifiers, get_pool_links, \
     get_known_addresses, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
     get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
 from consensus_decentralization.map import ledger_mapping
@@ -159,23 +159,6 @@ def test_get_time_period():  # currently not testing for invalid dates
 
     for i, (frm, to) in enumerate(from_to):
         assert get_time_period(frm, to) == time_periods[i]
-
-
-def test_get_known_entities():
-    known_entities = get_known_entities(ledger='test')
-
-    # check pool data
-    assert "cluster_1" in known_entities
-    assert "Entity 1" in known_entities
-    assert "Entity 5" in known_entities
-
-    assert "entity 5" not in known_entities
-    assert "entity_5" not in known_entities
-    assert "ent2" not in known_entities
-
-    # check legal links
-    assert "Bitmain" in known_entities
-    assert "NovaBlock" in known_entities
 
 
 def test_get_default_ledgers():

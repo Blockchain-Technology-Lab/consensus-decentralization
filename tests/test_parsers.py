@@ -1,5 +1,3 @@
-import json
-import shutil
 import pytest
 from consensus_decentralization.parse import parse, ledger_parser
 from consensus_decentralization.parsers.default_parser import DefaultParser

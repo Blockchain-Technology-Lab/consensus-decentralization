@@ -68,42 +68,6 @@ def get_time_period(frm, to):
     return start, end
 
 
-def get_known_entities(ledger):
-    known_entities = set()
-    try:
-        with open(MAPPING_INFO_DIR / f'identifiers/{ledger}.json') as f:
-            identifiers = json.load(f)
-        for info in identifiers.values():
-            known_entities.add(info['name'])
-    except FileNotFoundError:
-        pass
-
-    try:
-        with open(MAPPING_INFO_DIR / f'clusters/{ledger}.json') as f:
-            clusters = json.load(f)
-        for cluster in clusters.keys():
-            known_entities.add(cluster)
-    except FileNotFoundError:
-        pass
-
-    try:
-        with open(MAPPING_INFO_DIR / f'addresses/{ledger}.json') as f:
-            pool_addresses = json.load(f)
-        for address_info in pool_addresses.values():
-            known_entities.add(address_info['name'])
-    except FileNotFoundError:
-        pass
-
-    with open(MAPPING_INFO_DIR / 'legal_links.json') as f:
-        legal_links = json.load(f)
-    for parent, children in legal_links.items():
-        known_entities.add(parent)
-        for child in children:
-            known_entities.add(child['name'])
-
-    return known_entities
-
-
 def get_pool_identifiers(project_name):
     """
     Retrieves identifiers (tags, etc) about the pools of a project.

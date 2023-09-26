@@ -1,5 +1,4 @@
 import logging
-import consensus_decentralization.helper as hlp
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
