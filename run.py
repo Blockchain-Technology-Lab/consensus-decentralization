@@ -4,8 +4,7 @@ from consensus_decentralization.map import apply_mapping
 from consensus_decentralization.analyze import analyze
 from consensus_decentralization.parse import parse
 from consensus_decentralization.plot import plot
-from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_DIR, get_default_ledgers, \
-    get_start_end_years
+import consensus_decentralization.helper as hlp
 
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
@@ -26,7 +25,7 @@ def main(projects, timeframes, force_parse, force_map, make_plots, make_animated
     """
     logging.info(f"The ledgers that will be analyzed are: {','.join(projects)}")
     for project in projects:
-        parse(project, RAW_DATA_DIR, output_dir, force_parse)
+        parse(project, hlp.RAW_DATA_DIR, output_dir, force_parse)
         apply_mapping(project, timeframes, output_dir, force_map)
 
     used_metrics = analyze(projects, timeframes, output_dir)
@@ -36,7 +35,7 @@ def main(projects, timeframes, force_parse, force_map, make_plots, make_animated
 
 
 if __name__ == '__main__':
-    default_ledgers = get_default_ledgers()
+    default_ledgers = hlp.get_default_ledgers()
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -50,7 +49,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--timeframe',
         nargs="?",
-        type=valid_date,
+        type=hlp.valid_date,
         default=None,
         help='The timeframe that will be analyzed.'
     )
@@ -78,7 +77,7 @@ if __name__ == '__main__':
 
     projects = args.ledgers
 
-    start_year, end_year = get_start_end_years()
+    start_year, end_year = hlp.get_start_end_years()
 
     timeframe = args.timeframe
     if timeframe:

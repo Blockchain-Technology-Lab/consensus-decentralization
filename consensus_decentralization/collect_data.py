@@ -7,6 +7,7 @@
     here (https://developers.google.com/workspace/guides/create-credentials#service-account) and save your key in the
     root directory of the project under the name 'google-service-account-key.json'
 """
+import consensus_decentralization.helper as hlp
 import google.cloud.bigquery as bq
 import json
 import argparse
@@ -16,7 +17,7 @@ from yaml import safe_load
 from consensus_decentralization.helper import ROOT_DIR, RAW_DATA_DIR
 
 
-def collect_data(force_query):
+def collect_data(ledgers, force_query):
     if not RAW_DATA_DIR.is_dir():
         RAW_DATA_DIR.mkdir()
 
@@ -25,9 +26,8 @@ def collect_data(force_query):
 
     client = bq.Client.from_service_account_json(json_credentials_path=ROOT_DIR / "google-service-account-key.json")
 
-    for ledger in queries.keys():
-        filename = f'{ledger}_raw_data.json'
-        file = RAW_DATA_DIR / filename
+    for ledger in ledgers:
+        file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
         if not force_query and file.is_file():
             logging.info(f'{ledger} data already exists locally. '
                          f'For querying {ledger} anyway please run the script using the flag --force-query')
@@ -53,11 +53,22 @@ def collect_data(force_query):
 
 if __name__ == '__main__':
     logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
+
+    default_ledgers = hlp.get_default_ledgers()
+
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--ledgers',
+        nargs="*",
+        type=str.lower,
+        default=default_ledgers,
+        choices=[ledger for ledger in default_ledgers],
+        help='The ledgers to collect data for.'
+    )
     parser.add_argument(
         '--force-query',
         action='store_true',
         help='Flag to specify whether to query for project data regardless if the relevant data already exist.'
     )
     args = parser.parse_args()
-    collect_data(args.force_query)
+    collect_data(ledgers=args.ledgers, force_query=args.force_query)
