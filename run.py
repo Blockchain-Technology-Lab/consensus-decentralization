@@ -9,7 +9,7 @@ import consensus_decentralization.helper as hlp
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
 
-def main(projects, timeframes, force_parse, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+def main(projects, timeframes, force_parse, force_map, make_plots, make_animated_plots, output_dir=hlp.OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
