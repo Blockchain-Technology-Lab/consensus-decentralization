@@ -1,7 +1,8 @@
+import json
 import shutil
 import pytest
 from consensus_decentralization.helper import OUTPUT_DIR
-from consensus_decentralization.aggregate import aggregate
+from consensus_decentralization.aggregate import aggregate, Aggregator
 
 
 @pytest.fixture
@@ -41,6 +42,7 @@ def mock_sample_bitcoin_mapped_data(setup_and_cleanup):
         ']'
     with open(test_bitcoin_dir / 'mapped_data.json', 'w') as f:
         f.write(mapped_data)
+    return json.loads(mapped_data)
 
 
 @pytest.fixture
@@ -118,6 +120,23 @@ def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
 
     output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2018-03.csv'
     assert output_file.is_file()
+
+
+def test_aggregate_method(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
+    aggregator = Aggregator(project='sample_bitcoin', io_dir=setup_and_cleanup / 'sample_bitcoin',
+                            data_to_aggregate=mock_sample_bitcoin_mapped_data)
+
+    blocks_per_entity = aggregator.aggregate('2018-02')
+    assert sum(blocks_per_entity.values()) == 8
+
+    blocks_per_entity = aggregator.aggregate('2020-09-19')
+    assert sum(blocks_per_entity.values()) == 2
+
+    blocks_per_entity = aggregator.aggregate('2021')
+    assert sum(blocks_per_entity.values()) == 1
+
+    blocks_per_entity = aggregator.aggregate('2023')
+    assert sum(blocks_per_entity.values()) == 0
 
 
 def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
