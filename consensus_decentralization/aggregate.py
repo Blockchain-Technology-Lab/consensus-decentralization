@@ -40,10 +40,11 @@ class Aggregator:
         return blocks_per_entity
 
 
-def aggregate(project, output_dir, timeframes, force_aggregate):
+def aggregate(project, output_dir, timeframes, force_aggregate, mapped_data=None):
     logging.info(f'Aggregating {project} data..')
     project_io_dir = output_dir / project
-    mapped_data = hlp.read_mapped_project_data(project_io_dir)
+    if mapped_data is None:
+        mapped_data = hlp.read_mapped_project_data(project_io_dir)
     aggregator = Aggregator(project, project_io_dir, mapped_data)
 
     years_done = set()  # Keep track of computed yearly aggregations to avoid recomputing them in the same run

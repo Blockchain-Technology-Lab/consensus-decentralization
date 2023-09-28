@@ -52,9 +52,9 @@ class CardanoMapping(DefaultMapping):
 
     def perform_mapping(self):
         """
-        Overrides process method of parent class to use project-specific information and extract the distribution of
+        Overrides perform_mapping method of parent class to use project-specific information and extract the distribution of
         blocks to different entities.
-        :returns: a dictionary with the entities and the number of blocks they have produced over the given timeframe
+        :returns: a list of dictionaries (mapped block data)
         """
         for block in self.data_to_map:
             entity = self.map_from_known_identifiers(block)

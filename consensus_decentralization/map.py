@@ -24,9 +24,9 @@ def apply_mapping(project, parsed_data, output_dir):
     :param project: string that corresponds to the ledger whose data should be mapped
     :param parsed_data: list of dictionaries. The parsed data of the project
     :param output_dir: path to the general output directory
+    :returns: a list of dictionaries (mapped block data)
     """
+    logging.info(f'Mapping {project} blocks to their creators..')
     project_output_dir = output_dir / project
     mapping = ledger_mapping[project](project, project_output_dir, parsed_data)
-
-    logging.info(f'Mapping {project} blocks to their creators..')
-    mapping.perform_mapping()
+    return mapping.perform_mapping()

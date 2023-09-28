@@ -11,6 +11,10 @@ class DummyMapping(DefaultMapping):
         super().__init__(project_name, output_dir, data_to_map)
 
     def perform_mapping(self):
+        """
+        Overrides perform_mapping method of parent class.
+        :returns: a list of dictionaries ("mapped" block data)
+        """
         for block in self.data_to_map:
             reward_addresses = block['reward_addresses'].split(',')
             entity = reward_addresses[0]

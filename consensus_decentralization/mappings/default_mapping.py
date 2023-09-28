@@ -42,7 +42,7 @@ class DefaultMapping:
         Also outputs a file with the blocks that were produced by multiple pools and a file
         with the addresses that were associated with multiple pools, if any such blocks/addresses were found for the
         project.
-        :returns: a list of mapped block data
+        :returns: a list of dictionaries (mapped block data)
         """
         for block in self.data_to_map:
             entity = self.map_from_known_identifiers(block)

@@ -31,8 +31,10 @@ def main(projects, timeframes, force_map, make_plots, make_animated_plots, outpu
         mapped_data_file = project_dir / 'mapped_data.json'
         if force_map or not mapped_data_file.is_file():
             parsed_data = parse(project=project, input_dir=RAW_DATA_DIR)
-            apply_mapping(project=project, parsed_data=parsed_data, output_dir=output_dir, force_map=force_map)
-        aggregate(project=project, output_dir=output_dir, timeframes=timeframes, force_aggregate=force_map)
+            mapped_data = apply_mapping(project=project, parsed_data=parsed_data, output_dir=output_dir)
+        else:
+            mapped_data = None
+        aggregate(project=project, output_dir=output_dir, timeframes=timeframes, force_aggregate=force_map, mapped_data=mapped_data)
 
     used_metrics = analyze(projects, timeframes, output_dir)
 

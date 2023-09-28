@@ -21,8 +21,8 @@ def parse(project, input_dir):
     Parses raw data
     :param project: string that corresponds to the ledger whose data should be parsed
     :param input_dir: path to the directory of the raw block data
-    :returns: list of dictionaries (the parsed data of the project) or None if parsing didn't occur
+    :returns: list of dictionaries (the parsed data of the project)
     """
     logging.info(f'Parsing {project} data..')
-    parser = ledger_parser[project](project, input_dir)
+    parser = ledger_parser[project](project_name=project, input_dir=input_dir)
     return parser.parse()

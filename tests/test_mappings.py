@@ -98,7 +98,7 @@ def test_map(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
     mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
 
     parsed_data = parse(project='sample_bitcoin', input_dir=test_raw_data_dir)
-    apply_mapping(project='sample_bitcoin', parsed_data=parsed_data, output_dir=test_output_dir, force_map=True)
+    apply_mapping(project='sample_bitcoin', parsed_data=parsed_data, output_dir=test_output_dir)
 
     mapped_data_file = test_output_dir / 'sample_bitcoin/mapped_data.json'
     assert mapped_data_file.is_file()
@@ -113,7 +113,7 @@ def test_bitcoin_mapping(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
         f.write(json.dumps(pool_addresses))
 
     parsed_data = parse(project='sample_bitcoin', input_dir=test_raw_data_dir)
-    apply_mapping(project='sample_bitcoin', parsed_data=parsed_data, output_dir=test_output_dir, force_map=True)
+    apply_mapping(project='sample_bitcoin', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
         '507715': 'GBMiners',
@@ -148,7 +148,7 @@ def test_ethereum_mapping(setup_and_cleanup, prep_sample_ethereum_mapping_info):
         f.write(json.dumps(addresses))
 
     parsed_data = parse(project='sample_ethereum', input_dir=test_raw_data_dir)
-    apply_mapping(project='sample_ethereum', parsed_data=parsed_data, output_dir=test_output_dir, force_map=True)
+    apply_mapping(project='sample_ethereum', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
         '16382083': 'MEV Builder: 0x3B...436',
@@ -175,7 +175,7 @@ def test_cardano_mapping(setup_and_cleanup, prep_sample_cardano_mapping_info):
     mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
 
     parsed_data = parse(project='sample_cardano', input_dir=test_raw_data_dir)
-    apply_mapping(project='sample_cardano', parsed_data=parsed_data, output_dir=test_output_dir, force_map=True)
+    apply_mapping(project='sample_cardano', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
         '17809932': 'CFLOW',
@@ -202,7 +202,7 @@ def test_tezos_mapping(setup_and_cleanup, prep_sample_tezos_mapping_info):
         f.write(json.dumps(clusters))
 
     parsed_data = parse(project='sample_tezos', input_dir=test_raw_data_dir)
-    apply_mapping(project='sample_tezos', parsed_data=parsed_data, output_dir=test_output_dir, force_map=True)
+    apply_mapping(project='sample_tezos', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
         '1649812': 'Tezos Seoul',
