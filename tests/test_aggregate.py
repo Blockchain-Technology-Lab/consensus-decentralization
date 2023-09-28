@@ -1,3 +1,4 @@
+import datetime
 import json
 import shutil
 import pytest
@@ -105,20 +106,23 @@ def mock_sample_tezos_mapped_data(setup_and_cleanup):
 def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
     test_io_dir = setup_and_cleanup
 
-    timeframes = ['2010', '2018-02', '2018-03']
+    timeframes = ['2010', '2018-02', '2018-03', '2021']
 
     aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframes=timeframes, force_aggregate=True)
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2010.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2010-01-01_to_2010-12-31.csv'
     assert not output_file.is_file()  # since there is no data from 2010 in the sample
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2018-02.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2018-02-01_to_2018-02-28.csv'
     assert output_file.is_file()
 
-    yearly_output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2018.csv'
+    yearly_output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2018-01-01_to_2018-12-31.csv'
     assert yearly_output_file.is_file()
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2018-03.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2018-03-01_to_2018-03-31.csv'
+    assert output_file.is_file()
+
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2021-01-01_to_2021-12-31.csv'
     assert output_file.is_file()
 
 
@@ -126,16 +130,16 @@ def test_aggregate_method(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
     aggregator = Aggregator(project='sample_bitcoin', io_dir=setup_and_cleanup / 'sample_bitcoin',
                             data_to_aggregate=mock_sample_bitcoin_mapped_data)
 
-    blocks_per_entity = aggregator.aggregate('2018-02')
+    blocks_per_entity = aggregator.aggregate(datetime.date(2018, 2, 1), datetime.date(2018, 2, 28))
     assert sum(blocks_per_entity.values()) == 8
 
-    blocks_per_entity = aggregator.aggregate('2020-09-19')
+    blocks_per_entity = aggregator.aggregate(datetime.date(2020, 9, 19), datetime.date(2020, 9, 19))
     assert sum(blocks_per_entity.values()) == 2
 
-    blocks_per_entity = aggregator.aggregate('2021')
+    blocks_per_entity = aggregator.aggregate(datetime.date(2021, 1, 1), datetime.date(2021, 12, 31))
     assert sum(blocks_per_entity.values()) == 1
 
-    blocks_per_entity = aggregator.aggregate('2023')
+    blocks_per_entity = aggregator.aggregate(datetime.date(2023, 1, 1), datetime.date(2023, 12, 31))
     assert sum(blocks_per_entity.values()) == 0
 
 
@@ -146,7 +150,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
 
     expected_output = ['Entity,Resources\n', '1AM2f...9pJUx/3G7y1...gPPWb,4\n', 'BTC.TOP,2\n', 'GBMiners,2\n']
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2018-02.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2018-02-01_to_2018-02-28.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -154,7 +158,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
     expected_output = ['Entity,Resources\n', '1AM2f...9pJUx/3G7y1...gPPWb,4\n', 'BTC.TOP,2\n', 'GBMiners,2\n',
                        '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1\n']
 
-    yearly_output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2018.csv'
+    yearly_output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2018-01-01_to_2018-12-31.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -164,7 +168,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
 
     expected_output = ['Entity,Resources\n', 'TEST2,2\n', 'Bitmain,1\n', ]
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/2020.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/from_2020-01-01_to_2020-12-31.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -178,12 +182,12 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
 
     expected_output = ['Entity,Resources\n', 'TEST2,5\n', 'TEST,3\n', '0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6,1\n']
 
-    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/2020-11.csv'
+    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/from_2020-11-01_to_2020-11-30.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
 
-    yearly_output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/2020.csv'
+    yearly_output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/from_2020-01-01_to_2020-12-31.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -194,7 +198,7 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
 
     expected_output = ['Entity,Resources\n', 'MEV Builder: 0x3B...436,1\n']
 
-    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/2023.csv'
+    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/from_2023-01-01_to_2023-12-31.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -215,12 +219,12 @@ def test_cardano_aggregation(setup_and_cleanup, mock_sample_cardano_mapped_data)
         '1percentpool,1\n'
     ]
 
-    output_file = test_io_dir / 'sample_cardano/blocks_per_entity/2020-12.csv'
+    output_file = test_io_dir / 'sample_cardano/blocks_per_entity/from_2020-12-01_to_2020-12-31.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
 
-    yearly_output_file = test_io_dir / 'sample_cardano/blocks_per_entity/2020.csv'
+    yearly_output_file = test_io_dir / 'sample_cardano/blocks_per_entity/from_2020-01-01_to_2020-12-31.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -235,12 +239,12 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
     expected_output = ['Entity,Resources\n', 'Tezos Seoul,2\n', 'tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP,1\n', 'TEST,1\n',
                        '----- UNDEFINED MINER -----,1\n']
 
-    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/2021-08.csv'
+    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/from_2021-08-01_to_2021-08-31.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
 
-    yearly_output_file = test_io_dir / 'sample_tezos/blocks_per_entity/2021.csv'
+    yearly_output_file = test_io_dir / 'sample_tezos/blocks_per_entity/from_2021-01-01_to_2021-12-31.csv'
     with open(yearly_output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]
@@ -251,7 +255,7 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
 
     expected_output = ['Entity,Resources\n', 'tz0000000000000000000000000000000000,1\n']
 
-    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/2018.csv'
+    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/from_2018-01-01_to_2018-12-31.csv'
     with open(output_file) as f:
         for idx, line in enumerate(f.readlines()):
             assert line == expected_output[idx]

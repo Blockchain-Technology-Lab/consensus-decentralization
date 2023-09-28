@@ -133,12 +133,12 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
         if not figures_path.is_dir():
             figures_path.mkdir()
 
-        start_year, end_year = hlp.get_start_end_years()
+        start_date, end_date = hlp.get_start_end_dates()
 
         end_month = 3
         pool_blocks_by_month = {}  # dictionary of dictionaries (one dictionary for each month under consideration)
         pool_block_share_by_month = {}  # same as above but for fractions instead of absolute values for each month
-        for year in range(start_year, end_year + 1):
+        for year in range(start_date, end_date + 1):
             for month in range(1, 13):
                 timeframe = f'{year}-0{month}' if month < 10 else f'{year}-{month}'
                 filename = f'{timeframe}.csv'
@@ -156,7 +156,7 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
                     pool_blocks_by_month[timeframe] = blocks
                 pool_block_share_by_month[timeframe] = {e: b * 100 / total_blocks for e, b in
                                                         pool_blocks_by_month[timeframe].items()}
-                if year == end_year and month == end_month:
+                if year == end_date and month == end_month:
                     break
         months = pool_blocks_by_month.keys()
         # values_to_plot = {'absolute_values': pool_blocks_by_month, 'relative_values': pool_block_share_by_month}

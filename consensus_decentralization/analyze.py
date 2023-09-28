@@ -39,13 +39,16 @@ def analyze(projects, timeframes, output_dir):
             # This is needed because the Gini coefficient is computed over all entities per each year.
             year = timeframe[:4]
             try:
-                yearly_blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / f'{year}.csv')
+                yearly_filename = f'from_{hlp.get_timeframe_beginning(year)}_to_{hlp.get_timeframe_end(year)}.csv'
+                yearly_blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / yearly_filename)
                 yearly_entities = yearly_blocks_per_entity.keys()
             except FileNotFoundError:
                 yearly_entities = set()
             try:
                 # Get aggregated data for the defined timeframe, if such data exists
-                blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / f'{timeframe}.csv')
+                timeframe_filename = f'from_{hlp.get_timeframe_beginning(timeframe)}_to' \
+                                     f'_{hlp.get_timeframe_end(timeframe)}.csv'
+                blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / timeframe_filename)
             except FileNotFoundError:
                 blocks_per_entity = dict()
 

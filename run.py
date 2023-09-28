@@ -6,7 +6,7 @@ from consensus_decentralization.analyze import analyze
 from consensus_decentralization.parse import parse
 from consensus_decentralization.plot import plot
 from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_DIR, get_default_ledgers, \
-    get_start_end_years
+    get_start_end_dates
 
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
@@ -80,14 +80,14 @@ if __name__ == '__main__':
 
     projects = args.ledgers
 
-    start_year, end_year = get_start_end_years()
+    start_date, end_date = get_start_end_dates()
 
     timeframe = args.timeframe
     if timeframe:
         timeframes = [timeframe]
     else:
         timeframes = []
-        for year in range(start_year, end_year + 1):
+        for year in range(start_date, end_date + 1):
             for month in range(1, 13):
                 timeframes.append(f'{year}-{str(month).zfill(2)}')
 

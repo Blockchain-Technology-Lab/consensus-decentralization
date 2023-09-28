@@ -155,16 +155,15 @@ def get_known_addresses(project_name):
     return {address: addr_info['name'] for address, addr_info in address_data.items()}
 
 
-def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, timeframe):
+def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, filename):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
     :param output_dir: pathlib.PosixPath object of the output directory where the produced csv file is written to.
     :param blocks_per_entity: a dictionary with entities and the number of blocks they produced over the given timeframe
-    :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
-    format). Also used for naming the produced file.
+    :param filename: the name to be given to the produced file.
     """
-    with open(output_dir / f'{timeframe}.csv', 'w', newline='') as f:
+    with open(output_dir / f'{filename}.csv', 'w', newline='') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerow(['Entity', 'Resources'])
         csv_writer.writerows(sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True))
@@ -250,13 +249,13 @@ def get_default_ledgers():
     return ledgers
 
 
-def get_start_end_years():
+def get_start_end_dates():
     """
     Retrieves the start and end year for which to analyze data
     :returns: a touple of two integers, (<start year>, <end year>)
     """
     config = get_config_data()
-    return config['max_timeframe']['start_year'], config['max_timeframe']['end_year']
+    return config['max_timeframe']['start_date'], config['max_timeframe']['end_date']
 
 
 def read_mapped_project_data(project_dir):

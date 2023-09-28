@@ -16,16 +16,16 @@ def setup_and_cleanup():
     test_bitcoin_dir = test_io_dir / "sample_bitcoin"
     test_bitcoin_dir.mkdir(parents=True, exist_ok=True)
     # create files that would be the output of aggregation
-    csv_per_timeframes = {'2018': 'Entity,Resources\n'
+    csv_per_timeframes = {'from_2018-01-01_to_2018-12-31': 'Entity,Resources\n'
                                   '1AM2f...9pJUx/3G7y1...gPPWb,4\n'
                                   'BTC.TOP,2\n'
                                   'GBMiners,2\n'
                                   '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1',
-                          '2018-02': 'Entity,Resources\n'
+                          'from_2018-02-01_to_2018-02-28': 'Entity,Resources\n'
                                      '1AM2f...9pJUx/3G7y1...gPPWb,4\n'
                                      'BTC.TOP,2\n'
                                      'GBMiners,2',
-                          '2018-03': 'Entity,Resources\n'
+                          'from_2018-03-01_to_2018-03-31': 'Entity,Resources\n'
                                      '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'}
     aggregated_data_path = test_bitcoin_dir / 'blocks_per_entity'
     aggregated_data_path.mkdir(parents=True, exist_ok=True)
