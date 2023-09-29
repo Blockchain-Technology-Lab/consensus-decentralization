@@ -1,3 +1,4 @@
+import csv
 import logging
 import consensus_decentralization.helper as hlp
 from consensus_decentralization.metrics.gini import compute_gini  # noqa: F401
@@ -20,19 +21,18 @@ def analyze(projects, timeframes, output_dir):
 
     csv_contents = {}
     for metric in metrics.keys():
-        csv_contents[metric] = {'0': 'timeframe'}
+        csv_contents[metric] = [['timeframe']]
 
     for project in projects:
         logging.info(f'Calculating metrics for {project} data..')
         # Each metric dict is of the form {'<timeframe>': '<comma-separated values for different projects'}.
         # The special entry '0': '<comma-separated names of projects>' is for the csv header
         for metric in metrics.keys():
-            csv_contents[metric]['0'] += f',{project}'
+            csv_contents[metric][0].append(project)
 
         for timeframe in timeframes:
             for metric in metrics.keys():
-                if timeframe not in csv_contents[metric].keys():
-                    csv_contents[metric][timeframe] = timeframe
+                csv_contents[metric].append([timeframe])
 
             aggregated_data_dir = output_dir / f'{project}/blocks_per_entity'
             # Get mapped data for the year that corresponds to the timeframe, if such data exists
@@ -67,10 +67,11 @@ def analyze(projects, timeframes, output_dir):
                     results[metric] = ''
 
             for metric in metrics.keys():
-                csv_contents[metric][timeframe] += f',{results[metric]}'
+                csv_contents[metric][-1].append(results[metric])
 
     for metric in metrics.keys():
         with open(output_dir / f'{metric}.csv', 'w') as f:
-            f.write('\n'.join([i[1] for i in sorted(csv_contents[metric].items(), key=lambda x: x[0])]))
+            csv_writer = csv.writer(f)
+            csv_writer.writerows(csv_contents[metric])
 
     return list(metrics.keys())

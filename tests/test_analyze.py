@@ -53,11 +53,11 @@ def test_analyze(setup_and_cleanup):
             lines = f.readlines()
             assert lines[0] == 'timeframe,sample_bitcoin\n'
             if metric == 'gini':
-                assert lines[1] == '2018,0.25'
+                assert lines[1] == '2018,0.25\n'
             elif metric == 'nakamoto_coefficient':
-                assert lines[1] == '2018,2'
+                assert lines[1] == '2018,2\n'
             elif metric == 'entropy':
-                assert lines[1] == '2018,1.836591668108979'
+                assert lines[1] == '2018,1.836591668108979\n'
 
     timeframes = ['2018-02']
 
@@ -72,11 +72,11 @@ def test_analyze(setup_and_cleanup):
             lines = f.readlines()
             assert lines[0] == 'timeframe,sample_bitcoin\n'
             if metric == 'gini':
-                assert lines[1] == '2018-02,0.375'
+                assert lines[1] == '2018-02,0.375\n'
             elif metric == 'nakamoto_coefficient':
-                assert lines[1] == '2018-02,1'
+                assert lines[1] == '2018-02,1\n'
             elif metric == 'entropy':
-                assert lines[1] == '2018-02,1.5'
+                assert lines[1] == '2018-02,1.5\n'
 
     timeframes = ['2018-03']
 
@@ -91,11 +91,11 @@ def test_analyze(setup_and_cleanup):
             lines = f.readlines()
             assert lines[0] == 'timeframe,sample_bitcoin\n'
             if metric == 'gini':
-                assert lines[1] == '2018-03,0.75'
+                assert lines[1] == '2018-03,0.75\n'
             elif metric == 'nakamoto_coefficient':
-                assert lines[1] == '2018-03,1'
+                assert lines[1] == '2018-03,1\n'
             elif metric == 'entropy':
-                assert lines[1] == '2018-03,0.0'
+                assert lines[1] == '2018-03,0.0\n'
 
     timeframes = ['2010']
 
@@ -110,4 +110,4 @@ def test_analyze(setup_and_cleanup):
             lines = f.readlines()
             assert len(lines) == 2
             assert lines[0] == 'timeframe,sample_bitcoin\n'
-            assert lines[1] == '2010,'
+            assert lines[1] == '2010,\n'
