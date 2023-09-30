@@ -1,7 +1,4 @@
-import logging
 import numpy as np
-import sys
-import consensus_decentralization.helper as hlp
 
 
 def compute_gini(blocks_per_entity):

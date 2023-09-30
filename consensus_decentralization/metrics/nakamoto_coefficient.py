@@ -1,8 +1,3 @@
-import logging
-import sys
-import consensus_decentralization.helper as hlp
-
-
 def compute_nakamoto_coefficient(blocks_per_entity):
     """
     Calculates the Nakamoto coefficient of a distribution of blocks to entities

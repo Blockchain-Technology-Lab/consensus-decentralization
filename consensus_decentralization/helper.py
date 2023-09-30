@@ -291,5 +291,3 @@ def format_time_chunks(time_chunks, granularity):
         timeframe_chunks = [f'{chunk[0].strftime("%Y-%m-%d")} to {chunk[1].strftime("%Y-%m-%d")}' for chunk in
                             time_chunks]
     return timeframe_chunks
-
-

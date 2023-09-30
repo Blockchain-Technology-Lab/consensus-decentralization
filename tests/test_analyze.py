@@ -1,4 +1,3 @@
-import datetime
 import shutil
 import pytest
 from consensus_decentralization.helper import OUTPUT_DIR
@@ -108,4 +107,3 @@ def test_analyze(setup_and_cleanup):
             assert len(lines) == 2
             assert lines[0] == 'timeframe,sample_bitcoin\n'
             assert lines[1] == '2010,\n'
-

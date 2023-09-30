@@ -16,7 +16,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
     """
-    logging.info(f'Calculating metrics on aggregated data..')
+    logging.info('Calculating metrics on aggregated data..')
     metrics = hlp.get_metrics_config()
 
     csv_contents = {}

@@ -1,10 +1,8 @@
-import argparse
 import logging
 from collections import defaultdict
 from dateutil.rrule import rrule, MONTHLY, WEEKLY, YEARLY, DAILY
 import datetime
 import consensus_decentralization.helper as hlp
-from consensus_decentralization.map import ledger_mapping
 
 
 class Aggregator:

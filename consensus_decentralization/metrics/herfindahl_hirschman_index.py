@@ -1,8 +1,3 @@
-import logging
-import sys
-import consensus_decentralization.helper as hlp
-
-
 def compute_hhi(blocks_per_entity):
     """
     Calculates the Herfindahl-Hirschman index of a distribution of blocks to entities
