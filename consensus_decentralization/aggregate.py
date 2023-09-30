@@ -1,6 +1,8 @@
 import argparse
 import logging
 from collections import defaultdict
+from dateutil.rrule import rrule, MONTHLY, WEEKLY, YEARLY, DAILY
+import datetime
 import consensus_decentralization.helper as hlp
 from consensus_decentralization.map import ledger_mapping
 
@@ -17,6 +19,7 @@ class Aggregator:
         """
         :param project: str. Name of the project
         :param io_dir: Path. Path to the project's output directory
+        :param data_to_aggregate: list of dictionaries. The data that will be aggregated
         """
         self.project = project
         self.data_to_aggregate = data_to_aggregate
@@ -37,69 +40,84 @@ class Aggregator:
         for block in timeframe_blocks:
             blocks_per_entity[block['creator']] += 1
 
-        filename = f'from_{timeframe_start}_to_{timeframe_end}'
-        if len(blocks_per_entity) > 0:
-            hlp.write_blocks_per_entity_to_file(output_dir=self.aggregated_data_dir,
-                                                blocks_per_entity=blocks_per_entity, filename=filename)
         return blocks_per_entity
 
 
-def aggregate(project, output_dir, timeframes, force_aggregate, mapped_data=None):
-    logging.info(f'Aggregating {project} data..')
+def divide_timeframe(timeframe, granularity):
+    """
+    Divides the timeframe into smaller timeframes of the given granularity
+    :param timeframe: a tuple of (start_date, end_date) where each date is a datetime.date object.
+    :param granularity: the granularity that will be used for the analysis. It can be one of: day, week, month, year, all
+    :return: a list of tuples of (start_date, end_date) where each date is a datetime.date object and each tuple
+        corresponds to a timeframe of the given granularity
+    :raises ValueError: if the timeframe is not valid (i.e. end date preceeds start_date) or if the granularity is not
+        one of: day, week, month, year
+    """
+    timeframe_start, timeframe_end = timeframe
+    if timeframe_end < timeframe_start:
+        raise ValueError(f'Invalid timeframe: {timeframe}')
+    if granularity == 'day':
+        start_dates = [dt.date() for dt in rrule(freq=DAILY, dtstart=timeframe_start, until=timeframe_end)]
+        end_dates = start_dates
+    elif granularity == 'week':
+        start_dates = [dt.date() for dt in rrule(freq=WEEKLY, dtstart=timeframe_start, until=timeframe_end)]
+        end_dates = [dt - datetime.timedelta(days=1) for dt in start_dates[1:]] + [timeframe_end]
+    elif granularity == 'month':
+        start_dates = [dt.date() for dt in rrule(freq=MONTHLY, dtstart=timeframe_start.replace(day=1), until=timeframe_end)]
+        start_dates[0] = timeframe_start
+        end_dates = [dt - datetime.timedelta(days=1) for dt in start_dates[1:]] + [timeframe_end]
+    elif granularity == 'year':
+        start_dates = [dt.date() for dt in rrule(freq=YEARLY, dtstart=timeframe_start.replace(month=1, day=1), until=timeframe_end)]
+        start_dates[0] = timeframe_start
+        end_dates = [dt - datetime.timedelta(days=1) for dt in start_dates[1:]] + [timeframe_end]
+    else:
+        # no need to divide the timeframe
+        start_dates = [timeframe_start]
+        end_dates = [timeframe_end]
+    return list(zip(start_dates, end_dates))
+
+
+def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate, mapped_data=None):
+    """
+    Aggregates the results of the mapping process for the given project and timeframe. The results are saved in a csv
+    file in the project's output directory. Note that the output file is created (just with the headers) even if there
+    is no data to aggregate.
+    :param project: the name of the project
+    :param output_dir: the path to the general output directory
+    :param timeframe: a tuple of (start_date, end_date) where each date is a datetime.date object
+    :param aggregate_by: the granularity that will be used for the analysis. It can be one of: day, week, month,
+        year, all
+    :param force_aggregate: bool. If True, then the aggregation will be performed, regardless of whether aggregated
+        data for the project and specified granularity already exist
+    :param mapped_data: list of dictionaries (the data that will be aggregated). If None, then the data will be read
+    from the project's output directory
+    :returns: a list of strings that correspond to the time chunks of the aggregation or None if no aggregation took
+    place (the corresponding output file already existed and force_aggregate was set to False)
+    """
     project_io_dir = output_dir / project
     if mapped_data is None:
         mapped_data = hlp.read_mapped_project_data(project_io_dir)
     aggregator = Aggregator(project, project_io_dir, mapped_data)
 
-    years_done = set()  # Keep track of computed yearly aggregations to avoid recomputing them in the same run
-    for timeframe in timeframes:
-        timeframe_start = hlp.get_timeframe_beginning(timeframe)
-        timeframe_end = hlp.get_timeframe_end(timeframe)
-        output_file = aggregator.aggregated_data_dir / f'from_{timeframe_start}_to_{timeframe_end}.csv'
-        if not output_file.is_file() or force_aggregate:
-            aggregator.aggregate(timeframe_start, timeframe_end)
+    filename = f'{aggregate_by}_from_{timeframe[0]}_to_{timeframe[1]}.csv'
+    output_file = aggregator.aggregated_data_dir / filename
 
-            # Get mapped data for the year that corresponds to the timeframe.
-            # This is needed because the Gini coefficient is computed over all entities per each year.
-            year = timeframe[:4]
-            year_start = hlp.get_timeframe_beginning(year)
-            year_end = hlp.get_timeframe_end(year)
-            year_file = aggregator.aggregated_data_dir / f'from_{year_start}_to_{year_end}.csv'
-            if not year_file.is_file() or (force_aggregate and year not in years_done):
-                aggregator.aggregate(year_start, year_end)
-                years_done.add(year)
+    if not output_file.is_file() or force_aggregate:
+        logging.info(f'Aggregating {project} data..')
+        timeframe_chunks = divide_timeframe(timeframe=timeframe, granularity=aggregate_by)
+        blocks_per_entity = defaultdict(lambda: [0] * len(timeframe_chunks))
+        for i, chunk in enumerate(timeframe_chunks):
+            chunk_start, chunk_end = chunk
+            chunk_blocks_per_entity = aggregator.aggregate(chunk_start, chunk_end)
+            for entity, blocks in chunk_blocks_per_entity.items():
+                blocks_per_entity[entity][i] = blocks
 
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        '--ledgers',
-        nargs="*",
-        type=str.lower,
-        default=None,
-        choices=[ledger for ledger in ledger_mapping],
-        help='The ledgers that will be analyzed.'
-    )
-    parser.add_argument(
-        '--timeframe',
-        nargs="?",
-        type=hlp.valid_date,
-        default=None,
-        help='The timeframe that will be analyzed.'
-    )
-    args = parser.parse_args()
-
-    start_date, end_date = hlp.get_start_end_dates()
-
-    timeframe = args.timeframe
-    if timeframe:
-        timeframes = [timeframe]
-    else:
-        timeframes = []
-        for year in range(start_date, end_date + 1):
-            for month in range(1, 13):
-                timeframes.append(f'{year}-{str(month).zfill(2)}')
-
-    for ledger in args.ledgers:
-        aggregate(ledger, hlp.OUTPUT_DIR, timeframes, force_aggregate=False)
+        timeframe_chunks = hlp.format_time_chunks(time_chunks=timeframe_chunks, granularity=aggregate_by)
+        hlp.write_blocks_per_entity_to_file(
+            output_dir=aggregator.aggregated_data_dir,
+            blocks_per_entity=blocks_per_entity,
+            time_chunks=timeframe_chunks,
+            filename=filename
+        )
+        return timeframe_chunks
+    return None

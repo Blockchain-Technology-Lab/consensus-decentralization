@@ -8,8 +8,10 @@ def compute_gini(blocks_per_entity):
     """
     Calculates the Gini coefficient of a distribution of blocks to entities
     :param blocks_per_entity: a dictionary with entities and the blocks they have produced
-    :returns: a float that represents the Gini coefficient of the given distribution
+    :returns: a float that represents the Gini coefficient of the given distribution or None if the data is empty
     """
+    if len(blocks_per_entity) == 0:
+        return None
     array = np.array(list(blocks_per_entity.values()))
     return gini(array)
 
@@ -29,10 +31,3 @@ def gini(array):
     index = np.arange(1, array.shape[0] + 1)
     n = array.shape[0]
     return (np.sum((2 * index - n - 1) * array)) / (n * np.sum(array))
-
-
-if __name__ == '__main__':
-    logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
-    filename = sys.argv[1]
-    blocks_per_entity = hlp.get_blocks_per_entity_from_file(filename)
-    logging.info(f'Gini: {compute_gini(blocks_per_entity)}')

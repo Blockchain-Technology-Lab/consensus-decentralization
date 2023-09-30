@@ -13,8 +13,10 @@ def compute_entropy(blocks_per_entity, alpha):
     Min entropy (alpha=-1): -log max Pi
     :param blocks_per_entity: a dictionary with entities and the blocks they have produced
     :param alpha: the entropy parameter (depending on its value the corresponding entropy measure is used)
-    :returns: a float that represents the entropy of the data
+    :returns: a float that represents the entropy of the data or None if the data is empty
     """
+    if len(blocks_per_entity) == 0:
+        return None
     block_distribution = blocks_per_entity.values()
     all_blocks = sum(block_distribution)
     if alpha == 1:
@@ -41,15 +43,9 @@ def compute_max_entropy(num_entities, alpha):
 
 
 def compute_entropy_percentage(blocks_per_entity, alpha):
+    if len(blocks_per_entity) == 0:
+        return None
     try:
         return compute_entropy(blocks_per_entity, alpha) / compute_max_entropy(len(blocks_per_entity), alpha)
     except ZeroDivisionError:
         return 0
-
-
-if __name__ == '__main__':
-    logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
-    filename = sys.argv[1]
-    entropy_alpha = sys.argv[2] if len(sys.argv) > 2 else 1
-    blocks_per_entity = hlp.get_blocks_per_entity_from_file(filename)
-    logging.info(f'Entropy: {compute_entropy(blocks_per_entity, entropy_alpha)}')

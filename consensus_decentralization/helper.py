@@ -155,18 +155,20 @@ def get_known_addresses(project_name):
     return {address: addr_info['name'] for address, addr_info in address_data.items()}
 
 
-def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, filename):
+def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, time_chunks, filename):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
     :param output_dir: pathlib.PosixPath object of the output directory where the produced csv file is written to.
-    :param blocks_per_entity: a dictionary with entities and the number of blocks they produced over the given timeframe
+    :param blocks_per_entity: a dictionary with entities as keys and lists as values, where each list represents the
+        number of blocks produced by the entity in each time chunk
+    :param time_chunks: a list of strings corresponding to the chunks of time that were analyzed
     :param filename: the name to be given to the produced file.
     """
-    with open(output_dir / f'{filename}.csv', 'w', newline='') as f:
+    with open(output_dir / filename, 'w', newline='') as f:
         csv_writer = csv.writer(f)
-        csv_writer.writerow(['Entity', 'Resources'])
-        csv_writer.writerows(sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True))
+        csv_writer.writerow(['Entity \\ Time period'] + time_chunks)  # write header
+        csv_writer.writerows([[entity] + blocks for entity, blocks in blocks_per_entity.items()])
 
 
 def get_blocks_per_entity_from_file(filepath):
@@ -174,13 +176,15 @@ def get_blocks_per_entity_from_file(filepath):
     Retrieves information about the number of blocks that each entity produced over some timeframe for some project.
     :param filepath: the path to the file with the relevant information. It can be either an absolute or a relative
     path in either a pathlib.PosixPath object or a string.
-    :returns: a dictionary with entities and the number of blocks they produced
+    :returns: a tuple of length 2 where the first item is a list of time chunks (strings) and the second item is a
+    dictionary with entities (keys) and a list of the number of blocks they produced during each time chunk (values)
     """
     with open(filepath, newline='') as f:
         csv_reader = csv.reader(f)
-        next(csv_reader, None)  # skip header
-        blocks_per_entity = {line[0]: int(line[1]) for line in csv_reader}
-    return blocks_per_entity
+        header = next(csv_reader, None)
+        time_chunks = header[1:]
+        blocks_per_entity = {line[0]: [int(nblocks) for nblocks in line[1:]] for line in csv_reader}
+    return time_chunks, blocks_per_entity
 
 
 def get_special_addresses(project_name):
@@ -249,13 +253,13 @@ def get_default_ledgers():
     return ledgers
 
 
-def get_start_end_dates():
+def get_default_start_end_dates():
     """
     Retrieves the start and end year for which to analyze data
-    :returns: a touple of two integers, (<start year>, <end year>)
+    :returns: a tuple of two strings, (<start date>, <end date>)
     """
     config = get_config_data()
-    return config['max_timeframe']['start_date'], config['max_timeframe']['end_date']
+    return str(config['max_timeframe']['start_date']), str(config['max_timeframe']['end_date'])
 
 
 def read_mapped_project_data(project_dir):
@@ -267,3 +271,25 @@ def read_mapped_project_data(project_dir):
     with open(project_dir / 'mapped_data.json') as f:
         data = json.load(f)
     return data
+
+
+def format_time_chunks(time_chunks, granularity):
+    """
+    Formats the time chunks into strings that can be used in the output files or as labels in plots
+    :param time_chunks: list of tuples of (start_date, end_date) where each date is a datetime.date object
+    :param granularity: string, one of: day, week, month, year, all
+    :returns: a list of strings that correspond to the time chunks in a format that can be used in the output files
+    """
+    if granularity == 'day':
+        timeframe_chunks = [f'{chunk[0].strftime("%Y-%m-%d")}' for chunk in time_chunks]
+    elif granularity == 'month':
+        timeframe_chunks = [f'{chunk[0].strftime("%b-%Y")}' for chunk in time_chunks]
+    elif granularity == 'year':
+        timeframe_chunks = [f'{chunk[0].strftime("%Y")}' for chunk in time_chunks]
+    else:
+        # in the cases of 'week' and 'all' granularities, we use the whole start_date and end_date
+        timeframe_chunks = [f'{chunk[0].strftime("%Y-%m-%d")} to {chunk[1].strftime("%Y-%m-%d")}' for chunk in
+                            time_chunks]
+    return timeframe_chunks
+
+

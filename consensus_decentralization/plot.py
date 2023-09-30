@@ -133,19 +133,21 @@ def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
         if not figures_path.is_dir():
             figures_path.mkdir()
 
-        start_date, end_date = hlp.get_start_end_dates()
+        start_date, end_date = hlp.get_default_start_end_dates()
+        start_year = int(start_date[:4])
+        end_year = int(end_date[:4])
 
         end_month = 3
         pool_blocks_by_month = {}  # dictionary of dictionaries (one dictionary for each month under consideration)
         pool_block_share_by_month = {}  # same as above but for fractions instead of absolute values for each month
-        for year in range(start_date, end_date + 1):
+        for year in range(start_year, end_year + 1):
             for month in range(1, 13):
                 timeframe = f'{year}-0{month}' if month < 10 else f'{year}-{month}'
                 filename = f'{timeframe}.csv'
                 file = path / "blocks_per_entity" / filename
                 if not file.is_file():
                     continue  # Only plot timeframes for which mapped data exist
-                blocks = hlp.get_blocks_per_entity_from_file(file)
+                _, blocks = hlp.get_blocks_per_entity_from_file(file)
                 total_blocks = sum(blocks.values())
                 if total_blocks == 0:
                     continue
@@ -225,6 +227,7 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
 
 
 def plot(ledgers, metrics, animated):
+    # todo update plot functions to make compatible with the new data format
     logging.info("Creating plots..")
     plot_dynamics_per_ledger(ledgers, animated=False, legend=True)
     plot_comparative_metrics(ledgers, metrics, animated=False)

@@ -24,6 +24,9 @@ def test_entropy():
     collision_entropy = entropy.compute_entropy(blocks_per_entity, 2)
     assert round(collision_entropy, 3) == 1.642
 
+    no_entropy = entropy.compute_entropy({}, 1)
+    assert no_entropy is None
+
 
 def test_max_entropy():
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
@@ -31,12 +34,18 @@ def test_max_entropy():
     max_shannon_entropy = entropy.compute_max_entropy(len(blocks_per_entity), 1)
     assert round(max_shannon_entropy, 3) == 1.585
 
+    no_max_entropy = entropy.compute_max_entropy(0, 1)
+    assert no_max_entropy is None
+
 
 def test_entropy_percentage():
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
 
     entropy_percentage = entropy.compute_entropy_percentage(blocks_per_entity, 1)
     assert round(entropy_percentage, 3) == 0.921
+
+    no_entropy_percentage = entropy.compute_entropy_percentage({}, 1)
+    assert no_entropy_percentage is None
 
 
 def test_gini():
@@ -62,6 +71,9 @@ def test_gini():
     g4 = gini.gini(x4)
     assert round(g4, decimals) == 0.56000
 
+    no_g = gini.compute_gini({})
+    assert no_g is None
+
 
 def test_nc():
     blocks_per_entity = {'a': 1, 'b': 2, 'c': 3}
@@ -75,6 +87,9 @@ def test_nc():
     blocks_per_entity = {'a': 1}
     coeff = nakamoto_coefficient.compute_nakamoto_coefficient(blocks_per_entity)
     assert coeff == 1
+
+    no_coeff = nakamoto_coefficient.compute_nakamoto_coefficient({})
+    assert no_coeff is None
 
 
 def test_hhi():
@@ -95,3 +110,6 @@ def test_hhi():
     blocks_per_entity = {'a': 1}  # 'a' produced 100% of the blocks
     hhi = herfindahl_hirschman_index.compute_hhi(blocks_per_entity)
     assert hhi == 10000
+
+    no_hhi = herfindahl_hirschman_index.compute_hhi({})
+    assert no_hhi is None
