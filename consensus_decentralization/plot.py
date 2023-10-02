@@ -229,32 +229,32 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
 def plot(ledgers, metrics, animated):
     # todo update plot functions to make compatible with the new data format
     logging.info("Creating plots..")
-    plot_dynamics_per_ledger(ledgers, animated=False, legend=True)
-    plot_comparative_metrics(ledgers, metrics, animated=False)
+    plot_dynamics_per_ledger(ledgers=ledgers, animated=False, legend=True)
+    plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=False)
     if animated:
-        plot_dynamics_per_ledger(ledgers, animated=True)
-        plot_comparative_metrics(ledgers, metrics, animated=True)
+        plot_dynamics_per_ledger(ledgers=ledgers, animated=True)
+        plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=True)
 
 
 if __name__ == '__main__':
-    ledgers = ['bitcoin', 'bitcoin_cash', 'cardano', 'dogecoin', 'ethereum', 'litecoin', 'tezos', 'zcash']
-    metrics = ['entropy', 'gini', 'hhi', 'nakamoto_coefficient']
+    default_ledgers = hlp.get_default_ledgers()
+    default_metrics = hlp.get_metrics_config().keys()
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
         '--ledgers',
         nargs="*",
         type=str.lower,
-        default=ledgers,
-        choices=[ledger for ledger in ledgers],
+        default=default_ledgers,
+        choices=default_ledgers,
         help='The ledgers whose data will be plotted.'
     )
     parser.add_argument(
         '--metrics',
         nargs="*",
         type=str.lower,
-        default=metrics,
-        choices=[metric for metric in metrics],
+        default=default_metrics,
+        choices=default_metrics,
         help='The metrics to plot.'
     )
     parser.add_argument(
@@ -263,4 +263,4 @@ if __name__ == '__main__':
         help='Flag to specify whether to also generate animated plots.'
     )
     args = parser.parse_args()
-    plot(args.ledgers, args.metrics, args.animated)
+    plot(ledgers=args.ledgers, metrics=args.metrics, animated=args.animated)

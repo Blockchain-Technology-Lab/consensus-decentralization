@@ -64,7 +64,7 @@ if __name__ == '__main__':
         nargs="*",
         type=str.lower,
         default=default_ledgers,
-        choices=[ledger for ledger in default_ledgers],
+        choices=default_ledgers,
         help='The ledgers that will be analyzed.'
     )
     parser.add_argument(
