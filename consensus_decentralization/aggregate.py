@@ -97,7 +97,7 @@ def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate, map
         mapped_data = hlp.read_mapped_project_data(project_io_dir)
     aggregator = Aggregator(project, project_io_dir, mapped_data)
 
-    filename = f'{aggregate_by}_from_{timeframe[0]}_to_{timeframe[1]}.csv'
+    filename = hlp.get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe)
     output_file = aggregator.aggregated_data_dir / filename
 
     if not output_file.is_file() or force_aggregate:

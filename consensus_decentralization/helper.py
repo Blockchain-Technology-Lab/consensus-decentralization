@@ -291,3 +291,32 @@ def format_time_chunks(time_chunks, granularity):
         timeframe_chunks = [f'{chunk[0].strftime("%Y-%m-%d")} to {chunk[1].strftime("%Y-%m-%d")}' for chunk in
                             time_chunks]
     return timeframe_chunks
+
+
+def get_granularity_from_aggregate_by(aggregate_by):
+    """
+    Determines the granularity (adverb to be used in the output file names) from the aggregate_by argument
+    :param aggregate_by: str that can be one of day, week, month, year, all
+    :returns: str that is the corresponding adverb of aggregate_by
+    """
+    if aggregate_by == 'day':
+        return 'daily'
+    elif aggregate_by == 'week':
+        return 'weekly'
+    elif aggregate_by == 'month':
+        return 'monthly'
+    elif aggregate_by == 'year':
+        return 'yearly'
+    else:
+        return 'all'
+
+
+def get_blocks_per_entity_filename(aggregate_by, timeframe):
+    """
+    Determines the filename of the csv file that contains the aggregated data
+    :param aggregate_by: str that can be one of day, week, month, year, all
+    :param timeframe: tuple of (start_date, end_date) where each date is a datetime.date object
+    :returns: str that corresponds to the filename of the csv file
+    """
+    granularity = get_granularity_from_aggregate_by(aggregate_by)
+    return f'{granularity}_from_{timeframe[0]}_to_{timeframe[1]}.csv'

@@ -6,7 +6,7 @@ from consensus_decentralization.analyze import analyze
 from consensus_decentralization.parse import parse
 from consensus_decentralization.plot import plot
 from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_DIR, get_default_ledgers, \
-    get_default_start_end_dates, get_timeframe_beginning, get_timeframe_end
+    get_default_start_end_dates, get_timeframe_beginning, get_timeframe_end, get_blocks_per_entity_filename
 
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
@@ -46,7 +46,7 @@ def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated
 
     used_metrics = analyze(
         projects=projects,
-        aggregated_data_filename=f'{aggregate_by}_from_{timeframe[0]}_to_{timeframe[1]}.csv',
+        aggregated_data_filename=get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe),
         output_dir=output_dir
     )
 
