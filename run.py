@@ -51,7 +51,12 @@ def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated
     )
 
     if make_plots:
-        plot(projects, used_metrics, make_animated_plots)
+        plot(
+            ledgers=projects,
+            metrics=used_metrics,
+            aggregated_data_filename=get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe),
+            animated=make_animated_plots
+        )
 
 
 if __name__ == '__main__':
