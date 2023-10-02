@@ -77,9 +77,8 @@ if __name__ == '__main__':
         nargs="*",
         type=valid_date,
         default=[start_date, end_date],
-        help='The timeframe that will be analyzed. You can provide one date to get a snapshot or two dates (start '
-             'and end date) to get a time series (or two dates to get a snapshot if combined with '
-             '--aggregate-by=all).'
+        help='The timeframe that will be analyzed. You can provide two values to mark the beginning and end of the '
+             'time frame or a single value that encapsulates both.'
     )
     parser.add_argument(
         '--aggregate-by',
@@ -115,8 +114,6 @@ if __name__ == '__main__':
     if len(timeframe) > 2:
         parser.error('Too many values given for --timeframe argument. Please provide one date to get a snapshot or '
                      'two dates to get a time series.')
-    elif len(timeframe) == 1:
-        aggregate_by = 'all'  # if only one date is given, then we want to get a snapshot, so no aggregation is needed
     timeframe_start = get_timeframe_beginning(timeframe[0])
     timeframe_end = get_timeframe_end(timeframe[-1])
     if timeframe_end < timeframe_start:
