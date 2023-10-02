@@ -117,16 +117,16 @@ def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
         aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, aggregate_by='month',
                   force_aggregate=True)
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/month_from_2010-01-01_to_2010-12-31.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2010-01-01_to_2010-12-31.csv'
     assert output_file.is_file()  # there is no data from 2010 in the sample but the aggregator still creates the file when called with this timeframe
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/month_from_2018-02-01_to_2018-02-28.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2018-02-01_to_2018-02-28.csv'
     assert output_file.is_file()
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/month_from_2018-03-01_to_2018-03-31.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2018-03-01_to_2018-03-31.csv'
     assert output_file.is_file()
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/month_from_2021-01-01_to_2021-12-31.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2021-01-01_to_2021-12-31.csv'
     assert output_file.is_file()
 
 
@@ -165,7 +165,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
         'GBMiners': '2\n'
     }
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/month_from_2018-02-01_to_2018-02-28.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2018-02-01_to_2018-02-28.csv'
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -185,7 +185,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
         'Bitmain': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/year_from_2020-01-01_to_2020-12-31.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/yearly_from_2020-01-01_to_2020-12-31.csv'
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -210,7 +210,7 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
         '0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/month_from_2020-11-01_to_2020-11-30.csv'
+    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/monthly_from_2020-11-01_to_2020-11-30.csv'
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -229,7 +229,7 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
         'MEV Builder: 0x3B...436': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/year_from_2023-01-01_to_2023-12-31.csv'
+    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/yearly_from_2023-01-01_to_2023-12-31.csv'
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -256,7 +256,7 @@ def test_cardano_aggregation(setup_and_cleanup, mock_sample_cardano_mapped_data)
         '1percentpool': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_cardano/blocks_per_entity/month_from_2020-12-01_to_2020-12-31.csv'
+    output_file = test_io_dir / 'sample_cardano/blocks_per_entity/monthly_from_2020-12-01_to_2020-12-31.csv'
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -282,7 +282,7 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
         '----- UNDEFINED MINER -----': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/month_from_2021-08-01_to_2021-08-31.csv'
+    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/monthly_from_2021-08-01_to_2021-08-31.csv'
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -301,7 +301,7 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
         'tz0000000000000000000000000000000000': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/year_from_2018-01-01_to_2018-12-31.csv'
+    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/yearly_from_2018-01-01_to_2018-12-31.csv'
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
