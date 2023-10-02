@@ -7,7 +7,7 @@ def compute_gini(blocks_per_entity):
     :param blocks_per_entity: a dictionary with entities and the blocks they have produced
     :returns: a float that represents the Gini coefficient of the given distribution or None if the data is empty
     """
-    if len(blocks_per_entity) == 0:
+    if sum(blocks_per_entity.values()) == 0:
         return None
     array = np.array(list(blocks_per_entity.values()))
     return gini(array)

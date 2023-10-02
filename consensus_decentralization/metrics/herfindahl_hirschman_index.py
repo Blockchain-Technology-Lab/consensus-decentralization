@@ -9,7 +9,7 @@ def compute_hhi(blocks_per_entity):
     :param blocks_per_entity: a dictionary with entities and the blocks they have produced
     :return: float between 0 and 10,000 that represents the HHI of the given distribution or None if the data is empty
     """
-    if len(blocks_per_entity) == 0:
-        return None
     total_blocks = sum(blocks_per_entity.values())
+    if total_blocks == 0:
+        return None
     return sum([pow(num_blocks / total_blocks * 100, 2) for num_blocks in blocks_per_entity.values()])

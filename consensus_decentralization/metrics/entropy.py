@@ -12,10 +12,10 @@ def compute_entropy(blocks_per_entity, alpha):
     :param alpha: the entropy parameter (depending on its value the corresponding entropy measure is used)
     :returns: a float that represents the entropy of the data or None if the data is empty
     """
-    if len(blocks_per_entity) == 0:
-        return None
     block_distribution = blocks_per_entity.values()
     all_blocks = sum(block_distribution)
+    if all_blocks == 0:
+        return None
     if alpha == 1:
         entropy = 0
         for value in block_distribution:
@@ -40,7 +40,7 @@ def compute_max_entropy(num_entities, alpha):
 
 
 def compute_entropy_percentage(blocks_per_entity, alpha):
-    if len(blocks_per_entity) == 0:
+    if sum(blocks_per_entity.values()) == 0:
         return None
     try:
         return compute_entropy(blocks_per_entity, alpha) / compute_max_entropy(len(blocks_per_entity), alpha)
