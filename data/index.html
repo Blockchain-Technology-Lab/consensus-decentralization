@@ -104,7 +104,7 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Data Collection</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -182,12 +182,10 @@ ORDER BY timestamp
 </code></pre>
 <h2 id="automating-the-data-collection-process">Automating the data collection process</h2>
 <p>Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is
-also possible to automate the process using
-a <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/consensus_decentralization/collect_data.py">script</a> and collect all
-relevant data in one go. Executing this script will run all queries
-in <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml">this file</a>, so you can also
-control which queries are run by adding them to or removing them from the file (or turning them into comments by 
-adding a <code>#</code> in front of each relevant line).</p>
+also possible to automate the process using a
+<a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/consensus_decentralization/collect_data.py">script</a>
+and collect all relevant data in one go. Executing this script will run queries
+from <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml">this file</a>.</p>
 <p>IMPORTANT: the script uses service account credentials for authentication, therefore before running it, you need to
 generate the relevant credentials from Google, as described 
 <a href="https://developers.google.com/workspace/guides/create-credentials#service-account">here</a> and save your key in the
@@ -195,9 +193,21 @@ root directory of the project under the name 'google-service-account-key.json'. 
 <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/google-service-account-key-SAMPLE.json">sample file</a> 
 that you can consult, which shows what your credentials are supposed to look like (but note that this is for
 informational purposes only, this file is not used in the code).</p>
-<p>Once you have set up the credentials, you can just run the following command from the <code>consensus_decentralization</code> directory to retrieve data
-for all supported blockchains:</p>
-<p><code>python collect_data.py</code></p>
+<p>Once you have set up the credentials, you can just run the following command from the root
+directory to retrieve data for all supported blockchains:</p>
+<p><code>python -m consensus_decentralization.collect_data</code></p>
+<p>There are also two command line arguments that can be used to customize the data collection process:</p>
+<ul>
+<li><code>ledgers</code> accepts any number of the supported ledgers (case-insensitive). For example, adding <code>--ledgers bitcoin</code>
+  results in collecting data only for Bitcoin, while <code>--ledgers Bitcoin Ethereum Cardano</code> would collect data for
+  Bitcoin, Ethereum and Cardano. If the <code>ledgers</code> argument is omitted, then the default value is used, which 
+  is taken from the
+  <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/config.yaml">configuration file</a>
+  and typically corresponds to all supported blockchains.</li>
+<li><code>--force-query</code> forces the collection of all raw data files, even if the corresponding files already
+  exist. By default, this flag is set to False and the script only fetches block data for some blockchain if the
+  corresponding file does not already exist.</li>
+</ul>
               
             </div>
           </div><footer>
