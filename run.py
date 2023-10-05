@@ -45,7 +45,7 @@ def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated
 
     used_metrics = analyze(
         projects=projects,
-        aggregated_data_filename=get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe),
+        aggregated_data_filename=hlp.get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe),
         output_dir=output_dir
     )
 
@@ -53,14 +53,14 @@ def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated
         plot(
             ledgers=projects,
             metrics=used_metrics,
-            aggregated_data_filename=get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe),
+            aggregated_data_filename=hlp.get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe),
             animated=make_animated_plots
         )
 
 
 if __name__ == '__main__':
     default_ledgers = hlp.get_default_ledgers()
-    start_date, end_date = get_default_start_end_dates()
+    start_date, end_date = hlp.get_default_start_end_dates()
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -113,8 +113,8 @@ if __name__ == '__main__':
     if len(timeframe) > 2:
         parser.error('Too many values given for --timeframe argument. Please provide one date to get a snapshot or '
                      'two dates to get a time series.')
-    timeframe_start = get_timeframe_beginning(timeframe[0])
-    timeframe_end = get_timeframe_end(timeframe[-1])
+    timeframe_start = hlp.get_timeframe_beginning(timeframe[0])
+    timeframe_end = hlp.get_timeframe_end(timeframe[-1])
     if timeframe_end < timeframe_start:
         parser.error('Invalid --timeframe values. Please note that if providing a second date, it must occur after '
                      'the first date.')
