@@ -62,6 +62,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../aggregator/">Aggregator</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
                 </li>
               </ul>
@@ -94,9 +98,9 @@
               
                 <h1 id="parsers">Parsers</h1>
 <p>The parser obtains raw data from a full node (see <a href="../data/">Data Collection</a> page on how to obtain the required data).
-It parses the data and outputs a <code>json</code> file with a list of entries, each entry corresponding to a block.</p>
-<p>The input file should be placed in the <code>raw_block_data</code> directory and named as <code>&lt;project_name&gt;_raw_data.json</code>.</p>
-<p>The output file is stored under <code>output/&lt;project_name&gt;/parsed_data.json</code> and is structured as follows:</p>
+It parses the data into a list of entries (dictionaries), each entry corresponding to a block.</p>
+<p>The input file should be placed in the <code>raw_block_data/</code> directory and named as <code>&lt;project_name&gt;_raw_data.json</code>.</p>
+<p>The parsed data is structured as follows:</p>
 <pre><code>[
     {
         &quot;number&quot;: &quot;&lt;block's number&gt;&quot;,
@@ -125,7 +129,8 @@ It parses the data and outputs a <code>json</code> file with a list of entries, 
 <p>If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash (see <a href="../data/">Data Collection</a>)
 return data that are parsed with the <code>default_parser</code> module in <code>parsers</code>.
 The query for Ethereum returns data that is parsed using the <code>ethereum_parser</code> module in <code>parsers</code>.
-All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser.</p>
+All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser that
+only sorts the blocks.</p>
               
             </div>
           </div><footer>

@@ -78,6 +78,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../aggregator/">Aggregator</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
                 </li>
               </ul>
@@ -109,20 +113,21 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="mappings">Mappings</h1>
-<p>A mapping obtains the parsed data of a ledger (from <code>output/&lt;project_name&gt;/parsed_data.json</code>) and outputs one or more 
-<code>csv</code> files that map blocks to entities, structured as follows:</p>
-<pre><code>Entity,Resources
-&lt;name of entity&gt;,&lt;(int) number of blocks&gt;
+<p>A mapping is responsible for linking blocks to the entities that created them. While the parsed data contains
+information about the addresses that received rewards for producing some block or identifiers that are related to them,
+it does not contain information about the entities that control these addresses, which is where the mapping comes in.</p>
+<p>The mapping takes as input the parsed data and outputs a file (<code>output/&lt;project_name&gt;/mapped_data.json</code>), which is
+structured as follows:</p>
+<pre><code>[
+    {
+        &quot;number&quot;: &quot;&lt;block's number&gt;&quot;,
+        &quot;timestamp&quot;: &quot;&lt;block's timestamp of the form: yyyy-mm-dd hh:mm:ss UTC&gt;&quot;,
+        &quot;reward_addresses&quot;: &quot;&lt;address1&gt;,&lt;address2&gt;&quot;
+        &quot;creator&quot;: &lt;entity that created the block&gt;,
+        &quot;mapping_method&quot;: &lt;method used to map the block to its creator&gt;
+    }
+]
 </code></pre>
-<p>Specifically, if the <code>timeframe</code> argument is provided during execution, then the mapping outputs a single <code>csv</code> 
-file that corresponds to that timeframe. Otherwise, it outputs a <code>csv</code> file for each month contained in the default 
-time range (as specified in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/config.yaml">config file</a>). 
-It also outputs a <code>csv</code> file for each year contained in the relevant time frames.</p>
-<p>Each <code>csv</code> file is named after the timeframe over which the mapping was executed (e.g., <code>2021-04.csv</code>) and is
-stored in a dedicated folder in the project's output directory (<code>output/&lt;project_name&gt;/mapped_data</code>).</p>
-<p>The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output
-different results, even if applied on the same data. An exception to this is the "no-cluster" mapping (DummyMapping
-in the code), which maps blocks to reward addresses, so it doesn't perform any extra processing on the raw data.</p>
 <h2 id="mapping-information">Mapping Information</h2>
 <p>To assist the mapping process, the directory <code>mapping_information/</code> contains
 mapping information about the supported projects.</p>
@@ -198,22 +203,29 @@ but are used for protocol-specific reasons (e.g. treasury address). The format o
 <h2 id="mapping-process-implementation">Mapping process implementation</h2>
 <p>In our implementation, the mapping of a block uses the auxiliary information as follows.</p>
 <p>First, it iterates over all known tags and compares each one with the block's identifiers. If the tag is a
-substring of the parameter, then we have a match.</p>
-<p>Second, if the first step fails, we compare the block's reward addresses with known pool addresses and again look for
-a match.</p>
-<p>In both cases, if there is a match, then: (i) we map the block to the matched pool; (ii) we associate all of the block's
-reward addresses (that is, the addresses that receive fees from the block) with the matched pool.</p>
+substring of the parameter, then a match is found.</p>
+<p>If the first step fails, we compare the block's reward addresses with known pool addresses (including special 
+addresses that exist for some blockchains) and again look for a match. </p>
+<p>In both cases, if there is a match, then:</p>
+<ol>
+<li>We map the block to the matched pool.</li>
+<li>We associate all of the block's reward addresses (that is, the addresses that receive fees from the block) with 
+the matched pool.</li>
+<li>We record the mapping method that was used to obtain the mapping (<code>known_identifiers</code> for the first case or 
+   <code>known_addresses</code> for the second.</li>
+</ol>
 <p>In essence, the identifiers are the principal element for mapping a block to an entity and the known addresses are
 the fallback mechanism.</p>
 <p>If there is a match, we also parse the auxiliary information, such as pool ownership or clusters, in order to assign the
-block to the top level entity, e.g., the pool's parent company or cluster.</p>
-<p>If both mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.</p>
+block to the top level entity, e.g., the pool's parent company or cluster. If a match is found this way, we update 
+the mapping method to <code>known_pool_links</code>.</p>
+<p>If all mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../parsers/" class="btn btn-neutral float-left" title="Parsers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../metrics/" class="btn btn-neutral float-right" title="Metrics">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../aggregator/" class="btn btn-neutral float-right" title="Aggregator">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -239,7 +251,7 @@ block to the top level entity, e.g., the pool's parent company or cluster.</p>
       <span><a href="../parsers/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../metrics/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../aggregator/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

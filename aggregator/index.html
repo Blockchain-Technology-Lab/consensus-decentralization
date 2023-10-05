@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Metrics - Consensus Blockchain Decentralization - Docs</title>
+    <title>Aggregator - Consensus Blockchain Decentralization - Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Metrics";
-        var mkdocs_page_input_path = "metrics.md";
+        var mkdocs_page_name = "Aggregator";
+        var mkdocs_page_input_path = "aggregator.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -59,14 +59,14 @@
                 <li class="toctree-l1"><a class="reference internal" href="../mappings/">Mappings</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../aggregator/">Aggregator</a>
-                </li>
-              </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Metrics</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Aggregator</a>
     <ul class="current">
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
                 </li>
               </ul>
               <ul>
@@ -87,7 +87,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Metrics</li>
+      <li class="breadcrumb-item active">Aggregator</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -96,47 +96,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="metrics">Metrics</h1>
-<p>A metric gets the aggregated data (see <a href="../aggregator/">Aggregator</a>) and outputs a relevant value.
-The metrics that have been implemented so far are the following:</p>
-<ol>
-<li><strong>Nakamoto coefficient</strong>: The Nakamoto coefficient represents the minimum number of entities that
-collectively produce more than 50% of the total blocks within a given timeframe. The output of the metric is an
-integer.</li>
-<li><strong>Gini coefficient</strong>: The Gini coefficient represents the degree of inequality in block production. The
-output of the metric is a decimal number in [0,1]. Values close to 0 indicate equality (all entities in
-the system produce the same number of blocks) and values close to 1 indicate inequality (one entity
-produces most or all blocks).</li>
-<li><strong>Entropy</strong>: Entropy represents the expected amount of information in the distribution of blocks across entities.
-The output of the metric is a real number. Typically, a higher value of entropy indicates higher decentralization
-(lower predictability). Entropy is parameterized by a base rate α, which defines different types of entropy:<ul>
-<li>α = -1: min entropy</li>
-<li>α = 0: Hartley entropy</li>
-<li>α = 1: Shannon entropy (this is used by default)</li>
-<li>α = 2: collision entropy</li>
-</ul>
-</li>
-<li><strong>HHI</strong>: The Herfindahl-Hirschman Index (HHI) is a measure of market concentration. It is defined as the sum of the
-squares of the market shares (as whole numbers, e.g. 40 for 40%) of the entities in the system. The output of the metric
-is a real number in (0, 10000]. Values close to 0 indicate low concentration (many entities produce a similar number of
-blocks) and values close to 1 indicate high concentration (one entity produces most or all blocks). 
-The U.S. Department of Justice has set the following thresholds for interpreting HHI values (in traditional markets):<ul>
-<li>(0, 1500): Competitive market</li>
-<li>[1500, 2500]: Moderately concentrated market</li>
-<li>(2500, 10000]: Highly concentrated market</li>
-</ul>
-</li>
-</ol>
-<p>Each metric is implemented in a separate Python script in the folder <code>metrics</code>. 
-Each script defines a function named <code>compute_&lt;metric_name&gt;</code>, which takes as input a dictionary of the form
-<code>{'&lt;entity name&gt;': &lt;number of resources&gt;}</code> (and possibly other relevant arguments) and outputs the corresponding 
-metric values.</p>
+                <h1 id="aggregator">Aggregator</h1>
+<p>The aggregator obtains the mapped data of a ledger (from <code>output/&lt;project_name&gt;/mapped_data.json</code>), aggregates it
+over the given timeframe(s) and outputs one or more <code>csv</code> files with the distribution of block to entities,
+structured as follows:</p>
+<pre><code>Entity,Resources
+&lt;name of entity&gt;,&lt;(int) number of blocks&gt;
+</code></pre>
+<p>Specifically, if the <code>timeframe</code> argument is provided during execution, then the mapping outputs a single <code>csv</code> 
+file that corresponds to that timeframe. Otherwise, it outputs a <code>csv</code> file for each month contained in the default 
+time range (as specified in the <a href="https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/config.yaml">config file</a>). 
+It also outputs a <code>csv</code> file for each year contained in the relevant time frames.</p>
+<p>Each <code>csv</code> file is named after the timeframe over which the mapping was executed (e.g., <code>2021-04.csv</code>) and is
+stored in a dedicated folder in the project's output directory (<code>output/&lt;project_name&gt;/blocks_per_entity/</code>).</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../aggregator/" class="btn btn-neutral float-left" title="Aggregator"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../contribute/" class="btn btn-neutral float-right" title="How to contribute">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../mappings/" class="btn btn-neutral float-left" title="Mappings"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../metrics/" class="btn btn-neutral float-right" title="Metrics">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -159,10 +137,10 @@ metric values.</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../aggregator/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../mappings/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../contribute/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../metrics/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -60,6 +60,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../aggregator/">Aggregator</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
                 </li>
               </ul>
@@ -115,27 +119,25 @@ the information should be submitted via a GitHub PR.</p>
 <h2 id="add-support-for-ledgers">Add support for ledgers</h2>
 <p>You can add support for a ledger that is not already supported as follows.</p>
 <h3 id="mapping-information">Mapping information</h3>
-<p>In the directory <code>mapping_information</code>, there exist three folders (<code>addresses</code>,
+<p>In the directory <code>mapping_information/</code>, there exist three folders (<code>addresses</code>,
 <code>clusters</code>, <code>identifiers</code>). In each folder, add a file named
 <code>&lt;project_name&gt;.json</code>, if there exist such information for the new ledger (for
 more details on what type of information each folder corresponds to see the
 <a href="https://blockchain-technology-lab.github.io/consensus-decentralization/mappings/">mapping
 documentation</a>).</p>
 <h3 id="parser-and-mapping">Parser and mapping</h3>
-<p>In the directory <code>consensus_decentralization/parsers</code>, create a file named <code>&lt;project_name&gt;_parser.py</code>,
-if no existing parser can be reused. In this file create a new class, which
+<p>If no existing parser can be reused, create a file named <code>&lt;project_name&gt;_parser.py</code> in the directory
+<code>consensus_decentralization/parsers/</code>.
+In this file create a new class, which
 inherits from the <code>DefaultParser</code> class of <code>default_parser.py</code>. Then,
 override its <code>parse</code> method in order to implement the new parser (or override another
 method if there are only small changes needed, e.g. <code>parse_identifiers</code> if the only thing
 that is different from the default parser is the way identifiers are decoded).</p>
-<p>In the directory <code>consensus_decentralization/mappings</code>, create a file named
-<code>&lt;project_name&gt;_mapping.py</code>, if no existing mapping can be reused. In this file
+<p>If no existing mapping can be reused, create a file named <code>&lt;project_name&gt;_mapping.py</code> in the directory
+<code>consensus_decentralization/mappings/</code>. In this file
 create a new class, which inherits from the <code>DefaultMapping</code> class of <code>default_mapping.py</code>.
-Then, override its <code>process</code> method. This method takes as input a time period in
-the form <code>yyyy-mm-dd</code> (e.g., '2022' for the year 2022, '2022-11' for November
-2022, '2022-11-12' for 12 November 2022), returns a dictionary of the form
-<code>{'&lt;entity name&gt;': &lt;number of resources&gt;}</code>, and creates a csv file with the mapped
-data for this timeframe in the <code>output</code> directory.</p>
+Then, override its <code>perform_mapping</code> method and/or any other methods that are required
+(e.g. <code>map_from_known_identifiers</code>).</p>
 <p>Then, you should enable support for the new ledger in the parser and mapping
 module scripts. Specifically:</p>
 <ul>
@@ -147,8 +149,8 @@ module scripts. Specifically:</p>
 <p><em>Notes</em>:</p>
 <ul>
 <li>You should add an entry in each dictionary, regardless of whether you use a new or existing parser or mapping – if no
-  new parser or mapping class was created for the project, simply assign the suitable class (e.g. DefaultParser or
-  DefaultMapping) to the project's name in the corresponding dictionary.</li>
+  new parser or mapping class was created for the project, simply assign the suitable class (e.g. <code>DefaultParser</code> or
+  <code>DefaultMapping</code>) to the project's name in the corresponding dictionary.</li>
 <li>If you create a new parser/mapping, you should also add unit
   tests <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/tree/main/tests">here</a></li>
 </ul>

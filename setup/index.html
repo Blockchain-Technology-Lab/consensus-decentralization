@@ -66,6 +66,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../aggregator/">Aggregator</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
                 </li>
               </ul>
@@ -114,7 +118,8 @@ project:</p>
 The <code>run.py</code> script in the root directory of the project invokes the required parsers, mappings and metrics, but it is
 also possible to execute each module individually. The following process describes the most typical workflow.</p>
 <p>Place all raw data (which could be collected from BigQuery for example; see <a href="../data/">Data Collection</a> for more details)
-in the <code>raw_block_data</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g., <code>bitcoin_raw_data.json</code>). By default,
+in the <code>raw_block_data/</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g., <code>bitcoin_raw_data.json</code>).
+By default,
 there is a (very small) sample input file for some supported projects; to use it, remove the prefix <code>sample_</code>.</p>
 <p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt;</code> to
 analyze the n specified ledgers for the given timeframe.
@@ -130,21 +135,18 @@ February 2022 and <code>--timeframe 2022-02-03</code> would do it for a single d
 argument is omitted, then a monthly analysis is performed for each month between January 2010 and the current month 
 or the subset of this time period for which relevant data exists.</li>
 </ul>
-<p>Additionally, there are four flags that can be used to customize an execution:</p>
+<p>Additionally, there are three flags that can be used to customize an execution:</p>
 <ul>
-<li><code>--force-parse</code> forces the re-parsing of all raw data files, even if the corresponding parsed data files already
-exist. This can be useful for when raw data gets updated for some blockchain. By default, this flag is set to False and 
-the tool only parses blockchain data for which no parsed data file exists.</li>
-<li><code>--force-map</code> forces the re-mapping of all parsed data files, even if the corresponding mapped data files already
-exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is set to False 
-and the tool only performs the mapping when the relevant mapped data files do not exist.</li>
+<li><code>--force-map</code> forces the parsing, mapping and aggregation to be performed on all data, even if the relevant output
+  files already exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is
+  set to False and the tool only performs the mapping and aggregation when the relevant output files do not exist.</li>
 <li><code>--plot</code> enables the generation of graphs at the end of the execution. Specifically, the output of each 
 implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
 specified ledger. By default, this flag is set to False and no plots are generated.</li>
 <li><code>--animated</code> enables the generation of (additional) animated graphs at the end of the execution. By default, this flag
 is set to False and no animated plots are generated. Note that this flag is ignored if <code>--plot</code> is set to False.</li>
 </ul>
-<p>All output files can then be found under the <code>output</code> directory, which is automatically created the first time the tool
+<p>All output files can then be found under the <code>output/</code> directory, which is automatically created the first time the tool
 is run.</p>
               
             </div>
