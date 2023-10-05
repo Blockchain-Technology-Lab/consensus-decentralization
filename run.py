@@ -128,6 +128,4 @@ if __name__ == '__main__':
         make_animated_plots=args.animated
     )
 
-    main(projects=projects, timeframes=timeframes, force_map=args.force_map, make_plots=args.plot,
-         make_animated_plots=args.animated)
     logging.info('Done. Please check the output directory for results.')
