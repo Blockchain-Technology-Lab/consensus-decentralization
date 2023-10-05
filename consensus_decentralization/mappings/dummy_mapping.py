@@ -1,5 +1,3 @@
-from collections import defaultdict
-from consensus_decentralization.helper import write_blocks_per_entity_to_file
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
 
 
@@ -9,19 +7,27 @@ class DummyMapping(DefaultMapping):
     then to the first one). Inherits from Mapping class.
     """
 
-    def __init__(self, project_name, dataset):
-        super().__init__(project_name, dataset)
+    def __init__(self, project_name, output_dir, data_to_map):
+        super().__init__(project_name, output_dir, data_to_map)
 
-    def process(self, timeframe):
-        blocks = [block for block in self.dataset if block['timestamp'][:len(timeframe)] == timeframe]
-
-        blocks_per_entity = defaultdict(int)
-        for block in blocks:
+    def perform_mapping(self):
+        """
+        Overrides perform_mapping method of parent class.
+        :returns: a list of dictionaries ("mapped" block data)
+        """
+        for block in self.data_to_map:
             reward_addresses = block['reward_addresses'].split(',')
             entity = reward_addresses[0]
 
-            blocks_per_entity[entity] += 1
+            self.mapped_data.append({
+                "number": block['number'],
+                "timestamp": block['timestamp'],
+                "reward_addresses": block['reward_addresses'],
+                "creator": entity,
+                "mapping_method": 'no_mapping'
+            })
 
-        write_blocks_per_entity_to_file(self.mapped_data_dir, blocks_per_entity, timeframe)
+        if len(self.mapped_data) > 0:
+            self.write_mapped_data()
 
-        return blocks_per_entity
+        return self.mapped_data

@@ -1,11 +1,11 @@
 # Parsers
 
 The parser obtains raw data from a full node (see [Data Collection](data.md) page on how to obtain the required data).
-It parses the data and outputs a `json` file with a list of entries, each entry corresponding to a block.
+It parses the data into a list of entries (dictionaries), each entry corresponding to a block.
 
-The input file should be placed in the `raw_block_data` directory and named as `<project_name>_raw_data.json`.
+The input file should be placed in the `raw_block_data/` directory and named as `<project_name>_raw_data.json`.
 
-The output file is stored under `output/<project_name>/parsed_data.json` and is structured as follows:
+The parsed data is structured as follows:
 
 ```
 [
@@ -38,4 +38,5 @@ The field `identifiers` corresponds to:
 If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash (see [Data Collection](data.md))
 return data that are parsed with the `default_parser` module in `parsers`.
 The query for Ethereum returns data that is parsed using the `ethereum_parser` module in `parsers`.
-All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser.
+All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser that
+only sorts the blocks.

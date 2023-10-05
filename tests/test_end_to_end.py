@@ -25,38 +25,34 @@ def setup_and_cleanup():
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser
+
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
+    for project in ['bitcoin', 'cardano']:
+        try:
+            shutil.copy2(
+                str(mapping_info_dir / f'clusters/{project}.json'),
+                str(mapping_info_dir / f'clusters/sample_{project}.json')
+            )
+        except FileNotFoundError:
+            pass
+        try:
+            shutil.copy2(
+                str(mapping_info_dir / f'addresses/{project}.json'),
+                str(mapping_info_dir / f'addresses/sample_{project}.json')
+            )
+        except FileNotFoundError:
+            pass
+        try:
+            shutil.copy2(
+                str(mapping_info_dir / f'identifiers/{project}.json'),
+                str(mapping_info_dir / f'identifiers/sample_{project}.json')
+            )
+        except FileNotFoundError:
+            pass
     yield test_output_dir
     # Clean up
     shutil.rmtree(test_output_dir)
-
-
-def test_end_to_end(setup_and_cleanup):
-    test_output_dir = setup_and_cleanup
-    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
-    projects = ['bitcoin', 'cardano']
-
-    for project in projects:
-        try:
-            shutil.copy2(str(mapping_info_dir / f'clusters/{project}.json'), str(mapping_info_dir / f'clusters/sample_{project}.json'))
-        except FileNotFoundError:
-            pass
-        try:
-            shutil.copy2(str(mapping_info_dir / f'addresses/{project}.json'), str(mapping_info_dir / f'addresses/sample_{project}.json'))
-        except FileNotFoundError:
-            pass
-        try:
-            shutil.copy2(str(mapping_info_dir / f'identifiers/{project}.json'), str(mapping_info_dir / f'identifiers/sample_{project}.json'))
-        except FileNotFoundError:
-            pass
-
-    timeframes = ['2010', '2018-02', '2018-03', '2020-12']
-    force_parse = False
-    force_map = False
-
-    test_projects = [f'sample_{i}' for i in projects]
-    main(test_projects, timeframes, force_parse, force_map, False, False, test_output_dir)
-
-    for project in test_projects:
+    for project in ['sample_bitcoin', 'sample_cardano']:
         try:
             os.remove(str(mapping_info_dir / f'clusters/{project}.json'))
         except FileNotFoundError:
@@ -69,6 +65,15 @@ def test_end_to_end(setup_and_cleanup):
             os.remove(str(mapping_info_dir / f'identifiers/{project}.json'))
         except FileNotFoundError:
             pass
+
+
+def test_end_to_end(setup_and_cleanup):
+    test_output_dir = setup_and_cleanup
+
+    timeframes = ['2010', '2018-02', '2018-03', '2020-12']
+
+    main(projects=['sample_bitcoin', 'sample_cardano'], timeframes=timeframes, force_map=True,
+         make_plots=False, make_animated_plots=False, output_dir=test_output_dir)
 
     expected_entropy = [
         'timeframe,sample_bitcoin,sample_cardano\n',

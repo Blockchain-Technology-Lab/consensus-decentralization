@@ -1,4 +1,3 @@
-import os
 import shutil
 import pytest
 from consensus_decentralization.helper import OUTPUT_DIR
@@ -15,9 +14,8 @@ def setup_and_cleanup():
     # Set up
     test_io_dir = OUTPUT_DIR / "test_output"
     test_bitcoin_dir = test_io_dir / "sample_bitcoin"
-    if not os.path.exists(test_bitcoin_dir):
-        os.makedirs(test_bitcoin_dir)
-    # create files that would be the output of mapping
+    test_bitcoin_dir.mkdir(parents=True, exist_ok=True)
+    # create files that would be the output of aggregation
     csv_per_timeframes = {'2018': 'Entity,Resources\n'
                                   '1AM2f...9pJUx/3G7y1...gPPWb,4\n'
                                   'BTC.TOP,2\n'
@@ -29,10 +27,10 @@ def setup_and_cleanup():
                                      'GBMiners,2',
                           '2018-03': 'Entity,Resources\n'
                                      '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'}
-    mapped_data_path = test_bitcoin_dir / 'mapped_data'
-    mapped_data_path.mkdir(parents=True, exist_ok=True)
+    aggregated_data_path = test_bitcoin_dir / 'blocks_per_entity'
+    aggregated_data_path.mkdir(parents=True, exist_ok=True)
     for timeframe, content in csv_per_timeframes.items():
-        with open(test_bitcoin_dir / f'mapped_data/{timeframe}.csv', 'w') as f:
+        with open(test_bitcoin_dir / f'blocks_per_entity/{timeframe}.csv', 'w') as f:
             f.write(content)
     yield test_io_dir
     # Clean up

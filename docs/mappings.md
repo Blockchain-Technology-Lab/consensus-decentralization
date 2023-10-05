@@ -1,24 +1,24 @@
 # Mappings
 
-A mapping obtains the parsed data of a ledger (from `output/<project_name>/parsed_data.json`) and outputs one or more 
-`csv` files that map blocks to entities, structured as follows:
+A mapping is responsible for linking blocks to the entities that created them. While the parsed data contains
+information about the addresses that received rewards for producing some block or identifiers that are related to them,
+it does not contain information about the entities that control these addresses, which is where the mapping comes in.
+
+The mapping takes as input the parsed data and outputs a file (`output/<project_name>/mapped_data.json`), which is
+structured as follows:
 
 ```
-Entity,Resources
-<name of entity>,<(int) number of blocks>
+[
+    {
+        "number": "<block's number>",
+        "timestamp": "<block's timestamp of the form: yyyy-mm-dd hh:mm:ss UTC>",
+        "reward_addresses": "<address1>,<address2>"
+        "creator": <entity that created the block>,
+        "mapping_method": <method used to map the block to its creator>
+    }
+]
 ```
 
-Specifically, if the `timeframe` argument is provided during execution, then the mapping outputs a single `csv` 
-file that corresponds to that timeframe. Otherwise, it outputs a `csv` file for each month contained in the default 
-time range (as specified in the [config file](https://github.com/Blockchain-Technology-Lab/pooling-analysis/blob/main/config.yaml)). 
-It also outputs a `csv` file for each year contained in the relevant time frames.
-
-Each `csv` file is named after the timeframe over which the mapping was executed (e.g., `2021-04.csv`) and is
-stored in a dedicated folder in the project's output directory (`output/<project_name>/mapped_data`).
-
-The logic of the mapping depends on the type of clustering we want to achieve. So, different mappings will output
-different results, even if applied on the same data. An exception to this is the "no-cluster" mapping (DummyMapping
-in the code), which maps blocks to reward addresses, so it doesn't perform any extra processing on the raw data.
 
 ## Mapping Information
 
@@ -116,18 +116,24 @@ but are used for protocol-specific reasons (e.g. treasury address). The format o
 In our implementation, the mapping of a block uses the auxiliary information as follows.
 
 First, it iterates over all known tags and compares each one with the block's identifiers. If the tag is a
-substring of the parameter, then we have a match.
+substring of the parameter, then a match is found.
 
-Second, if the first step fails, we compare the block's reward addresses with known pool addresses and again look for
-a match.
+If the first step fails, we compare the block's reward addresses with known pool addresses (including special 
+addresses that exist for some blockchains) and again look for a match. 
 
-In both cases, if there is a match, then: (i) we map the block to the matched pool; (ii) we associate all of the block's
-reward addresses (that is, the addresses that receive fees from the block) with the matched pool.
+In both cases, if there is a match, then:
+
+1. We map the block to the matched pool.
+2. We associate all of the block's reward addresses (that is, the addresses that receive fees from the block) with 
+the matched pool.
+3. We record the mapping method that was used to obtain the mapping (`known_identifiers` for the first case or 
+   `known_addresses` for the second.
 
 In essence, the identifiers are the principal element for mapping a block to an entity and the known addresses are
 the fallback mechanism.
 
 If there is a match, we also parse the auxiliary information, such as pool ownership or clusters, in order to assign the
-block to the top level entity, e.g., the pool's parent company or cluster.
+block to the top level entity, e.g., the pool's parent company or cluster. If a match is found this way, we update 
+the mapping method to `known_pool_links`.
 
-If both mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.
+If all mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.

@@ -1,32 +1,19 @@
-import json
-import shutil
 import pytest
 from consensus_decentralization.parse import parse, ledger_parser
 from consensus_decentralization.parsers.default_parser import DefaultParser
 from consensus_decentralization.parsers.dummy_parser import DummyParser
-from consensus_decentralization.helper import RAW_DATA_DIR, OUTPUT_DIR
+from consensus_decentralization.parsers.ethereum_parser import EthereumParser
+from consensus_decentralization.helper import RAW_DATA_DIR
 
 
 @pytest.fixture
-def setup_and_cleanup():
-    """
-    This function can be used to set up the right conditions for a test and also clean up after the test is finished.
-    The part before the yield command is run before the test (setup) and the part after the yield command is run
-    after (cleanup)
-    """
-    # Set up
+def setup():
     test_raw_data_dir = RAW_DATA_DIR
-    test_output_dir = OUTPUT_DIR / "test_output"
-    yield test_raw_data_dir, test_output_dir
-    # Clean up
-    shutil.rmtree(test_output_dir)
+    return test_raw_data_dir
 
 
-def compare_parsed_samples(correct_data, parsed_file):
-    with open(parsed_file) as f:
-        test_data = json.load(f)
-
-    for item in test_data:
+def compare_parsed_samples(correct_data, parsed_data):
+    for item in parsed_data:
         for sample in correct_data:
             if sample['number'] == item['number']:
                 assert all([
@@ -37,8 +24,8 @@ def compare_parsed_samples(correct_data, parsed_file):
                 ])
 
 
-def test_default_parser(setup_and_cleanup):
-    test_raw_data_dir, test_output_dir = setup_and_cleanup
+def test_default_parser(setup):
+    test_raw_data_dir = setup
     sample_parsed_data = [
         {"number": "507516", "timestamp": "2018-02-04 02:36:23 UTC", "identifiers": 'b"\\x03|\\xbe\\x07A\\xd6\\x9d\\x9cj\\xcc\\xe4\\xd1A\\xd6\\x9d\\x9ci\\xf9\\xbe\\xf5/BTC.TOP/\\xfa\\xbemm\\x141 \\xf7\\xb3\\xda\\x91\\x8f\\x12\\xff\\xb3(\\xab\\x93_\\xbf\\xe2\\xd1\\xcd\\x9b\\xb4pre\\xd7\\xfe\\xe2?\\xd6\\xcf7\'\\x80\\x00\\x00\\x00\\x00\\x00\\x00\\x00ZD\\xca\\xcf\\x00\\x00\\xf8\\xa4A \\x00\\x00"', "reward_addresses": "137YB5cpBLxLKvy8T6qXsycJ699iJjWCHH,1FVKW4rp5rN23dqFVk2tYGY4niAXMB8eZC"},
         {"number": "507715", "timestamp": "2018-02-05 04:54:34 UTC", "identifiers": "b'\\x03C\\xbf\\x07\\x13/mined by gbminers/,\\xfa\\xbemm\\x94\\x97n\\xce\\xbb\\xc7;=B\\x14\\xb3\\xd7\\xab3\\r\\xca!)\\xeb\\xfc\\xc8c\\xfaub<o\\x95\\x89\\x1esF\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x10\\xaf\\x8bf\\x00-\\xa9\\x10\\xef@\\x8cwhR\\x84\\x01\\x00'", "reward_addresses": "1J7FCFaafPRxqu4X9VsaiMZr1XMemx69GR,131RUhDyyjxXSbSPxGRCm3t6vcei1TB6MB"},
@@ -52,19 +39,14 @@ def test_default_parser(setup_and_cleanup):
         {"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "identifiers": "b'\\x03\\xf0j\\n /ViaBTC/Mined by javidsaeid7073/,\\xfa\\xbemmnC\\xef.\\x06\\xf7\\x13{\\x89q\\x808\\x84\\x03\\xeeP\\x19\\xb8\\xff\\x0c\\xa4\\xa0E\\xea<\\xd8.>Ab\\x0f\\xe9\\x10\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x10Tb\\xa2\\x0f\\xc2\\x15\\x91\\xf7\\x0ei\\x19\\x05f\\x0b\\x00\\x00'", "reward_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX"}
     ]
 
-    project_name = 'sample_bitcoin'
+    parser = DefaultParser(project_name='sample_bitcoin', input_dir=test_raw_data_dir)
+    parsed_data = parser.parse()
 
-    parser = DefaultParser(project_name, test_raw_data_dir, test_output_dir)
-    parser.parse()
-
-    parsed_file = test_output_dir / f'{project_name}/parsed_data.json'
-    assert parsed_file.is_file()
-
-    compare_parsed_samples(sample_parsed_data, parsed_file)
+    compare_parsed_samples(sample_parsed_data, parsed_data)
 
 
-def test_dummy_parser(setup_and_cleanup):
-    test_raw_data_dir, test_output_dir = setup_and_cleanup
+def test_dummy_parser(setup):
+    test_raw_data_dir = setup
     sample_parsed_data = [
         {"number": "1649812", "timestamp": "2021-08-30 00:36:18 UTC", "identifiers": None, "reward_addresses": "tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY"},
         {"number": "1650474", "timestamp": "2021-08-30 06:11:58 UTC", "identifiers": None, "reward_addresses": "tz1Vd1rXpV8hTHbFXCXN3c3qzCsgcU5BZw1e"},
@@ -74,33 +56,24 @@ def test_dummy_parser(setup_and_cleanup):
         {"number": "0000000", "timestamp": "2018-08-30 00:36:18 UTC", "identifiers": None, "reward_addresses": "tz0000000000000000000000000000000000"},
     ]
 
-    project_name = 'sample_tezos'
+    parser = DummyParser(project_name='sample_tezos', input_dir=test_raw_data_dir)
+    parsed_data = parser.parse()
 
-    parser = DummyParser(project_name, test_raw_data_dir, test_output_dir)
-    parser.parse()
-
-    parsed_file = test_output_dir / f'{project_name}/parsed_data.json'
-    assert parsed_file.is_file()
-
-    compare_parsed_samples(sample_parsed_data, parsed_file)
+    compare_parsed_samples(sample_parsed_data, parsed_data)
 
 
-def test_parse(setup_and_cleanup):
-    test_raw_data_dir, test_output_dir = setup_and_cleanup
+def test_parse(setup):
+    test_raw_data_dir = setup
     sample_block = {"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "identifiers": "03f06a0a202f5669614254432f4d696e6564206279206a617669647361656964373037332f2cfabe6d6d6e43ef2e06f7137b897180388403ee5019b8ff0ca4a045ea3cd82e3e41620fe91000000000000000105462a20fc21591f70e691905660b0000", "reward_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX"}
 
-    project = 'sample_bitcoin'
-    ledger_parser[project] = DefaultParser
+    ledger_parser['sample_bitcoin'] = DefaultParser
 
-    parsed_file = test_output_dir / f'{project}/parsed_data.json'
-    input_file = test_raw_data_dir / f'{project}_raw_data.json'
+    input_file = test_raw_data_dir / 'sample_bitcoin_raw_data.json'
 
-    parse(project, test_raw_data_dir, test_output_dir)
-    with open(parsed_file) as f:
-        test_data = json.load(f)
-        for item in test_data:
-            if item['number'] == '682736':
-                assert item['reward_addresses'] == sample_block['reward_addresses']
+    parsed_data = parse(project='sample_bitcoin', input_dir=test_raw_data_dir)
+    for item in parsed_data:
+        if item['number'] == '682736':
+            assert item['reward_addresses'] == sample_block['reward_addresses']
 
     with open(input_file) as f:
         sample_data = f.read()
@@ -108,19 +81,10 @@ def test_parse(setup_and_cleanup):
     with open(input_file, 'w') as f:
         f.write(sample_data)
 
-    parse(project, test_raw_data_dir, test_output_dir)
-    with open(parsed_file) as f:
-        test_data = json.load(f)
-        for item in test_data:
-            if item['number'] == '682736':
-                assert item['reward_addresses'] == sample_block['reward_addresses']
-
-    parse(project, test_raw_data_dir, test_output_dir, True)
-    with open(parsed_file) as f:
-        test_data = json.load(f)
-        for item in test_data:
-            if item['number'] == '682736':
-                assert item['reward_addresses'] == "----------------------------------"
+    parsed_data = parse(project='sample_bitcoin', input_dir=test_raw_data_dir)
+    for item in parsed_data:
+        if item['number'] == '682736':
+            assert item['reward_addresses'] == "----------------------------------"
 
     with open(input_file) as f:
         sample_data = f.read()
@@ -132,3 +96,8 @@ def test_parse(setup_and_cleanup):
 def test_default_parse_identifiers():
     parsed_identifiers = DefaultParser.parse_identifiers('0343bf07132f6d696e65642062792067626d696e6572732f2cfabe6d6d94976ecebbc73b3d4214b3d7ab330dca2129ebfcc863fa75623c6f95891e7346010000000000000010af8b66002da910ef408c776852840100')
     assert parsed_identifiers == "b'\\x03C\\xbf\\x07\\x13/mined by gbminers/,\\xfa\\xbemm\\x94\\x97n\\xce\\xbb\\xc7;=B\\x14\\xb3\\xd7\\xab3\\r\\xca!)\\xeb\\xfc\\xc8c\\xfaub<o\\x95\\x89\\x1esF\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x10\\xaf\\x8bf\\x00-\\xa9\\x10\\xef@\\x8cwhR\\x84\\x01\\x00'"
+
+
+def test_ethereum_parse_identifiers():
+    parsed_identifiers = EthereumParser.parse_identifiers('0x657a696c2e6d65')
+    assert parsed_identifiers == 'ezil.me'

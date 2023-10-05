@@ -6,8 +6,8 @@ class DummyParser(DefaultParser):
     Dummy parser that only sorts the raw data. Used when the data are already in the required format.
     """
 
-    def __init__(self, project_name, input_dir, output_dir):
-        super().__init__(project_name, input_dir, output_dir)
+    def __init__(self, project_name, input_dir):
+        super().__init__(project_name, input_dir)
 
     @staticmethod
     def parse_identifiers(block_identifiers):
@@ -31,4 +31,4 @@ class DummyParser(DefaultParser):
                 block['identifiers'] = self.parse_identifiers(block['identifiers'])
             if 'reward_addresses' not in block.keys():
                 block['reward_addresses'] = None
-        self.write_parsed_data(data)
+        return data

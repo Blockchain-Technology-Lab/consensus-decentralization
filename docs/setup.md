@@ -24,7 +24,8 @@ The `run.py` script in the root directory of the project invokes the required pa
 also possible to execute each module individually. The following process describes the most typical workflow.
 
 Place all raw data (which could be collected from BigQuery for example; see [Data Collection](data.md) for more details)
-in the `raw_block_data` directory, each file named as `<project_name>_raw_data.json` (e.g., `bitcoin_raw_data.json`). By default,
+in the `raw_block_data/` directory, each file named as `<project_name>_raw_data.json` (e.g., `bitcoin_raw_data.json`).
+By default,
 there is a (very small) sample input file for some supported projects; to use it, remove the prefix `sample_`.
 
 Run `python run.py --ledgers <ledger_1> <ledger_n> --timeframe <timeframe>` to
@@ -41,14 +42,11 @@ February 2022 and `--timeframe 2022-02-03` would do it for a single day (Feburar
 argument is omitted, then a monthly analysis is performed for each month between January 2010 and the current month 
 or the subset of this time period for which relevant data exists.
 
-Additionally, there are four flags that can be used to customize an execution:
+Additionally, there are three flags that can be used to customize an execution:
 
-- `--force-parse` forces the re-parsing of all raw data files, even if the corresponding parsed data files already
-exist. This can be useful for when raw data gets updated for some blockchain. By default, this flag is set to False and 
-the tool only parses blockchain data for which no parsed data file exists.
-- `--force-map` forces the re-mapping of all parsed data files, even if the corresponding mapped data files already
-exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is set to False 
-and the tool only performs the mapping when the relevant mapped data files do not exist.
+- `--force-map` forces the parsing, mapping and aggregation to be performed on all data, even if the relevant output
+  files already exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is
+  set to False and the tool only performs the mapping and aggregation when the relevant output files do not exist.
 - `--plot` enables the generation of graphs at the end of the execution. Specifically, the output of each 
 implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
 specified ledger. By default, this flag is set to False and no plots are generated.
@@ -56,5 +54,5 @@ specified ledger. By default, this flag is set to False and no plots are generat
 is set to False and no animated plots are generated. Note that this flag is ignored if `--plot` is set to False.
 
 
-All output files can then be found under the `output` directory, which is automatically created the first time the tool
+All output files can then be found under the `output/` directory, which is automatically created the first time the tool
 is run.

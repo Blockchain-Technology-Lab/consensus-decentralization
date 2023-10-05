@@ -1,9 +1,7 @@
-import argparse
 import logging
 from consensus_decentralization.parsers.default_parser import DefaultParser
 from consensus_decentralization.parsers.dummy_parser import DummyParser
 from consensus_decentralization.parsers.ethereum_parser import EthereumParser
-from consensus_decentralization.helper import RAW_DATA_DIR, OUTPUT_DIR
 
 
 ledger_parser = {
@@ -18,37 +16,13 @@ ledger_parser = {
 }
 
 
-def parse(project, input_dir, output_dir, force_parse=False):
+def parse(project, input_dir):
     """
     Parses raw data
     :param project: string that corresponds to the ledger whose data should be parsed
-    :param force_parse: boolean. If True, then raw data will be parsed, regardless of whether parsed data for some or
-    all of the projects already exist. If False, then data will be parsed only if they have not been parsed before (the
-    relevant file does not exist)
+    :param input_dir: path to the directory of the raw block data
+    :returns: list of dictionaries (the parsed data of the project)
     """
-    parsed_data_file = output_dir / project / 'parsed_data.json'
-    if force_parse or not parsed_data_file.is_file():
-        logging.info(f'Parsing {project} data..')
-        parser = ledger_parser[project](project, input_dir, output_dir)
-        parser.parse()
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        '--ledgers',
-        nargs="*",
-        type=str.lower,
-        default=None,
-        choices=[ledger for ledger in ledger_parser],
-        help='The ledgers that will be analyzed.'
-    )
-    parser.add_argument(
-        '--force-parse',
-        action='store_true',
-        help='Flag to specify whether to parse the raw data, regardless if the parsed data file exists.'
-    )
-    args = parser.parse_args()
-
-    parse(args.ledger, RAW_DATA_DIR, OUTPUT_DIR, args.force_parse)
+    logging.info(f'Parsing {project} data..')
+    parser = ledger_parser[project](project_name=project, input_dir=input_dir)
+    return parser.parse()

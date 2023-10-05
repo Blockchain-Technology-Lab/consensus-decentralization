@@ -6,8 +6,8 @@ class EthereumParser(DummyParser):
     Parser for Ethereum. Inherits from DummyParser class.
     """
 
-    def __init__(self, project_name, input_dir, output_dir):
-        super().__init__(project_name, input_dir, output_dir)
+    def __init__(self, project_name, input_dir):
+        super().__init__(project_name, input_dir)
 
     @staticmethod
     def parse_identifiers(block_identifiers):
