@@ -5,6 +5,7 @@ nav:
         - Data Collection: data.md
         - Parsers: parsers.md
         - Mappings: mappings.md
+        - Aggregator: aggregator.md
         - Metrics: metrics.md
         - How to contribute: contribute.md
 theme: readthedocs
