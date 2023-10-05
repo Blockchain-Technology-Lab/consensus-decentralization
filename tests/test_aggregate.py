@@ -190,7 +190,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
         for line in f.readlines():
             col_1, col_2 = line.split(',')
             assert col_2 == expected_output[col_1]
-
+            
 
 def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_data):
     test_io_dir = setup_and_cleanup

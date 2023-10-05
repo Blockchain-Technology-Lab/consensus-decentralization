@@ -119,3 +119,4 @@ def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate, map
         )
         return timeframe_chunks
     return None
+  
