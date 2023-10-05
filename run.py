@@ -5,13 +5,12 @@ from consensus_decentralization.map import apply_mapping
 from consensus_decentralization.analyze import analyze
 from consensus_decentralization.parse import parse
 from consensus_decentralization.plot import plot
-from consensus_decentralization.helper import valid_date, RAW_DATA_DIR, OUTPUT_DIR, get_default_ledgers, \
-    get_default_start_end_dates, get_timeframe_beginning, get_timeframe_end, get_blocks_per_entity_filename
+import consensus_decentralization.helper as hlp
 
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
 
-def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated_plots, output_dir=OUTPUT_DIR):
+def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated_plots, output_dir=hlp.OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -31,7 +30,7 @@ def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated
         project_dir.mkdir(parents=True, exist_ok=True)  # create project output directory if it doesn't already exist
         mapped_data_file = project_dir / 'mapped_data.json'
         if force_map or not mapped_data_file.is_file():
-            parsed_data = parse(project=project, input_dir=RAW_DATA_DIR)
+            parsed_data = parse(project=project, input_dir=hlp.RAW_DATA_DIR)
             mapped_data = apply_mapping(project=project, parsed_data=parsed_data, output_dir=output_dir)
         else:
             mapped_data = None
@@ -60,7 +59,7 @@ def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated
 
 
 if __name__ == '__main__':
-    default_ledgers = get_default_ledgers()
+    default_ledgers = hlp.get_default_ledgers()
     start_date, end_date = get_default_start_end_dates()
 
     parser = argparse.ArgumentParser()
@@ -75,7 +74,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--timeframe',
         nargs="*",
-        type=valid_date,
+        type=hlp.valid_date,
         default=[start_date, end_date],
         help='The timeframe that will be analyzed. You can provide two values to mark the beginning and end of the '
              'time frame or a single value that encapsulates both.'

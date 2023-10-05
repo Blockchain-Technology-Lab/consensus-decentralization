@@ -39,8 +39,7 @@ def plot_lines(data, x_label, y_label, filename, path, xtick_labels, colors, tit
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.legend(frameon=False)
-    num_time_steps = data.shape[0]
-    plt.xticks(ticks=range(num_time_steps), labels=xtick_labels, rotation=45)
+    plt.xticks(ticks=xtick_labels.index, labels=xtick_labels, rotation=45)
     locs, x_labels = plt.xticks()
     for i, label in enumerate(x_labels):
         if i % 5 == 0:  # only keep every 5th xtick label
@@ -204,19 +203,32 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
             figures_path.mkdir()
         filename = f'{metric}.csv'
         metric_df = pd.read_csv(hlp.OUTPUT_DIR / filename)
+        # only keep rows that contain at least one (non-nan) value in the columns that correspond to the ledgers
+        metric_df = metric_df[metric_df.iloc[:, 1:].notna().any(axis=1)]
         ledger_columns_to_keep = [col for col in metric_df.columns if col in ledgers]
         num_lines = metric_df.shape[1]
         colors = sns.color_palette(cc.glasbey, n_colors=num_lines)
         if len(ledger_columns_to_keep) > 0:
             metric_df = metric_df[['timeframe'] + ledger_columns_to_keep]
             if animated:
-                plot_animated_lines(metric_df, x_label='Time', y_label=metric,
-                                    filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}", path=figures_path,
-                                    colors=colors)
+                plot_animated_lines(
+                    df=metric_df,
+                    x_label='Time',
+                    y_label=metric,
+                    filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}",
+                    path=figures_path,
+                    colors=colors
+                )
             else:
-                plot_lines(metric_df, x_label='Time', y_label=metric,
-                           filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}", path=figures_path,
-                           xtick_labels=metric_df['timeframe'], colors=colors)
+                plot_lines(
+                    data=metric_df,
+                    x_label='Time',
+                    y_label=metric,
+                    filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}",
+                    path=figures_path,
+                    xtick_labels=metric_df['timeframe'],
+                    colors=colors
+                )
 
 
 def plot(ledgers, metrics, aggregated_data_filename, animated):

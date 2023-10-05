@@ -96,12 +96,10 @@ ORDER BY timestamp
 ## Automating the data collection process
 
 Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is
-also possible to automate the process using
-a [script](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/consensus_decentralization/collect_data.py) and collect all
-relevant data in one go. Executing this script will run all queries
-in [this file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml), so you can also
-control which queries are run by adding them to or removing them from the file (or turning them into comments by 
-adding a `#` in front of each relevant line).
+also possible to automate the process using a
+[script](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/consensus_decentralization/collect_data.py)
+and collect all relevant data in one go. Executing this script will run queries
+from [this file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml).
 
 IMPORTANT: the script uses service account credentials for authentication, therefore before running it, you need to
 generate the relevant credentials from Google, as described 
@@ -111,8 +109,19 @@ root directory of the project under the name 'google-service-account-key.json'. 
 that you can consult, which shows what your credentials are supposed to look like (but note that this is for
 informational purposes only, this file is not used in the code).
 
-Once you have set up the credentials, you can just run the following command from the `consensus_decentralization/`
+Once you have set up the credentials, you can just run the following command from the root
 directory to retrieve data for all supported blockchains:
 
-`python collect_data.py`
+`python -m consensus_decentralization.collect_data`
 
+There are also two command line arguments that can be used to customize the data collection process:
+
+- `ledgers` accepts any number of the supported ledgers (case-insensitive). For example, adding `--ledgers bitcoin`
+  results in collecting data only for Bitcoin, while `--ledgers Bitcoin Ethereum Cardano` would collect data for
+  Bitcoin, Ethereum and Cardano. If the `ledgers` argument is omitted, then the default value is used, which 
+  is taken from the
+  [configuration file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/config.yaml)
+  and typically corresponds to all supported blockchains.
+- `--force-query` forces the collection of all raw data files, even if the corresponding files already
+  exist. By default, this flag is set to False and the script only fetches block data for some blockchain if the
+  corresponding file does not already exist.
