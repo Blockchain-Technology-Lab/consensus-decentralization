@@ -255,11 +255,11 @@ def get_default_ledgers():
 
 def get_default_start_end_dates():
     """
-    Retrieves the start and end year for which to analyze data
+    Retrieves the start and end dates for which to analyze data
     :returns: a tuple of two strings, (<start date>, <end date>)
     """
     config = get_config_data()
-    return str(config['max_timeframe']['start_date']), str(config['max_timeframe']['end_date'])
+    return str(config['default_timeframe']['start_date']), str(config['default_timeframe']['end_date'])
 
 
 def read_mapped_project_data(project_dir):
