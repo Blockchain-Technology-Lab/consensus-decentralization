@@ -117,13 +117,15 @@ subsequent levels of decentralization.</p>
 with all the information that is needed for the mapping.</p>
 <p>The mapping takes the output of the parser, combines it with some other sources of information, and produces a new 
 file that includes attribution data for each block and which mapping method was used to obtain it.</p>
-<p>The aggregator takes as input the output of the mapping, as well as one or more time frames to aggregate over. It then 
-outputs a file for each time frame that reveals the distribution of resources to different entities during that time 
-frame. In this context, "resources" correspond to the number of produced blocks.</p>
+<p>The aggregator takes as input the output of the mapping, as well as a time frame to aggregate over and a unit to 
+divide the time frame by (e.g. week or month).
+It then outputs a file that reveals the distribution of resources to different entities during each time unit under 
+consideration.
+In this context, "resources" correspond to the number of produced blocks.</p>
 <p>These distributions are then the input for the metrics module, which tracks various
 decentralization-related metrics and produces files with the results.</p>
-<p>More details about the different modules can be found in the corresponding <a href="parsers/">Parser</a>, <a href="mappings/">Mapping</a>
-and <a href="metrics/">Metrics</a> pages.</p>
+<p>More details about the different modules can be found in the corresponding <a href="parsers/">Parser</a>, <a href="mappings/">Mapping</a>,
+<a href="aggregator/">Aggregator</a> and <a href="metrics/">Metrics</a> pages.</p>
 <p>Currently, the supported ledgers are:</p>
 <ul>
 <li>Bitcoin</li>
@@ -135,7 +137,7 @@ and <a href="metrics/">Metrics</a> pages.</p>
 <li>Tezos</li>
 <li>Zcash</li>
 </ul>
-<p>We intend to add more ledgers to this list in the future. </p>
+<p>We intend to add more ledgers to this list in the future.</p>
 <h2 id="contributing">Contributing</h2>
 <p>This is an open source project licensed under the terms and conditions of the 
 <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/LICENSE">MIT license</a> and
@@ -200,5 +202,5 @@ Other comments and ideas can be brought up in the project's
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2023-10-05 13:47:03.079361+00:00
+Build Date UTC : 2023-10-06 09:45:12.044458+00:00
 -->
