@@ -7,9 +7,9 @@ metrics:
   hhi:
   nakamoto_coefficient:
 
-max_timeframe:
-  start_year: 2010
-  end_year: 2023
+default_timeframe:
+  start_date: 2010-01-01
+  end_date: 2023-12-31
 
 default_ledgers:
   - bitcoin

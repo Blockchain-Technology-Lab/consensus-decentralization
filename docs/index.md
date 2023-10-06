@@ -20,15 +20,17 @@ with all the information that is needed for the mapping.
 The mapping takes the output of the parser, combines it with some other sources of information, and produces a new 
 file that includes attribution data for each block and which mapping method was used to obtain it.
 
-The aggregator takes as input the output of the mapping, as well as one or more time frames to aggregate over. It then 
-outputs a file for each time frame that reveals the distribution of resources to different entities during that time 
-frame. In this context, "resources" correspond to the number of produced blocks.
+The aggregator takes as input the output of the mapping, as well as a time frame to aggregate over and a unit to 
+divide the time frame by (e.g. week or month).
+It then outputs a file that reveals the distribution of resources to different entities during each time unit under 
+consideration.
+In this context, "resources" correspond to the number of produced blocks.
 
 These distributions are then the input for the metrics module, which tracks various
 decentralization-related metrics and produces files with the results.
 
-More details about the different modules can be found in the corresponding [Parser](parsers.md), [Mapping](mappings.md)
-and [Metrics](metrics.md) pages.
+More details about the different modules can be found in the corresponding [Parser](parsers.md), [Mapping](mappings.md),
+[Aggregator](aggregator.md) and [Metrics](metrics.md) pages.
 
 Currently, the supported ledgers are:
 
@@ -41,7 +43,7 @@ Currently, the supported ledgers are:
 - Tezos
 - Zcash
 
-We intend to add more ledgers to this list in the future. 
+We intend to add more ledgers to this list in the future.
 
 ## Contributing
 

@@ -16,21 +16,26 @@ def setup_and_cleanup():
     test_bitcoin_dir = test_io_dir / "sample_bitcoin"
     test_bitcoin_dir.mkdir(parents=True, exist_ok=True)
     # create files that would be the output of aggregation
-    csv_per_timeframes = {'2018': 'Entity,Resources\n'
-                                  '1AM2f...9pJUx/3G7y1...gPPWb,4\n'
-                                  'BTC.TOP,2\n'
-                                  'GBMiners,2\n'
-                                  '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1',
-                          '2018-02': 'Entity,Resources\n'
-                                     '1AM2f...9pJUx/3G7y1...gPPWb,4\n'
-                                     'BTC.TOP,2\n'
-                                     'GBMiners,2',
-                          '2018-03': 'Entity,Resources\n'
-                                     '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1'}
+    csv_per_file = {
+        'year_from_2018-01-01_to_2018-12-31':
+            'Entity \\ Time period,2018\n'
+            '1AM2f...9pJUx/3G7y1...gPPWb,4\n'
+            'BTC.TOP,2\n'
+            'GBMiners,2\n'
+            '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1\n',
+        'month_from_2018-02-01_to_2018-03-31':
+            'Entity \\ Time period,Feb-2018,Mar-2018\n'
+            '1AM2f...9pJUx/3G7y1...gPPWb,4,0\n'
+            'BTC.TOP,2,0\n'
+            'GBMiners,2,0\n'
+            '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,0,1\n',
+        'year_from_2010-01-01_to_2010-12-31':
+            'Entity \\ Time period,2010\n'
+        }
     aggregated_data_path = test_bitcoin_dir / 'blocks_per_entity'
     aggregated_data_path.mkdir(parents=True, exist_ok=True)
-    for timeframe, content in csv_per_timeframes.items():
-        with open(test_bitcoin_dir / f'blocks_per_entity/{timeframe}.csv', 'w') as f:
+    for filename, content in csv_per_file.items():
+        with open(test_bitcoin_dir / f'blocks_per_entity/{filename}.csv', 'w') as f:
             f.write(content)
     yield test_io_dir
     # Clean up
@@ -40,28 +45,12 @@ def setup_and_cleanup():
 def test_analyze(setup_and_cleanup):
     test_output_dir = setup_and_cleanup
     projects = ['sample_bitcoin']
-    timeframes = ['2018']
 
-    analyze(projects, timeframes, test_output_dir)
-
-    metrics = ['gini', 'nakamoto_coefficient', 'entropy']
-    for metric in metrics:
-        output_file = test_output_dir / f'{metric}.csv'
-        assert output_file.is_file()
-
-        with open(output_file) as f:
-            lines = f.readlines()
-            assert lines[0] == 'timeframe,sample_bitcoin\n'
-            if metric == 'gini':
-                assert lines[1] == '2018,0.25'
-            elif metric == 'nakamoto_coefficient':
-                assert lines[1] == '2018,2'
-            elif metric == 'entropy':
-                assert lines[1] == '2018,1.836591668108979'
-
-    timeframes = ['2018-02']
-
-    analyze(projects, timeframes, test_output_dir)
+    analyze(
+        projects=projects,
+        aggregated_data_filename='year_from_2018-01-01_to_2018-12-31.csv',
+        output_dir=test_output_dir
+    )
 
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
@@ -72,15 +61,17 @@ def test_analyze(setup_and_cleanup):
             lines = f.readlines()
             assert lines[0] == 'timeframe,sample_bitcoin\n'
             if metric == 'gini':
-                assert lines[1] == '2018-02,0.375'
+                assert lines[1] == '2018,0.25\n'
             elif metric == 'nakamoto_coefficient':
-                assert lines[1] == '2018-02,1'
+                assert lines[1] == '2018,2\n'
             elif metric == 'entropy':
-                assert lines[1] == '2018-02,1.5'
+                assert lines[1] == '2018,1.836591668108979\n'
 
-    timeframes = ['2018-03']
-
-    analyze(projects, timeframes, test_output_dir)
+    analyze(
+        projects=projects,
+        aggregated_data_filename='month_from_2018-02-01_to_2018-03-31.csv',
+        output_dir=test_output_dir
+    )
 
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
@@ -91,23 +82,28 @@ def test_analyze(setup_and_cleanup):
             lines = f.readlines()
             assert lines[0] == 'timeframe,sample_bitcoin\n'
             if metric == 'gini':
-                assert lines[1] == '2018-03,0.75'
+                assert lines[1] == 'Feb-2018,0.375\n'
+                assert lines[2] == 'Mar-2018,0.75\n'
             elif metric == 'nakamoto_coefficient':
-                assert lines[1] == '2018-03,1'
+                assert lines[1] == 'Feb-2018,1\n'
+                assert lines[2] == 'Mar-2018,1\n'
             elif metric == 'entropy':
-                assert lines[1] == '2018-03,0.0'
+                assert lines[1] == 'Feb-2018,1.5\n'
+                assert lines[2] == 'Mar-2018,0.0\n'
 
-    timeframes = ['2010']
-
-    analyze(projects, timeframes, test_output_dir)
+    analyze(
+        projects=projects,
+        aggregated_data_filename='year_from_2010-01-01_to_2010-12-31.csv',
+        output_dir=test_output_dir
+    )
 
     metrics = ['gini', 'nakamoto_coefficient', 'entropy']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
-        assert output_file.is_file()  # since there is no data for 2010
+        assert output_file.is_file()
 
         with open(output_file) as f:
             lines = f.readlines()
             assert len(lines) == 2
             assert lines[0] == 'timeframe,sample_bitcoin\n'
-            assert lines[1] == '2010,'
+            assert lines[1] == '2010,\n'

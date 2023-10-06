@@ -4,9 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import seaborn as sns
 import numpy as np
-from collections import defaultdict
 import consensus_decentralization.helper as hlp
-import heapq
 import colorcet as cc
 import pandas as pd
 
@@ -125,80 +123,77 @@ def plot_animated_stack_area_chart(values, execution_id, path, ylabel, legend_la
     plt.close(fig)
 
 
-def plot_dynamics_per_ledger(ledgers, top_k=-1, animated=False, legend=False):
+def plot_dynamics_per_ledger(ledgers, aggregated_data_filename, top_k=-1, unit='relative', animated=False, legend=False):
+    """
+    Plots the dynamics of pools for each ledger in terms of produced blocks
+    :param ledgers: list of strings representing the ledgers whose data will be plotted
+    :param aggregated_data_filename: string that corresponds to the name of the file that contains the aggregated
+        data for the relevant timeframe and granularity
+    :param top_k: if > 0, then only the evolution of the top k pools will be shown in the graph. Otherwise,
+    all pools will be plotted.
+    :param unit: string that specifies whether the plots to be generated will be in absolute or relative values (i.e.
+        number of blocks or share of blocks). It can be one of: absolute, relative
+    :param animated: bool that specifies whether the plots to be generated will be animated or not
+    :param legend: bool that specifies whether the plots to be generated will include a legend or not
+    """
     for ledger in ledgers:
-        path = hlp.OUTPUT_DIR / ledger
-        figures_path = path / 'figures'
+        ledger_path = hlp.OUTPUT_DIR / ledger
+        figures_path = ledger_path / 'figures'
         if not figures_path.is_dir():
             figures_path.mkdir()
 
-        start_year, end_year = hlp.get_start_end_years()
+        time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(
+            filepath=ledger_path / "blocks_per_entity" / aggregated_data_filename
+        )
+        blocks_array = np.array(list(blocks_per_entity.values()))
+        total_blocks_per_time_chunk = blocks_array.sum(axis=0)
+        nonzero_idx = total_blocks_per_time_chunk.nonzero()[0]  # only keep time chunks with at least one block
+        total_blocks_per_time_chunk = total_blocks_per_time_chunk[nonzero_idx]
+        time_chunks = [time_chunks[i] for i in nonzero_idx]
+        blocks_array = blocks_array[:, nonzero_idx]
+        if unit == 'relative':
+            block_shares_array = blocks_array / total_blocks_per_time_chunk * 100
+            values = block_shares_array
+            ylabel = 'Share of produced blocks (%)'
+            legend_threshold = 0 * total_blocks_per_time_chunk + 5  # only show in the legend pools that have a
+            # contribution of at least 5% in some time chunk
+        else:
+            values = blocks_array
+            ylabel = 'Number of produced blocks'
+            legend_threshold = 0.05 * total_blocks_per_time_chunk  # only show in the legend pools that have a contribution of at least 5% in some time chunk
+        max_values_per_pool = values.max(axis=1)
+        labels = [
+            f"{entity_name if len(entity_name) <= 15 else entity_name[:15] + '..'}"
+            f"({round(max_values_per_pool[i], 1)}{'%' if unit == 'relative' else ''})"
+            if any(values[i] > legend_threshold) else f'_{entity_name}'
+            for i, entity_name in enumerate(blocks_per_entity.keys())
+        ]
+        if top_k > 0:  # only keep the top k pools (i.e. the pools that produced the most blocks in total)
+            total_value_per_pool = values.sum(axis=1)
+            top_k_idx = total_value_per_pool.argpartition(-top_k)[-top_k:]
+            values = values[top_k_idx]
+            labels = [labels[i] for i in top_k_idx]
 
-        end_month = 3
-        pool_blocks_by_month = {}  # dictionary of dictionaries (one dictionary for each month under consideration)
-        pool_block_share_by_month = {}  # same as above but for fractions instead of absolute values for each month
-        for year in range(start_year, end_year + 1):
-            for month in range(1, 13):
-                timeframe = f'{year}-0{month}' if month < 10 else f'{year}-{month}'
-                filename = f'{timeframe}.csv'
-                file = path / "blocks_per_entity" / filename
-                if not file.is_file():
-                    continue  # Only plot timeframes for which mapped data exist
-                blocks = hlp.get_blocks_per_entity_from_file(file)
-                total_blocks = sum(blocks.values())
-                if total_blocks == 0:
-                    continue
-                if top_k > 0:
-                    top_k_keys_by_values = heapq.nlargest(top_k, blocks, key=blocks.get)
-                    pool_blocks_by_month[timeframe] = {key: blocks[key] for key in top_k_keys_by_values}
-                else:
-                    pool_blocks_by_month[timeframe] = blocks
-                pool_block_share_by_month[timeframe] = {e: b * 100 / total_blocks for e, b in
-                                                        pool_blocks_by_month[timeframe].items()}
-                if year == end_year and month == end_month:
-                    break
-        months = pool_blocks_by_month.keys()
-        # values_to_plot = {'absolute_values': pool_blocks_by_month, 'relative_values': pool_block_share_by_month}
-        values_to_plot = {'relative_values': pool_block_share_by_month}
-        ylabels = {'absolute_values': 'Number of produced blocks', 'relative_values': 'Share of produced blocks (%)'}
-        for key, values_by_month in values_to_plot.items():
-            pool_blocks = values_by_month.values()
-            pool_blocks_by_month_matrix = defaultdict(lambda: [0] * len(pool_blocks))
-            for i, values_by_month in enumerate(pool_blocks):
-                for entity, blocks in values_by_month.items():
-                    pool_blocks_by_month_matrix[entity][i] = blocks
-            if key == 'relative_values':
-                threshold = 5
-                labels = [
-                    f"{pool_name if len(pool_name) <= 15 else pool_name[:15] + '..'} "
-                    f"({round(max(contributions_list), 1)}%)"
-                    if any(contribution > threshold for contribution in contributions_list)
-                    else f"_{pool_name}"
-                    for (pool_name, contributions_list) in pool_blocks_by_month_matrix.items()
-                ]
-            else:
-                labels = []
-            values = np.array(list(pool_blocks_by_month_matrix.values()))
-            if animated:
-                plot_animated_stack_area_chart(
-                    values=values,
-                    execution_id=f'{ledger}_{key}_top_{top_k}' if top_k > 0 else f'{ledger}_{key}_all',
-                    path=figures_path,
-                    ylabel=ylabels[key],
-                    legend_labels=labels,
-                    tick_labels=months,
-                    legend=legend
-                )
-            else:
-                plot_stack_area_chart(
-                    values=values,
-                    execution_id=f'{ledger}_{key}_top_{top_k}' if top_k > 0 else f'{ledger}_{key}_all',
-                    path=figures_path,
-                    ylabel=ylabels[key],
-                    legend_labels=labels,
-                    tick_labels=months,
-                    legend=legend
-                )
+        if animated:
+            plot_animated_stack_area_chart(
+                values=values,
+                execution_id=f'{ledger}_{unit}_values_top_{top_k}' if top_k > 0 else f'{ledger}_{unit}_values_all',
+                path=figures_path,
+                ylabel=ylabel,
+                legend_labels=labels,
+                tick_labels=time_chunks,
+                legend=legend
+            )
+        else:
+            plot_stack_area_chart(
+                values=values,
+                execution_id=f'{ledger}_{unit}_values_top_{top_k}' if top_k > 0 else f'{ledger}_{unit}_values_all',
+                path=figures_path,
+                ylabel=ylabel,
+                legend_labels=labels,
+                tick_labels=time_chunks,
+                legend=legend
+            )
 
 
 def plot_comparative_metrics(ledgers, metrics, animated=False):
@@ -236,35 +231,46 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
                 )
 
 
-def plot(ledgers, metrics, animated):
+def plot(ledgers, metrics, aggregated_data_filename, animated):
     logging.info("Creating plots..")
-    plot_dynamics_per_ledger(ledgers, animated=False, legend=True)
-    plot_comparative_metrics(ledgers, metrics, animated=False)
+    plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename, animated=False, legend=True)
+    plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=False)
     if animated:
-        plot_dynamics_per_ledger(ledgers, animated=True)
-        plot_comparative_metrics(ledgers, metrics, animated=True)
+        plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename, animated=True)
+        plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=True)
 
 
 if __name__ == '__main__':
-    ledgers = ['bitcoin', 'bitcoin_cash', 'cardano', 'dogecoin', 'ethereum', 'litecoin', 'tezos', 'zcash']
-    metrics = ['entropy', 'gini', 'hhi', 'nakamoto_coefficient']
+    default_ledgers = hlp.get_default_ledgers()
+    default_metrics = hlp.get_metrics_config().keys()
+
+    default_start_date, default_end_date = hlp.get_default_start_end_dates()
+    timeframe_start = hlp.get_timeframe_beginning(default_start_date)
+    timeframe_end = hlp.get_timeframe_end(default_end_date)
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
         '--ledgers',
         nargs="*",
         type=str.lower,
-        default=ledgers,
-        choices=[ledger for ledger in ledgers],
+        default=default_ledgers,
+        choices=default_ledgers,
         help='The ledgers whose data will be plotted.'
     )
     parser.add_argument(
         '--metrics',
         nargs="*",
         type=str.lower,
-        default=metrics,
-        choices=[metric for metric in metrics],
+        default=default_metrics,
+        choices=default_metrics,
         help='The metrics to plot.'
+    )
+    parser.add_argument(
+        '--filename',
+        type=str,
+        default=hlp.get_blocks_per_entity_filename(aggregate_by='month', timeframe=(timeframe_start, timeframe_end)),
+        help='The name of the file that contains the aggregated data.'
     )
     parser.add_argument(
         '--animated',
@@ -272,4 +278,4 @@ if __name__ == '__main__':
         help='Flag to specify whether to also generate animated plots.'
     )
     args = parser.parse_args()
-    plot(args.ledgers, args.metrics, args.animated)
+    plot(ledgers=args.ledgers, metrics=args.metrics, aggregated_data_filename=args.filename, animated=args.animated)
