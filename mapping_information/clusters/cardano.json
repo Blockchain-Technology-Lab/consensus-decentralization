@@ -7,6 +7,10 @@
         {"name": "0BRN2", "from": "", "to": "", "source": "homepage"},
         {"name": "BRAIN", "from": "", "to": "", "source": "homepage"}
     ],
+    "BLOOM" : [
+        {"name": "BLOOM", "from": "", "to": "", "source": "homepage"},
+        {"name": "DARK", "from": "", "to": "", "source": "reward address"}
+    ],
     "0 fee club": [
         {"name": "0FEE8", "from": "", "to": "", "source": "homepage"},
         {"name": "0FEE5", "from": "", "to": "", "source": "homepage"},
