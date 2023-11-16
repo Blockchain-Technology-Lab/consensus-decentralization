@@ -3060,9 +3060,9 @@
         "homepage": "https://blocksensus.io"
     },
     "BSP": {
-        "name": "Binance Node - 9",
-        "description": "Binance Staking Pool",
-        "homepage": "https://brothershipool.org,https://www.binance.com/en/earn"
+        "name": "The Brothership Pool",
+        "description": "Bare-metal core servers and relay servers all around the world. BSP aims to be a guardian of Cardano. Our motto: Security. Transparency. Stability.",
+        "homepage": "https://brothershipool.org"
     },
     "BSSP": {
         "name": "Black Star Stake Pool",

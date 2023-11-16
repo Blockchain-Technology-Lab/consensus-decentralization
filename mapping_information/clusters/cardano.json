@@ -1275,7 +1275,6 @@
         {"name": "1PCT6", "from": "", "to": "", "source": "homepage"}
     ],
     "Binance": [
-        {"name": "BSP", "from": "", "to": "", "source": "homepage"},
         {"name": "BNP", "from": "", "to": "", "source": "homepage"}
     ]
 }
