@@ -48,10 +48,10 @@ class Aggregator:
                     break
             for block in self.data_to_aggregate[start_index:]:
                 block_timestamp = hlp.get_timeframe_beginning(block['timestamp'][:10])
-                if timeframe_end < block_timestamp:
-                    break
                 if timeframe_start <= block_timestamp <= timeframe_end:
                     blocks_per_entity[block['creator']] += 1
+                elif timeframe_end < block_timestamp:
+                    break
 
         return blocks_per_entity
 
@@ -118,12 +118,13 @@ def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate, map
     if not output_file.is_file() or force_aggregate:
         logging.info(f'Aggregating {project} data..')
         timeframe_chunks = divide_timeframe(timeframe=timeframe, granularity=aggregate_by)
-        blocks_per_entity = defaultdict(lambda: [0] * len(timeframe_chunks))
+        blocks_per_entity = defaultdict(dict)
         for i, chunk in enumerate(timeframe_chunks):
             chunk_start, chunk_end = chunk
+            t_chunk = hlp.format_time_chunks(time_chunks=[chunk], granularity=aggregate_by)[0]
             chunk_blocks_per_entity = aggregator.aggregate(chunk_start, chunk_end)
             for entity, blocks in chunk_blocks_per_entity.items():
-                blocks_per_entity[entity][i] = blocks
+                blocks_per_entity[entity][t_chunk] = blocks
 
         timeframe_chunks = hlp.format_time_chunks(time_chunks=timeframe_chunks, granularity=aggregate_by)
         hlp.write_blocks_per_entity_to_file(

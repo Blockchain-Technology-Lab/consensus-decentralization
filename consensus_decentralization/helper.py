@@ -168,7 +168,14 @@ def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, time_chunks, 
     with open(output_dir / filename, 'w', newline='') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerow(['Entity \\ Time period'] + time_chunks)  # write header
-        csv_writer.writerows([[entity] + blocks for entity, blocks in blocks_per_entity.items()])
+        for entity, blocks_per_chunk in blocks_per_entity.items():
+            entity_row = [entity]
+            for chunk in time_chunks:
+                try:
+                    entity_row.append(blocks_per_chunk[chunk])
+                except KeyError:
+                    entity_row.append(0)
+            csv_writer.writerow(entity_row)
 
 
 def get_blocks_per_entity_from_file(filepath):
