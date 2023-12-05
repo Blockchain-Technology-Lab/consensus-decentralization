@@ -20,8 +20,8 @@ class Aggregator:
         :param data_to_aggregate: list of dictionaries. The data that will be aggregated
         """
         self.project = project
-        self.data_to_aggregate = data_to_aggregate
-        self.data_start_date = hlp.get_timeframe_beginning(min([block['timestamp'][:10] for block in data_to_aggregate]))
+        self.data_to_aggregate = sorted(data_to_aggregate, key=lambda x: x['timestamp'])
+        self.data_start_date = hlp.get_timeframe_beginning(data_to_aggregate[0]['timestamp'][:10])
         self.aggregated_data_dir = io_dir / 'blocks_per_entity'
         self.aggregated_data_dir.mkdir(parents=True, exist_ok=True)
 
@@ -34,9 +34,12 @@ class Aggregator:
         timeframe_start and timeframe_end (inclusive)
         """
         blocks_per_entity = defaultdict(int)
-        if self.data_start_date < timeframe_start:
+        if self.data_start_date <= timeframe_end:
             for block in self.data_to_aggregate:
-                if timeframe_start <= hlp.get_timeframe_beginning(block['timestamp'][:10]) <= timeframe_end:
+                block_timestamp = hlp.get_timeframe_beginning(block['timestamp'][:10])
+                if timeframe_end < block_timestamp:
+                    break
+                if timeframe_start <= block_timestamp <= timeframe_end:
                     blocks_per_entity[block['creator']] += 1
 
         return blocks_per_entity
