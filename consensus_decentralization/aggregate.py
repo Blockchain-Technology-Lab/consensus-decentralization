@@ -21,9 +21,15 @@ class Aggregator:
         """
         self.project = project
         self.data_to_aggregate = sorted(data_to_aggregate, key=lambda x: x['timestamp'])
-        self.data_start_date = hlp.get_timeframe_beginning(data_to_aggregate[0]['timestamp'][:10])
+        self.data_start_date = hlp.get_timeframe_beginning(self.data_to_aggregate[0]['timestamp'][:10])
+        self.data_end_date = hlp.get_timeframe_beginning(self.data_to_aggregate[-1]['timestamp'][:10])
         self.aggregated_data_dir = io_dir / 'blocks_per_entity'
         self.aggregated_data_dir.mkdir(parents=True, exist_ok=True)
+
+        self.monthly_data_breaking_points = [(self.data_start_date.strftime('%Y-%m'), 0)]
+        for idx, block in enumerate(self.data_to_aggregate):
+            if block['timestamp'][:7] != self.monthly_data_breaking_points[-1][0]:
+                self.monthly_data_breaking_points.append((block['timestamp'][:7], idx))
 
     def aggregate(self, timeframe_start, timeframe_end):
         """
@@ -34,8 +40,13 @@ class Aggregator:
         timeframe_start and timeframe_end (inclusive)
         """
         blocks_per_entity = defaultdict(int)
-        if self.data_start_date <= timeframe_end:
-            for block in self.data_to_aggregate:
+        if self.data_start_date <= timeframe_end and self.data_end_date >= timeframe_start:
+            for month, month_block_index in self.monthly_data_breaking_points:
+                start_index = 0
+                if timeframe_start >= hlp.get_timeframe_beginning(month):
+                    start_index = max(month_block_index - 1, 0)
+                    break
+            for block in self.data_to_aggregate[start_index:]:
                 block_timestamp = hlp.get_timeframe_beginning(block['timestamp'][:10])
                 if timeframe_end < block_timestamp:
                     break
