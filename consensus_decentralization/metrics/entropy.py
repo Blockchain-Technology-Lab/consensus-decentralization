@@ -23,13 +23,12 @@ def compute_entropy(blocks_per_entity, alpha):
             if rel_freq > 0:
                 entropy -= rel_freq * log(rel_freq, 2)
     else:
-        probs = [blocks / all_blocks for blocks in block_distribution]
         if alpha == -1:
-            entropy = - log(max(probs), 2)
+            entropy = - log(max(block_distribution)/all_blocks, 2)
         else:
-            sum_freqs = sum([
-                prob ** alpha for prob in probs
-            ])
+            sum_freqs = 0
+            for entry in block_distribution:
+                sum_freqs += pow(entry/all_blocks, alpha)
             entropy = log(sum_freqs, 2) / (1 - alpha)
 
     return entropy
