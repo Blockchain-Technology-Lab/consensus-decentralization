@@ -12,4 +12,9 @@ def compute_hhi(blocks_per_entity):
     total_blocks = sum(blocks_per_entity.values())
     if total_blocks == 0:
         return None
-    return sum([pow(num_blocks / total_blocks * 100, 2) for num_blocks in blocks_per_entity.values()])
+
+    hhi = 0
+    for num_blocks in blocks_per_entity.values():
+        hhi += pow(num_blocks / total_blocks * 100, 2)
+
+    return hhi
