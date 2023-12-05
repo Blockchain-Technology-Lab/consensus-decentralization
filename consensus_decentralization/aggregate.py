@@ -21,6 +21,7 @@ class Aggregator:
         """
         self.project = project
         self.data_to_aggregate = data_to_aggregate
+        self.data_start_date = hlp.get_timeframe_beginning(min([block['timestamp'][:10] for block in data_to_aggregate]))
         self.aggregated_data_dir = io_dir / 'blocks_per_entity'
         self.aggregated_data_dir.mkdir(parents=True, exist_ok=True)
 
@@ -32,11 +33,11 @@ class Aggregator:
         :returns: a dictionary with the entities and the number of blocks they have produced in the period between
         timeframe_start and timeframe_end (inclusive)
         """
-        timeframe_blocks = [block for block in self.data_to_aggregate
-                            if timeframe_start <= hlp.get_timeframe_beginning(block['timestamp'][:10]) <= timeframe_end]
         blocks_per_entity = defaultdict(int)
-        for block in timeframe_blocks:
-            blocks_per_entity[block['creator']] += 1
+        if self.data_start_date < timeframe_start:
+            for block in self.data_to_aggregate:
+                if timeframe_start <= hlp.get_timeframe_beginning(block['timestamp'][:10]) <= timeframe_end:
+                    blocks_per_entity[block['creator']] += 1
 
         return blocks_per_entity
 
