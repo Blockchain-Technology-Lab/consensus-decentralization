@@ -145,12 +145,29 @@ def plot_dynamics_per_ledger(ledgers, aggregated_data_filename, top_k=-1, unit='
         time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(
             filepath=ledger_path / "blocks_per_entity" / aggregated_data_filename
         )
-        blocks_array = np.array(list(blocks_per_entity.values()))
-        total_blocks_per_time_chunk = blocks_array.sum(axis=0)
+
+        total_blocks_per_time_chunk = [0] * len(time_chunks)
+        for entity, block_values in blocks_per_entity.items():
+            for time_chunk, nblocks in block_values.items():
+                total_blocks_per_time_chunk[time_chunks.index(time_chunk)] += nblocks
+
+        total_blocks_per_time_chunk = np.array(total_blocks_per_time_chunk)
         nonzero_idx = total_blocks_per_time_chunk.nonzero()[0]  # only keep time chunks with at least one block
         total_blocks_per_time_chunk = total_blocks_per_time_chunk[nonzero_idx]
         time_chunks = [time_chunks[i] for i in nonzero_idx]
-        blocks_array = blocks_array[:, nonzero_idx]
+
+        blocks_array = []
+        for entity, block_values in blocks_per_entity.items():
+            entity_array = []
+            for time_chunk in time_chunks:
+                try:
+                    entity_array.append(block_values[time_chunk])
+                except KeyError:
+                    entity_array.append(0)
+            blocks_array.append(entity_array)
+
+        blocks_array = np.array(blocks_array)
+
         if unit == 'relative':
             block_shares_array = blocks_array / total_blocks_per_time_chunk * 100
             values = block_shares_array

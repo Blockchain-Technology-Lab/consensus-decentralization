@@ -8,6 +8,7 @@ import datetime
 import calendar
 import argparse
 from functools import lru_cache
+from collections import defaultdict
 
 from yaml import safe_load
 
@@ -186,11 +187,16 @@ def get_blocks_per_entity_from_file(filepath):
     :returns: a tuple of length 2 where the first item is a list of time chunks (strings) and the second item is a
     dictionary with entities (keys) and a list of the number of blocks they produced during each time chunk (values)
     """
+    blocks_per_entity = defaultdict(dict)
     with open(filepath, newline='') as f:
         csv_reader = csv.reader(f)
         header = next(csv_reader, None)
         time_chunks = header[1:]
-        blocks_per_entity = {line[0]: [int(nblocks) for nblocks in line[1:]] for line in csv_reader}
+        for row in csv_reader:
+            entity = row[0]
+            for idx, item in enumerate(row[1:]):
+                if item != '0':
+                    blocks_per_entity[entity][time_chunks[idx]] = int(item)
     return time_chunks, blocks_per_entity
 
 

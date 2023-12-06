@@ -32,7 +32,12 @@ def analyze(projects, aggregated_data_filename, output_dir):
             for row_index, time_chunk in enumerate(time_chunks):
                 if column_index == 0:
                     csv_contents[metric].append([time_chunk])
-                time_chunk_blocks_per_entity = {entity: blocks[row_index] for entity, blocks in blocks_per_entity.items()}
+                time_chunk_blocks_per_entity = {}
+                for entity, block_values in blocks_per_entity.items():
+                    try:
+                        time_chunk_blocks_per_entity[entity] = block_values[time_chunk]
+                    except KeyError:
+                        time_chunk_blocks_per_entity[entity] = 0
                 func = eval(f'compute_{metric}')
                 result = func(time_chunk_blocks_per_entity, **args_dict) if args_dict else func(
                     time_chunk_blocks_per_entity)
