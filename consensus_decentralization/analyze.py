@@ -20,29 +20,36 @@ def analyze(projects, aggregated_data_filename, output_dir):
     metrics = hlp.get_metrics_config()
 
     csv_contents = {}
-    for metric, args_dict in metrics.items():
+    for metric in metrics.keys():
         # Each metric list is of the form [['<timeframe>', '<comma-separated values for different projects']].
         # The special entry ['timeframe', '<comma-separated names of projects>'] is for the csv header
         csv_contents[metric] = [['timeframe'] + projects]
 
-        for column_index, project in enumerate(projects):
-            aggregated_data_dir = output_dir / project / 'blocks_per_entity'
-            time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / aggregated_data_filename)
-
+    for column_index, project in enumerate(projects):
+        aggregated_data_dir = output_dir / project / 'blocks_per_entity'
+        time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / aggregated_data_filename)
+        chunks_with_blocks = set()
+        for _, block_values in blocks_per_entity.items():
+            for tchunk, nblocks in block_values.items():
+                if nblocks > 0:
+                    chunks_with_blocks.add(tchunk)
+        for metric, args_dict in metrics.items():
             for row_index, time_chunk in enumerate(time_chunks):
+                time_chunk_blocks_per_entity = {}
                 if column_index == 0:
                     csv_contents[metric].append([time_chunk])
-                time_chunk_blocks_per_entity = {}
-                for entity, block_values in blocks_per_entity.items():
-                    try:
-                        time_chunk_blocks_per_entity[entity] = block_values[time_chunk]
-                    except KeyError:
-                        time_chunk_blocks_per_entity[entity] = 0
+                if time_chunk in chunks_with_blocks:
+                    for entity, block_values in blocks_per_entity.items():
+                        try:
+                            time_chunk_blocks_per_entity[entity] = block_values[time_chunk]
+                        except KeyError:
+                            time_chunk_blocks_per_entity[entity] = 0
                 func = eval(f'compute_{metric}')
                 result = func(time_chunk_blocks_per_entity, **args_dict) if args_dict else func(
                     time_chunk_blocks_per_entity)
                 csv_contents[metric][row_index + 1].append(result)
 
+    for metric in metrics.keys():
         with open(output_dir / f'{metric}.csv', 'w') as f:
             csv_writer = csv.writer(f)
             csv_writer.writerows(csv_contents[metric])
