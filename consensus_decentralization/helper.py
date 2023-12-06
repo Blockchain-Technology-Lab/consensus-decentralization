@@ -246,12 +246,13 @@ def get_metrics_config():
         # ensure that parameter values that correspond to the same family of metrics are consistent
         params = None
         for metric in metric_family:
-            if params is None:
-                params = metrics[metric]
-            else:
-                assert metrics[metric] == params, "Metrics that belong in the same family (e.g. entropy and entropy " \
-                                                  "percentage) must use the same parameter values. " \
-                                                  "Please update your config.yaml file accordingly."
+            if metric in metrics:
+                if params is None:
+                    params = metrics[metric]
+                else:
+                    assert metrics[metric] == params, "Metrics that belong in the same family (e.g. entropy and entropy " \
+                                                      "percentage) must use the same parameter values. " \
+                                                      "Please update your config.yaml file accordingly."
     return metrics
 
 
