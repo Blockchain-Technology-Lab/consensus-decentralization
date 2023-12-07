@@ -334,3 +334,12 @@ def get_blocks_per_entity_filename(aggregate_by, timeframe):
     """
     granularity = get_granularity_from_aggregate_by(aggregate_by)
     return f'{granularity}_from_{timeframe[0]}_to_{timeframe[1]}.csv'
+
+
+def get_date_from_block(block):
+    """
+    Gets the date from the timestamp of a block.
+    :param block: dictionary of block data
+    :returns: three strings with the year, month, and day of the block's timestamp
+    """
+    return block['timestamp'][:4], block['timestamp'][5:7], block['timestamp'][8:10]

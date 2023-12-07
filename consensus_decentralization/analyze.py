@@ -29,7 +29,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
         aggregated_data_dir = output_dir / project / 'blocks_per_entity'
         time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / aggregated_data_filename)
         chunks_with_blocks = set()
-        for _, block_values in blocks_per_entity.items():
+        for block_values in blocks_per_entity.values():
             for tchunk, nblocks in block_values.items():
                 if nblocks > 0:
                     chunks_with_blocks.add(tchunk)

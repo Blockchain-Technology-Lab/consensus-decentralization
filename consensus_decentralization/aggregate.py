@@ -17,19 +17,20 @@ class Aggregator:
         """
         :param project: str. Name of the project
         :param io_dir: Path. Path to the project's output directory
-        :param data_to_aggregate: list of dictionaries. The data that will be aggregated
+        :param data_to_aggregate: list of dictionaries, sorted by 'timestamp'; the data that will be aggregated
         """
         self.project = project
-        self.data_to_aggregate = sorted(data_to_aggregate, key=lambda x: x['timestamp'])
-        self.data_start_date = hlp.get_timeframe_beginning(self.data_to_aggregate[0]['timestamp'][:10])
-        self.data_end_date = hlp.get_timeframe_beginning(self.data_to_aggregate[-1]['timestamp'][:10])
+        self.data_to_aggregate = data_to_aggregate
+        self.data_start_date = hlp.get_timeframe_beginning('-'.join(hlp.get_date_from_block(data_to_aggregate[0])))
+        self.data_end_date = hlp.get_timeframe_beginning('-'.join(hlp.get_date_from_block(data_to_aggregate[-1])))
         self.aggregated_data_dir = io_dir / 'blocks_per_entity'
         self.aggregated_data_dir.mkdir(parents=True, exist_ok=True)
 
         self.monthly_data_breaking_points = [(self.data_start_date.strftime('%Y-%m'), 0)]
         for idx, block in enumerate(self.data_to_aggregate):
-            if block['timestamp'][:7] != self.monthly_data_breaking_points[-1][0]:
-                self.monthly_data_breaking_points.append((block['timestamp'][:7], idx))
+            block_year, block_month, _ = hlp.get_date_from_block(block)
+            if '-'.join([block_year, block_month]) != self.monthly_data_breaking_points[-1][0]:
+                self.monthly_data_breaking_points.append(('-'.join([block_year, block_month]), idx))
 
     def aggregate(self, timeframe_start, timeframe_end):
         """
@@ -41,8 +42,8 @@ class Aggregator:
         """
         blocks_per_entity = defaultdict(int)
         if self.data_start_date <= timeframe_end and self.data_end_date >= timeframe_start:
+            start_index = 0
             for month, month_block_index in self.monthly_data_breaking_points:
-                start_index = 0
                 if timeframe_start >= hlp.get_timeframe_beginning(month):
                     start_index = max(month_block_index - 1, 0)
                     break
@@ -118,19 +119,19 @@ def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate, map
     if not output_file.is_file() or force_aggregate:
         logging.info(f'Aggregating {project} data..')
         timeframe_chunks = divide_timeframe(timeframe=timeframe, granularity=aggregate_by)
+        timeframe_chunk_starts = hlp.format_time_chunks(time_chunks=timeframe_chunks, granularity=aggregate_by)
         blocks_per_entity = defaultdict(dict)
         for i, chunk in enumerate(timeframe_chunks):
             chunk_start, chunk_end = chunk
-            t_chunk = hlp.format_time_chunks(time_chunks=[chunk], granularity=aggregate_by)[0]
+            t_chunk = timeframe_chunk_starts[i]
             chunk_blocks_per_entity = aggregator.aggregate(chunk_start, chunk_end)
             for entity, blocks in chunk_blocks_per_entity.items():
                 blocks_per_entity[entity][t_chunk] = blocks
 
-        timeframe_chunks = hlp.format_time_chunks(time_chunks=timeframe_chunks, granularity=aggregate_by)
         hlp.write_blocks_per_entity_to_file(
             output_dir=aggregator.aggregated_data_dir,
             blocks_per_entity=blocks_per_entity,
-            time_chunks=timeframe_chunks,
+            time_chunks=timeframe_chunk_starts,
             filename=filename
         )
         return timeframe_chunks
