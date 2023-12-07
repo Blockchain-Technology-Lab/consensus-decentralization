@@ -7,11 +7,13 @@ def compute_nakamoto_coefficient(blocks_per_entity):
     total_blocks = sum(blocks_per_entity.values())
     if total_blocks == 0:
         return None
-    nc, power_percentage = 0, 0
-    for (name, blocks) in sorted(blocks_per_entity.items(), key=lambda x: x[1], reverse=True):
-        if power_percentage < 50:
-            nc += 1
-            power_percentage += 100 * blocks / total_blocks
-        else:
-            return nc
+    nc, power_percentage, top_entities = 0, 0, set()
+    while power_percentage < 50:
+        current_max_name = None
+        for (name, blocks) in blocks_per_entity.items():
+            if current_max_name is None or (blocks >= blocks_per_entity[current_max_name] and name not in top_entities):
+                current_max_name = name
+        nc += 1
+        power_percentage += 100 * blocks_per_entity[current_max_name] / total_blocks
+        top_entities.add(current_max_name)
     return nc

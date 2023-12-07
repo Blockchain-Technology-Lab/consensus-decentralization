@@ -59,7 +59,7 @@ def test_committed_pool_data():
 def test_write_read_blocks_per_entity(setup_and_cleanup):
     output_dir = setup_and_cleanup
 
-    blocks_per_entity = {'Entity 1': [1, 3], 'Entity 2': [2, 2]}
+    blocks_per_entity = {'Entity 1': {'2018': 1, '2019': 3}, 'Entity 2': {'2018': 2, '2019': 2}}
 
     write_blocks_per_entity_to_file(output_dir=output_dir, blocks_per_entity=blocks_per_entity,
                                     time_chunks=['2018', '2019'], filename='test.csv')
@@ -68,7 +68,7 @@ def test_write_read_blocks_per_entity(setup_and_cleanup):
 
     assert all(len(nblocks) == len(time_chunks) for nblocks in bpe.values())
     assert time_chunks == ['2018', '2019']
-    assert all([bpe['Entity 1'] == [1, 3], bpe['Entity 2'] == [2, 2]])
+    assert all([bpe['Entity 1'] == {'2018': 1, '2019': 3}, bpe['Entity 2'] == {'2018': 2, '2019': 2}])
 
 
 def test_valid_date():

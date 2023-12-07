@@ -8,6 +8,7 @@ import datetime
 import calendar
 import argparse
 from functools import lru_cache
+from collections import defaultdict
 
 from yaml import safe_load
 
@@ -168,7 +169,14 @@ def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, time_chunks, 
     with open(output_dir / filename, 'w', newline='') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerow(['Entity \\ Time period'] + time_chunks)  # write header
-        csv_writer.writerows([[entity] + blocks for entity, blocks in blocks_per_entity.items()])
+        for entity, blocks_per_chunk in blocks_per_entity.items():
+            entity_row = [entity]
+            for chunk in time_chunks:
+                try:
+                    entity_row.append(blocks_per_chunk[chunk])
+                except KeyError:
+                    entity_row.append(0)
+            csv_writer.writerow(entity_row)
 
 
 def get_blocks_per_entity_from_file(filepath):
@@ -179,11 +187,16 @@ def get_blocks_per_entity_from_file(filepath):
     :returns: a tuple of length 2 where the first item is a list of time chunks (strings) and the second item is a
     dictionary with entities (keys) and a list of the number of blocks they produced during each time chunk (values)
     """
+    blocks_per_entity = defaultdict(dict)
     with open(filepath, newline='') as f:
         csv_reader = csv.reader(f)
         header = next(csv_reader, None)
         time_chunks = header[1:]
-        blocks_per_entity = {line[0]: [int(nblocks) for nblocks in line[1:]] for line in csv_reader}
+        for row in csv_reader:
+            entity = row[0]
+            for idx, item in enumerate(row[1:]):
+                if item != '0':
+                    blocks_per_entity[entity][time_chunks[idx]] = int(item)
     return time_chunks, blocks_per_entity
 
 
@@ -233,12 +246,13 @@ def get_metrics_config():
         # ensure that parameter values that correspond to the same family of metrics are consistent
         params = None
         for metric in metric_family:
-            if params is None:
-                params = metrics[metric]
-            else:
-                assert metrics[metric] == params, "Metrics that belong in the same family (e.g. entropy and entropy " \
-                                                  "percentage) must use the same parameter values. " \
-                                                  "Please update your config.yaml file accordingly."
+            if metric in metrics:
+                if params is None:
+                    params = metrics[metric]
+                else:
+                    assert metrics[metric] == params, "Metrics that belong in the same family (e.g. entropy and entropy " \
+                                                      "percentage) must use the same parameter values. " \
+                                                      "Please update your config.yaml file accordingly."
     return metrics
 
 
@@ -320,3 +334,12 @@ def get_blocks_per_entity_filename(aggregate_by, timeframe):
     """
     granularity = get_granularity_from_aggregate_by(aggregate_by)
     return f'{granularity}_from_{timeframe[0]}_to_{timeframe[1]}.csv'
+
+
+def get_date_from_block(block):
+    """
+    Gets the date from the timestamp of a block.
+    :param block: dictionary of block data
+    :returns: three strings with the year, month, and day of the block's timestamp
+    """
+    return block['timestamp'][:4], block['timestamp'][5:7], block['timestamp'][8:10]
