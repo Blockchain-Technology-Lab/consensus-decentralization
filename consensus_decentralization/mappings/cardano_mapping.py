@@ -1,5 +1,4 @@
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
-import consensus_decentralization.helper as hlp
 
 
 class CardanoMapping(DefaultMapping):
