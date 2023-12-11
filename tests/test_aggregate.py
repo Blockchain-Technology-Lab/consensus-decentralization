@@ -29,15 +29,15 @@ def mock_sample_bitcoin_mapped_data(setup_and_cleanup):
     mapped_data = '[' \
                   '{"number": "507516", "timestamp": "2018-02-04 02:36:23 UTC", "reward_addresses": "137YB5cpBLxLKvy8T6qXsycJ699iJjWCHH,1FVKW4rp5rN23dqFVk2tYGY4niAXMB8eZC","creator": "BTC.TOP", "mapping_method": "known_identifiers"},' \
                   '{"number": "507715", "timestamp": "2018-02-05 04:54:34 UTC", "reward_addresses": "131RUhDyyjxXSbSPxGRCm3t6vcei1TB6MB,1J7FCFaafPRxqu4X9VsaiMZr1XMemx69GR", "creator": "GBMiners", "mapping_method": "known_identifiers"},' \
-                  '{"number": "508434", "timestamp": "2018-02-09 22:17:45 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "known_identifiers"},' \
-                  '{"number": "509373", "timestamp": "2018-02-15 23:50:04 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "known_identifiers"},' \
-                  '{"number": "509432", "timestamp": "2018-02-16 09:25:03 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "known_identifiers"},' \
-                  '{"number": "510199", "timestamp": "2018-02-21 06:43:35 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "known_identifiers"},' \
+                  '{"number": "508434", "timestamp": "2018-02-09 22:17:45 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "fallback_mapping"},' \
+                  '{"number": "509373", "timestamp": "2018-02-15 23:50:04 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "fallback_mapping"},' \
+                  '{"number": "509432", "timestamp": "2018-02-16 09:25:03 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "fallback_mapping"},' \
+                  '{"number": "510199", "timestamp": "2018-02-21 06:43:35 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,3G7y14BudP2a4kjPAuecg4iUKM84GgPPWb", "creator": "1AM2f...9pJUx/3G7y1...gPPWb", "mapping_method": "fallback_mapping"},' \
                   '{"number": "510888", "timestamp": "2018-02-25 18:02:53 UTC", "reward_addresses": "137YB5cpBLxLKvy8T6qXsycJ699iJjWCHH,1FVKW4rp5rN23dqFVk2tYGY4niAXMB8eZC", "creator": "BTC.TOP", "mapping_method": "known_identifiers"},' \
                   '{"number": "511342", "timestamp": "2018-02-28 16:12:07 UTC", "reward_addresses": "131RUhDyyjxXSbSPxGRCm3t6vcei1TB6MB,1J7FCFaafPRxqu4X9VsaiMZr1XMemx69GR", "creator": "GBMiners", "mapping_method": "known_identifiers"},' \
-                  '{"number": "508242", "timestamp": "2018-03-08 10:57:02 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx", "creator": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx", "mapping_method": "known_identifiers"},' \
+                  '{"number": "508242", "timestamp": "2018-03-08 10:57:02 UTC", "reward_addresses": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx", "creator": "1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx", "mapping_method": "fallback_mapping"},' \
                   '{"number": "649062", "timestamp": "2020-09-19 11:17:00 UTC", "reward_addresses": "0000000000000000000000000000000000000000", "creator": "TEST2", "mapping_method": "known_identifiers"},' \
-                  '{"number": "649061", "timestamp": "2020-09-19 11:17:15 UTC", "reward_addresses": "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B", "creator": "Bitmain", "mapping_method": "known_identifiers"},' \
+                  '{"number": "649061", "timestamp": "2020-09-19 11:17:15 UTC", "reward_addresses": "12dRugNcdxK39288NjcDV4GX7rMsKCGn6B", "creator": "Bitmain", "mapping_method": "known_legal_links"},' \
                   '{"number": "649064", "timestamp": "2020-09-20 11:17:00 UTC", "reward_addresses": "0000000000000000000000000000000000000000", "creator": "TEST2", "mapping_method": "known_identifiers"},' \
                   '{"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "reward_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX", "creator": "ViaBTC", "mapping_method": "known_identifiers"}' \
                   ']'
@@ -54,7 +54,7 @@ def mock_sample_ethereum_mapped_data(setup_and_cleanup):
     # create a file that would be the output of the mapping
     mapped_data = '[' \
                   '{"number":"16382083","timestamp":"2023-01-11 07:29:47 UTC","reward_addresses":"0x3bee5122e2a2fbe11287aafb0cb918e22abb5436","creator":"MEV Builder: 0x3B...436", "mapping_method": "known_addresses"},' \
-                  '{"number":"11184490","timestamp":"2020-11-03 13:33:18 UTC","reward_addresses":"0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6","creator":"0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6", "mapping_method": "known_addresses"},' \
+                  '{"number":"11184490","timestamp":"2020-11-03 13:33:18 UTC","reward_addresses":"0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6","creator":"0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6", "mapping_method": "fallback_mapping"},' \
                   '{"number":"11183739","timestamp":"2020-11-03 10:44:14 UTC","reward_addresses":"0xe9b54a47e3f401d37798fc4e22f14b78475c2afc","creator":"TEST2", "mapping_method": "known_identifiers"},' \
                   '{"number":"11185799","timestamp":"2020-11-03 18:34:11 UTC","reward_addresses":"0xe9b54a47e3f401d37798fc4e22f14b78475c2afc","creator":"TEST2", "mapping_method": "known_identifiers"},' \
                   '{"number":"11186643","timestamp":"2020-11-03 21:33:27 UTC","reward_addresses":"0xe9b54a47e3f401d37798fc4e22f14b78475c2afc","creator":"TEST2", "mapping_method": "known_identifiers"},' \
@@ -76,8 +76,8 @@ def mock_sample_cardano_mapped_data(setup_and_cleanup):
     # create a file that would be the output of the mapping
     mapped_data = '[' \
                   '{"number":"17809932","timestamp":"2020-12-31T00:57:03","reward_addresses":"e7b605b72af41d6e8e6894274dedd18114f1759fea500b6d07031535","creator":"CFLOW", "mapping_method": "known_identifiers"},' \
-                  '{"number":"66666666666","timestamp":"2020-12-31T04:42:01","reward_addresses":"1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53","creator":"1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53", "mapping_method": "known_addresses"},' \
-                  '{"number":"00000000001","timestamp":"2020-12-31T06:00:00", "creator":"Input Output (iohk.io)", "mapping_method": "known_identifiers"},' \
+                  '{"number":"66666666666","timestamp":"2020-12-31T04:42:01","reward_addresses":"1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53","creator":"1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53", "mapping_method": "fallback_mapping"},' \
+                  '{"number":"00000000001","timestamp":"2020-12-31T06:00:00", "creator":"Input Output (iohk.io)", "mapping_method": "known_addresses"},' \
                   '{"number":"00000000000","timestamp":"2020-12-31T06:42:00","creator":"Arrakis", "mapping_method": "known_identifiers"},' \
                   '{"number":"55555555555","timestamp":"2020-12-31T06:42:01","creator":"1percentpool", "mapping_method": "known_identifiers"}' \
                   ']'
@@ -92,12 +92,12 @@ def mock_sample_tezos_mapped_data(setup_and_cleanup):
     test_tezos_dir.mkdir(parents=True, exist_ok=True)
     # create a file that would be the output of the mapping
     mapped_data = '[' \
-                  '{"number": "0000000", "timestamp": "2018-08-30 00:36:18 UTC", "reward_addresses": "tz0000000000000000000000000000000000", "creator": "tz0000000000000000000000000000000000", "mapping_method": "known_addresses"},' \
+                  '{"number": "0000000", "timestamp": "2018-08-30 00:36:18 UTC", "reward_addresses": "tz0000000000000000000000000000000000", "creator": "tz0000000000000000000000000000000000", "mapping_method": "fallback_mapping"},' \
                   '{"number": "1649812", "timestamp": "2021-08-30 00:36:18 UTC", "reward_addresses": "tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY", "creator": "Tezos Seoul", "mapping_method": "known_addresses"},' \
-                  '{"number": "1649839", "timestamp": "2021-08-30 00:49:48 UTC", "reward_addresses": "tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP", "creator": "tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP", "mapping_method": "known_addresses"},' \
+                  '{"number": "1649839", "timestamp": "2021-08-30 00:49:48 UTC", "reward_addresses": "tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP", "creator": "tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP", "mapping_method": "fallback_mapping"},' \
                   '{"number": "1650309", "timestamp": "2021-08-30 04:49:28 UTC", "reward_addresses": "tz1Kf25fX1VdmYGSEzwFy1wNmkbSEZ2V83sY", "creator": "Tezos Seoul", "mapping_method": "known_addresses"},' \
                   '{"number": "1650474", "timestamp": "2021-08-30 06:11:58 UTC", "reward_addresses": "tz1Vd1rXpV8hTHbFXCXN3c3qzCsgcU5BZw1e", "creator": "TEST", "mapping_method": "known_addresses"},' \
-                  '{"number": "1651794", "timestamp": "2021-08-30 17:41:08 UTC", "reward_addresses": "None", "creator": "----- UNDEFINED MINER -----", "mapping_method": "known_addresses"}' \
+                  '{"number": "1651794", "timestamp": "2021-08-30 17:41:08 UTC", "reward_addresses": "None", "creator": "----- UNDEFINED BLOCK PRODUCER -----", "mapping_method": "fallback_mapping"}' \
                   ']'
     with open(test_tezos_dir / 'mapped_data.json', 'w') as f:
         f.write(mapped_data)
@@ -279,7 +279,7 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
         'Tezos Seoul': '2\n',
         'tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP': '1\n',
         'TEST': '1\n',
-        '----- UNDEFINED MINER -----': '1\n'
+        '----- UNDEFINED BLOCK PRODUCER -----': '1\n'
     }
 
     output_file = test_io_dir / 'sample_tezos/blocks_per_entity/monthly_from_2021-08-01_to_2021-08-31.csv'

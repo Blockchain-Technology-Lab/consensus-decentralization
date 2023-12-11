@@ -66,7 +66,6 @@ def prep_sample_ethereum_mapping_info():
     shutil.copy2(mapping_info_dir / 'identifiers/ethereum.json', mapping_info_dir / 'identifiers/sample_ethereum.json')
     yield
     # Remove temp mapping info files
-    os.remove(mapping_info_dir / 'clusters/sample_ethereum.json')
     os.remove(mapping_info_dir / 'addresses/sample_ethereum.json')
     os.remove(mapping_info_dir / 'identifiers/sample_ethereum.json')
 
@@ -90,7 +89,6 @@ def prep_sample_tezos_mapping_info():
     shutil.copy2(mapping_info_dir / 'addresses/tezos.json', mapping_info_dir / 'addresses/sample_tezos.json')
     yield
     # Remove temp mapping info files
-    os.remove(str(mapping_info_dir / 'clusters/sample_tezos.json'))
     os.remove(str(mapping_info_dir / 'addresses/sample_tezos.json'))
 
 
@@ -138,9 +136,6 @@ def test_bitcoin_mapping(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
 def test_ethereum_mapping(setup_and_cleanup, prep_sample_ethereum_mapping_info):
     mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
 
-    clusters = {'TEST': [{'name': 'ezil.me', 'from': '', 'to': '', 'source': 'homepage'}]}
-    with open(mapping_info_dir / 'clusters/sample_ethereum.json', 'w') as f:
-        f.write(json.dumps(clusters))
     with open(mapping_info_dir / 'addresses/sample_ethereum.json') as f:
         addresses = json.load(f)
     addresses['0xe9b54a47e3f401d37798fc4e22f14b78475c2afc'] = {'name': 'TEST2', 'source': ''}
@@ -154,13 +149,13 @@ def test_ethereum_mapping(setup_and_cleanup, prep_sample_ethereum_mapping_info):
         '16382083': 'MEV Builder: 0x3B...436',
         '11184490': '0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6',
         '11183702': 'TEST2',
-        '11183793': 'TEST'
+        '11183793': 'ezil.me'
     }
     expected_mapping_methods = {
         '16382083': 'known_addresses',
-        '11184490': 'known_addresses',
+        '11184490': 'fallback_mapping',
         '11183702': 'known_addresses',
-        '11183793': 'known_pool_links'
+        '11183793': 'known_identifiers'
     }
 
     with open(test_output_dir / 'sample_ethereum/mapped_data.json') as f:
@@ -178,13 +173,13 @@ def test_cardano_mapping(setup_and_cleanup, prep_sample_cardano_mapping_info):
     apply_mapping(project='sample_cardano', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
-        '17809932': 'CFLOW',
-        '66666666666': '1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53',
+        '17809932': 'CashFlow',
+        '66666666666': '1 Percent Pool',
         '00000000001': 'Input Output (iohk.io)'
     }
     expected_mapping_methods = {
         '17809932': 'known_identifiers',
-        '66666666666': 'known_addresses',
+        '66666666666': 'known_clusters',
         '00000000001': 'known_addresses'
     }
     with open(test_output_dir / 'sample_cardano/mapped_data.json') as f:
@@ -197,24 +192,21 @@ def test_cardano_mapping(setup_and_cleanup, prep_sample_cardano_mapping_info):
 
 def test_tezos_mapping(setup_and_cleanup, prep_sample_tezos_mapping_info):
     mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
-    clusters = {'TEST': [{'name': 'TzNode', 'from': '2021', 'to': '2022', 'source': 'homepage'}]}
-    with open(mapping_info_dir / 'clusters/sample_tezos.json', 'w') as f:
-        f.write(json.dumps(clusters))
 
     parsed_data = parse(project='sample_tezos', input_dir=test_raw_data_dir)
     apply_mapping(project='sample_tezos', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
         '1649812': 'Tezos Seoul',
-        '1650474': 'TEST',
-        '1651794': '----- UNDEFINED MINER -----',
+        '1650474': 'TzNode',
+        '1651794': '----- UNDEFINED BLOCK PRODUCER -----',
         '0000000': 'tz0000000000000000000000000000000000'
     }
     expected_mapping_methods = {
         '1649812': 'known_addresses',
-        '1650474': 'known_pool_links',
-        '1651794': 'known_addresses',
-        '0000000': 'known_addresses'
+        '1650474': 'known_addresses',
+        '1651794': 'fallback_mapping',
+        '0000000': 'fallback_mapping'
     }
     with open(test_output_dir / 'sample_tezos/mapped_data.json') as f:
         mapped_data = json.load(f)
@@ -271,8 +263,8 @@ def test_get_reward_addresses():
     assert reward_addresses == ["0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c"]
 
 
-def test_from_known_addresses():
-    cardano_mapping = CardanoMapping("sample_cardano", output_dir=pathlib.Path(), data_to_map=None)
+def test_cardano_map_from_known_addresses():
+    cardano_mapping = CardanoMapping(project_name="sample_cardano", output_dir=pathlib.Path(), data_to_map=None)
 
     block = {
         "number": 92082690,
@@ -281,7 +273,7 @@ def test_from_known_addresses():
         "reward_addresses": "e14a650c7a58d229bbb663cb42fffb36d68c2a6cecf0fd7b9c47e399"
     }
     entity = cardano_mapping.map_from_known_addresses(block)
-    assert entity == "e14a650c7a58d229bbb663cb42fffb36d68c2a6cecf0fd7b9c47e399"
+    assert entity is None
 
     block = {
         "number": -1,

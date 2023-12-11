@@ -86,12 +86,27 @@ def get_pool_identifiers(project_name):
     return identifiers
 
 
+def get_pool_clusters(project_name):
+    """
+    Retrieves data regarding the clusters of pools of a project.
+    :param project_name: string that corresponds to the project under consideration
+    :returns: a dictionary where each key corresponds to a unique pool id (e.g. pool hash) and each value is a
+    dictionary of the form: {'cluster': <name of the cluster>, 'pool': <name of the pool>, 'source': <source>},
+    or an empty dictionary if no information is available for the project (the relevant file does not exist)
+    """
+    try:
+        with open(MAPPING_INFO_DIR / f'clusters/{project_name}.json') as f:
+            clusters = json.load(f)
+    except FileNotFoundError:
+        return dict()
+    return clusters
+
+
 @lru_cache(maxsize=2)
-def get_pool_links(project_name, timeframe):
+def get_pool_legal_links(timeframe):
     """
     Retrieves data regarding the links between the pools of a project.
     Caches the result for quick access when the function is called again with the same arguments.
-    :param project_name: string that corresponds to the project under consideration
     :param timeframe: string that corresponds to the timeframe under consideration (in YYYY-MM-DD, YYYY-MM or YYYY
     format)
     :returns: a dictionary that reveals the ownership of pools
@@ -99,34 +114,27 @@ def get_pool_links(project_name, timeframe):
     start = get_timeframe_beginning(timeframe)
     end = get_timeframe_end(timeframe)
 
-    pool_links = {}
-
-    try:
-        with open(MAPPING_INFO_DIR / f'clusters/{project_name}.json') as f:
-            cluster_data = json.load(f)
-    except FileNotFoundError:
-        cluster_data = {}
+    legal_links = {}
 
     with open(MAPPING_INFO_DIR / 'legal_links.json') as f:
         legal_data = json.load(f)
 
-    for data in [cluster_data, legal_data]:
-        for cluster_name, pools in data.items():
-            for pool_info in pools:
-                link_start, link_end = get_time_period(pool_info['from'], pool_info['to'])
+    for cluster_name, pools in legal_data.items():
+        for pool_info in pools:
+            link_start, link_end = get_time_period(pool_info['from'], pool_info['to'])
 
-                check_list = [  # Check if two periods overlap at any point
-                    start <= link_start <= end,
-                    start <= link_end <= end,
-                    link_start <= start <= link_end,
-                    link_start <= end <= link_end
-                ]
-                if any(check_list):
-                    pool_links[pool_info['name']] = cluster_name
+            check_list = [  # Check if two periods overlap at any point
+                start <= link_start <= end,
+                start <= link_end <= end,
+                link_start <= start <= link_end,
+                link_start <= end <= link_end
+            ]
+            if any(check_list):
+                legal_links[pool_info['name']] = cluster_name
 
-    for parent, child in pool_links.items():  # resolve chain links
-        while child in pool_links.keys():
-            next_child = pool_links[child]
+    for parent, child in legal_links.items():  # resolve chain links
+        while child in legal_links.keys():
+            next_child = legal_links[child]
             if next_child == child:
                 # Cluster's name is the same as the primary pool's name
                 break
@@ -134,9 +142,9 @@ def get_pool_links(project_name, timeframe):
                 raise AssertionError(f'Circular dependency: {parent}, {child}')
             else:
                 child = next_child
-        pool_links[parent] = child
+        legal_links[parent] = child
 
-    return pool_links
+    return legal_links
 
 
 def get_known_addresses(project_name):
@@ -336,10 +344,19 @@ def get_blocks_per_entity_filename(aggregate_by, timeframe):
     return f'{granularity}_from_{timeframe[0]}_to_{timeframe[1]}.csv'
 
 
-def get_date_from_block(block):
+def get_date_from_block(block, level='day'):
     """
     Gets the date from the timestamp of a block.
     :param block: dictionary of block data
-    :returns: three strings with the year, month, and day of the block's timestamp
+    :param level: string, one of: year, month, day (default: day)
+    :returns: a string that corresponds to the date of the block at the given level
+    :raises ValueError: if the level is not one of: year, month, day
     """
-    return block['timestamp'][:4], block['timestamp'][5:7], block['timestamp'][8:10]
+    timestamp = block['timestamp']
+    if level == 'year':
+        return timestamp[:4]
+    elif level == 'month':
+        return timestamp[:7]
+    elif level == 'day':
+        return timestamp[:10]
+    raise ValueError(f'Invalid level: {level}')

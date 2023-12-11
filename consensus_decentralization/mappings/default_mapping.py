@@ -30,6 +30,7 @@ class DefaultMapping:
         self.special_addresses = hlp.get_special_addresses(project_name)
         self.known_addresses = hlp.get_known_addresses(project_name)
         self.known_identifiers = hlp.get_pool_identifiers(project_name)
+        self.known_clusters = hlp.get_pool_clusters(project_name)
         self.multi_pool_blocks = list()
         self.multi_pool_addresses = list()
 
@@ -50,13 +51,24 @@ class DefaultMapping:
                 mapping_method = 'known_identifiers'
             else:
                 entity = self.map_from_known_addresses(block)
-                mapping_method = 'known_addresses'  # todo add separate clause for unmapped blocks?
+                if entity:
+                    mapping_method = 'known_addresses'
+                else:
+                    entity = self.fallback_mapping(block)
+                    mapping_method = 'fallback_mapping'
 
-            day = block['timestamp'][:10]
-            pool_links = hlp.get_pool_links(self.project_name, day)
-            if entity in pool_links.keys():
-                entity = pool_links[entity]
-                mapping_method = 'known_pool_links'
+            cluster = self.map_from_known_clusters(block)
+            if cluster:
+                entity = cluster
+                mapping_method = 'known_clusters'
+
+            # Finally, check legal links to map to the highest-level entity, if relevant
+            day = hlp.get_date_from_block(block)
+            legal_links = hlp.get_pool_legal_links(timeframe=day)
+            if entity in legal_links.keys():
+                entity = legal_links[entity]
+                mapping_method = 'known_legal_links'
+
             self.mapped_data.append({
                 "number": block['number'],
                 "timestamp": block['timestamp'],
@@ -75,7 +87,7 @@ class DefaultMapping:
         """
         Determines which addresses are associated with a block in the context of our analysis, i.e. after removing
         any special addresses from those that received rewards for the block
-        :param block: dictionary with block information
+        :param block: dictionary with block information (block number, timestamp, identifiers, reward addresses)
         :returns: a list with the address(es) that received rewards from the block and are not considered "special
         addresses", or None if there were no addresses associated with the block at all. Note that in the case of all
         reward addresses being "special" an empty list is returned (not None)
@@ -90,7 +102,7 @@ class DefaultMapping:
         Maps one block to its block producer (pool) based on known identifiers (tag, etc).
         If successful, it also updates the pool's known addresses with the reward addresses of the block and,
         if some address is found to also be associated with another pool, it adds it to the list of multi-pool addresses
-        :param block: dictionary with block information (block number, timestamp, identifiers, etc)
+        :param block: dictionary with block information (block number, timestamp, identifiers, reward addresses)
         :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise None
         """
         block_identifier = block['identifiers']
@@ -110,33 +122,52 @@ class DefaultMapping:
     def map_from_known_addresses(self, block):
         """
         Maps one block to its block producer (pool) based on known addresses.
-        :param block: dictionary with block information (block number, timestamp, identifiers, etc)
-        :returns: the name of the pool that produced the block, if it was successfully mapped, otherwise the address
-        or concatenation of addresses that received rewards for the block, or '----- UNDEFINED MINER -----' if there
-        is no reward address, or '----- SPECIAL ADDRESS -----' if all reward addresses belong to the "special
-        addresses" of the project
+        :param block: dictionary with block information (block number, timestamp, identifiers, reward addresses)
+        :returns: string, which corresponds to the name of the entity (or concatenation of entities) that produced the
+        block, if it was successfully mapped, or '----- SPECIAL ADDRESS -----' if all reward addresses belong to the
+        "special addresses" of the project, otherwise None
         """
         reward_addresses = self.get_reward_addresses(block)
         if reward_addresses is None:  # there was no reward address associated with the block
-            return '----- UNDEFINED MINER -----'
+            return None
+        if len(reward_addresses) == 0:  # the reward address was deemed "special" and thus removed
+            return '----- SPECIAL ADDRESS -----'
         block_pools = set()
         for address in reward_addresses:
             if address in self.known_addresses.keys():  # Check if address is associated with pool
                 block_pools.add((address, self.known_addresses[address]))
         if block_pools:
-            entities = sorted({i[1] for i in block_pools})
+            entities = sorted({entity for _, entity in block_pools})
             if len(entities) > 1:
-                multi_pool_info = '/'.join([f'{i[0]}({i[1]})' for i in block_pools])
+                multi_pool_info = '/'.join([f'{addr}({entity})' for addr, entity in block_pools])
                 self.multi_pool_blocks.append(f'{block["number"]},{block["timestamp"]},{multi_pool_info}')
             entity = str('/'.join(entities))
-        else:
-            if len(reward_addresses) == 1:
-                entity = reward_addresses[0]
-            elif len(reward_addresses) == 0:  # the reward addresses associated with the block are all special
-                entity = '----- SPECIAL ADDRESS -----'
-            else:
-                entity = '/'.join([addr[:5] + '...' + addr[-5:] for addr in sorted(reward_addresses)])
-        return entity
+            return entity
+        return None
+
+    def map_from_known_clusters(self, block):
+        """
+        Maps one block to its block producer (pool cluster) based on known cluster information.
+        Since the ledgers that use this mapping class do not have cluster information, this method always returns None,
+        but it is overridden in the mapping classes of projects that do have cluster information (e.g. Cardano)
+        :param block: dictionary with block information (block number, timestamp, identifiers, reward addresses)
+        :returns: None (but when overridden it returns the name of the cluster that produced the block, if it was
+        successfully mapped, otherwise None)
+        """
+        return None
+
+    def fallback_mapping(self, block):
+        """
+        The fallback, "dummy", mapping to use if all other methods fail.
+        It simply maps a block to the address(es) that received rewards for it.
+        :param block: dictionary with block information (block number, timestamp, identifiers, reward addresses)
+        :returns: string, which corresponds to the address or concatenation of addresses that received rewards for the
+        block, or '----- UNDEFINED BLOCK PRODUCER -----' if there is no reward address
+        """
+        reward_addresses = self.get_reward_addresses(block)
+        if reward_addresses is None:
+            return '----- UNDEFINED BLOCK PRODUCER -----'
+        return '/'.join([addr for addr in sorted(reward_addresses)])
 
     def write_multi_pool_files(self):
         """
