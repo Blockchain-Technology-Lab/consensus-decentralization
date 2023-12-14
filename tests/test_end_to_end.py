@@ -159,7 +159,7 @@ def test_end_to_end(setup_and_cleanup):
 
     expected_entropy = [
         'timeframe,sample_bitcoin,sample_cardano\n',
-        'Dec-2020,,2.321928094887362\n'
+        'Dec-2020,,1.9219280948873623\n'
     ]
     with open(test_output_dir / 'entropy.csv') as f:
         lines = f.readlines()
@@ -168,7 +168,7 @@ def test_end_to_end(setup_and_cleanup):
 
     expected_gini = [
         'timeframe,sample_bitcoin,sample_cardano\n',
-        'Dec-2020,,0.0\n'
+        'Dec-2020,,0.15\n'
     ]
     with open(test_output_dir / 'gini.csv') as f:
         lines = f.readlines()
@@ -177,7 +177,7 @@ def test_end_to_end(setup_and_cleanup):
 
     expected_nc = [
         'timeframe,sample_bitcoin,sample_cardano\n',
-        'Dec-2020,,3\n'
+        'Dec-2020,,2\n'
     ]
     with open(test_output_dir / 'nakamoto_coefficient.csv') as f:
         lines = f.readlines()

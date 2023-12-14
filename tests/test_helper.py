@@ -2,9 +2,9 @@ import datetime
 import argparse
 import shutil
 import pytest
-from consensus_decentralization.helper import get_pool_identifiers, get_pool_links, get_known_addresses, \
-    write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, get_timeframe_end, \
-    get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
+from consensus_decentralization.helper import get_pool_identifiers, get_pool_legal_links, get_known_addresses, \
+    get_pool_clusters, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
+    get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
 from consensus_decentralization.map import ledger_mapping
 
 
@@ -24,26 +24,48 @@ def setup_and_cleanup():
 
 
 def test_pool_data():
-    pool_tags = get_pool_identifiers('test')
-    pool_addresses = get_known_addresses('test')
-    pool_links = get_pool_links('test', '2022')
+    pool_identifiers = get_pool_identifiers(project_name='test')
+    pool_addresses = get_known_addresses(project_name='test')
+    pool_clusters = get_pool_clusters(project_name='test')
+    legal_links = get_pool_legal_links(timeframe='2022')
 
-    assert all([pool_links['entity 1'] == 'cluster_3', pool_links['ent2'] == 'cluster_2',
-                pool_links['entity_3'] == 'cluster_2', pool_links['cluster_1'] == 'cluster_3',
-                pool_links['AntPool'] == 'Bitmain', pool_links['NovaBlock'] == 'Poolin',
-                pool_links['BTC.COM'] == 'BIT Mining', pool_links['Bitdeer'] == 'BIT Mining', ])
+    assert all([
+        legal_links['AntPool'] == 'Bitmain',
+        legal_links['NovaBlock'] == 'Poolin',
+        legal_links['BTC.COM'] == 'BIT Mining',
+        legal_links['Bitdeer'] == 'BIT Mining'
+    ])
 
-    assert all([pool_tags['entity 1']['name'] == 'Entity 1', pool_tags['entity 1']['link'] == 'https://www.entity.1',
-                pool_tags['ent2']['name'] == 'Entity 2', pool_tags['ent2']['link'] == 'https://www.entity.2',
-                pool_tags['entity_3']['name'] == 'Entity 3', pool_tags['entity_3']['link'] == 'https://www.entity.3',
-                pool_tags['entity 4']['name'] == 'Entity 4', pool_tags['entity 4']['link'] == 'https://www.entity.4',
-                pool_tags['entity_5']['name'] == 'Entity 5', pool_tags['entity_5']['link'] == 'https://www.entity.5',
-                pool_addresses['address1'] == "Entity 4", pool_addresses['addr2'] == "Entity 5", ])
+    assert all([
+        pool_identifiers['entity 1']['name'] == 'Entity 1',
+        pool_identifiers['entity 1']['link'] == 'https://www.entity.1',
+        pool_identifiers['ent2']['name'] == 'Entity 2',
+        pool_identifiers['ent2']['link'] == 'https://www.entity.2',
+        pool_identifiers['entity_3']['name'] == 'Entity 3',
+        pool_identifiers['entity_3']['link'] == 'https://www.entity.3',
+        pool_identifiers['entity 4']['name'] == 'Entity 4',
+        pool_identifiers['entity 4']['link'] == 'https://www.entity.4',
+        pool_identifiers['entity_5']['name'] == 'Entity 5',
+        pool_identifiers['entity_5']['link'] == 'https://www.entity.5'
+    ])
 
-    pool_links = get_pool_links('test', '2021-03-12')
-    assert all([pool_links['entity 1'] == 'cluster_3', pool_links['ent2'] == 'cluster_2',
-                pool_links['entity_3'] == 'cluster_2', pool_links['AntPool'] == 'Bitmain',
-                pool_links['NovaBlock'] == 'Poolin', pool_links['BTC.COM'] == 'Bitdeer', ])
+    assert all([
+        pool_addresses['address1'] == "Entity 4",
+        pool_addresses['addr2'] == "Entity 5"
+    ])
+
+    assert all([
+        pool_clusters['pool_hash_1']['cluster'] == 'cluster 1',
+        pool_clusters['pool_hash_2']['cluster'] == 'cluster 1',
+        pool_clusters['pool_hash_3']['cluster'] == 'cluster 2'
+    ])
+
+    legal_links = get_pool_legal_links(timeframe='2021-03-12')
+    assert all([
+        legal_links['AntPool'] == 'Bitmain',
+        legal_links['NovaBlock'] == 'Poolin',
+        legal_links['BTC.COM'] == 'Bitdeer'
+    ])
 
 
 def test_committed_pool_data():
@@ -51,9 +73,9 @@ def test_committed_pool_data():
         get_pool_identifiers(project_name)
         get_known_addresses(project_name)
         for year in range(2018, 2024):
-            get_pool_links(project_name, str(year))
+            get_pool_legal_links(timeframe=str(year))
             for month in range(1, 13):
-                get_pool_links(project_name, f'{year}-{month:02d}')
+                get_pool_legal_links(timeframe=f'{year}-{month:02d}')
 
 
 def test_write_read_blocks_per_entity(setup_and_cleanup):
@@ -111,5 +133,5 @@ def test_get_time_period():  # currently not testing for invalid dates
 
 def test_get_default_ledgers():
     ledgers = get_default_ledgers()
-    assert type(ledgers) == list
+    assert isinstance(ledgers, list)
     assert len(ledgers) > 0

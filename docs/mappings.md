@@ -50,21 +50,24 @@ structure is as follows:
 
 #### Clusters
 
-The files under `clusters` define information about pool clusters. This information is
-organized per cluster. For each cluster, an array of pool-related information is
-defined. Each item in the array defines the pool's name, the time window during
-which the pool belonged to the cluster (from the beginning of `from` until the
-beginning of `to` _excluding_), and the _publicly available_ source of
-information, via which the link between the pool and the cluster is established.
+The files under `clusters` define information about pool clusters. Each key corresponds to a
+unique pool id (e.g. pool hash in Cardano). The value for each key is a dictionary including
+the cluster to which the pool belongs, the pool's name, and the source of information about
+the cluster. When the source is set to "homepage", it means that the pool was clustered together
+with some other pool(s) because they share the same webpage.
 Each file's structure is as follows:
 ```
 {
-  "cluster A": [
-      {"name": "P1", "from": "", "to": "2023", "source": "example.com/link1"}
-  ],
-  "cluster B": [
-      {"name": "--P2--", "from": "", "to": "", "source": "example.com/link2"}
-  ]
+  "pool id 1": {
+      "cluster": "cluster A",
+      "pool": "Pool P1",
+      "source": "homepage"
+  },
+  "pool id 2": {
+      "cluster": "cluster B",
+      "pool": "--P2--",
+      "source": "example_url.com"
+  }
 }
 ```
 
@@ -115,25 +118,25 @@ but are used for protocol-specific reasons (e.g. treasury address). The format o
 
 In our implementation, the mapping of a block uses the auxiliary information as follows.
 
-First, it iterates over all known tags and compares each one with the block's identifiers. If the tag is a
-substring of the parameter, then a match is found.
+First, it iterates over all known identifiers and compares each one with the identifiers of the block.
+If a known identifier is a substring of the block's identifier, then a match is found.
 
 If the first step fails, we compare the block's reward addresses with known pool addresses (including special 
-addresses that exist for some blockchains) and again look for a match. 
+addresses that exist for some blockchains) and again look for a match.
 
-In both cases, if there is a match, then:
+Following, we check if the entity that created the block belongs to a known pool cluster, and
+if so, we map the block to the cluster.
+
+In all cases, if there is a match, then:
 
 1. We map the block to the matched pool.
 2. We associate all of the block's reward addresses (that is, the addresses that receive fees from the block) with 
 the matched pool.
-3. We record the mapping method that was used to obtain the mapping (`known_identifiers` for the first case or 
-   `known_addresses` for the second.
+3. We record the mapping method that was used to obtain the mapping (`known_identifiers`, `known_addresses` or
+`known_clusters`).
 
-In essence, the identifiers are the principal element for mapping a block to an entity and the known addresses are
-the fallback mechanism.
-
-If there is a match, we also parse the auxiliary information, such as pool ownership or clusters, in order to assign the
-block to the top level entity, e.g., the pool's parent company or cluster. If a match is found this way, we update 
-the mapping method to `known_pool_links`.
+If there is a match, we also parse information about pool ownership / legal links, in order to assign the
+block to the top level entity, e.g., the pool's parent company. If a match is found this way, we update
+the mapping method to `known_legal_links`.
 
 If all mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.
