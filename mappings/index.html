@@ -151,20 +151,23 @@ structure is as follows:</p>
 }
 </code></pre>
 <h4 id="clusters">Clusters</h4>
-<p>The files under <code>clusters</code> define information about pool clusters. This information is
-organized per cluster. For each cluster, an array of pool-related information is
-defined. Each item in the array defines the pool's name, the time window during
-which the pool belonged to the cluster (from the beginning of <code>from</code> until the
-beginning of <code>to</code> <em>excluding</em>), and the <em>publicly available</em> source of
-information, via which the link between the pool and the cluster is established.
+<p>The files under <code>clusters</code> define information about pool clusters. Each key corresponds to a
+unique pool id (e.g. pool hash in Cardano). The value for each key is a dictionary including
+the cluster to which the pool belongs, the pool's name, and the source of information about
+the cluster. When the source is set to "homepage", it means that the pool was clustered together
+with some other pool(s) because they share the same webpage.
 Each file's structure is as follows:</p>
 <pre><code>{
-  &quot;cluster A&quot;: [
-      {&quot;name&quot;: &quot;P1&quot;, &quot;from&quot;: &quot;&quot;, &quot;to&quot;: &quot;2023&quot;, &quot;source&quot;: &quot;example.com/link1&quot;}
-  ],
-  &quot;cluster B&quot;: [
-      {&quot;name&quot;: &quot;--P2--&quot;, &quot;from&quot;: &quot;&quot;, &quot;to&quot;: &quot;&quot;, &quot;source&quot;: &quot;example.com/link2&quot;}
-  ]
+  &quot;pool id 1&quot;: {
+      &quot;cluster&quot;: &quot;cluster A&quot;,
+      &quot;pool&quot;: &quot;Pool P1&quot;,
+      &quot;source&quot;: &quot;homepage&quot;
+  },
+  &quot;pool id 2&quot;: {
+      &quot;cluster&quot;: &quot;cluster B&quot;,
+      &quot;pool&quot;: &quot;--P2--&quot;,
+      &quot;source&quot;: &quot;example_url.com&quot;
+  }
 }
 </code></pre>
 <h4 id="addresses">Addresses</h4>
@@ -202,23 +205,23 @@ but are used for protocol-specific reasons (e.g. treasury address). The format o
 </code></pre>
 <h2 id="mapping-process-implementation">Mapping process implementation</h2>
 <p>In our implementation, the mapping of a block uses the auxiliary information as follows.</p>
-<p>First, it iterates over all known tags and compares each one with the block's identifiers. If the tag is a
-substring of the parameter, then a match is found.</p>
+<p>First, it iterates over all known identifiers and compares each one with the identifiers of the block.
+If a known identifier is a substring of the block's identifier, then a match is found.</p>
 <p>If the first step fails, we compare the block's reward addresses with known pool addresses (including special 
-addresses that exist for some blockchains) and again look for a match. </p>
-<p>In both cases, if there is a match, then:</p>
+addresses that exist for some blockchains) and again look for a match.</p>
+<p>Following, we check if the entity that created the block belongs to a known pool cluster, and
+if so, we map the block to the cluster.</p>
+<p>In all cases, if there is a match, then:</p>
 <ol>
 <li>We map the block to the matched pool.</li>
 <li>We associate all of the block's reward addresses (that is, the addresses that receive fees from the block) with 
 the matched pool.</li>
-<li>We record the mapping method that was used to obtain the mapping (<code>known_identifiers</code> for the first case or 
-   <code>known_addresses</code> for the second.</li>
+<li>We record the mapping method that was used to obtain the mapping (<code>known_identifiers</code>, <code>known_addresses</code> or
+<code>known_clusters</code>).</li>
 </ol>
-<p>In essence, the identifiers are the principal element for mapping a block to an entity and the known addresses are
-the fallback mechanism.</p>
-<p>If there is a match, we also parse the auxiliary information, such as pool ownership or clusters, in order to assign the
-block to the top level entity, e.g., the pool's parent company or cluster. If a match is found this way, we update 
-the mapping method to <code>known_pool_links</code>.</p>
+<p>If there is a match, we also parse information about pool ownership / legal links, in order to assign the
+block to the top level entity, e.g., the pool's parent company. If a match is found this way, we update
+the mapping method to <code>known_legal_links</code>.</p>
 <p>If all mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.</p>
               
             </div>
