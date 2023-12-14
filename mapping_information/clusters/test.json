@@ -1,5 +1,5 @@
 {
-    "pool_hash_1": {
+  "pool_hash_1": {
         "cluster": "cluster 1",
         "pool": "pool 1",
         "source": "homepage"
