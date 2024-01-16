@@ -1,4 +1,5 @@
-from consensus_decentralization.metrics import entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index
+from consensus_decentralization.metrics import (entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index,
+                                                theil_index, max_power_ratio, tau_index)
 import numpy as np
 
 
@@ -111,3 +112,68 @@ def test_hhi():
 
     hhi5 = herfindahl_hirschman_index.compute_hhi(blocks_per_entity={'a': 0, 'b': 0})
     assert hhi5 is None
+
+
+def test_compute_theil_index():
+    """
+    Ensure that the results of the compute_theil_index function are consistent with online calculators,
+    such as: http://www.poorcity.richcity.org/calculator/
+    """
+    decimals = 3
+
+    theil_t = theil_index.compute_theil_index(blocks_per_entity={'a': 3, 'b': 2, 'c': 1})
+    assert round(theil_t, decimals) == 0.087
+
+    theil_t = theil_index.compute_theil_index(blocks_per_entity={'a': 3, 'b': 2, 'c': 1, 'd': 1, 'e': 1, 'f': 1})
+    assert round(theil_t, decimals) == 0.115
+
+    theil_t = theil_index.compute_theil_index(blocks_per_entity={'a': 432, 'b': 0, 'c': 0, 'd': 0})
+    assert round(theil_t, decimals) == 1.386
+
+    theil_t = theil_index.compute_theil_index(blocks_per_entity={'a': 432})
+    assert round(theil_t, decimals) == 0
+
+    theil_t = theil_index.compute_theil_index(blocks_per_entity={})
+    assert theil_t == 0
+
+
+def test_compute_max_power_ratio():
+    max_mpr = max_power_ratio.compute_max_power_ratio(blocks_per_entity={'a': 3, 'b': 2, 'c': 1})
+    assert max_mpr == 0.5
+
+    max_mpr = max_power_ratio.compute_max_power_ratio(blocks_per_entity={'a': 3, 'b': 2, 'c': 1, 'd': 1, 'e': 1, 'f': 1})
+    assert max_mpr == 1 / 3
+
+    max_mpr = max_power_ratio.compute_max_power_ratio(blocks_per_entity={'a': 1})
+    assert max_mpr == 1
+
+    max_mpr = max_power_ratio.compute_max_power_ratio(blocks_per_entity={'a': 1, 'b': 1, 'c': 1})
+    assert max_mpr == 1 / 3
+
+    max_mpr = max_power_ratio.compute_max_power_ratio(blocks_per_entity={})
+    assert max_mpr == 0
+
+
+def test_tau_33():
+    tau_idx = tau_index.compute_tau_index(blocks_per_entity={'a': 3, 'b': 2, 'c': 1}, threshold=0.33)
+    assert tau_idx == 1
+
+    tau_idx = tau_index.compute_tau_index(blocks_per_entity={'a': 3, 'b': 2, 'c': 1, 'd': 1, 'e': 1, 'f': 1}, threshold=0.33)
+    assert tau_idx == 1
+
+    tau_idx = tau_index.compute_tau_index(blocks_per_entity={'a': 1}, threshold=0.33)
+    assert tau_idx == 1
+
+    tau_idx = tau_index.compute_tau_index(blocks_per_entity={}, threshold=0.33)
+    assert tau_idx is None
+
+
+def test_tau_66():
+    tau_idx = tau_index.compute_tau_index(blocks_per_entity={'a': 3, 'b': 2, 'c': 1}, threshold=0.66)
+    assert tau_idx == 2
+
+    tau_idx = tau_index.compute_tau_index(blocks_per_entity={'a': 3, 'b': 2, 'c': 1, 'd': 1, 'e': 1, 'f': 1}, threshold=0.66)
+    assert tau_idx == 3
+
+    tau_idx = tau_index.compute_tau_index(blocks_per_entity={'a': 1}, threshold=0.66)
+    assert tau_idx == 1

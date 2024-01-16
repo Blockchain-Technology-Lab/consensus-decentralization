@@ -6,6 +6,10 @@ metrics:
   gini:
   hhi:
   nakamoto_coefficient:
+  theil_index:
+  max_power_ratio:
+  tau_index:
+    threshold: 0.66
 
 default_timeframe:
   start_date: 2010-01-01
