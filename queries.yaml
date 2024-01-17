@@ -15,11 +15,11 @@ bitcoin_cash:
   ORDER BY timestamp
 
 cardano:
-  SELECT `iog-data-analytics.cardano_mainnet.block`.slot_no as number, `iog-data-analytics.cardano_mainnet.pool_offline_data`.ticker_name as identifiers, `iog-data-analytics.cardano_mainnet.block`.block_time as timestamp,`iog-data-analytics.cardano_mainnet.block`.pool_hash as reward_addresses
-  FROM `iog-data-analytics.cardano_mainnet.block`
-  LEFT JOIN `iog-data-analytics.cardano_mainnet.pool_offline_data` ON `iog-data-analytics.cardano_mainnet.block`.pool_hash = `iog-data-analytics.cardano_mainnet.pool_offline_data`.pool_hash
-  WHERE `iog-data-analytics.cardano_mainnet.block`.block_time > '2018-01-01'
-  ORDER BY `iog-data-analytics.cardano_mainnet.block`.block_time
+  SELECT `blockchain-analytics-392322.cardano_mainnet.block`.slot_no as number, `blockchain-analytics-392322.cardano_mainnet.pool_offline_data`.ticker_name as identifiers, `blockchain-analytics-392322.cardano_mainnet.block`.block_time as timestamp,`blockchain-analytics-392322.cardano_mainnet.block`.pool_hash as reward_addresses
+  FROM `blockchain-analytics-392322.cardano_mainnet.block`
+  LEFT JOIN `blockchain-analytics-392322.cardano_mainnet.pool_offline_data` ON `blockchain-analytics-392322.cardano_mainnet.block`.pool_hash = `blockchain-analytics-392322.cardano_mainnet.pool_offline_data`.pool_hash
+  WHERE `blockchain-analytics-392322.cardano_mainnet.block`.block_time > '2018-01-01'
+  ORDER BY `blockchain-analytics-392322.cardano_mainnet.block`.block_time
 
 dogecoin:
   SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_dogecoin.transactions`.outputs
