@@ -49,7 +49,7 @@ class DefaultParser:
 
         for block in data:
             block['reward_addresses'] = ','.join(sorted([tx['addresses'][0] for tx in block['outputs']
-                                                      if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
+                                                         if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
             del block['outputs']
             block['identifiers'] = self.parse_identifiers(block['identifiers'])
         return data
