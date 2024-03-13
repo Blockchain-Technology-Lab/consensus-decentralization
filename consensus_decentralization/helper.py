@@ -78,7 +78,7 @@ def get_pool_identifiers(project_name):
     or an empty dictionary if no information is available for the project (the relevant file does not exist)
     """
     try:
-        with open(MAPPING_INFO_DIR / f'identifiers/{project_name}.json') as f:
+        with open(MAPPING_INFO_DIR / f'identifiers/{project_name}.json', encoding='utf-8') as f:
             identifiers = json.load(f)
     except FileNotFoundError:
         return dict()
@@ -174,16 +174,13 @@ def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, time_chunks, 
     :param time_chunks: a list of strings corresponding to the chunks of time that were analyzed
     :param filename: the name to be given to the produced file.
     """
-    with open(output_dir / filename, 'w', newline='') as f:
+    with open(output_dir / filename, 'w', newline='', encoding='utf-8') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerow(['Entity \\ Time period'] + time_chunks)  # write header
         for entity, blocks_per_chunk in blocks_per_entity.items():
             entity_row = [entity]
             for chunk in time_chunks:
-                try:
-                    entity_row.append(blocks_per_chunk[chunk])
-                except KeyError:
-                    entity_row.append(0)
+                entity_row.append(blocks_per_chunk.get(chunk, 0))
             csv_writer.writerow(entity_row)
 
 
@@ -196,7 +193,7 @@ def get_blocks_per_entity_from_file(filepath):
     dictionary with entities (keys) and a list of the number of blocks they produced during each time chunk (values)
     """
     blocks_per_entity = defaultdict(dict)
-    with open(filepath, newline='') as f:
+    with open(filepath, newline='', encoding='utf-8') as f:  # Specify encoding to prevent UnicodeDecodeError
         csv_reader = csv.reader(f)
         header = next(csv_reader, None)
         time_chunks = header[1:]
