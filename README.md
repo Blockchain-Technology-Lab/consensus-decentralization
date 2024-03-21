@@ -74,13 +74,12 @@ page](https://blockchain-technology-lab.github.io/consensus-decentralization/con
 
 ## Maintainers
 
-The tool is actively maintained by the following developers:
+The tool is actively maintained by the following people:
 
 - [Dimitris Karakostas](https://github.com/dimkarakostas)
 - [Christina Ovezik](https://github.com/LadyChristina)
+- [Aggelos Kiayias](https://github.com/solegga)
 
-*Note*: When opening a Pull Request, you must request a review from at least *2*
-people in the above list.
 
 ## License
 
