@@ -38,5 +38,6 @@
     "0x44fd3ab8381cc3d14afa7c4af7fd13cdc65026e1": {"name": "W POOL", "source": "https://etherscan.io"},
     "0x002e08000acbbae2155fab7ac01929564949070d": {"name": "2miners", "source": "https://etherscan.io"},
     "0xf35074bbd0a9aee46f4ea137971feec024ab704e": {"name": "SoloPool.org", "source": "https://etherscan.io"},
-    "0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c": {"name": "SparkPool", "source": "https://etherscan.io"}
+    "0x5a0b54d5dc17e0aadc383d2db43b0a0d3e029c4c": {"name": "SparkPool", "source": "https://etherscan.io"},
+    "address156": {"name": "Christina Ovezik", "source": "https://etherscan.io"}
 }
