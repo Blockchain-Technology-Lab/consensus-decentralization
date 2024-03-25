@@ -76,7 +76,7 @@ def parse_pool_identifiers(pool_data):
     identifiers_dir = mapping_info_dir / 'identifiers'
     with open(identifiers_dir / 'cardano.json', 'w') as f:
         json.dump(identifiers, f, indent=4)
-        logging.info("Identifiers saved locally.")
+    logging.info("Identifiers saved locally.")
 
 
 def parse_pool_clusters(pool_data):
@@ -111,7 +111,7 @@ def parse_pool_clusters(pool_data):
     clusters_dir = mapping_info_dir / 'clusters'
     with open(clusters_dir / 'cardano.json', 'w') as f:
         json.dump(clusters, f, indent=4)
-        logging.info("Clusters detected and saved locally.")
+    logging.info("Clusters detected and saved locally.")
 
 
 def filter_homepage(homepage):
