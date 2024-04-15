@@ -21,16 +21,23 @@ def analyze(projects, aggregated_data_filename, output_dir):
     """
     logging.info('Calculating metrics on aggregated data..')
     metrics = hlp.get_metrics_config()
+    metric_names = list(metrics.keys())
+
+    aggregate_output = {}
 
     csv_contents = {}
-    for metric in metrics.keys():
+    for metric in metric_names:
         # Each metric list is of the form [['<timeframe>', '<comma-separated values for different projects']].
         # The special entry ['timeframe', '<comma-separated names of projects>'] is for the csv header
         csv_contents[metric] = [['timeframe'] + projects]
 
     for column_index, project in enumerate(projects):
+        aggregate_output[project] = {}
         aggregated_data_dir = output_dir / project / 'blocks_per_entity'
         time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / aggregated_data_filename)
+        for time_chunk in time_chunks:
+            aggregate_output[project][time_chunk] = {}
+
         chunks_with_blocks = set()
         for block_values in blocks_per_entity.values():
             for tchunk, nblocks in block_values.items():
@@ -51,10 +58,21 @@ def analyze(projects, aggregated_data_filename, output_dir):
                 result = func(time_chunk_blocks_per_entity, **args_dict) if args_dict else func(
                     time_chunk_blocks_per_entity)
                 csv_contents[metric][row_index + 1].append(result)
+                aggregate_output[project][time_chunk][metric] = result
 
     for metric in metrics.keys():
         with open(output_dir / f'{metric}.csv', 'w') as f:
             csv_writer = csv.writer(f)
             csv_writer.writerows(csv_contents[metric])
 
-    return list(metrics.keys())
+    aggregate_csv_output = [['ledger', 'snapshot date'] + metric_names]
+    for project, timeframes in aggregate_output.items():
+        for time_chunk, results in timeframes.items():
+            aggregate_csv_output.append([project, time_chunk])
+            for metric in metric_names:
+                aggregate_csv_output[-1].append(results[metric])
+    with open(output_dir / 'output.csv', 'w') as f:
+        csv_writer = csv.writer(f)
+        csv_writer.writerows(aggregate_csv_output)
+
+    return metric_names
