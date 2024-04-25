@@ -45,29 +45,34 @@ class DefaultMapping:
         project.
         :returns: a list of dictionaries (mapped block data)
         """
+        no_clustering_flag = hlp.get_config_data()['analyze_flags']['no_clustering']
         for block in self.data_to_map:
-            entity = self.map_from_known_identifiers(block)
-            if entity:
-                mapping_method = 'known_identifiers'
+            if no_clustering_flag:
+                entity = self.fallback_mapping(block)
+                mapping_method = 'fallback_mapping'
             else:
-                entity = self.map_from_known_addresses(block)
+                entity = self.map_from_known_identifiers(block)
                 if entity:
-                    mapping_method = 'known_addresses'
+                    mapping_method = 'known_identifiers'
                 else:
-                    entity = self.fallback_mapping(block)
-                    mapping_method = 'fallback_mapping'
+                    entity = self.map_from_known_addresses(block)
+                    if entity:
+                        mapping_method = 'known_addresses'
+                    else:
+                        entity = self.fallback_mapping(block)
+                        mapping_method = 'fallback_mapping'
 
-            cluster = self.map_from_known_clusters(block)
-            if cluster:
-                entity = cluster
-                mapping_method = 'known_clusters'
+                cluster = self.map_from_known_clusters(block)
+                if cluster:
+                    entity = cluster
+                    mapping_method = 'known_clusters'
 
-            # Finally, check legal links to map to the highest-level entity, if relevant
-            day = hlp.get_date_from_block(block)
-            legal_links = hlp.get_pool_legal_links(timeframe=day)
-            if entity in legal_links.keys():
-                entity = legal_links[entity]
-                mapping_method = 'known_legal_links'
+                # Finally, check legal links to map to the highest-level entity, if relevant
+                day = hlp.get_date_from_block(block)
+                legal_links = hlp.get_pool_legal_links(timeframe=day)
+                if entity in legal_links.keys():
+                    entity = legal_links[entity]
+                    mapping_method = 'known_legal_links'
 
             self.mapped_data.append({
                 "number": block['number'],

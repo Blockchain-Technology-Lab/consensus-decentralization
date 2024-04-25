@@ -11,6 +11,9 @@ metrics:
   tau_index:
     threshold: 0.66
 
+analyze_flags:
+  no_clustering: false
+
 default_timeframe:
   start_date: 2010-01-01
   end_date: 2023-12-31
