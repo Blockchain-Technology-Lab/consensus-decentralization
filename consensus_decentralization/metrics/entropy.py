@@ -1,18 +1,17 @@
 from math import log
 
 
-def compute_entropy(blocks_per_entity, alpha):
+def compute_entropy(block_distribution, alpha):
     """
     Calculates the entropy of a distribution of blocks to entities
     Pi is the relative frequency of each entity.
     Renyi entropy: 1/(1-alpha) * log2 (sum (Pi**alpha))
     Shannon entropy (alpha=1): −sum P(Si) log2 (Pi)
     Min entropy (alpha=-1): -log max Pi
-    :param blocks_per_entity: a dictionary with entities and the blocks they have produced
+    :param block_distribution: a list of integers, each being the blocks that an entity has produced, sorted in descending order
     :param alpha: the entropy parameter (depending on its value the corresponding entropy measure is used)
     :returns: a float that represents the entropy of the data or None if the data is empty
     """
-    block_distribution = blocks_per_entity.values()
     all_blocks = sum(block_distribution)
     if all_blocks == 0:
         return None
@@ -38,10 +37,10 @@ def compute_max_entropy(num_entities, alpha):
     return compute_entropy({i: 1 for i in range(num_entities)}, alpha)
 
 
-def compute_entropy_percentage(blocks_per_entity, alpha):
-    if sum(blocks_per_entity.values()) == 0:
+def compute_entropy_percentage(block_distribution, alpha):
+    if sum(block_distribution) == 0:
         return None
     try:
-        return compute_entropy(blocks_per_entity, alpha) / compute_max_entropy(len(blocks_per_entity), alpha)
+        return compute_entropy(block_distribution, alpha) / compute_max_entropy(len(block_distribution), alpha)
     except ZeroDivisionError:
         return 0
