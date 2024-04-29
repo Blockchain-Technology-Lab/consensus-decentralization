@@ -69,9 +69,9 @@ def analyze(projects, aggregated_data_filename, output_dir):
     aggregate_csv_output = [['ledger', 'snapshot date', 'no_clustering'] + metric_names]
     for project, timeframes in aggregate_output.items():
         for time_chunk, results in timeframes.items():
-            aggregate_csv_output.append([project, time_chunk, no_clustering_flag])
-            for metric in metric_names:
-                aggregate_csv_output[-1].append(results[metric])
+            metric_values = [results[metric] for metric in metric_names]
+            if any(metric_values):
+                aggregate_csv_output.append([project, time_chunk, no_clustering_flag] + metric_values)
     with open(output_dir / 'output.csv', 'w') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerows(aggregate_csv_output)
