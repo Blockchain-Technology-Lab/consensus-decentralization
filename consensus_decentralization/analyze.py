@@ -66,7 +66,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
             csv_writer.writerows(csv_contents[metric])
 
     no_clustering_flag = hlp.get_config_data()['analyze_flags']['no_clustering']
-    aggregate_csv_output = [['ledger', 'snapshot date', 'no_clustering'] + metric_names]
+    aggregate_csv_output = [['ledger', 'snapshot_date', 'no_clustering'] + metric_names]
     for project, timeframes in aggregate_output.items():
         for time_chunk, results in timeframes.items():
             metric_values = [results[metric] for metric in metric_names]
