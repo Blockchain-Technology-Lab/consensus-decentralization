@@ -34,7 +34,7 @@ def compute_entropy(block_distribution, alpha):
 
 
 def compute_max_entropy(num_entities, alpha):
-    return compute_entropy({i: 1 for i in range(num_entities)}, alpha)
+    return compute_entropy([1 for i in range(num_entities)], alpha)
 
 
 def compute_entropy_percentage(block_distribution, alpha):
