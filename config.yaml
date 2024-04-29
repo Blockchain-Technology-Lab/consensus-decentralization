@@ -1,15 +1,16 @@
 metrics:
   entropy:
-    alpha: 1
+    - 1
   entropy_percentage:
-    alpha: 1
+    - 1
   gini:
   hhi:
   nakamoto_coefficient:
   theil_index:
   max_power_ratio:
   tau_index:
-    threshold: 0.66
+    - 0.33
+    - 0.66
 
 analyze_flags:
   no_clustering: false
