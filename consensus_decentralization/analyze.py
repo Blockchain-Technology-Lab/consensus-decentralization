@@ -21,16 +21,14 @@ def analyze(projects, aggregated_data_filename, output_dir):
     """
     logging.info('Calculating metrics on aggregated data..')
     metrics = hlp.get_metrics_config()
-    metric_values = []
-    metric_names = []
+    metric_params = []
     for key, args in metrics.items():
         if args:
             for val in args:
-                metric_values.append((key, val))
-                metric_names.append(f'{key}={val}')
+                metric_params.append((f'{key}={val}', key, val))
         else:
-            metric_values.append((key, None))
-            metric_names.append(key)
+            metric_params.append((key, key, None))
+    metric_names = [name for name, _, _ in metric_params]
 
     aggregate_output = {}
 
@@ -52,11 +50,8 @@ def analyze(projects, aggregated_data_filename, output_dir):
             for tchunk, nblocks in block_values.items():
                 if nblocks > 0:
                     chunks_with_blocks.add(tchunk)
-        for metric, param in metric_values:
-            if param:
-                metric_name = f'{metric}={param}'
-            else:
-                metric_name = metric
+        for metric_name, metric, param in metric_params:
+            logging.info(f'Calculating {metric_name}')
 
             for row_index, time_chunk in enumerate(time_chunks):
                 time_chunk_blocks_per_entity = {}
