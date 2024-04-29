@@ -21,7 +21,14 @@ def analyze(projects, aggregated_data_filename, output_dir):
     """
     logging.info('Calculating metrics on aggregated data..')
     metrics = hlp.get_metrics_config()
-    metric_names = list(metrics.keys())
+    metric_params = []
+    for key, args in metrics.items():
+        if args:
+            for val in args:
+                metric_params.append((f'{key}={val}', key, val))
+        else:
+            metric_params.append((key, key, None))
+    metric_names = [name for name, _, _ in metric_params]
 
     aggregate_output = {}
 
@@ -43,11 +50,13 @@ def analyze(projects, aggregated_data_filename, output_dir):
             for tchunk, nblocks in block_values.items():
                 if nblocks > 0:
                     chunks_with_blocks.add(tchunk)
-        for metric, args_dict in metrics.items():
+        for metric_name, metric, param in metric_params:
+            logging.info(f'Calculating {metric_name}')
+
             for row_index, time_chunk in enumerate(time_chunks):
                 time_chunk_blocks_per_entity = {}
                 if column_index == 0:
-                    csv_contents[metric].append([time_chunk])
+                    csv_contents[metric_name].append([time_chunk])
                 if time_chunk in chunks_with_blocks:
                     for entity, block_values in blocks_per_entity.items():
                         try:
@@ -55,22 +64,25 @@ def analyze(projects, aggregated_data_filename, output_dir):
                         except KeyError:
                             time_chunk_blocks_per_entity[entity] = 0
                 func = eval(f'compute_{metric}')
-                result = func(time_chunk_blocks_per_entity, **args_dict) if args_dict else func(
-                    time_chunk_blocks_per_entity)
-                csv_contents[metric][row_index + 1].append(result)
-                aggregate_output[project][time_chunk][metric] = result
+                if param:
+                    result = func(time_chunk_blocks_per_entity, param)
+                else:
+                    result = func(time_chunk_blocks_per_entity)
+                csv_contents[metric_name][row_index + 1].append(result)
+                aggregate_output[project][time_chunk][metric_name] = result
 
-    for metric in metrics.keys():
+    for metric in metric_names:
         with open(output_dir / f'{metric}.csv', 'w') as f:
             csv_writer = csv.writer(f)
             csv_writer.writerows(csv_contents[metric])
 
-    aggregate_csv_output = [['ledger', 'snapshot date'] + metric_names]
+    clustering_flag = hlp.get_config_data()['analyze_flags']['clustering']
+    aggregate_csv_output = [['ledger', 'snapshot_date', 'clustering'] + metric_names]
     for project, timeframes in aggregate_output.items():
         for time_chunk, results in timeframes.items():
-            aggregate_csv_output.append([project, time_chunk])
-            for metric in metric_names:
-                aggregate_csv_output[-1].append(results[metric])
+            metric_values = [results[metric] for metric in metric_names]
+            if any(metric_values):
+                aggregate_csv_output.append([project, time_chunk, clustering_flag] + metric_values)
     with open(output_dir / 'output.csv', 'w') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerows(aggregate_csv_output)

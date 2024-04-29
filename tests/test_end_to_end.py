@@ -85,7 +85,7 @@ def test_end_to_end(setup_and_cleanup):
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2010,,\n'
     ]
-    with open(test_output_dir / 'entropy.csv') as f:
+    with open(test_output_dir / 'entropy=1.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_entropy[idx]
@@ -123,7 +123,7 @@ def test_end_to_end(setup_and_cleanup):
         'Feb-2018,1.5,\n',
         'Mar-2018,0.0,\n',
         ]
-    with open(test_output_dir / 'entropy.csv') as f:
+    with open(test_output_dir / 'entropy=1.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_entropy[idx]
@@ -161,7 +161,7 @@ def test_end_to_end(setup_and_cleanup):
         'timeframe,sample_bitcoin,sample_cardano\n',
         'Dec-2020,,1.9219280948873623\n'
     ]
-    with open(test_output_dir / 'entropy.csv') as f:
+    with open(test_output_dir / 'entropy=1.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_entropy[idx]

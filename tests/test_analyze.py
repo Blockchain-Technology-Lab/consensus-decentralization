@@ -52,7 +52,7 @@ def test_analyze(setup_and_cleanup):
         output_dir=test_output_dir
     )
 
-    metrics = ['gini', 'nakamoto_coefficient', 'entropy']
+    metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
         assert output_file.is_file()
@@ -64,7 +64,7 @@ def test_analyze(setup_and_cleanup):
                 assert lines[1] == '2018,0.25\n'
             elif metric == 'nakamoto_coefficient':
                 assert lines[1] == '2018,2\n'
-            elif metric == 'entropy':
+            elif metric == 'entropy=1':
                 assert lines[1] == '2018,1.836591668108979\n'
 
     analyze(
@@ -73,7 +73,7 @@ def test_analyze(setup_and_cleanup):
         output_dir=test_output_dir
     )
 
-    metrics = ['gini', 'nakamoto_coefficient', 'entropy']
+    metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
         assert output_file.is_file()
@@ -87,7 +87,7 @@ def test_analyze(setup_and_cleanup):
             elif metric == 'nakamoto_coefficient':
                 assert lines[1] == 'Feb-2018,1\n'
                 assert lines[2] == 'Mar-2018,1\n'
-            elif metric == 'entropy':
+            elif metric == 'entropy=1':
                 assert lines[1] == 'Feb-2018,1.5\n'
                 assert lines[2] == 'Mar-2018,0.0\n'
 
@@ -97,7 +97,7 @@ def test_analyze(setup_and_cleanup):
         output_dir=test_output_dir
     )
 
-    metrics = ['gini', 'nakamoto_coefficient', 'entropy']
+    metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
     for metric in metrics:
         output_file = test_output_dir / f'{metric}.csv'
         assert output_file.is_file()

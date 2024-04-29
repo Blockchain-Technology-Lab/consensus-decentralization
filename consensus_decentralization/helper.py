@@ -17,6 +17,9 @@ RAW_DATA_DIR = ROOT_DIR / 'raw_block_data'
 OUTPUT_DIR = ROOT_DIR / 'output'
 MAPPING_INFO_DIR = ROOT_DIR / 'mapping_information'
 
+with open(ROOT_DIR / "config.yaml") as f:
+    config = safe_load(f)
+
 
 def valid_date(date_string):
     """
@@ -231,8 +234,6 @@ def get_config_data():
     root directory of the project.
     :returns: a dictionary of configuration keys and values
     """
-    with open(ROOT_DIR / "config.yaml") as f:
-        config = safe_load(f)
     return config
 
 
