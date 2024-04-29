@@ -13,7 +13,7 @@ metrics:
     - 0.66
 
 analyze_flags:
-  no_clustering: false
+  clustering: true
 
 default_timeframe:
   start_date: 2010-01-01

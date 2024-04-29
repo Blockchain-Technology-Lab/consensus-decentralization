@@ -45,9 +45,9 @@ class DefaultMapping:
         project.
         :returns: a list of dictionaries (mapped block data)
         """
-        no_clustering_flag = hlp.get_config_data()['analyze_flags']['no_clustering']
+        clustering_flag = hlp.get_config_data()['analyze_flags']['clustering']
         for block in self.data_to_map:
-            if no_clustering_flag:
+            if not clustering_flag:
                 entity = self.fallback_mapping(block)
                 mapping_method = 'fallback_mapping'
             else:

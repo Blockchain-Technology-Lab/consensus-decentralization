@@ -81,13 +81,13 @@ def analyze(projects, aggregated_data_filename, output_dir):
             csv_writer = csv.writer(f)
             csv_writer.writerows(csv_contents[metric])
 
-    no_clustering_flag = hlp.get_config_data()['analyze_flags']['no_clustering']
-    aggregate_csv_output = [['ledger', 'snapshot_date', 'no_clustering'] + metric_names]
+    clustering_flag = hlp.get_config_data()['analyze_flags']['clustering']
+    aggregate_csv_output = [['ledger', 'snapshot_date', 'clustering'] + metric_names]
     for project, timeframes in aggregate_output.items():
         for time_chunk, results in timeframes.items():
             metric_values = [results[metric] for metric in metric_names]
             if any(metric_values):
-                aggregate_csv_output.append([project, time_chunk, no_clustering_flag] + metric_values)
+                aggregate_csv_output.append([project, time_chunk, clustering_flag] + metric_values)
     with open(output_dir / 'output.csv', 'w') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerows(aggregate_csv_output)
