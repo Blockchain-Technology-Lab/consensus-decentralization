@@ -10,6 +10,13 @@ import consensus_decentralization.helper as hlp
 logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
 
+def process_data(force_map, project_dir, project, output_dir):
+    mapped_data_file = project_dir / 'mapped_data.json'
+    if force_map or not mapped_data_file.is_file():
+        parsed_data = parse(project=project, input_dir=hlp.RAW_DATA_DIR)
+        apply_mapping(project=project, parsed_data=parsed_data, output_dir=output_dir)
+
+
 def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated_plots, output_dir=hlp.OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
@@ -28,19 +35,15 @@ def main(projects, timeframe, aggregate_by, force_map, make_plots, make_animated
     for project in projects:
         project_dir = output_dir / project
         project_dir.mkdir(parents=True, exist_ok=True)  # create project output directory if it doesn't already exist
-        mapped_data_file = project_dir / 'mapped_data.json'
-        if force_map or not mapped_data_file.is_file():
-            parsed_data = parse(project=project, input_dir=hlp.RAW_DATA_DIR)
-            mapped_data = apply_mapping(project=project, parsed_data=parsed_data, output_dir=output_dir)
-        else:
-            mapped_data = None
+
+        process_data(force_map, project_dir, project, output_dir)
+
         aggregate(
             project=project,
             output_dir=output_dir,
             timeframe=timeframe,
             aggregate_by=aggregate_by,
-            force_aggregate=force_map,
-            mapped_data=mapped_data
+            force_aggregate=force_map
         )
 
     used_metrics = analyze(

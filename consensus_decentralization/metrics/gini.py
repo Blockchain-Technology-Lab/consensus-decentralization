@@ -1,15 +1,15 @@
 import numpy as np
 
 
-def compute_gini(blocks_per_entity):
+def compute_gini(block_distribution):
     """
     Calculates the Gini coefficient of a distribution of blocks to entities
-    :param blocks_per_entity: a dictionary with entities and the blocks they have produced
+    :param block_distribution: a list of integers, each being the blocks that an entity has produced, sorted in descending order
     :returns: a float that represents the Gini coefficient of the given distribution or None if the data is empty
     """
-    if sum(blocks_per_entity.values()) == 0:
+    if sum(block_distribution) == 0:
         return None
-    array = np.array(list(blocks_per_entity.values()))
+    array = np.array(block_distribution)
     return gini(array)
 
 

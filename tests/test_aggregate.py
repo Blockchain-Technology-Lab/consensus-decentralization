@@ -131,8 +131,7 @@ def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
 
 
 def test_aggregate_method(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
-    aggregator = Aggregator(project='sample_bitcoin', io_dir=setup_and_cleanup / 'sample_bitcoin',
-                            data_to_aggregate=mock_sample_bitcoin_mapped_data)
+    aggregator = Aggregator(project='sample_bitcoin', io_dir=setup_and_cleanup / 'sample_bitcoin')
 
     blocks_per_entity = aggregator.aggregate(datetime.date(2018, 2, 1), datetime.date(2018, 2, 28))
     assert sum(blocks_per_entity.values()) == 8

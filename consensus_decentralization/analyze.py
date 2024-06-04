@@ -39,6 +39,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
         csv_contents[metric] = [['timeframe'] + projects]
 
     for column_index, project in enumerate(projects):
+        logging.info(f'Calculating {project} metrics')
         aggregate_output[project] = {}
         aggregated_data_dir = output_dir / project / 'blocks_per_entity'
         time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / aggregated_data_filename)
@@ -50,24 +51,26 @@ def analyze(projects, aggregated_data_filename, output_dir):
             for tchunk, nblocks in block_values.items():
                 if nblocks > 0:
                     chunks_with_blocks.add(tchunk)
-        for metric_name, metric, param in metric_params:
-            logging.info(f'Calculating {metric_name}')
 
-            for row_index, time_chunk in enumerate(time_chunks):
-                time_chunk_blocks_per_entity = {}
-                if column_index == 0:
+        for row_index, time_chunk in enumerate(time_chunks):
+            time_chunk_blocks_per_entity = {}
+            if column_index == 0:
+                for metric_name, _, _ in metric_params:
                     csv_contents[metric_name].append([time_chunk])
-                if time_chunk in chunks_with_blocks:
-                    for entity, block_values in blocks_per_entity.items():
-                        try:
-                            time_chunk_blocks_per_entity[entity] = block_values[time_chunk]
-                        except KeyError:
-                            time_chunk_blocks_per_entity[entity] = 0
+            if time_chunk in chunks_with_blocks:
+                for entity, block_values in blocks_per_entity.items():
+                    try:
+                        time_chunk_blocks_per_entity[entity] = block_values[time_chunk]
+                    except KeyError:
+                        time_chunk_blocks_per_entity[entity] = 0
+            sorted_time_chunk_blocks = sorted(time_chunk_blocks_per_entity.values(), reverse=True)
+
+            for metric_name, metric, param in metric_params:
                 func = eval(f'compute_{metric}')
                 if param:
-                    result = func(time_chunk_blocks_per_entity, param)
+                    result = func(sorted_time_chunk_blocks, param)
                 else:
-                    result = func(time_chunk_blocks_per_entity)
+                    result = func(sorted_time_chunk_blocks)
                 csv_contents[metric_name][row_index + 1].append(result)
                 aggregate_output[project][time_chunk][metric_name] = result
 

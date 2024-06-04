@@ -13,16 +13,15 @@ class Aggregator:
     blocks they produced
     """
 
-    def __init__(self, project, io_dir, data_to_aggregate):
+    def __init__(self, project, io_dir):
         """
         :param project: str. Name of the project
         :param io_dir: Path. Path to the project's output directory
-        :param data_to_aggregate: list of dictionaries, sorted by 'timestamp'; the data that will be aggregated
         """
         self.project = project
-        self.data_to_aggregate = data_to_aggregate
-        self.data_start_date = hlp.get_timeframe_beginning(hlp.get_date_from_block(data_to_aggregate[0]))
-        self.data_end_date = hlp.get_timeframe_beginning(hlp.get_date_from_block(data_to_aggregate[-1]))
+        self.data_to_aggregate = hlp.read_mapped_project_data(io_dir)
+        self.data_start_date = hlp.get_timeframe_beginning(hlp.get_date_from_block(self.data_to_aggregate[0]))
+        self.data_end_date = hlp.get_timeframe_beginning(hlp.get_date_from_block(self.data_to_aggregate[-1]))
         self.aggregated_data_dir = io_dir / 'blocks_per_entity'
         self.aggregated_data_dir.mkdir(parents=True, exist_ok=True)
 
@@ -91,7 +90,7 @@ def divide_timeframe(timeframe, granularity):
     return list(zip(start_dates, end_dates))
 
 
-def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate, mapped_data=None):
+def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate):
     """
     Aggregates the results of the mapping process for the given project and timeframe. The results are saved in a csv
     file in the project's output directory. Note that the output file is created (just with the headers) even if there
@@ -103,15 +102,11 @@ def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate, map
         year, all
     :param force_aggregate: bool. If True, then the aggregation will be performed, regardless of whether aggregated
         data for the project and specified granularity already exist
-    :param mapped_data: list of dictionaries (the data that will be aggregated). If None, then the data will be read
-    from the project's output directory
     :returns: a list of strings that correspond to the time chunks of the aggregation or None if no aggregation took
     place (the corresponding output file already existed and force_aggregate was set to False)
     """
     project_io_dir = output_dir / project
-    if mapped_data is None:
-        mapped_data = hlp.read_mapped_project_data(project_io_dir)
-    aggregator = Aggregator(project, project_io_dir, mapped_data)
+    aggregator = Aggregator(project, project_io_dir)
 
     filename = hlp.get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe)
     output_file = aggregator.aggregated_data_dir / filename
