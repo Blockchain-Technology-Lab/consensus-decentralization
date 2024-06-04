@@ -1,11 +1,12 @@
 """
     This script can be used to run queries on BigQuery for any number of blockchains, and save the results in the
     raw_block_data directory of the project.
-    The relevant queries must be stored in a file named 'queries.yaml' in the root directory of the project.
+    The relevant queries must be stored in a file named 'queries.yaml' in the `data_collection_scripts` directory of
+    the project.
 
     Attention! Before running this script, you need to generate service account credentials from Google, as described
     here (https://developers.google.com/workspace/guides/create-credentials#service-account) and save your key in the
-    root directory of the project under the name 'google-service-account-key.json'
+    `data_collection_scripts` directory of the project under the name 'google-service-account-key.json'
 """
 import consensus_decentralization.helper as hlp
 import google.cloud.bigquery as bq
@@ -21,10 +22,13 @@ def collect_data(ledgers, force_query):
     if not RAW_DATA_DIR.is_dir():
         RAW_DATA_DIR.mkdir()
 
-    with open(ROOT_DIR / "queries.yaml") as f:
+    data_collection_dir = ROOT_DIR / "data_collection_scripts"
+
+    with open(data_collection_dir / "queries.yaml") as f:
         queries = safe_load(f)
 
-    client = bq.Client.from_service_account_json(json_credentials_path=ROOT_DIR / "google-service-account-key.json")
+    client = bq.Client.from_service_account_json(json_credentials_path=data_collection_dir /
+                                                                       "google-service-account-key.json")
 
     for ledger in ledgers:
         file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
@@ -44,7 +48,7 @@ def collect_data(ledgers, force_query):
             continue
 
         logging.info(f"Writing {ledger} data to file..")
-        # write json lines to file
+        # Write json lines to file
         with open(file, 'w') as f:
             for row in rows:
                 f.write(json.dumps(dict(row), default=str) + "\n")
