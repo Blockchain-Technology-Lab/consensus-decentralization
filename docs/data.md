@@ -97,22 +97,22 @@ ORDER BY timestamp
 
 Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is
 also possible to automate the process using a
-[script](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/consensus_decentralization/collect_data.py)
+[script](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/data_collection_scripts/collect_block_data.py)
 and collect all relevant data in one go. Executing this script will run queries
-from [this file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml).
+from [this file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/data_collection_scripts/queries.yaml).
 
 IMPORTANT: the script uses service account credentials for authentication, therefore before running it, you need to
 generate the relevant credentials from Google, as described 
 [here](https://developers.google.com/workspace/guides/create-credentials#service-account) and save your key in the
-root directory of the project under the name 'google-service-account-key.json'. There is a
-[sample file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/google-service-account-key-SAMPLE.json) 
+`data_collection_scripts` directory of the project under the name 'google-service-account-key.json'. There is a
+[sample file](https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/data_collection_scripts/google-service-account-key-SAMPLE.json) 
 that you can consult, which shows what your credentials are supposed to look like (but note that this is for
 informational purposes only, this file is not used in the code).
 
 Once you have set up the credentials, you can just run the following command from the root
 directory to retrieve data for all supported blockchains:
 
-`python -m consensus_decentralization.collect_data`
+`python -m data_collection_scripts.collect_block_data`
 
 There are also two command line arguments that can be used to customize the data collection process:
 
