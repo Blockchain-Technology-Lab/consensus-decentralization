@@ -258,10 +258,10 @@ def plot(ledgers, metrics, aggregated_data_filename, animated):
 
 
 if __name__ == '__main__':
-    default_ledgers = hlp.get_default_ledgers()
+    ledgers = hlp.get_ledgers()
     default_metrics = hlp.get_metrics_config().keys()
 
-    default_start_date, default_end_date = hlp.get_default_start_end_dates()
+    default_start_date, default_end_date = hlp.get_start_end_dates()
     timeframe_start = hlp.get_timeframe_beginning(default_start_date)
     timeframe_end = hlp.get_timeframe_end(default_end_date)
 
@@ -271,8 +271,8 @@ if __name__ == '__main__':
         '--ledgers',
         nargs="*",
         type=str.lower,
-        default=default_ledgers,
-        choices=default_ledgers,
+        default=ledgers,
+        choices=ledgers,
         help='The ledgers whose data will be plotted.'
     )
     parser.add_argument(

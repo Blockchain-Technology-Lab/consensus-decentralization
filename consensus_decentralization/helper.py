@@ -265,24 +265,24 @@ def get_metrics_config():
     return metrics
 
 
-def get_default_ledgers():
+def get_ledgers():
     """
-    Retrieves data regarding the default ledgers to use
+    Retrieves data regarding the ledgers to use
     :returns: a list of strings that correspond to the ledgers that will be used (unless overriden by the relevant cmd
     arg)
     """
     config = get_config_data()
-    ledgers = config['default_ledgers']
+    ledgers = config['ledgers']
     return ledgers
 
 
-def get_default_start_end_dates():
+def get_start_end_dates():
     """
     Retrieves the start and end dates for which to analyze data
     :returns: a tuple of two strings, (<start date>, <end date>)
     """
     config = get_config_data()
-    return str(config['default_timeframe']['start_date']), str(config['default_timeframe']['end_date'])
+    return str(config['timeframe']['start_date']), str(config['timeframe']['end_date'])
 
 
 def read_mapped_project_data(project_dir):
@@ -361,3 +361,58 @@ def get_date_from_block(block, level='day'):
     elif level == 'day':
         return timestamp[:10]
     raise ValueError(f'Invalid level: {level}')
+
+
+def get_granularity():
+    """
+    Retrieves the granularity to be used in the analysis
+    :returns: string in ['day', 'week', 'month', 'year'] that represents the chosen granularity
+    or None if the relevant field is empty in the config file
+    :raises ValueError: if the granularity field is missing from the config file or if
+    the chosen value is not one of the allowed ones
+    """
+    try:
+        granularity = get_config_data()['granularity']
+        if granularity:
+            if granularity in ['day', 'week', 'month', 'year']:
+                return granularity
+            else:
+                raise ValueError('Malformed "granularity" in config; should be one of: "day", "week", "month", "year", or empty')
+        else:
+            return None
+    except KeyError:
+        raise ValueError('"granularity" not in config file')
+
+
+def get_plot_flag():
+    """
+    Gets the flag that determines whether generate plots for the output
+    :returns: boolean
+    :raises ValueError: if the flag is not set in the config file
+    """
+    config = get_config_data()
+    try:
+        return config['plot_parameters']['plot']
+    except KeyError:
+        raise ValueError('Flag "plot" not in config file')
+
+
+def get_plot_config_data():
+    """
+    Retrieves the plot-related config parameters
+    :returns: dictionary
+    """
+    return get_config_data()['plot_parameters']
+
+
+def get_force_map_flag():
+    """
+    Gets the flag that determines whether to forcefully map the data
+    :returns: boolean
+    :raises ValueError: if the flag is not set in the config file
+    """
+    config = get_config_data()
+    try:
+        return config['execution_flags']['force_map']
+    except KeyError:
+        raise ValueError('Flag "force_map" not in config file')

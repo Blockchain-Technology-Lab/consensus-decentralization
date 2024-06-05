@@ -9,7 +9,7 @@ from consensus_decentralization.parsers.dummy_parser import DummyParser
 from consensus_decentralization.map import ledger_mapping
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
-from consensus_decentralization.helper import OUTPUT_DIR
+from consensus_decentralization.helper import OUTPUT_DIR, config
 import pytest
 
 
@@ -26,6 +26,9 @@ def setup_and_cleanup():
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser
+
+    force_map_flag = config['execution_flags']['force_map']
+    config['execution_flags']['force_map'] = True
 
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     for project in ['bitcoin', 'cardano']:
@@ -67,17 +70,16 @@ def setup_and_cleanup():
         except FileNotFoundError:
             pass
 
+    config['execution_flags']['force_map'] = force_map_flag
+
 
 def test_end_to_end(setup_and_cleanup):
     test_output_dir = setup_and_cleanup
 
     main(
-        projects=['sample_bitcoin', 'sample_cardano'],
-        timeframe=(datetime.date(2010, 1, 1), datetime.date(2010, 12, 31)),
-        aggregate_by='year',
-        force_map=True,
-        make_plots=False,
-        make_animated_plots=False,
+        ['sample_bitcoin', 'sample_cardano'],
+        (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31)),
+        'year',
         output_dir=test_output_dir
     )
 
@@ -109,12 +111,9 @@ def test_end_to_end(setup_and_cleanup):
             assert line == expected_nc[idx]
 
     main(
-        projects=['sample_bitcoin', 'sample_cardano'],
-        timeframe=(datetime.date(2018, 2, 1), datetime.date(2018, 3, 31)),
-        aggregate_by='month',
-        force_map=True,
-        make_plots=False,
-        make_animated_plots=False,
+        ['sample_bitcoin', 'sample_cardano'],
+        (datetime.date(2018, 2, 1), datetime.date(2018, 3, 31)),
+        'month',
         output_dir=test_output_dir
     )
 
@@ -148,12 +147,9 @@ def test_end_to_end(setup_and_cleanup):
             assert line == expected_nc[idx]
 
     main(
-        projects=['sample_bitcoin', 'sample_cardano'],
-        timeframe=(datetime.date(2020, 12, 1), datetime.date(2020, 12, 31)),
-        aggregate_by='month',
-        force_map=True,
-        make_plots=False,
-        make_animated_plots=False,
+        ['sample_bitcoin', 'sample_cardano'],
+        (datetime.date(2020, 12, 1), datetime.date(2020, 12, 31)),
+        'month',
         output_dir=test_output_dir
     )
 
