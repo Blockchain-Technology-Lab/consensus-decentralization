@@ -382,7 +382,7 @@ def get_granularity():
             else:
                 raise ValueError('Malformed "granularity" in config; should be one of: "day", "week", "month", "year", or empty')
         else:
-            return None
+            return 'all'
     except KeyError:
         raise ValueError('"granularity" not in config file')
 
