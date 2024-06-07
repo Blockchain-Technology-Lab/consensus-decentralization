@@ -282,6 +282,9 @@ def get_start_end_dates():
     :returns: a tuple of two strings, (<start date>, <end date>)
     """
     config = get_config_data()
+    for date_type in ['start', 'end']:
+        if not valid_date(str(config['timeframe'][f'{date_type}_date'])):
+            raise ValueError(f'Invalid {date_type} date')
     return str(config['timeframe']['start_date']), str(config['timeframe']['end_date'])
 
 
