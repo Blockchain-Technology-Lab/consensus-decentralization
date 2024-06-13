@@ -14,11 +14,12 @@ import json
 import argparse
 import logging
 from yaml import safe_load
+from datetime import datetime
 
 from consensus_decentralization.helper import ROOT_DIR, RAW_DATA_DIR
 
 
-def collect_data(ledgers, force_query):
+def collect_data(ledgers, from_block, to_date, force_query):
     if not RAW_DATA_DIR.is_dir():
         RAW_DATA_DIR.mkdir()
 
@@ -37,7 +38,8 @@ def collect_data(ledgers, force_query):
                          f'For querying {ledger} anyway please run the script using the flag --force-query')
             continue
         logging.info(f"Querying {ledger}..")
-        query = (queries[ledger])
+        query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else
+        "-1").replace("{{timestamp}}", f"'{to_date}'")
         query_job = client.query(query)
         try:
             rows = query_job.result()
@@ -48,11 +50,28 @@ def collect_data(ledgers, force_query):
             continue
 
         logging.info(f"Writing {ledger} data to file..")
-        # Write json lines to file
-        with open(file, 'w') as f:
+        # Append result to file
+        with open(file, 'a') as f:
             for row in rows:
                 f.write(json.dumps(dict(row), default=str) + "\n")
         logging.info(f'Done writing {ledger} data to file.\n')
+
+
+def get_last_block_collected(ledger):
+    """
+    Get the last block collected for a ledger. This is useful for knowing where to start collecting data from.
+    Assumes that the data is stored in a json lines file, ordered in increasing block number.
+    :param ledger: the ledger to get the last block collected for
+    :returns: the number of the last block collected for the specified ledger
+    """
+    file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
+    if not file.is_file():
+        return None
+    with open(file) as f:
+        for line in f:
+            pass
+    last_block = json.loads(line)
+    return last_block['number']
 
 
 if __name__ == '__main__':
@@ -70,9 +89,16 @@ if __name__ == '__main__':
         help='The ledgers to collect data for.'
     )
     parser.add_argument(
+        '--to_date',
+        type=hlp.valid_date,
+        default=datetime.today().strftime('%Y-%m-%d'),
+        help='The date until which to get data for (YYYY-MM-DD format). Defaults to today.'
+    )
+    parser.add_argument(
         '--force-query',
         action='store_true',
         help='Flag to specify whether to query for project data regardless if the relevant data already exist.'
     )
     args = parser.parse_args()
-    collect_data(ledgers=args.ledgers, force_query=args.force_query)
+    from_block = {ledger: get_last_block_collected(ledger) for ledger in args.ledgers}
+    collect_data(ledgers=args.ledgers, from_block=from_block, to_date=args.to_date, force_query=args.force_query)
