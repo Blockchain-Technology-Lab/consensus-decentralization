@@ -19,7 +19,7 @@ from datetime import datetime
 from consensus_decentralization.helper import ROOT_DIR, RAW_DATA_DIR
 
 
-def collect_data(ledgers, from_block, to_date, force_query):
+def collect_data(ledgers, from_block, to_date):
     if not RAW_DATA_DIR.is_dir():
         RAW_DATA_DIR.mkdir()
 
@@ -32,11 +32,8 @@ def collect_data(ledgers, from_block, to_date, force_query):
 
     for ledger in ledgers:
         file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
-        if not force_query and file.is_file():
-            logging.info(f'{ledger} data already exists locally. '
-                         f'For querying {ledger} anyway please run the script using the flag --force-query')
-            continue
         logging.info(f"Querying {ledger}..")
+
         query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else "-1").replace("{{timestamp}}", f"'{to_date}'")
         query_job = client.query(query)
         try:
@@ -92,11 +89,7 @@ if __name__ == '__main__':
         default=datetime.today().strftime('%Y-%m-%d'),
         help='The date until which to get data for (YYYY-MM-DD format). Defaults to today.'
     )
-    parser.add_argument(
-        '--force-query',
-        action='store_true',
-        help='Flag to specify whether to query for project data regardless if the relevant data already exist.'
-    )
+
     args = parser.parse_args()
     from_block = {ledger: get_last_block_collected(ledger) for ledger in args.ledgers}
-    collect_data(ledgers=args.ledgers, from_block=from_block, to_date=args.to_date, force_query=args.force_query)
+    collect_data(ledgers=args.ledgers, from_block=from_block, to_date=args.to_datey)
