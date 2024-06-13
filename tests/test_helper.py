@@ -4,7 +4,7 @@ import shutil
 import pytest
 from consensus_decentralization.helper import get_pool_identifiers, get_pool_legal_links, get_known_addresses, \
     get_pool_clusters, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
-    get_timeframe_end, get_time_period, get_default_ledgers, valid_date, OUTPUT_DIR
+    get_timeframe_end, get_time_period, get_ledgers, valid_date, OUTPUT_DIR
 from consensus_decentralization.map import ledger_mapping
 
 
@@ -131,7 +131,7 @@ def test_get_time_period():  # currently not testing for invalid dates
         assert get_time_period(frm, to) == time_periods[i]
 
 
-def test_get_default_ledgers():
-    ledgers = get_default_ledgers()
+def test_get_ledgers():
+    ledgers = get_ledgers()
     assert isinstance(ledgers, list)
     assert len(ledgers) > 0

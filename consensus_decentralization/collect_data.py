@@ -54,7 +54,7 @@ def collect_data(ledgers, force_query):
 if __name__ == '__main__':
     logging.basicConfig(format='[%(asctime)s] %(message)s', datefmt='%Y/%m/%d %I:%M:%S %p', level=logging.INFO)
 
-    default_ledgers = hlp.get_default_ledgers()
+    default_ledgers = hlp.get_ledgers()
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
