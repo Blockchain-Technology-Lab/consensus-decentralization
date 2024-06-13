@@ -28,8 +28,7 @@ def collect_data(ledgers, from_block, to_date, force_query):
     with open(data_collection_dir / "queries.yaml") as f:
         queries = safe_load(f)
 
-    client = bq.Client.from_service_account_json(json_credentials_path=data_collection_dir /
-                                                                       "google-service-account-key.json")
+    client = bq.Client.from_service_account_json(json_credentials_path=data_collection_dir / "google-service-account-key.json")
 
     for ledger in ledgers:
         file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
@@ -38,8 +37,7 @@ def collect_data(ledgers, from_block, to_date, force_query):
                          f'For querying {ledger} anyway please run the script using the flag --force-query')
             continue
         logging.info(f"Querying {ledger}..")
-        query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else
-        "-1").replace("{{timestamp}}", f"'{to_date}'")
+        query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else "-1").replace("{{timestamp}}", f"'{to_date}'")
         query_job = client.query(query)
         try:
             rows = query_job.result()
