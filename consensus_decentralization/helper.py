@@ -370,7 +370,7 @@ def get_granularity():
     """
     Retrieves the granularity to be used in the analysis
     :returns: string in ['day', 'week', 'month', 'year'] that represents the chosen granularity
-    or None if the relevant field is empty in the config file
+    or 'all' if the relevant field is empty in the config file
     :raises ValueError: if the granularity field is missing from the config file or if
     the chosen value is not one of the allowed ones
     """
