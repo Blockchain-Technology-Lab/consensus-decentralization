@@ -92,4 +92,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     from_block = {ledger: get_last_block_collected(ledger) for ledger in args.ledgers}
-    collect_data(ledgers=args.ledgers, from_block=from_block, to_date=args.to_datey)
+    collect_data(ledgers=args.ledgers, from_block=from_block, to_date=args.to_date)
