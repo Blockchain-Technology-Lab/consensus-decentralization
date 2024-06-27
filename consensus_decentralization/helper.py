@@ -81,7 +81,7 @@ def get_pool_identifiers(project_name):
     or an empty dictionary if no information is available for the project (the relevant file does not exist)
     """
     try:
-        with open(MAPPING_INFO_DIR / f'identifiers/{project_name}.json') as f:
+        with open(MAPPING_INFO_DIR / f'identifiers/{project_name}.json', encoding='utf-8') as f:
             identifiers = json.load(f)
     except FileNotFoundError:
         return dict()
