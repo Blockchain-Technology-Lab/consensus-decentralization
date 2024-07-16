@@ -3,7 +3,9 @@ bitcoin:
   FROM `bigquery-public-data.crypto_bitcoin.transactions`
   JOIN `bigquery-public-data.crypto_bitcoin.blocks` ON `bigquery-public-data.crypto_bitcoin.transactions`.block_number = `bigquery-public-data.crypto_bitcoin.blocks`.number
   WHERE is_coinbase is TRUE
+  AND number > {{block_number}}
   AND timestamp > '2018-01-01'
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
 bitcoin_cash:
@@ -11,7 +13,9 @@ bitcoin_cash:
   FROM `bigquery-public-data.crypto_bitcoin_cash.transactions`
   JOIN `bigquery-public-data.crypto_bitcoin_cash.blocks` ON `bigquery-public-data.crypto_bitcoin_cash.transactions`.block_number = `bigquery-public-data.crypto_bitcoin_cash.blocks`.number
   WHERE is_coinbase is TRUE
+  AND number > {{block_number}}
   AND timestamp > '2018-01-01'
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
 cardano:
@@ -19,6 +23,8 @@ cardano:
   FROM `blockchain-analytics-392322.cardano_mainnet.block`
   LEFT JOIN `blockchain-analytics-392322.cardano_mainnet.pool_offline_data` ON `blockchain-analytics-392322.cardano_mainnet.block`.pool_hash = `blockchain-analytics-392322.cardano_mainnet.pool_offline_data`.pool_hash
   WHERE `blockchain-analytics-392322.cardano_mainnet.block`.block_time > '2018-01-01'
+  AND `blockchain-analytics-392322.cardano_mainnet.block`.block_time < '{{timestamp}}'
+  AND number > {{block_number}}
   ORDER BY `blockchain-analytics-392322.cardano_mainnet.block`.block_time
 
 dogecoin:
@@ -26,13 +32,17 @@ dogecoin:
   FROM `bigquery-public-data.crypto_dogecoin.transactions`
   JOIN `bigquery-public-data.crypto_dogecoin.blocks` ON `bigquery-public-data.crypto_dogecoin.transactions`.block_number = `bigquery-public-data.crypto_dogecoin.blocks`.number
   WHERE is_coinbase is TRUE
+  AND number > {{block_number}}
   AND timestamp > '2018-01-01'
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
 ethereum:
   SELECT number, timestamp, miner as reward_addresses, extra_data as identifiers
   FROM `bigquery-public-data.crypto_ethereum.blocks`
   WHERE timestamp > '2018-01-01'
+  AND timestamp < '{{timestamp}}'
+  AND number > {{block_number}}
   ORDER BY timestamp
 
 
@@ -41,13 +51,18 @@ litecoin:
   FROM `bigquery-public-data.crypto_litecoin.transactions`
   JOIN `bigquery-public-data.crypto_litecoin.blocks` ON `bigquery-public-data.crypto_litecoin.transactions`.block_number = `bigquery-public-data.crypto_litecoin.blocks`.number
   WHERE is_coinbase is TRUE
+  AND number > {{block_number}}
   AND timestamp > '2018-01-01'
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
+
 
 tezos:
   SELECT level as number, timestamp, baker as reward_addresses
   FROM `public-data-finance.crypto_tezos.blocks`
   WHERE timestamp > '2018-01-01'
+  AND timestamp < '{{timestamp}}'
+  AND number > {{block_number}}
   ORDER BY timestamp
 
 zcash:
@@ -55,6 +70,8 @@ zcash:
   FROM `bigquery-public-data.crypto_zcash.transactions`
   JOIN `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_zcash.transactions`.block_number = `bigquery-public-data.crypto_zcash.blocks`.number
   WHERE is_coinbase is TRUE
+  AND number > {{block_number}}
   AND timestamp > '2018-01-01'
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
