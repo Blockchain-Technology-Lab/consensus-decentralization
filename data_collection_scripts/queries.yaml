@@ -5,7 +5,7 @@ bitcoin:
   WHERE is_coinbase is TRUE
   AND number > {{block_number}}
   AND timestamp > '2018-01-01'
-  AND timestamp < {{timestamp}}
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
 bitcoin_cash:
@@ -15,7 +15,7 @@ bitcoin_cash:
   WHERE is_coinbase is TRUE
   AND number > {{block_number}}
   AND timestamp > '2018-01-01'
-  AND timestamp < {{timestamp}}
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
 cardano:
@@ -23,7 +23,7 @@ cardano:
   FROM `blockchain-analytics-392322.cardano_mainnet.block`
   LEFT JOIN `blockchain-analytics-392322.cardano_mainnet.pool_offline_data` ON `blockchain-analytics-392322.cardano_mainnet.block`.pool_hash = `blockchain-analytics-392322.cardano_mainnet.pool_offline_data`.pool_hash
   WHERE `blockchain-analytics-392322.cardano_mainnet.block`.block_time > '2018-01-01'
-  AND `blockchain-analytics-392322.cardano_mainnet.block`.block_time < {{timestamp}}
+  AND `blockchain-analytics-392322.cardano_mainnet.block`.block_time < '{{timestamp}}'
   AND number > {{block_number}}
   ORDER BY `blockchain-analytics-392322.cardano_mainnet.block`.block_time
 
@@ -34,14 +34,14 @@ dogecoin:
   WHERE is_coinbase is TRUE
   AND number > {{block_number}}
   AND timestamp > '2018-01-01'
-  AND timestamp < {{timestamp}}
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
 ethereum:
   SELECT number, timestamp, miner as reward_addresses, extra_data as identifiers
   FROM `bigquery-public-data.crypto_ethereum.blocks`
   WHERE timestamp > '2018-01-01'
-  AND timestamp < {{timestamp}}
+  AND timestamp < '{{timestamp}}'
   AND number > {{block_number}}
   ORDER BY timestamp
 
@@ -53,7 +53,7 @@ litecoin:
   WHERE is_coinbase is TRUE
   AND number > {{block_number}}
   AND timestamp > '2018-01-01'
-  AND timestamp < {{timestamp}}
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 
 
@@ -61,7 +61,7 @@ tezos:
   SELECT level as number, timestamp, baker as reward_addresses
   FROM `public-data-finance.crypto_tezos.blocks`
   WHERE timestamp > '2018-01-01'
-  AND timestamp < {{timestamp}}
+  AND timestamp < '{{timestamp}}'
   AND number > {{block_number}}
   ORDER BY timestamp
 
@@ -72,6 +72,6 @@ zcash:
   WHERE is_coinbase is TRUE
   AND number > {{block_number}}
   AND timestamp > '2018-01-01'
-  AND timestamp < {{timestamp}}
+  AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
 

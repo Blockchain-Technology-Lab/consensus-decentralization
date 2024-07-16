@@ -34,7 +34,7 @@ def collect_data(ledgers, from_block, to_date):
         file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
         logging.info(f"Querying {ledger}..")
 
-        query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else "-1").replace("{{timestamp}}", f"'{to_date}'")
+        query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else "-1").replace("{{timestamp}}", to_date)
         query_job = client.query(query)
         try:
             rows = query_job.result()
