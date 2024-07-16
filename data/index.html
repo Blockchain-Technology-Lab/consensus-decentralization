@@ -48,7 +48,7 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Data Collection</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Data Collection</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#sample-data-queries">Sample data &amp; queries</a>
         <ul>
@@ -187,19 +187,19 @@ ORDER BY timestamp
 <h2 id="automating-the-data-collection-process">Automating the data collection process</h2>
 <p>Instead of executing each of these queries separately on the BigQuery console and saving the results manually, it is
 also possible to automate the process using a
-<a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/consensus_decentralization/collect_data.py">script</a>
+<a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/data_collection_scripts/collect_block_data.py">script</a>
 and collect all relevant data in one go. Executing this script will run queries
-from <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/queries.yaml">this file</a>.</p>
+from <a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/data_collection_scripts/queries.yaml">this file</a>.</p>
 <p>IMPORTANT: the script uses service account credentials for authentication, therefore before running it, you need to
 generate the relevant credentials from Google, as described 
 <a href="https://developers.google.com/workspace/guides/create-credentials#service-account">here</a> and save your key in the
-root directory of the project under the name 'google-service-account-key.json'. There is a
-<a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/google-service-account-key-SAMPLE.json">sample file</a> 
+<code>data_collection_scripts</code> directory of the project under the name 'google-service-account-key.json'. There is a
+<a href="https://github.com/Blockchain-Technology-Lab/consensus-decentralization/blob/main/data_collection_scripts/google-service-account-key-SAMPLE.json">sample file</a> 
 that you can consult, which shows what your credentials are supposed to look like (but note that this is for
 informational purposes only, this file is not used in the code).</p>
 <p>Once you have set up the credentials, you can just run the following command from the root
 directory to retrieve data for all supported blockchains:</p>
-<p><code>python -m consensus_decentralization.collect_data</code></p>
+<p><code>python -m data_collection_scripts.collect_block_data</code></p>
 <p>There are also two command line arguments that can be used to customize the data collection process:</p>
 <ul>
 <li><code>ledgers</code> accepts any number of the supported ledgers (case-insensitive). For example, adding <code>--ledgers bitcoin</code>
