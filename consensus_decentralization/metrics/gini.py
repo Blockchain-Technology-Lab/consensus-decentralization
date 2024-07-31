@@ -27,4 +27,11 @@ def gini(array):
     array = np.sort(array)
     index = np.arange(1, array.shape[0] + 1)
     n = array.shape[0]
-    return (np.sum((2 * index - n - 1) * array)) / (n * np.sum(array))
+    # Normalize the array to prevent overflow
+    sum_array = np.sum(array)
+    normalized_array = array / sum_array
+    # Calculate the Gini coefficient using the normalized array
+    gini_numerator = np.sum((2 * index - n - 1) * normalized_array)
+    # No need to multiply by sum_array as it would cancel out in the division
+    gini_coefficient = gini_numerator / n
+    return gini_coefficient
