@@ -5,11 +5,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.8' ]
     steps:
-    - uses: actions/checkout@main
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-    - run: pip install -r requirements.txt
-    - run: coverage run --source=. -m pytest -v tests && coverage report -m
-    - run: flake8
+      - uses: actions/checkout@main
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@main
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install tox tox-gh-actions
+      - name: Test with tox
+        run: tox
