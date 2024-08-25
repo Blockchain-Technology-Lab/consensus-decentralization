@@ -1,5 +1,4 @@
-[[_TOC_]]
 
-## 1.0.0 (unreleased)
+## 1.0.0 (2023-08-30 00:00:00)
 
 - Initial release
