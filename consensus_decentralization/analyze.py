@@ -8,6 +8,7 @@ from consensus_decentralization.metrics.herfindahl_hirschman_index import comput
 from consensus_decentralization.metrics.theil_index import compute_theil_index  # noqa: F401
 from consensus_decentralization.metrics.max_power_ratio import compute_max_power_ratio  # noqa: F401
 from consensus_decentralization.metrics.tau_index import compute_tau_index  # noqa: F401
+from consensus_decentralization.metrics.total_entities import compute_total_entities  # noqa: F401
 
 
 def analyze(projects, aggregated_data_filename, output_dir):

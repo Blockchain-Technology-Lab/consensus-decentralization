@@ -1,4 +1,5 @@
 from math import log
+from consensus_decentralization.metrics.total_entities import compute_total_entities
 
 
 def compute_entropy(block_distribution, alpha):
@@ -41,6 +42,8 @@ def compute_entropy_percentage(block_distribution, alpha):
     if sum(block_distribution) == 0:
         return None
     try:
-        return compute_entropy(block_distribution, alpha) / compute_max_entropy(len(block_distribution), alpha)
+        total_entities = compute_total_entities(block_distribution)
+        return compute_entropy(block_distribution, alpha) / compute_max_entropy(total_entities, alpha)
     except ZeroDivisionError:
         return 0
+
