@@ -46,4 +46,3 @@ def compute_entropy_percentage(block_distribution, alpha):
         return compute_entropy(block_distribution, alpha) / compute_max_entropy(total_entities, alpha)
     except ZeroDivisionError:
         return 0
-
