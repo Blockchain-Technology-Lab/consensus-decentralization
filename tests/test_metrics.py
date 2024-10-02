@@ -1,5 +1,5 @@
 from consensus_decentralization.metrics import (entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index,
-                                                theil_index, max_power_ratio, tau_index)
+                                                theil_index, max_power_ratio, tau_index, total_entities)
 import numpy as np
 
 
@@ -177,3 +177,14 @@ def test_tau_66():
 
     tau_idx = tau_index.compute_tau_index([1], threshold=0.66)
     assert tau_idx == 1
+
+
+def test_total_entities():
+    entity_count = total_entities.compute_total_entities(block_distribution=[1, 2, 3])
+    assert entity_count == 3
+
+    entity_count = total_entities.compute_total_entities(block_distribution=[0])
+    assert entity_count == 0
+
+    entity_count = total_entities.compute_total_entities(block_distribution=[5, 0, 0])
+    assert entity_count == 1

@@ -12,6 +12,7 @@ metrics:
   tau_index:
     - 0.33
     - 0.66
+  total_entities:
 
 # The ledgers for which an analysis should be performed.
 ledgers:
