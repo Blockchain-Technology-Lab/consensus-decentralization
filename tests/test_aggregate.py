@@ -107,8 +107,7 @@ def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
     test_io_dir = setup_and_cleanup
 
     timeframe = (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31))
-    aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31,
-                  frequency=31, force_aggregate=True)
+    aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31, frequency=31, force_aggregate=True)
 
     output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/31_day_window_from_2010-01-01_to_2010-12'
                                  '-31_sampled_every_31_days.csv')

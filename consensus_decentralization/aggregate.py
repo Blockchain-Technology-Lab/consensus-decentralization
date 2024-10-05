@@ -1,6 +1,5 @@
 import logging
 from collections import defaultdict
-from dateutil.rrule import rrule, MONTHLY, WEEKLY, YEARLY, DAILY
 import datetime
 import consensus_decentralization.helper as hlp
 
