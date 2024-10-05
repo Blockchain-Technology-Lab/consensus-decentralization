@@ -286,7 +286,8 @@ if __name__ == '__main__':
     parser.add_argument(
         '--filename',
         type=str,
-        default=hlp.get_blocks_per_entity_filename(aggregate_by='month', timeframe=(timeframe_start, timeframe_end)),
+        default=hlp.get_blocks_per_entity_filename(timeframe=(timeframe_start, timeframe_end), estimation_window=30,
+                                                   frequency=30),
         help='The name of the file that contains the aggregated data.'
     )
     parser.add_argument(

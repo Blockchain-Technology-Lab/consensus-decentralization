@@ -56,41 +56,41 @@ class Aggregator:
         return blocks_per_entity
 
 
-def divide_timeframe(timeframe, granularity):
+def divide_timeframe(timeframe, estimation_window, frequency):
     """
-    Divides the timeframe into smaller timeframes of the given granularity
+    Divides the timeframe into smaller timeframes based on the given estimation_window and frequency. Each smaller
+    timeframe will be estimation_window days long and the start (or end) date of each smaller timeframe will be
+    frequency days apart from the start (or end) date of the previous timeframe. The last timeframe will not
+    necessarily have the end date of the original timeframe, it might be some days before that, so  that all time
+    frames produced have equal length.
+    If the estimation_window is None, then the timeframe is not divided and the list will contain only one
+    tuple with the start and end dates of the timeframe. If the frequency is None, then the list will contain only one
+    tuple with the start and end dates of the timeframe.
     :param timeframe: a tuple of (start_date, end_date) where each date is a datetime.date object.
-    :param granularity: the granularity that will be used for the analysis. It can be one of: day, week, month, year, all
-    :return: a list of tuples of (start_date, end_date) where each date is a datetime.date object and each tuple
-        corresponds to a timeframe of the given granularity
-    :raises ValueError: if the timeframe is not valid (i.e. end date preceeds start_date) or if the granularity is not
-        one of: day, week, month, year
+    :param estimation_window: int or None. The number of days to include in each time chunk. If None, the entire
+        timeframe will be considered as one chunk.
+    :param frequency: int or None. The number of days between each sample start date. If None, only one sample will be
+        considered, spanning the entire timeframe (i.e. it needs to be combined with None estimation_window).
+    :returns: a list of tuples of (start_date, end_date) where each date is a datetime.date object. If the estimation
+    window is larger than the timeframe, then an empty list is returned.
+    :raises ValueError: if the timeframe is not valid (i.e. end date preceeds start_date)
     """
     timeframe_start, timeframe_end = timeframe
     if timeframe_end < timeframe_start:
         raise ValueError(f'Invalid timeframe: {timeframe}')
-    if granularity == 'day':
-        start_dates = [dt.date() for dt in rrule(freq=DAILY, dtstart=timeframe_start, until=timeframe_end)]
-        end_dates = start_dates
-    elif granularity == 'week':
-        start_dates = [dt.date() for dt in rrule(freq=WEEKLY, dtstart=timeframe_start, until=timeframe_end)]
-        end_dates = [dt - datetime.timedelta(days=1) for dt in start_dates[1:]] + [timeframe_end]
-    elif granularity == 'month':
-        start_dates = [dt.date() for dt in rrule(freq=MONTHLY, dtstart=timeframe_start.replace(day=1), until=timeframe_end)]
-        start_dates[0] = timeframe_start
-        end_dates = [dt - datetime.timedelta(days=1) for dt in start_dates[1:]] + [timeframe_end]
-    elif granularity == 'year':
-        start_dates = [dt.date() for dt in rrule(freq=YEARLY, dtstart=timeframe_start.replace(month=1, day=1), until=timeframe_end)]
-        start_dates[0] = timeframe_start
-        end_dates = [dt - datetime.timedelta(days=1) for dt in start_dates[1:]] + [timeframe_end]
-    else:
-        # no need to divide the timeframe
-        start_dates = [timeframe_start]
-        end_dates = [timeframe_end]
-    return list(zip(start_dates, end_dates))
+    if estimation_window is None:
+        return [(timeframe_start, timeframe_end)]
+    time_chunks = []
+    first_window_day = timeframe_start
+    last_window_day = timeframe_start + datetime.timedelta(days=estimation_window - 1)
+    while last_window_day <= timeframe_end:
+        time_chunks.append((first_window_day, last_window_day))
+        first_window_day += datetime.timedelta(days=frequency)
+        last_window_day += datetime.timedelta(days=frequency)
+    return time_chunks
 
 
-def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate):
+def aggregate(project, output_dir, timeframe, estimation_window, frequency, force_aggregate):
     """
     Aggregates the results of the mapping process for the given project and timeframe. The results are saved in a csv
     file in the project's output directory. Note that the output file is created (just with the headers) even if there
@@ -98,35 +98,42 @@ def aggregate(project, output_dir, timeframe, aggregate_by, force_aggregate):
     :param project: the name of the project
     :param output_dir: the path to the general output directory
     :param timeframe: a tuple of (start_date, end_date) where each date is a datetime.date object
-    :param aggregate_by: the granularity that will be used for the analysis. It can be one of: day, week, month,
-        year, all
+    :param estimation_window: int or None. The number of days to use for aggregating the data (i.e. counting all the
+        blocks produced by the entity within estimation_window days). If None, the entire timeframe will be considered
+        as one chunk.
+    :param frequency: int or None. The number of days to consider for the frequency of the analysis (i.e. the number
+        of days between each data point considered in the analysis). If None, only one data point will be considered,
+        spanning the entire timeframe (i.e. it needs to be combined with None estimation_window).
     :param force_aggregate: bool. If True, then the aggregation will be performed, regardless of whether aggregated
         data for the project and specified granularity already exist
     :returns: a list of strings that correspond to the time chunks of the aggregation or None if no aggregation took
     place (the corresponding output file already existed and force_aggregate was set to False)
     """
+    if estimation_window is not None:
+        if timeframe[0] + datetime.timedelta(days=estimation_window - 1) > timeframe[1]:
+            raise ValueError('The estimation window is too large for the given timeframe')
+
     project_io_dir = output_dir / project
     aggregator = Aggregator(project, project_io_dir)
 
-    filename = hlp.get_blocks_per_entity_filename(aggregate_by=aggregate_by, timeframe=timeframe)
+    filename = hlp.get_blocks_per_entity_filename(timeframe=timeframe, estimation_window=estimation_window, frequency=frequency)
     output_file = aggregator.aggregated_data_dir / filename
 
     if not output_file.is_file() or force_aggregate:
         logging.info(f'Aggregating {project} data..')
-        timeframe_chunks = divide_timeframe(timeframe=timeframe, granularity=aggregate_by)
-        timeframe_chunk_starts = hlp.format_time_chunks(time_chunks=timeframe_chunks, granularity=aggregate_by)
+        timeframe_chunks = divide_timeframe(timeframe=timeframe, estimation_window=estimation_window, frequency=frequency)
+        representative_dates = hlp.get_representative_dates(time_chunks=timeframe_chunks)
         blocks_per_entity = defaultdict(dict)
         for i, chunk in enumerate(timeframe_chunks):
             chunk_start, chunk_end = chunk
-            t_chunk = timeframe_chunk_starts[i]
             chunk_blocks_per_entity = aggregator.aggregate(chunk_start, chunk_end)
             for entity, blocks in chunk_blocks_per_entity.items():
-                blocks_per_entity[entity][t_chunk] = blocks
+                blocks_per_entity[entity][representative_dates[i]] = blocks
 
         hlp.write_blocks_per_entity_to_file(
             output_dir=aggregator.aggregated_data_dir,
             blocks_per_entity=blocks_per_entity,
-            time_chunks=timeframe_chunk_starts,
+            dates=representative_dates,
             filename=filename
         )
         return timeframe_chunks

@@ -106,27 +106,35 @@ def mock_sample_tezos_mapped_data(setup_and_cleanup):
 def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
     test_io_dir = setup_and_cleanup
 
-    timeframes = [
-        (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31)),
-        (datetime.date(2018, 2, 1), datetime.date(2018, 2, 28)),
-        (datetime.date(2018, 3, 1), datetime.date(2018, 3, 31)),
-        (datetime.date(2021, 1, 1), datetime.date(2021, 12, 31))
-    ]
+    timeframe = (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31))
+    aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31,
+                  frequency=31, force_aggregate=True)
 
-    for timeframe in timeframes:
-        aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, aggregate_by='month',
-                  force_aggregate=True)
-
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2010-01-01_to_2010-12-31.csv'
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/31_day_window_from_2010-01-01_to_2010-12'
+                                 '-31_sampled_every_31_days.csv')
     assert output_file.is_file()  # there is no data from 2010 in the sample but the aggregator still creates the file when called with this timeframe
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2018-02-01_to_2018-02-28.csv'
+    timeframe = (datetime.date(2018, 2, 1), datetime.date(2018, 2, 28))
+    # an error should be raised in this case because the estimation window is larger than the timeframe
+    with pytest.raises(ValueError):
+        aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=30, frequency=30,
+                  force_aggregate=True)
+
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/30_day_window_from_2018-02-01_to_2018-02-28_sampled_every_30_days.csv'
+    assert not output_file.is_file()
+
+    timeframe = (datetime.date(2018, 3, 1), datetime.date(2018, 3, 31))
+    aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31, frequency=31,
+              force_aggregate=True)
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/31_day_window_from_2018-03-01_to_2018-03'
+                                 '-31_sampled_every_31_days.csv')
     assert output_file.is_file()
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2018-03-01_to_2018-03-31.csv'
-    assert output_file.is_file()
-
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2021-01-01_to_2021-12-31.csv'
+    timeframe = (datetime.date(2021, 1, 1), datetime.date(2021, 12, 31))
+    aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31, frequency=31,
+              force_aggregate=True)
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/31_day_window_from_2021-01-01_to_2021-12'
+                                 '-31_sampled_every_31_days.csv')
     assert output_file.is_file()
 
 
@@ -152,19 +160,21 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
     aggregate(
         project='sample_bitcoin',
         output_dir=test_io_dir,
-        timeframe=(datetime.date(2018, 2, 1), datetime.date(2018, 2, 28)),
-        aggregate_by='month',
+        timeframe=(datetime.date(2018, 2, 1), datetime.date(2018, 3, 2)),
+        estimation_window=30,
+        frequency=30,
         force_aggregate=True
     )
 
     expected_output = {
-        'Entity \\ Time period': 'Feb-2018\n',
+        'Entity \\ Date': '2018-02-15\n',
         '1AM2f...9pJUx/3G7y1...gPPWb': '4\n',
         'BTC.TOP': '2\n',
         'GBMiners': '2\n'
     }
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/monthly_from_2018-02-01_to_2018-02-28.csv'
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/30_day_window_from_2018-02-01_to_2018-03'
+                                 '-02_sampled_every_30_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -174,17 +184,18 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
         project='sample_bitcoin',
         output_dir=test_io_dir,
         timeframe=(datetime.date(2020, 1, 1), datetime.date(2020, 12, 31)),
-        aggregate_by='year',
+        estimation_window=None,
+        frequency=None,
         force_aggregate=True
     )
 
     expected_output = {
-        'Entity \\ Time period': '2020\n',
+        'Entity \\ Date': '2020-07-01\n',
         'TEST2': '2\n',
         'Bitmain': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/yearly_from_2020-01-01_to_2020-12-31.csv'
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/all_from_2020-01-01_to_2020-12-31.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -198,18 +209,20 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
         project='sample_ethereum',
         output_dir=test_io_dir,
         timeframe=(datetime.date(2020, 11, 1), datetime.date(2020, 11, 30)),
-        aggregate_by='month',
+        estimation_window=30,
+        frequency=30,
         force_aggregate=True
     )
 
     expected_output = {
-        'Entity \\ Time period': 'Nov-2020\n',
+        'Entity \\ Date': '2020-11-15\n',
         'TEST2': '5\n',
         'TEST': '3\n',
         '0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/monthly_from_2020-11-01_to_2020-11-30.csv'
+    output_file = test_io_dir / ('sample_ethereum/blocks_per_entity/30_day_window_from_2020-11-01_to_2020-11'
+                                 '-30_sampled_every_30_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -219,16 +232,18 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
         project='sample_ethereum',
         output_dir=test_io_dir,
         timeframe=(datetime.date(2023, 1, 1), datetime.date(2023, 12, 31)),
-        aggregate_by='year',
+        estimation_window=365,
+        frequency=365,
         force_aggregate=True
     )
 
     expected_output = {
-        'Entity \\ Time period': '2023\n',
+        'Entity \\ Date': '2023-07-02\n',
         'MEV Builder: 0x3B...436': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_ethereum/blocks_per_entity/yearly_from_2023-01-01_to_2023-12-31.csv'
+    output_file = test_io_dir / ('sample_ethereum/blocks_per_entity/365_day_window_from_2023-01-01_to_2023-12'
+                                 '-31_sampled_every_365_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -242,12 +257,13 @@ def test_cardano_aggregation(setup_and_cleanup, mock_sample_cardano_mapped_data)
         project='sample_cardano',
         output_dir=test_io_dir,
         timeframe=(datetime.date(2020, 12, 1), datetime.date(2020, 12, 31)),
-        aggregate_by='month',
+        estimation_window=31,
+        frequency=31,
         force_aggregate=True
     )
 
     expected_output = {
-        'Entity \\ Time period': 'Dec-2020\n',
+        'Entity \\ Date': '2020-12-16\n',
         'CFLOW': '1\n',
         '1d8988c2057d6efd6a094e468840a51942ab03b5b69b07a2bca71b53': '1\n',
         'Input Output (iohk.io)': '1\n',
@@ -255,7 +271,8 @@ def test_cardano_aggregation(setup_and_cleanup, mock_sample_cardano_mapped_data)
         '1percentpool': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_cardano/blocks_per_entity/monthly_from_2020-12-01_to_2020-12-31.csv'
+    output_file = test_io_dir / ('sample_cardano/blocks_per_entity/31_day_window_from_2020-12-01_to_2020-12'
+                                 '-31_sampled_every_31_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -269,19 +286,21 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
         project='sample_tezos',
         output_dir=test_io_dir,
         timeframe=(datetime.date(2021, 8, 1), datetime.date(2021, 8, 31)),
-        aggregate_by='month',
+        estimation_window=31,
+        frequency=31,
         force_aggregate=True
     )
 
     expected_output = {
-        'Entity \\ Time period': 'Aug-2021\n',
+        'Entity \\ Date': '2021-08-16\n',
         'Tezos Seoul': '2\n',
         'tz1Kt4P8BCaP93AEV4eA7gmpRryWt5hznjCP': '1\n',
         'TEST': '1\n',
         '----- UNDEFINED BLOCK PRODUCER -----': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/monthly_from_2021-08-01_to_2021-08-31.csv'
+    output_file = test_io_dir / ('sample_tezos/blocks_per_entity/31_day_window_from_2021-08-01_to_2021-08'
+                                 '-31_sampled_every_31_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -291,16 +310,18 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
         project='sample_tezos',
         output_dir=test_io_dir,
         timeframe=(datetime.date(2018, 1, 1), datetime.date(2018, 12, 31)),
-        aggregate_by='year',
+        estimation_window=365,
+        frequency=365,
         force_aggregate=True
     )
 
     expected_output = {
-        'Entity \\ Time period': '2018\n',
+        'Entity \\ Date': '2018-07-02\n',
         'tz0000000000000000000000000000000000': '1\n'
     }
 
-    output_file = test_io_dir / 'sample_tezos/blocks_per_entity/yearly_from_2018-01-01_to_2018-12-31.csv'
+    output_file = test_io_dir / ('sample_tezos/blocks_per_entity/365_day_window_from_2018-01-01_to_2018-12'
+                                 '-31_sampled_every_365_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -308,20 +329,42 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
 
 
 def test_divide_timeframe():
-    days = divide_timeframe(timeframe=(datetime.date(2022, 2, 1), datetime.date(2022, 3, 1)), granularity='day')
-    assert len(days) == 29
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 2, 1), datetime.date(2022, 3, 1)),
+                                   estimation_window=1, frequency=1)
+    assert len(time_chunks) == 29
+    assert time_chunks[-1][0] == datetime.date(2022, 3, 1)
+    assert time_chunks[-1][-1] == datetime.date(2022, 3, 1)
 
-    weeks = divide_timeframe(timeframe=(datetime.date(2022, 1, 1), datetime.date(2022, 1, 31)), granularity='week')
-    assert len(weeks) == 5
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 1, 1), datetime.date(2022, 1, 31)), estimation_window=7, frequency=7)
+    assert len(time_chunks) == 4
+    assert time_chunks[-1][-1] == datetime.date(2022, 1, 28)
 
-    months = divide_timeframe(timeframe=(datetime.date(2022, 2, 1), datetime.date(2022, 3, 1)), granularity='month')
-    assert len(months) == 2
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 2, 1), datetime.date(2022, 3, 1)), estimation_window=30, frequency=30)
+    assert len(time_chunks) == 0
 
-    months = divide_timeframe(timeframe=(datetime.date(2022, 1, 31), datetime.date(2023, 1, 2)), granularity='month')
-    assert len(months) == 13
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 1, 31), datetime.date(2023, 1, 2)), estimation_window=30, frequency=30)
+    assert len(time_chunks) == 11
+    assert time_chunks[-1][-1] == datetime.date(2022, 12, 26)
 
-    months = divide_timeframe(timeframe=(datetime.date(2022, 2, 1), datetime.date(2022, 2, 1)), granularity='month')
-    assert len(months) == 1
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 2, 1), datetime.date(2022, 2, 1)), estimation_window=30, frequency=30)
+    assert len(time_chunks) == 0
 
-    years = divide_timeframe(timeframe=(datetime.date(2018, 1, 16), datetime.date(2023, 3, 30)), granularity='year')
-    assert len(years) == 6
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2018, 1, 16), datetime.date(2023, 3, 30)), estimation_window=365, frequency=365)
+    assert len(time_chunks) == 5
+    assert time_chunks[-1][-1] == datetime.date(2023, 1, 14)
+
+    # test sliding windows by using a frequency that is smaller than the estimation window
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 1, 1), datetime.date(2022, 1, 31)), estimation_window=7, frequency=1)
+    assert len(time_chunks) == 25
+    assert time_chunks[-1][-1] == datetime.date(2022, 1, 31)
+
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 1, 1), datetime.date(2022, 1, 31)),
+                                   estimation_window=7, frequency=3)
+    assert len(time_chunks) == 9
+    assert time_chunks[-1][-1] == datetime.date(2022, 1, 31)
+
+    # test using the entire timeframe by having estimation window and frequency set to None
+    time_chunks = divide_timeframe(timeframe=(datetime.date(2022, 1, 1), datetime.date(2022, 1, 31)), estimation_window=None, frequency=None)
+    assert len(time_chunks) == 1
+    assert time_chunks[0][0] == datetime.date(2022, 1, 1)
+    assert time_chunks[0][-1] == datetime.date(2022, 1, 31)

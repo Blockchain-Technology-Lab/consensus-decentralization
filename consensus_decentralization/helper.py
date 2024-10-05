@@ -167,24 +167,24 @@ def get_known_addresses(project_name):
     return {address: addr_info['name'] for address, addr_info in address_data.items()}
 
 
-def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, time_chunks, filename):
+def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, dates, filename):
     """
     Produces a csv file with information about the resources (blocks) that each entity controlled over some timeframe.
     The entries are sorted so that the entities that controlled the most resources appear first.
     :param output_dir: pathlib.PosixPath object of the output directory where the produced csv file is written to.
     :param blocks_per_entity: a dictionary with entities as keys and lists as values, where each list represents the
         number of blocks produced by the entity in each time chunk
-    :param time_chunks: a list of strings corresponding to the chunks of time that were analyzed
+    :param dates: a list of strings, each representing a chunk of time that was analyzed
     :param filename: the name to be given to the produced file.
     """
     with open(output_dir / filename, 'w', newline='') as f:
         csv_writer = csv.writer(f)
-        csv_writer.writerow(['Entity \\ Time period'] + time_chunks)  # write header
+        csv_writer.writerow(['Entity \\ Date'] + dates)  # write header
         for entity, blocks_per_chunk in blocks_per_entity.items():
             entity_row = [entity]
-            for chunk in time_chunks:
+            for date in dates:
                 try:
-                    entity_row.append(blocks_per_chunk[chunk])
+                    entity_row.append(blocks_per_chunk[date])
                 except KeyError:
                     entity_row.append(0)
             csv_writer.writerow(entity_row)
@@ -202,13 +202,13 @@ def get_blocks_per_entity_from_file(filepath):
     with open(filepath, newline='') as f:
         csv_reader = csv.reader(f)
         header = next(csv_reader, None)
-        time_chunks = header[1:]
+        dates = header[1:]
         for row in csv_reader:
             entity = row[0]
             for idx, item in enumerate(row[1:]):
                 if item != '0':
-                    blocks_per_entity[entity][time_chunks[idx]] = int(item)
-    return time_chunks, blocks_per_entity
+                    blocks_per_entity[entity][dates[idx]] = int(item)
+    return dates, blocks_per_entity
 
 
 def get_special_addresses(project_name):
@@ -299,53 +299,29 @@ def read_mapped_project_data(project_dir):
     return data
 
 
-def format_time_chunks(time_chunks, granularity):
+def get_representative_dates(time_chunks):
     """
     Formats the time chunks into strings that can be used in the output files or as labels in plots
     :param time_chunks: list of tuples of (start_date, end_date) where each date is a datetime.date object
-    :param granularity: string, one of: day, week, month, year, all
-    :returns: a list of strings that correspond to the time chunks in a format that can be used in the output files
+    :returns: a list of strings that represent each time chunk. Specifically, the middle date of each chunk is used as
+        the representative date.
     """
-    if granularity == 'day':
-        timeframe_chunks = [f'{chunk[0].strftime("%Y-%m-%d")}' for chunk in time_chunks]
-    elif granularity == 'month':
-        timeframe_chunks = [f'{chunk[0].strftime("%b-%Y")}' for chunk in time_chunks]
-    elif granularity == 'year':
-        timeframe_chunks = [f'{chunk[0].strftime("%Y")}' for chunk in time_chunks]
-    else:
-        # in the cases of 'week' and 'all' granularities, we use the whole start_date and end_date
-        timeframe_chunks = [f'{chunk[0].strftime("%Y-%m-%d")} to {chunk[1].strftime("%Y-%m-%d")}' for chunk in
-                            time_chunks]
-    return timeframe_chunks
+    return [str(chunk[0] + (chunk[1] - chunk[0]) // 2) for chunk in time_chunks]
 
 
-def get_granularity_from_aggregate_by(aggregate_by):
-    """
-    Determines the granularity (adverb to be used in the output file names) from the aggregate_by argument
-    :param aggregate_by: str that can be one of day, week, month, year, all
-    :returns: str that is the corresponding adverb of aggregate_by
-    """
-    if aggregate_by == 'day':
-        return 'daily'
-    elif aggregate_by == 'week':
-        return 'weekly'
-    elif aggregate_by == 'month':
-        return 'monthly'
-    elif aggregate_by == 'year':
-        return 'yearly'
-    else:
-        return 'all'
-
-
-def get_blocks_per_entity_filename(aggregate_by, timeframe):
+def get_blocks_per_entity_filename(timeframe, estimation_window, frequency):
     """
     Determines the filename of the csv file that contains the aggregated data
-    :param aggregate_by: str that can be one of day, week, month, year, all
     :param timeframe: tuple of (start_date, end_date) where each date is a datetime.date object
+    :param estimation_window: int that represents the number of days to use for the estimation window, or None,
+        which means that the whole timeframe should be used for each estimation
+    :param frequency: int that represents how frequently to sample the data, in days, or None, which means that only
+        one time point will be considered (snapshot instead of longitudinal data)
     :returns: str that corresponds to the filename of the csv file
     """
-    granularity = get_granularity_from_aggregate_by(aggregate_by)
-    return f'{granularity}_from_{timeframe[0]}_to_{timeframe[1]}.csv'
+    if estimation_window is None and frequency is None:
+        return f'all_from_{timeframe[0]}_to_{timeframe[1]}.csv'
+    return f'{estimation_window}_day_window_from_{timeframe[0]}_to_{timeframe[1]}_sampled_every_{frequency}_days.csv'
 
 
 def get_date_from_block(block, level='day'):
@@ -384,7 +360,28 @@ def get_granularity():
         else:
             return 'all'
     except KeyError:
-        raise ValueError('"granularity" not in config file')
+        raise ValueError('"granularity" missing from config file')
+
+
+def get_estimation_window_and_frequency():
+    """
+    Retrieves the estimation window and frequency to be used in the analysis
+    :returns: tuple of (int, int) or (None, None), with the first item representing the number of days to use for the
+    estimation window and the second item representing how frequently to sample the data, in days
+    :raises ValueError: if the estimation_window or frequency field is missing from the config file
+                        or if one of them is set to None while the other is not
+    """
+    try:
+        config = get_config_data()
+        estimation_window = config['estimation_window']
+        frequency = config['frequency']
+        if estimation_window is None and frequency is None:
+            return None, None
+        if estimation_window is None or frequency is None:
+            raise ValueError('Both "estimation_window" and "frequency" should be either set to some number or empty')
+        return estimation_window, frequency
+    except KeyError:
+        raise ValueError('"estimation_window" or "frequency" missing from config file')
 
 
 def get_plot_flag():
@@ -397,7 +394,7 @@ def get_plot_flag():
     try:
         return config['plot_parameters']['plot']
     except KeyError:
-        raise ValueError('Flag "plot" not in config file')
+        raise ValueError('Flag "plot" missing from config file')
 
 
 def get_plot_config_data():
@@ -418,4 +415,4 @@ def get_force_map_flag():
     try:
         return config['execution_flags']['force_map']
     except KeyError:
-        raise ValueError('Flag "force_map" not in config file')
+        raise ValueError('Flag "force_map" missing from config file')

@@ -18,19 +18,19 @@ def setup_and_cleanup():
     # create files that would be the output of aggregation
     csv_per_file = {
         'year_from_2018-01-01_to_2018-12-31':
-            'Entity \\ Time period,2018\n'
+            'Entity \\ Date,2018\n'
             '1AM2f...9pJUx/3G7y1...gPPWb,4\n'
             'BTC.TOP,2\n'
             'GBMiners,2\n'
             '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,1\n',
         'month_from_2018-02-01_to_2018-03-31':
-            'Entity \\ Time period,Feb-2018,Mar-2018\n'
+            'Entity \\ Date,Feb-2018,Mar-2018\n'
             '1AM2f...9pJUx/3G7y1...gPPWb,4,0\n'
             'BTC.TOP,2,0\n'
             'GBMiners,2,0\n'
             '1AM2fYfpY3ZeMeCKXmN66haoWxvB89pJUx,0,1\n',
         'year_from_2010-01-01_to_2010-12-31':
-            'Entity \\ Time period,2010\n'
+            'Entity \\ Date,2010\n'
         }
     aggregated_data_path = test_bitcoin_dir / 'blocks_per_entity'
     aggregated_data_path.mkdir(parents=True, exist_ok=True)
