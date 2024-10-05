@@ -128,7 +128,7 @@ def plot_dynamics_per_ledger(ledgers, aggregated_data_filename, top_k=-1, unit='
     Plots the dynamics of pools for each ledger in terms of produced blocks
     :param ledgers: list of strings representing the ledgers whose data will be plotted
     :param aggregated_data_filename: string that corresponds to the name of the file that contains the aggregated
-        data for the relevant timeframe and granularity
+        data for the relevant timeframe, estimation window and frequency
     :param top_k: if > 0, then only the evolution of the top k pools will be shown in the graph. Otherwise,
     all pools will be plotted.
     :param unit: string that specifies whether the plots to be generated will be in absolute or relative values (i.e.

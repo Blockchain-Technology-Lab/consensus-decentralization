@@ -35,7 +35,6 @@ analyze_flags:
 
 # The timeframe for which an analysis should be performed.
 # Each date is a string of the form YYYY-MM-DD.
-# If granularity is also set, then the analysis will run on the timeframe of the two farthest snapshots.
 timeframe:
   start_date: 2011-01-01
   end_date: 2023-12-31

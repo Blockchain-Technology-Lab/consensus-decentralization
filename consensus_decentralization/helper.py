@@ -342,27 +342,6 @@ def get_date_from_block(block, level='day'):
     raise ValueError(f'Invalid level: {level}')
 
 
-def get_granularity():
-    """
-    Retrieves the granularity to be used in the analysis
-    :returns: string in ['day', 'week', 'month', 'year'] that represents the chosen granularity
-    or 'all' if the relevant field is empty in the config file
-    :raises ValueError: if the granularity field is missing from the config file or if
-    the chosen value is not one of the allowed ones
-    """
-    try:
-        granularity = get_config_data()['granularity']
-        if granularity:
-            if granularity in ['day', 'week', 'month', 'year']:
-                return granularity
-            else:
-                raise ValueError('Malformed "granularity" in config; should be one of: "day", "week", "month", "year", or empty')
-        else:
-            return 'all'
-    except KeyError:
-        raise ValueError('"granularity" missing from config file')
-
-
 def get_estimation_window_and_frequency():
     """
     Retrieves the estimation window and frequency to be used in the analysis

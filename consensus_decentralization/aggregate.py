@@ -105,7 +105,7 @@ def aggregate(project, output_dir, timeframe, estimation_window, frequency, forc
         of days between each data point considered in the analysis). If None, only one data point will be considered,
         spanning the entire timeframe (i.e. it needs to be combined with None estimation_window).
     :param force_aggregate: bool. If True, then the aggregation will be performed, regardless of whether aggregated
-        data for the project and specified granularity already exist
+        data for the project and specified window / frequency already exist
     :returns: a list of strings that correspond to the time chunks of the aggregation or None if no aggregation took
     place (the corresponding output file already existed and force_aggregate was set to False)
     """
