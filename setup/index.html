@@ -121,8 +121,9 @@ also possible to execute each module individually. The following process describ
 in the <code>raw_block_data/</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g., <code>bitcoin_raw_data.json</code>).
 By default,
 there is a (very small) sample input file for some supported projects; to use it, remove the prefix <code>sample_</code>.</p>
-<p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt; --aggregate-by &lt;unit to aggregate by&gt;</code> to
-analyze the n specified ledgers for the given timeframe, aggregated using the given granularity.
+<p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt; --estimation-window &lt;days to aggregate 
+blocks by&gt; --frequency &lt;days between two data points&gt;</code> to analyze the n specified ledgers for the given timeframe, 
+aggregated using the given estimation window and frequency.
 All arguments are optional, so it's possible to omit any of them; in this case, the default values
 will be used. Specifically:</p>
 <ul>
@@ -139,13 +140,11 @@ will be used. Specifically:</p>
   would do it for a single day (Feburary 3rd 2022). Last, <code>--timeframe 2018 2022</code> would run the analysis for the 
   entire time period between January 1st 2018 and December 31st 2022. If the <code>timeframe</code> argument is omitted, then 
   the start date and end dates of the time frame are sourced from the <code>config.yaml</code> file.</li>
-<li><code>aggregate_by</code> corresponds to the unit of time to aggregate the data by, i.e. the granularity of the analysis. 
-  It can be one of: <code>day</code>, <code>week</code>, <code>month</code>, <code>year</code>, <code>all</code> and by default it is <code>month</code>. Note that in the case of 
-  weekly aggregation, we consider a week to be 7 consecutive days, starting from the first day of the time period 
-  under consideration (so not necessarily Monday to Sunday). If "all" is chosen, then no aggregation will be 
-  performed, meaning that the given timeframe will be treated as a single unit of time in the context of our 
-  analysis. In all other cases, the given timeframe will be divided into units of the given granularity and the 
-  result will be a time series.</li>
+<li><code>estimation_window</code> corresponds to the number of days that will be used to aggregate the data. For example, 
+  <code>--estimation_window 7</code> means that every data point will use 7 days of blocks to calculate the distribution of 
+  blocks to entities. If left empty, then the entire time frame will be used (only valid when combined with empty frequency).</li>
+<li><code>frequency</code> determines how frequently to sample the data, in days. If left empty, then only one data point will be 
+  analyzed (snapshot instead of longitudinal analysis), but this is only valid when combined with an empty estimation_window.</li>
 </ul>
 <p>Additionally, there are three flags that can be used to customize an execution:</p>
 <ul>
