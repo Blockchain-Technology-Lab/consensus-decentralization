@@ -4,7 +4,8 @@ import shutil
 import pytest
 from consensus_decentralization.helper import get_pool_identifiers, get_pool_legal_links, get_known_addresses, \
     get_pool_clusters, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
-    get_timeframe_end, get_time_period, get_ledgers, valid_date, OUTPUT_DIR
+    get_timeframe_end, get_time_period, get_ledgers, valid_date, OUTPUT_DIR, get_blocks_per_entity_filename, \
+    get_representative_dates
 from consensus_decentralization.map import ledger_mapping
 
 
@@ -83,13 +84,13 @@ def test_write_read_blocks_per_entity(setup_and_cleanup):
 
     blocks_per_entity = {'Entity 1': {'2018': 1, '2019': 3}, 'Entity 2': {'2018': 2, '2019': 2}}
 
-    write_blocks_per_entity_to_file(output_dir=output_dir, blocks_per_entity=blocks_per_entity,
-                                    time_chunks=['2018', '2019'], filename='test.csv')
+    write_blocks_per_entity_to_file(output_dir=output_dir, blocks_per_entity=blocks_per_entity, dates=['2018', '2019'],
+                                    filename='test.csv')
 
-    time_chunks, bpe = get_blocks_per_entity_from_file(output_dir / 'test.csv')
+    dates, bpe = get_blocks_per_entity_from_file(output_dir / 'test.csv')
 
-    assert all(len(nblocks) == len(time_chunks) for nblocks in bpe.values())
-    assert time_chunks == ['2018', '2019']
+    assert all(len(nblocks) == len(dates) for nblocks in bpe.values())
+    assert dates == ['2018', '2019']
     assert all([bpe['Entity 1'] == {'2018': 1, '2019': 3}, bpe['Entity 2'] == {'2018': 2, '2019': 2}])
 
 
@@ -135,3 +136,42 @@ def test_get_ledgers():
     ledgers = get_ledgers()
     assert isinstance(ledgers, list)
     assert len(ledgers) > 0
+
+
+def test_get_blocks_per_entity_filename():
+    timeframe = (datetime.date(2022, 1, 1), datetime.date(2022, 12, 31))
+    estimation_window = 30
+    frequency = 7
+    filename = get_blocks_per_entity_filename(timeframe, estimation_window, frequency)
+    assert filename == '30_day_window_from_2022-01-01_to_2022-12-31_sampled_every_7_days.csv'
+
+    estimation_window = None
+    frequency = None
+    filename = get_blocks_per_entity_filename(timeframe, estimation_window, frequency)
+    assert filename == 'all_from_2022-01-01_to_2022-12-31.csv'
+
+
+def test_get_representative_dates():
+    time_chunks = [
+        (datetime.date(2022, 1, 1), datetime.date(2022, 1, 30)),
+        (datetime.date(2022, 1, 31), datetime.date(2022, 3, 2)),
+        (datetime.date(2022, 3, 3), datetime.date(2022, 4, 2))
+        ]
+    representative_dates = get_representative_dates(time_chunks)
+    assert representative_dates == ['2022-01-15', '2022-02-15', '2022-03-18']
+
+    time_chunks = [
+        (datetime.date(2022, 1, 1), datetime.date(2022, 1, 1)),
+        (datetime.date(2022, 1, 2), datetime.date(2022, 1, 2)),
+        (datetime.date(2022, 1, 3), datetime.date(2022, 1, 3))
+        ]
+    representative_dates = get_representative_dates(time_chunks)
+    assert representative_dates == ['2022-01-01', '2022-01-02', '2022-01-03']
+
+    time_chunks = [
+        (datetime.date(2022, 1, 1), datetime.date(2022, 12, 31)),
+        (datetime.date(2023, 1, 1), datetime.date(2023, 12, 31)),
+        (datetime.date(2024, 1, 1), datetime.date(2024, 12, 31))
+        ]
+    representative_dates = get_representative_dates(time_chunks)
+    assert representative_dates == ['2022-07-02', '2023-07-02', '2024-07-01']

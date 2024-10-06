@@ -16,18 +16,17 @@ def process_data(force_map, ledger_dir, ledger, output_dir):
         apply_mapping(ledger, parsed_data=parsed_data, output_dir=output_dir)
 
 
-def main(ledgers, timeframe, granularity, output_dir=hlp.OUTPUT_DIR):
+def main(ledgers, timeframe, estimation_window, frequency, output_dir=hlp.OUTPUT_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param ledgers: list of strings that correspond to the ledgers whose data should be analyzed
     :param timeframe: tuple of (start_date, end_date) where each date is a datetime.date object.
-    :param granularity: string that corresponds to the granularity that will be used for the analysis. It can be one
-        of: day, week, month, year, all.
-    :param force_map: bool. If True, then the parsing and mapping will be performed, regardless of whether
-        mapped data for some or all of the projects already exist
-    :param make_plots: bool. If True, then plots are generated and saved for the results
-    :param make_animated_plots: bool. If True (and make_plots also True) then animated plots are also generated.
-        Warning: generating animated plots might take a long time
+    :param estimation_window: int or None. The number of days to consider for the estimation of the power of an entity (
+        i.e. counting all the blocks produced by the entity within estimation_window days). If None, the entire
+        timeframe will be considered.
+    :param frequency: int or None. The number of days to consider for the frequency of the analysis (i.e. the number
+        of days between each data point considered in the analysis). If None, only one data point will be considered,
+        spanning the entire timeframe (i.e. it needs to be combined with None estimation_window).
     :param output_dir: pathlib.PosixPath object of the directory where the output data will be saved
     """
     logging.info(f"The ledgers that will be analyzed are: {','.join(ledgers)}")
@@ -44,21 +43,24 @@ def main(ledgers, timeframe, granularity, output_dir=hlp.OUTPUT_DIR):
             ledger,
             output_dir,
             timeframe,
-            granularity,
+            estimation_window,
+            frequency,
             force_map
         )
 
+    aggregated_data_filename = hlp.get_blocks_per_entity_filename(timeframe, estimation_window, frequency)
+
     used_metrics = analyze(
-        ledgers,
-        aggregated_data_filename=hlp.get_blocks_per_entity_filename(granularity, timeframe),
+        projects=ledgers,
+        aggregated_data_filename=aggregated_data_filename,
         output_dir=output_dir
     )
 
     if hlp.get_plot_flag():
         plot(
-            ledgers,
+            ledgers=ledgers,
             metrics=used_metrics,
-            aggregated_data_filename=hlp.get_blocks_per_entity_filename(granularity, timeframe),
+            aggregated_data_filename=aggregated_data_filename,
             animated=hlp.get_plot_config_data()['animated']
         )
 
@@ -66,7 +68,7 @@ def main(ledgers, timeframe, granularity, output_dir=hlp.OUTPUT_DIR):
 if __name__ == '__main__':
     ledgers = hlp.get_ledgers()
 
-    granularity = hlp.get_granularity()
+    estimation_window, frequency = hlp.get_estimation_window_and_frequency()
 
     start_date, end_date = hlp.get_start_end_dates()
     timeframe_start = hlp.get_timeframe_beginning(start_date)
@@ -76,6 +78,6 @@ if __name__ == '__main__':
                          'the first date.')
     timeframe = (timeframe_start, timeframe_end)
 
-    main(ledgers, timeframe, granularity)
+    main(ledgers, timeframe, estimation_window, frequency)
 
     logging.info('Done. Please check the output directory for results.')

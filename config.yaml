@@ -35,14 +35,19 @@ analyze_flags:
 
 # The timeframe for which an analysis should be performed.
 # Each date is a string of the form YYYY-MM-DD.
-# If granularity is also set, then the analysis will run on the timeframe of the two farthest snapshots.
 timeframe:
-  start_date: 2010-01-01
+  start_date: 2011-01-01
   end_date: 2023-12-31
 
-# The granularity for the analysis when two dates are provided in the --snapshot_dates argument (which are then interpreted as start and end dates). 
-# It can be one of: "day", "week", "month", "year", or empty. If empty, then only the snapshots for the given dates will be analyzed.
-granularity: "month"
+# The number of days to use for the estimation window, i.e.how many days of blocks to use for each data point.
+# If left empty, then the entire time frame will be used (only valid when combined with empty frequency).
+estimation_window: 30
+
+# How frequently to sample the data, in days
+# If left empty, then only one data point will be analyzed (snapshot instead of longitudinal analysis), but this is
+#  only valid when combined with an empty estimation_window.
+frequency: 30  # todo maybe add hadrcoded values for day, week, month, year (in the code that parses this) + for the estimation window
+
 
 input_directories:  # Paths to directories that contain raw input data
   - ./input
