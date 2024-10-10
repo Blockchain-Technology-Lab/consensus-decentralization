@@ -63,7 +63,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
                     try:
                         time_chunk_blocks_per_entity[entity] = block_values[time_chunk]
                     except KeyError:
-                        time_chunk_blocks_per_entity[entity] = 0
+                        pass
             sorted_time_chunk_blocks = sorted(time_chunk_blocks_per_entity.values(), reverse=True)
 
             for metric_name, metric, param in metric_params:
