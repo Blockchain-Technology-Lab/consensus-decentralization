@@ -82,8 +82,8 @@ def test_analyze(setup_and_cleanup):
             lines = f.readlines()
             assert lines[0] == 'timeframe,sample_bitcoin\n'
             if metric == 'gini':
-                assert lines[1] == 'Feb-2018,0.375\n'
-                assert lines[2] == 'Mar-2018,0.75\n'
+                assert lines[1] == 'Feb-2018,0.16666666666666666\n'
+                assert lines[2] == 'Mar-2018,0.0\n'
             elif metric == 'nakamoto_coefficient':
                 assert lines[1] == 'Feb-2018,1\n'
                 assert lines[2] == 'Mar-2018,1\n'

@@ -63,7 +63,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
                     try:
                         date_blocks_per_entity[entity] = block_values[date]
                     except KeyError:
-                        date_blocks_per_entity[entity] = 0
+                        pass
             sorted_date_blocks = sorted(date_blocks_per_entity.values(), reverse=True)
 
             for metric_name, metric, param in metric_params:
