@@ -22,6 +22,7 @@ def setup_and_cleanup():
     """
     # Set up
     test_output_dir = INTERIM_DIR / "test_output"
+    test_metrics_subdir = test_output_dir / "metrics"
     ledger_mapping['sample_bitcoin'] = DefaultMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
@@ -29,6 +30,7 @@ def setup_and_cleanup():
 
     force_map_flag = config['execution_flags']['force_map']
     config['execution_flags']['force_map'] = True
+    config['analyze_flags']['clustering'] = True
 
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     for project in ['bitcoin', 'cardano']:
@@ -53,7 +55,7 @@ def setup_and_cleanup():
             )
         except FileNotFoundError:
             pass
-    yield test_output_dir
+    yield test_output_dir, test_metrics_subdir
     # Clean up
     shutil.rmtree(test_output_dir)
     for project in ['sample_bitcoin', 'sample_cardano']:
@@ -74,21 +76,23 @@ def setup_and_cleanup():
 
 
 def test_end_to_end(setup_and_cleanup):
-    test_output_dir = setup_and_cleanup
+    test_output_dir, test_metrics_dir = setup_and_cleanup
 
     main(
         ['sample_bitcoin', 'sample_cardano'],
         (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31)),
         estimation_window=None,
         frequency=None,
-        interim_dir=test_output_dir
+        interim_dir=test_output_dir,
+        results_dir=test_output_dir,
+        population_windows=0
     )
 
     expected_entropy = [
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2010-07-02,,\n'
     ]
-    with open(test_output_dir / 'entropy=1.csv') as f:
+    with open(test_metrics_dir / 'entropy=1.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_entropy[idx]
@@ -97,7 +101,7 @@ def test_end_to_end(setup_and_cleanup):
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2010-07-02,,\n'
     ]
-    with open(test_output_dir / 'gini.csv') as f:
+    with open(test_metrics_dir / 'gini.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_gini[idx]
@@ -106,7 +110,7 @@ def test_end_to_end(setup_and_cleanup):
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2010-07-02,,\n'
     ]
-    with open(test_output_dir / 'nakamoto_coefficient.csv') as f:
+    with open(test_metrics_dir / 'nakamoto_coefficient.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_nc[idx]
@@ -116,7 +120,9 @@ def test_end_to_end(setup_and_cleanup):
         (datetime.date(2018, 2, 1), datetime.date(2018, 3, 31)),
         estimation_window=30,
         frequency=30,
-        interim_dir=test_output_dir
+        interim_dir=test_output_dir,
+        results_dir=test_output_dir,
+        population_windows=0
     )
 
     expected_entropy = [
@@ -124,7 +130,7 @@ def test_end_to_end(setup_and_cleanup):
         '2018-02-15,1.5,\n',
         '2018-03-17,0.0,\n',
         ]
-    with open(test_output_dir / 'entropy=1.csv') as f:
+    with open(test_metrics_dir / 'entropy=1.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_entropy[idx]
@@ -135,7 +141,7 @@ def test_end_to_end(setup_and_cleanup):
     #     '2018-02-15,0.375,\n',
     #     '2018-03-17,0.75,\n'
     # ]
-    # with open(test_output_dir / 'gini.csv') as f:
+    # with open(test_metrics_dir / 'gini.csv') as f:
     #     lines = f.readlines()
     #     for idx, line in enumerate(lines):
     #         assert line == expected_gini[idx]
@@ -144,7 +150,7 @@ def test_end_to_end(setup_and_cleanup):
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2018-02-15,1,\n', '2018-03-17,1,\n'
     ]
-    with open(test_output_dir / 'nakamoto_coefficient.csv') as f:
+    with open(test_metrics_dir / 'nakamoto_coefficient.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_nc[idx]
@@ -154,14 +160,16 @@ def test_end_to_end(setup_and_cleanup):
         (datetime.date(2020, 12, 1), datetime.date(2020, 12, 31)),
         estimation_window=31,
         frequency=31,
-        interim_dir=test_output_dir
+        interim_dir=test_output_dir,
+        results_dir=test_output_dir,
+        population_windows=0
     )
 
     expected_entropy = [
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2020-12-16,,1.9219280948873623\n'
     ]
-    with open(test_output_dir / 'entropy=1.csv') as f:
+    with open(test_metrics_dir / 'entropy=1.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_entropy[idx]
@@ -170,7 +178,7 @@ def test_end_to_end(setup_and_cleanup):
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2020-12-16,,0.15\n'
     ]
-    with open(test_output_dir / 'gini.csv') as f:
+    with open(test_metrics_dir / 'gini.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_gini[idx]
@@ -179,7 +187,7 @@ def test_end_to_end(setup_and_cleanup):
         'timeframe,sample_bitcoin,sample_cardano\n',
         '2020-12-16,,2\n'
     ]
-    with open(test_output_dir / 'nakamoto_coefficient.csv') as f:
+    with open(test_metrics_dir / 'nakamoto_coefficient.csv') as f:
         lines = f.readlines()
         for idx, line in enumerate(lines):
             assert line == expected_nc[idx]
