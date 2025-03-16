@@ -32,7 +32,7 @@ def collect_data(ledgers, from_block, to_date):
 
     for ledger in ledgers:
         file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
-        logging.info(f"Querying {ledger}..")
+        logging.info(f"Querying {ledger} from block {from_block[ledger]} until {to_date}..")
 
         query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else "-1").replace("{{timestamp}}", to_date)
         query_job = client.query(query)
@@ -40,9 +40,13 @@ def collect_data(ledgers, from_block, to_date):
             rows = query_job.result()
             logging.info(f'Done querying {ledger}')
         except Exception as e:
-            logging.info(f'{ledger} query failed, please make sure it is properly defined.')
-            logging.info(f'The following exception was raised: {repr(e)}')
-            continue
+            if 'Quota exceeded' in repr(e):
+                logging.info(f'Quota exceeded for this service account key. Aborting..')
+                break
+            else:
+                logging.info(f'{ledger} query failed, please make sure it is properly defined.')
+                logging.info(f'The following exception was raised: {repr(e)}\n')
+                continue
 
         logging.info(f"Writing {ledger} data to file..")
         # Append result to file
