@@ -1,7 +1,7 @@
 # Aggregator
 
-The aggregator obtains the mapped data of a ledger (from `processed_data/<project_name>/mapped_data.json`) and 
-aggregates it over units of time that are determined based on the given `timeframe` and `aggregate_by` parameters.
+The aggregator obtains the mapped data of a ledger (from `processed_data/<project_name>/mapped_data_<(non_)clustered>.json`) 
+and aggregates it over units of time that are determined based on the given `timeframe` and `aggregate_by` parameters.
 It then outputs a `csv` file with the distribution of blocks to entities for each time unit under consideration.
 This file is saved in the directory `processed_data/<project name>/blocks_per_entity/` and is named based on the 
 `timeframe` and `aggregate_by` parameters.

@@ -16,6 +16,10 @@ def analyze(projects, aggregated_data_filename, input_dir, output_dir, populatio
     Calculates all available metrics for the given ledgers and timeframes. Outputs one file for each metric.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
     :param aggregated_data_filename: string that corresponds to the name of the file that contains the aggregated data
+    :param input_dir: the directory where the aggregated data is located
+    :param output_dir: the directory to save the results in
+    :param population_windows: the number of windows to look backwards and forwards to determine the population of
+    active block producers for a given time period
     :returns: a list with the names of all the metrics that were used
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
