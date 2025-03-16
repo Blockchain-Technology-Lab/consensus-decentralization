@@ -4,7 +4,7 @@ import shutil
 import pytest
 from consensus_decentralization.helper import INTERIM_DIR
 from consensus_decentralization.aggregate import aggregate, Aggregator, divide_timeframe
-from consensus_decentralization.helper import get_clustering_flag, get_aggregated_data_dir_name
+from consensus_decentralization.helper import get_clustering_flag
 
 
 @pytest.fixture

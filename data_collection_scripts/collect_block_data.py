@@ -41,7 +41,7 @@ def collect_data(ledgers, from_block, to_date):
             logging.info(f'Done querying {ledger}')
         except Exception as e:
             if 'Quota exceeded' in repr(e):
-                logging.info(f'Quota exceeded for this service account key. Aborting..')
+                logging.info('Quota exceeded for this service account key. Aborting..')
                 break
             else:
                 logging.info(f'{ledger} query failed, please make sure it is properly defined.')
