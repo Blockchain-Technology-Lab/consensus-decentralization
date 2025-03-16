@@ -1,6 +1,6 @@
 import shutil
 import pytest
-from consensus_decentralization.helper import OUTPUT_DIR
+from consensus_decentralization.helper import INTERIM_DIR
 from consensus_decentralization.analyze import analyze
 
 
@@ -12,7 +12,7 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Set up
-    test_io_dir = OUTPUT_DIR / "test_output"
+    test_io_dir = INTERIM_DIR / "test_output"
     test_bitcoin_dir = test_io_dir / "sample_bitcoin"
     test_bitcoin_dir.mkdir(parents=True, exist_ok=True)
     # create files that would be the output of aggregation

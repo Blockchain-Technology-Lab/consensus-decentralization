@@ -2,7 +2,7 @@ import datetime
 import json
 import shutil
 import pytest
-from consensus_decentralization.helper import OUTPUT_DIR
+from consensus_decentralization.helper import INTERIM_DIR
 from consensus_decentralization.aggregate import aggregate, Aggregator, divide_timeframe
 
 
@@ -14,7 +14,7 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Set up
-    test_io_dir = OUTPUT_DIR / "test_output"
+    test_io_dir = INTERIM_DIR / "test_output"
     yield test_io_dir
     # Clean up
     shutil.rmtree(test_io_dir)

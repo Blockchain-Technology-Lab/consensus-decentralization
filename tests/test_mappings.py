@@ -12,7 +12,7 @@ from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
 from consensus_decentralization.mappings.tezos_mapping import TezosMapping
-from consensus_decentralization.helper import RAW_DATA_DIR, OUTPUT_DIR
+from consensus_decentralization.helper import RAW_DATA_DIR, INTERIM_DIR
 
 
 @pytest.fixture
@@ -32,7 +32,7 @@ def setup_and_cleanup():
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
     test_raw_data_dir = RAW_DATA_DIR
-    test_output_dir = OUTPUT_DIR / "test_output"
+    test_output_dir = INTERIM_DIR / "test_output"
     # Create the output directory for each project (as this is typically done in the run.py script before parsing or
     # mapping takes place)
     for project in ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos']:

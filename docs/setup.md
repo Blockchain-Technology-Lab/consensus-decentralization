@@ -65,5 +65,6 @@ specified ledger. By default, this flag is set to False and no plots are generat
 is set to False and no animated plots are generated. Note that this flag is ignored if `--plot` is set to False.
 
 
-All output files can then be found under the `output/` directory, which is automatically created the first time the tool
-is run.
+All output files can then be found under the `results/` directory, which is automatically created the first time the 
+tool is run. Interim files that are produced by some modules and are used by others can be found under the 
+`processed_data/` directory.

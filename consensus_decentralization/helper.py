@@ -14,8 +14,9 @@ from yaml import safe_load
 
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
 RAW_DATA_DIR = ROOT_DIR / 'raw_block_data'
-OUTPUT_DIR = ROOT_DIR / 'output'
+INTERIM_DIR = ROOT_DIR / 'processed_data'
 MAPPING_INFO_DIR = ROOT_DIR / 'mapping_information'
+RESULTS_DIR = ROOT_DIR / 'results'
 
 with open(ROOT_DIR / "config.yaml") as f:
     config = safe_load(f)
@@ -294,7 +295,7 @@ def read_mapped_project_data(project_dir):
     :param project_dir: pathlib.PosixPath object of the output directory corresponding to the project
     :returns: a dictionary with the mapped data
     """
-    with open(project_dir / 'mapped_data.json') as f:
+    with open(project_dir / get_mapped_data_filename(get_clustering_flag())) as f:
         data = json.load(f)
     return data
 
@@ -307,6 +308,15 @@ def get_representative_dates(time_chunks):
         the representative date.
     """
     return [str(chunk[0] + (chunk[1] - chunk[0]) // 2) for chunk in time_chunks]
+
+
+def get_aggregated_data_dir_name(clustering_flag):
+    """
+    Determines the name of the directory that will contain the aggregated data
+    :param clustering_flag: boolean that determines whether the data is clustered or not
+    :returns: str that corresponds to the name of the directory
+    """
+    return 'blocks_per_entity_' + ('clustered' if clustering_flag else 'non_clustered')
 
 
 def get_blocks_per_entity_filename(timeframe, estimation_window, frequency):
@@ -395,3 +405,35 @@ def get_force_map_flag():
         return config['execution_flags']['force_map']
     except KeyError:
         raise ValueError('Flag "force_map" missing from config file')
+
+
+def get_clustering_flag():
+    """
+    Gets the flag that determines whether to perform clustering
+    :returns: boolean
+    :raises ValueError: if the flag is not set in the config file
+    """
+    config = get_config_data()
+    try:
+        return config['analyze_flags']['clustering']
+    except KeyError:
+        raise ValueError('Flag "clustering" missing from config file')
+
+
+def get_results_dir(estimation_window, frequency, population_windows):
+    """
+    Retrieves the path to the results directory for the specific config parameters
+    :returns: pathlib.PosixPath object
+    """
+    results_dir_name = (f'{estimation_window}_day_window_with_{population_windows}_population_windows_sampled_every'
+                        f'_{frequency}_days')
+    return RESULTS_DIR / results_dir_name
+
+
+def get_mapped_data_filename(clustering_flag):
+    """
+    Retrieves the filename of the mapped data file
+    :param clustering_flag: boolean that determines whether the data is clustered or not
+    :returns: str
+    """
+    return 'mapped_data_' + ('clustered' if clustering_flag else 'non_clustered') + '.json'

@@ -9,7 +9,7 @@ from consensus_decentralization.parsers.dummy_parser import DummyParser
 from consensus_decentralization.map import ledger_mapping
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
-from consensus_decentralization.helper import OUTPUT_DIR, config
+from consensus_decentralization.helper import INTERIM_DIR, config
 import pytest
 
 
@@ -21,7 +21,7 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Set up
-    test_output_dir = OUTPUT_DIR / "test_output"
+    test_output_dir = INTERIM_DIR / "test_output"
     ledger_mapping['sample_bitcoin'] = DefaultMapping
     ledger_parser['sample_bitcoin'] = DefaultParser
     ledger_mapping['sample_cardano'] = CardanoMapping
@@ -81,7 +81,7 @@ def test_end_to_end(setup_and_cleanup):
         (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31)),
         estimation_window=None,
         frequency=None,
-        output_dir=test_output_dir
+        interim_dir=test_output_dir
     )
 
     expected_entropy = [
@@ -116,7 +116,7 @@ def test_end_to_end(setup_and_cleanup):
         (datetime.date(2018, 2, 1), datetime.date(2018, 3, 31)),
         estimation_window=30,
         frequency=30,
-        output_dir=test_output_dir
+        interim_dir=test_output_dir
     )
 
     expected_entropy = [
@@ -154,7 +154,7 @@ def test_end_to_end(setup_and_cleanup):
         (datetime.date(2020, 12, 1), datetime.date(2020, 12, 31)),
         estimation_window=31,
         frequency=31,
-        output_dir=test_output_dir
+        interim_dir=test_output_dir
     )
 
     expected_entropy = [

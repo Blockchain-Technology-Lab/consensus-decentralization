@@ -4,7 +4,7 @@ import shutil
 import pytest
 from consensus_decentralization.helper import get_pool_identifiers, get_pool_legal_links, get_known_addresses, \
     get_pool_clusters, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
-    get_timeframe_end, get_time_period, get_ledgers, valid_date, OUTPUT_DIR, get_blocks_per_entity_filename, \
+    get_timeframe_end, get_time_period, get_ledgers, valid_date, INTERIM_DIR, get_blocks_per_entity_filename, \
     get_representative_dates
 from consensus_decentralization.map import ledger_mapping
 
@@ -17,7 +17,7 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Setting up
-    test_output_dir = OUTPUT_DIR / "test_output"
+    test_output_dir = INTERIM_DIR / "test_output"
     test_output_dir.mkdir(parents=True, exist_ok=True)
     yield test_output_dir
     # Cleaning up
