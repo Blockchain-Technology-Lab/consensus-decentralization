@@ -58,8 +58,8 @@ analyzed. If only the timeframe is specified, all ledgers will be analyzed for
 the given timeframe. If no arguments are given, all ledgers will be analyzed for
 all months since January 2018.
 
-Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the `output` directory, containing the data from the 
-last execution of `run.py`.
+Three files `nc.csv`, `gini.csv`, `entropy.csv` are also created in the `results` directory, containing the data from 
+the last execution of `run.py`.
 
 ## Contributing
 
