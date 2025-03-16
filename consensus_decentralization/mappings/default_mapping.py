@@ -1,4 +1,5 @@
 import json
+
 import consensus_decentralization.helper as hlp
 
 
@@ -9,8 +10,6 @@ class DefaultMapping:
 
     :ivar project_name: the name of the project associated with a specific mapping instance
     :ivar output_dir: the directory that includes the parsed data related to the project
-    :ivar mapped_data_dir: the directory to save the mapped data files in
-    :ivar multi_pool_dir: the directory to save the multi pool data files in
     :ivar data_to_map: a list with the parsed data of the project (list of dictionaries with block information
     :ivar special_addresses: a set with the special addresses of the project (addresses that don't count in the
     context of out analysis)
@@ -45,7 +44,7 @@ class DefaultMapping:
         project.
         :returns: a list of dictionaries (mapped block data)
         """
-        clustering_flag = hlp.get_config_data()['analyze_flags']['clustering']
+        clustering_flag = hlp.get_clustering_flag()
         for block in self.data_to_map:
             if not clustering_flag:
                 entity = self.fallback_mapping(block)
@@ -83,7 +82,7 @@ class DefaultMapping:
             })
 
         if len(self.mapped_data) > 0:
-            self.write_mapped_data()
+            self.write_mapped_data(clustering_flag)
         self.write_multi_pool_files()
 
         return self.mapped_data
@@ -187,11 +186,12 @@ class DefaultMapping:
             with open(self.output_dir / 'multi_pool_blocks.csv', 'w') as f:
                 f.write('Block No,Timestamp,Entities\n' + '\n'.join(self.multi_pool_blocks))
 
-    def write_mapped_data(self):
+    def write_mapped_data(self, clustering_flag):
         """
         Writes the mapped data into a file in a directory associated with the mapping instance. Specifically,
         into a folder named after the project, inside the general output directory
+        :param clustering_flag: boolean, indicating whether clustering was used in the mapping process
         """
-        filename = 'mapped_data.json'
+        filename = hlp.get_mapped_data_filename(clustering_flag)
         with open(self.output_dir / filename, 'w') as f:
             json.dump(self.mapped_data, f, indent=4)

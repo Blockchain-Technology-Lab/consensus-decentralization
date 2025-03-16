@@ -12,16 +12,16 @@ class Aggregator:
     blocks they produced
     """
 
-    def __init__(self, project, io_dir):
+    def __init__(self, project, io_dir, mapped_data=None):
         """
         :param project: str. Name of the project
         :param io_dir: Path. Path to the project's output directory
         """
         self.project = project
-        self.data_to_aggregate = hlp.read_mapped_project_data(io_dir)
+        self.data_to_aggregate = hlp.read_mapped_project_data(io_dir) if mapped_data is None else mapped_data
         self.data_start_date = hlp.get_timeframe_beginning(hlp.get_date_from_block(self.data_to_aggregate[0]))
         self.data_end_date = hlp.get_timeframe_beginning(hlp.get_date_from_block(self.data_to_aggregate[-1]))
-        self.aggregated_data_dir = io_dir / 'blocks_per_entity'
+        self.aggregated_data_dir = io_dir / hlp.get_aggregated_data_dir_name(hlp.get_clustering_flag())
         self.aggregated_data_dir.mkdir(parents=True, exist_ok=True)
 
         self.monthly_data_breaking_points = [(self.data_start_date.strftime('%Y-%m'), 0)]
@@ -89,7 +89,7 @@ def divide_timeframe(timeframe, estimation_window, frequency):
     return time_chunks
 
 
-def aggregate(project, output_dir, timeframe, estimation_window, frequency, force_aggregate):
+def aggregate(project, output_dir, timeframe, estimation_window, frequency, force_aggregate, mapped_data=None):
     """
     Aggregates the results of the mapping process for the given project and timeframe. The results are saved in a csv
     file in the project's output directory. Note that the output file is created (just with the headers) even if there
@@ -113,7 +113,7 @@ def aggregate(project, output_dir, timeframe, estimation_window, frequency, forc
             raise ValueError('The estimation window is too large for the given timeframe')
 
     project_io_dir = output_dir / project
-    aggregator = Aggregator(project, project_io_dir)
+    aggregator = Aggregator(project, project_io_dir, mapped_data=mapped_data)
 
     filename = hlp.get_blocks_per_entity_filename(timeframe=timeframe, estimation_window=estimation_window, frequency=frequency)
     output_file = aggregator.aggregated_data_dir / filename

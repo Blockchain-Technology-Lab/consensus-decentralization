@@ -1,4 +1,5 @@
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
+import consensus_decentralization.helper as hlp
 
 
 class DummyMapping(DefaultMapping):
@@ -28,6 +29,6 @@ class DummyMapping(DefaultMapping):
             })
 
         if len(self.mapped_data) > 0:
-            self.write_mapped_data()
+            self.write_mapped_data(hlp.get_clustering_flag())
 
         return self.mapped_data
