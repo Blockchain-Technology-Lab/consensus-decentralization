@@ -29,8 +29,9 @@ The metrics that have been implemented so far are the following:
    or the redundancy, in a population. In practice, it is calculated as the maximum possible entropy minus the observed
    entropy. The output is a real number. Values close to 0 indicate equality and values towards infinity indicate
    inequality. Therefore, a high Theil Index suggests a population that is highly centralized.
-6. **Max power ratio**: The max power ratio represents the share of blocks that are produced by the most "powerful"
-   entity, i.e. the entity that produces the most blocks. The output of the metric is a decimal number in [0,1].
+6. **Concentration ratio**: The n-concentration ratio represents the share of blocks that are produced by the n most 
+   "powerful" entities, i.e. the entities that produce the most blocks. The output of the metric is a decimal 
+   number in [0,1]. Values typically used are the 1-concentration ratio and the 3-concentration ratio.
 7. **Tau-decentralization index**: The tau-decentralization index is a generalization of the Nakamoto coefficient.
    It is defined as the minimum number of entities that collectively produce more than a given threshold of the total
    blocks within a given timeframe. The threshold parameter is a decimal in [0, 1] (0.66 by default) and the output of

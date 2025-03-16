@@ -1,5 +1,5 @@
 from consensus_decentralization.metrics import (entropy, gini, nakamoto_coefficient, herfindahl_hirschman_index,
-                                                theil_index, max_power_ratio, tau_index, total_entities)
+                                                theil_index, concentration_ratio, tau_index, total_entities)
 import numpy as np
 
 
@@ -72,6 +72,9 @@ def test_gini():
     g6 = gini.compute_gini([0, 0])
     assert g6 is None
 
+    g7 = gini.compute_gini([1])
+    assert g7 == 0
+
 
 def test_nc():
     nc1 = nakamoto_coefficient.compute_nakamoto_coefficient([3, 2, 1])
@@ -137,21 +140,36 @@ def test_compute_theil_index():
     assert theil_t == 0
 
 
-def test_compute_max_power_ratio():
-    max_mpr = max_power_ratio.compute_max_power_ratio([3, 2, 1])
-    assert max_mpr == 0.5
+def test_compute_concentration_ratio():
+    cr1 = concentration_ratio.compute_concentration_ratio([3, 2, 1], 1)
+    assert cr1 == 0.5
 
-    max_mpr = max_power_ratio.compute_max_power_ratio([3, 2, 1, 1, 1, 1])
-    assert max_mpr == 1 / 3
+    cr3 = concentration_ratio.compute_concentration_ratio([3, 2, 1], 3)
+    assert cr3 == 1
 
-    max_mpr = max_power_ratio.compute_max_power_ratio([1])
-    assert max_mpr == 1
+    cr1 = concentration_ratio.compute_concentration_ratio([3, 2, 1, 1, 1, 1], 1)
+    assert cr1 == 1 / 3
 
-    max_mpr = max_power_ratio.compute_max_power_ratio([1, 1, 1])
-    assert max_mpr == 1 / 3
+    cr3 = concentration_ratio.compute_concentration_ratio([3, 2, 1, 1, 1, 1], 3)
+    assert cr3 == 6/9
 
-    max_mpr = max_power_ratio.compute_max_power_ratio([])
-    assert max_mpr == 0
+    cr1 = concentration_ratio.compute_concentration_ratio([1], 1)
+    assert cr1 == 1
+
+    cr3 = concentration_ratio.compute_concentration_ratio([1], 3)
+    assert cr3 == 1
+
+    cr1 = concentration_ratio.compute_concentration_ratio([1, 1, 1], 1)
+    assert cr1 == 1 / 3
+
+    cr3 = concentration_ratio.compute_concentration_ratio([1, 1, 1], 3)
+    assert cr3 == 1
+
+    cr1 = concentration_ratio.compute_concentration_ratio([], 1)
+    assert cr1 == 0
+
+    cr3 = concentration_ratio.compute_concentration_ratio([], 3)
+    assert cr3 == 0
 
 
 def test_tau_33():
