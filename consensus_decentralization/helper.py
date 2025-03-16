@@ -191,11 +191,13 @@ def write_blocks_per_entity_to_file(output_dir, blocks_per_entity, dates, filena
             csv_writer.writerow(entity_row)
 
 
-def get_blocks_per_entity_from_file(filepath):
+def get_blocks_per_entity_from_file(filepath, population_windows):
     """
     Retrieves information about the number of blocks that each entity produced over some timeframe for some project.
     :param filepath: the path to the file with the relevant information. It can be either an absolute or a relative
     path in either a pathlib.PosixPath object or a string.
+    :param population_windows: int representing the number of windows to look back and forward when determining if an
+    entity is active during a certain time frame
     :returns: a tuple of length 2 where the first item is a list of time chunks (strings) and the second item is a
     dictionary with entities (keys) and a list of the number of blocks they produced during each time chunk (values)
     """
@@ -207,7 +209,17 @@ def get_blocks_per_entity_from_file(filepath):
         for row in csv_reader:
             entity = row[0]
             for idx, item in enumerate(row[1:]):
-                if item != '0':
+                if item == '0':
+                    if population_windows == 'all':
+                        blocks_per_entity[entity][dates[idx]] = 0
+                    else:
+                        # If the entity hasn't produced any blocks in the current time chunk, we only consider it as
+                        # active if it has produced at least one block in population_windows time chunks before or after
+                        # (otherwise it's not considered part of the population for this time frame)
+                        for i in range(max(0, idx - population_windows), min(len(row) - 1, idx + population_windows + 1)):
+                            if row[i + 1] != '0':
+                                blocks_per_entity[entity][dates[idx]] = 0
+                else:
                     blocks_per_entity[entity][dates[idx]] = int(item)
     return dates, blocks_per_entity
 
@@ -371,6 +383,21 @@ def get_estimation_window_and_frequency():
         return estimation_window, frequency
     except KeyError:
         raise ValueError('"estimation_window" or "frequency" missing from config file')
+
+
+def get_population_windows():
+    """
+    Retrieves the number of windows to be used for estimating the population of block producers
+    :returns: int representing the number of windows to look back and forward when determining if an entity is active
+    during a certain time frame
+    :raises ValueError: if the population_windows field is missing from the config file
+    """
+    try:
+        config = get_config_data()
+        population_windows = config['population_windows']
+        return population_windows
+    except KeyError:
+        raise ValueError('"population_windows" missing from config file')
 
 
 def get_plot_flag():

@@ -18,7 +18,7 @@ def process_data(force_map, ledger_dir, ledger, output_dir):
     return None
 
 
-def main(ledgers, timeframe, estimation_window, frequency, interim_dir=hlp.INTERIM_DIR,
+def main(ledgers, timeframe, estimation_window, frequency, population_windows, interim_dir=hlp.INTERIM_DIR,
          results_dir=hlp.RESULTS_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
@@ -59,6 +59,7 @@ def main(ledgers, timeframe, estimation_window, frequency, interim_dir=hlp.INTER
     used_metrics = analyze(
         projects=ledgers,
         aggregated_data_filename=aggregated_data_filename,
+        population_windows=population_windows,
         input_dir=interim_dir,
         output_dir=metrics_dir
     )
@@ -80,8 +81,9 @@ if __name__ == '__main__':
     ledgers = hlp.get_ledgers()
 
     estimation_window, frequency = hlp.get_estimation_window_and_frequency()
+    population_windows = hlp.get_population_windows()
 
-    results_dir = hlp.get_results_dir(estimation_window, frequency)
+    results_dir = hlp.get_results_dir(estimation_window, frequency, population_windows)
     results_dir.mkdir(parents=True, exist_ok=True)
 
     start_date, end_date = hlp.get_start_end_dates()
@@ -92,6 +94,6 @@ if __name__ == '__main__':
                          'the first date.')
     timeframe = (timeframe_start, timeframe_end)
 
-    main(ledgers, timeframe, estimation_window, frequency, results_dir=results_dir)
+    main(ledgers, timeframe, estimation_window, frequency, population_windows, results_dir=results_dir)
 
     logging.info('Done. Please check the output directory for results.')

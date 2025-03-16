@@ -11,7 +11,7 @@ from consensus_decentralization.metrics.tau_index import compute_tau_index  # no
 from consensus_decentralization.metrics.total_entities import compute_total_entities  # noqa: F401
 
 
-def analyze(projects, aggregated_data_filename, output_dir):
+def analyze(projects, aggregated_data_filename, input_dir, output_dir, population_windows):
     """
     Calculates all available metrics for the given ledgers and timeframes. Outputs one file for each metric.
     :param projects: list of strings that correspond to the ledgers whose data should be analyzed
@@ -20,6 +20,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
 
     Using multiple projects and timeframes is necessary here to produce collective csv files.
     """
+
     logging.info('Calculating metrics on aggregated data..')
     metrics = hlp.get_metrics_config()
     metric_params = []
@@ -30,6 +31,7 @@ def analyze(projects, aggregated_data_filename, output_dir):
         else:
             metric_params.append((key, key, None))
     metric_names = [name for name, _, _ in metric_params]
+    clustering_flag = hlp.get_clustering_flag()
 
     aggregate_output = {}
 
@@ -42,8 +44,9 @@ def analyze(projects, aggregated_data_filename, output_dir):
     for column_index, project in enumerate(projects):
         logging.info(f'Calculating {project} metrics')
         aggregate_output[project] = {}
-        aggregated_data_dir = output_dir / project / 'blocks_per_entity'
-        dates, blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir / aggregated_data_filename)
+        aggregated_data_dir = input_dir / project / hlp.get_aggregated_data_dir_name(clustering_flag)
+        dates, blocks_per_entity = hlp.get_blocks_per_entity_from_file(aggregated_data_dir /
+                                                                       aggregated_data_filename, population_windows)
         for date in dates:
             aggregate_output[project][date] = {}
 
@@ -80,7 +83,6 @@ def analyze(projects, aggregated_data_filename, output_dir):
             csv_writer = csv.writer(f)
             csv_writer.writerows(csv_contents[metric])
 
-    clustering_flag = hlp.get_config_data()['analyze_flags']['clustering']
     aggregate_csv_output = [['ledger', 'date', 'clustering'] + metric_names]
     for project, timeframes in aggregate_output.items():
         for date, results in timeframes.items():
