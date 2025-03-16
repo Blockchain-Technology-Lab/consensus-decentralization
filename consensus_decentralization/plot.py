@@ -245,14 +245,17 @@ def plot_comparative_metrics(ledgers, metrics, metrics_dir, output_dir, animated
                 )
 
 
-def plot(ledgers, metrics, aggregated_data_filename, animated, metrics_dir, figures_dir):
+def plot(ledgers, metrics, aggregated_data_filename, animated, metrics_dir, figures_dir, plot_dynamics=False):
     logging.info("Creating plots..")
-    #plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename, output_dir=
-    # figures_dir, animated=False, legend=True)
-    plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=False, metrics_dir=metrics_dir, output_dir=figures_dir)
-    if animated:
+    if plot_dynamics:
         plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename,
-                                 output_dir=figures_dir, animated=True)
+                                 output_dir=figures_dir, animated=False, legend=True)
+    plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=False, metrics_dir=metrics_dir,
+                             output_dir=figures_dir)
+    if animated:
+        if plot_dynamics:
+            plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename,
+                                     output_dir=figures_dir, animated=True)
         plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=True, metrics_dir=metrics_dir, output_dir=figures_dir)
 
 
