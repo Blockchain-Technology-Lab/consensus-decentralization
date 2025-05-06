@@ -1,6 +1,6 @@
 import shutil
 import pytest
-from consensus_decentralization.helper import OUTPUT_DIR
+from consensus_decentralization.helper import INTERIM_DIR, get_clustering_flag
 from consensus_decentralization.analyze import analyze
 
 
@@ -12,7 +12,7 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Set up
-    test_io_dir = OUTPUT_DIR / "test_output"
+    test_io_dir = INTERIM_DIR / "test_output"
     test_bitcoin_dir = test_io_dir / "sample_bitcoin"
     test_bitcoin_dir.mkdir(parents=True, exist_ok=True)
     # create files that would be the output of aggregation
@@ -32,11 +32,16 @@ def setup_and_cleanup():
         'year_from_2010-01-01_to_2010-12-31':
             'Entity \\ Date,2010\n'
         }
-    aggregated_data_path = test_bitcoin_dir / 'blocks_per_entity'
+    aggregated_data_path = test_bitcoin_dir / 'blocks_per_entity_clustered'
     aggregated_data_path.mkdir(parents=True, exist_ok=True)
     for filename, content in csv_per_file.items():
-        with open(test_bitcoin_dir / f'blocks_per_entity/{filename}.csv', 'w') as f:
+        with open(aggregated_data_path / f'{filename}.csv', 'w') as f:
             f.write(content)
+    # Create metrics directory
+    metrics_dir = test_io_dir / "metrics"
+    metrics_dir.mkdir(parents=True, exist_ok=True)
+    # Mock return value of get_clustering_flag
+    get_clustering_flag.return_value = True
     yield test_io_dir
     # Clean up
     shutil.rmtree(test_io_dir)
@@ -49,12 +54,14 @@ def test_analyze(setup_and_cleanup):
     analyze(
         projects=projects,
         aggregated_data_filename='year_from_2018-01-01_to_2018-12-31.csv',
-        output_dir=test_output_dir
+        input_dir=test_output_dir,
+        output_dir=test_output_dir / 'metrics',
+        population_windows=0
     )
 
     metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
     for metric in metrics:
-        output_file = test_output_dir / f'{metric}.csv'
+        output_file = test_output_dir / 'metrics' / f'{metric}.csv'
         assert output_file.is_file()
 
         with open(output_file) as f:
@@ -70,12 +77,14 @@ def test_analyze(setup_and_cleanup):
     analyze(
         projects=projects,
         aggregated_data_filename='month_from_2018-02-01_to_2018-03-31.csv',
-        output_dir=test_output_dir
+        input_dir=test_output_dir,
+        output_dir=test_output_dir / 'metrics',
+        population_windows=0
     )
 
     metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
     for metric in metrics:
-        output_file = test_output_dir / f'{metric}.csv'
+        output_file = test_output_dir / 'metrics' / f'{metric}.csv'
         assert output_file.is_file()
 
         with open(output_file) as f:
@@ -94,12 +103,14 @@ def test_analyze(setup_and_cleanup):
     analyze(
         projects=projects,
         aggregated_data_filename='year_from_2010-01-01_to_2010-12-31.csv',
-        output_dir=test_output_dir
+        input_dir=test_output_dir,
+        output_dir=test_output_dir / 'metrics',
+        population_windows=0
     )
 
     metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
     for metric in metrics:
-        output_file = test_output_dir / f'{metric}.csv'
+        output_file = test_output_dir / 'metrics' / f'{metric}.csv'
         assert output_file.is_file()
 
         with open(output_file) as f:

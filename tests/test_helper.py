@@ -4,7 +4,7 @@ import shutil
 import pytest
 from consensus_decentralization.helper import get_pool_identifiers, get_pool_legal_links, get_known_addresses, \
     get_pool_clusters, write_blocks_per_entity_to_file, get_blocks_per_entity_from_file, get_timeframe_beginning, \
-    get_timeframe_end, get_time_period, get_ledgers, valid_date, OUTPUT_DIR, get_blocks_per_entity_filename, \
+    get_timeframe_end, get_time_period, get_ledgers, valid_date, INTERIM_DIR, get_blocks_per_entity_filename, \
     get_representative_dates
 from consensus_decentralization.map import ledger_mapping
 
@@ -17,7 +17,7 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Setting up
-    test_output_dir = OUTPUT_DIR / "test_output"
+    test_output_dir = INTERIM_DIR / "test_output"
     test_output_dir.mkdir(parents=True, exist_ok=True)
     yield test_output_dir
     # Cleaning up
@@ -82,16 +82,25 @@ def test_committed_pool_data():
 def test_write_read_blocks_per_entity(setup_and_cleanup):
     output_dir = setup_and_cleanup
 
-    blocks_per_entity = {'Entity 1': {'2018': 1, '2019': 3}, 'Entity 2': {'2018': 2, '2019': 2}}
+    blocks_per_entity = {
+        'Entity 1': {'2018': 1, '2019': 3, '2020': 2, '2021': 3},
+        'Entity 2': {'2018': 2, '2019': 2, '2021': 1},
+        'Entity 3': {'2018': 2},
+        'Entity 4': {'2021': 1}
+    }
 
-    write_blocks_per_entity_to_file(output_dir=output_dir, blocks_per_entity=blocks_per_entity, dates=['2018', '2019'],
-                                    filename='test.csv')
+    write_blocks_per_entity_to_file(output_dir=output_dir, blocks_per_entity=blocks_per_entity,
+                                    dates=['2018', '2019', '2020', '2021'], filename='test.csv')
 
-    dates, bpe = get_blocks_per_entity_from_file(output_dir / 'test.csv')
+    dates, bpe = get_blocks_per_entity_from_file(output_dir / 'test.csv', population_windows=1)
 
-    assert all(len(nblocks) == len(dates) for nblocks in bpe.values())
-    assert dates == ['2018', '2019']
-    assert all([bpe['Entity 1'] == {'2018': 1, '2019': 3}, bpe['Entity 2'] == {'2018': 2, '2019': 2}])
+    assert dates == ['2018', '2019', '2020', '2021']
+    assert all([
+        bpe['Entity 1'] == {'2018': 1, '2019': 3, '2020': 2, '2021': 3},
+        bpe['Entity 2'] == {'2018': 2, '2019': 2, '2020': 0, '2021': 1},
+        bpe['Entity 3'] == {'2018': 2, '2019': 0},
+        bpe['Entity 4'] == {'2020': 0, '2021': 1}
+    ])
 
 
 def test_valid_date():

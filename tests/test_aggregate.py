@@ -2,8 +2,9 @@ import datetime
 import json
 import shutil
 import pytest
-from consensus_decentralization.helper import OUTPUT_DIR
+from consensus_decentralization.helper import INTERIM_DIR
 from consensus_decentralization.aggregate import aggregate, Aggregator, divide_timeframe
+from consensus_decentralization.helper import get_clustering_flag
 
 
 @pytest.fixture
@@ -14,7 +15,9 @@ def setup_and_cleanup():
     after (cleanup)
     """
     # Set up
-    test_io_dir = OUTPUT_DIR / "test_output"
+    test_io_dir = INTERIM_DIR / "test_output"
+    # Mock return value of get_clustering_flag
+    get_clustering_flag.return_value = True
     yield test_io_dir
     # Clean up
     shutil.rmtree(test_io_dir)
@@ -41,7 +44,7 @@ def mock_sample_bitcoin_mapped_data(setup_and_cleanup):
                   '{"number": "649064", "timestamp": "2020-09-20 11:17:00 UTC", "reward_addresses": "0000000000000000000000000000000000000000", "creator": "TEST2", "mapping_method": "known_identifiers"},' \
                   '{"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "reward_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX", "creator": "ViaBTC", "mapping_method": "known_identifiers"}' \
                   ']'
-    with open(test_bitcoin_dir / 'mapped_data.json', 'w') as f:
+    with open(test_bitcoin_dir / 'mapped_data_clustered.json', 'w') as f:
         f.write(mapped_data)
     return json.loads(mapped_data)
 
@@ -64,7 +67,7 @@ def mock_sample_ethereum_mapped_data(setup_and_cleanup):
                   '{"number":"11184329","timestamp":"2020-11-03 12:56:41 UTC","reward_addresses":"0x8595dd9e0438640b5e1254f9df579ac12a86865f","creator":"TEST", "mapping_method": "known_identifiers"},' \
                   '{"number":"11183793","timestamp":"2020-11-03 10:56:07 UTC","reward_addresses":"0x8595dd9e0438640b5e1254f9df579ac12a86865f","creator":"TEST", "mapping_method": "known_identifiers"}' \
                   ']'
-    with open(test_ethereum_dir / 'mapped_data.json', 'w') as f:
+    with open(test_ethereum_dir / 'mapped_data_clustered.json', 'w') as f:
         f.write(mapped_data)
 
 
@@ -81,7 +84,7 @@ def mock_sample_cardano_mapped_data(setup_and_cleanup):
                   '{"number":"00000000000","timestamp":"2020-12-31T06:42:00","creator":"Arrakis", "mapping_method": "known_identifiers"},' \
                   '{"number":"55555555555","timestamp":"2020-12-31T06:42:01","creator":"1percentpool", "mapping_method": "known_identifiers"}' \
                   ']'
-    with open(test_cardano_dir / 'mapped_data.json', 'w') as f:
+    with open(test_cardano_dir / 'mapped_data_clustered.json', 'w') as f:
         f.write(mapped_data)
 
 
@@ -99,7 +102,7 @@ def mock_sample_tezos_mapped_data(setup_and_cleanup):
                   '{"number": "1650474", "timestamp": "2021-08-30 06:11:58 UTC", "reward_addresses": "tz1Vd1rXpV8hTHbFXCXN3c3qzCsgcU5BZw1e", "creator": "TEST", "mapping_method": "known_addresses"},' \
                   '{"number": "1651794", "timestamp": "2021-08-30 17:41:08 UTC", "reward_addresses": "None", "creator": "----- UNDEFINED BLOCK PRODUCER -----", "mapping_method": "fallback_mapping"}' \
                   ']'
-    with open(test_tezos_dir / 'mapped_data.json', 'w') as f:
+    with open(test_tezos_dir / 'mapped_data_clustered.json', 'w') as f:
         f.write(mapped_data)
 
 
@@ -109,7 +112,7 @@ def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
     timeframe = (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31))
     aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31, frequency=31, force_aggregate=True)
 
-    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/31_day_window_from_2010-01-01_to_2010-12'
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity_clustered/31_day_window_from_2010-01-01_to_2010-12'
                                  '-31_sampled_every_31_days.csv')
     assert output_file.is_file()  # there is no data from 2010 in the sample but the aggregator still creates the file when called with this timeframe
 
@@ -119,20 +122,20 @@ def test_aggregate(setup_and_cleanup, mock_sample_bitcoin_mapped_data):
         aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=30, frequency=30,
                   force_aggregate=True)
 
-    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity/30_day_window_from_2018-02-01_to_2018-02-28_sampled_every_30_days.csv'
+    output_file = test_io_dir / 'sample_bitcoin/blocks_per_entity_clustered/30_day_window_from_2018-02-01_to_2018-02-28_sampled_every_30_days.csv'
     assert not output_file.is_file()
 
     timeframe = (datetime.date(2018, 3, 1), datetime.date(2018, 3, 31))
     aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31, frequency=31,
               force_aggregate=True)
-    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/31_day_window_from_2018-03-01_to_2018-03'
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity_clustered/31_day_window_from_2018-03-01_to_2018-03'
                                  '-31_sampled_every_31_days.csv')
     assert output_file.is_file()
 
     timeframe = (datetime.date(2021, 1, 1), datetime.date(2021, 12, 31))
     aggregate(project='sample_bitcoin', output_dir=test_io_dir, timeframe=timeframe, estimation_window=31, frequency=31,
               force_aggregate=True)
-    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/31_day_window_from_2021-01-01_to_2021-12'
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity_clustered/31_day_window_from_2021-01-01_to_2021-12'
                                  '-31_sampled_every_31_days.csv')
     assert output_file.is_file()
 
@@ -172,7 +175,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
         'GBMiners': '2\n'
     }
 
-    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/30_day_window_from_2018-02-01_to_2018-03'
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity_clustered/30_day_window_from_2018-02-01_to_2018-03'
                                  '-02_sampled_every_30_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
@@ -194,7 +197,7 @@ def test_bitcoin_aggregation(setup_and_cleanup, mock_sample_bitcoin_mapped_data)
         'Bitmain': '1\n'
     }
 
-    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity/all_from_2020-01-01_to_2020-12-31.csv')
+    output_file = test_io_dir / ('sample_bitcoin/blocks_per_entity_clustered/all_from_2020-01-01_to_2020-12-31.csv')
     with open(output_file) as f:
         for line in f.readlines():
             col_1, col_2 = line.split(',')
@@ -220,7 +223,7 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
         '0x45133a7e1cc7e18555ae8a4ee632a8a61de90df6': '1\n'
     }
 
-    output_file = test_io_dir / ('sample_ethereum/blocks_per_entity/30_day_window_from_2020-11-01_to_2020-11'
+    output_file = test_io_dir / ('sample_ethereum/blocks_per_entity_clustered/30_day_window_from_2020-11-01_to_2020-11'
                                  '-30_sampled_every_30_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
@@ -241,7 +244,7 @@ def test_ethereum_aggregation(setup_and_cleanup, mock_sample_ethereum_mapped_dat
         'MEV Builder: 0x3B...436': '1\n'
     }
 
-    output_file = test_io_dir / ('sample_ethereum/blocks_per_entity/365_day_window_from_2023-01-01_to_2023-12'
+    output_file = test_io_dir / ('sample_ethereum/blocks_per_entity_clustered/365_day_window_from_2023-01-01_to_2023-12'
                                  '-31_sampled_every_365_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
@@ -270,7 +273,7 @@ def test_cardano_aggregation(setup_and_cleanup, mock_sample_cardano_mapped_data)
         '1percentpool': '1\n'
     }
 
-    output_file = test_io_dir / ('sample_cardano/blocks_per_entity/31_day_window_from_2020-12-01_to_2020-12'
+    output_file = test_io_dir / ('sample_cardano/blocks_per_entity_clustered/31_day_window_from_2020-12-01_to_2020-12'
                                  '-31_sampled_every_31_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
@@ -298,7 +301,7 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
         '----- UNDEFINED BLOCK PRODUCER -----': '1\n'
     }
 
-    output_file = test_io_dir / ('sample_tezos/blocks_per_entity/31_day_window_from_2021-08-01_to_2021-08'
+    output_file = test_io_dir / ('sample_tezos/blocks_per_entity_clustered/31_day_window_from_2021-08-01_to_2021-08'
                                  '-31_sampled_every_31_days.csv')
     with open(output_file) as f:
         for line in f.readlines():
@@ -319,7 +322,7 @@ def test_tezos_aggregation(setup_and_cleanup, mock_sample_tezos_mapped_data):
         'tz0000000000000000000000000000000000': '1\n'
     }
 
-    output_file = test_io_dir / ('sample_tezos/blocks_per_entity/365_day_window_from_2018-01-01_to_2018-12'
+    output_file = test_io_dir / ('sample_tezos/blocks_per_entity_clustered/365_day_window_from_2018-01-01_to_2018-12'
                                  '-31_sampled_every_365_days.csv')
     with open(output_file) as f:
         for line in f.readlines():

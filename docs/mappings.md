@@ -4,8 +4,8 @@ A mapping is responsible for linking blocks to the entities that created them. W
 information about the addresses that received rewards for producing some block or identifiers that are related to them,
 it does not contain information about the entities that control these addresses, which is where the mapping comes in.
 
-The mapping takes as input the parsed data and outputs a file (`output/<project_name>/mapped_data.json`), which is
-structured as follows:
+The mapping takes as input the parsed data and outputs a file (`processed_data/<project_name>/mapped_data.json`), 
+which is structured as follows:
 
 ```
 [

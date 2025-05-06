@@ -8,3 +8,7 @@ output
 raw_block_data/*_raw_data.json
 .coverage
 site
+.ipynb_checkpoints/
+*.ipynb
+processed_data
+results

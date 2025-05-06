@@ -123,7 +123,8 @@ def plot_animated_stack_area_chart(values, execution_id, path, ylabel, legend_la
     plt.close(fig)
 
 
-def plot_dynamics_per_ledger(ledgers, aggregated_data_filename, top_k=-1, unit='relative', animated=False, legend=False):
+def plot_dynamics_per_ledger(ledgers, aggregated_data_filename, output_dir, top_k=-1, unit='relative', animated=False,
+                             legend=False):
     """
     Plots the dynamics of pools for each ledger in terms of produced blocks
     :param ledgers: list of strings representing the ledgers whose data will be plotted
@@ -137,13 +138,12 @@ def plot_dynamics_per_ledger(ledgers, aggregated_data_filename, top_k=-1, unit='
     :param legend: bool that specifies whether the plots to be generated will include a legend or not
     """
     for ledger in ledgers:
-        ledger_path = hlp.OUTPUT_DIR / ledger
-        figures_path = ledger_path / 'figures'
-        if not figures_path.is_dir():
-            figures_path.mkdir()
+        ledger_path = hlp.INTERIM_DIR / ledger
+        figures_path = output_dir / ledger
+        figures_path.mkdir(parents=True, exist_ok=True)
 
         time_chunks, blocks_per_entity = hlp.get_blocks_per_entity_from_file(
-            filepath=ledger_path / "blocks_per_entity" / aggregated_data_filename
+            filepath=ledger_path / hlp.get_aggregated_data_dir_name(hlp.get_clustering_flag()) / aggregated_data_filename
         )
 
         total_blocks_per_time_chunk = [0] * len(time_chunks)
@@ -213,13 +213,10 @@ def plot_dynamics_per_ledger(ledgers, aggregated_data_filename, top_k=-1, unit='
             )
 
 
-def plot_comparative_metrics(ledgers, metrics, animated=False):
+def plot_comparative_metrics(ledgers, metrics, metrics_dir, output_dir, animated=False):
     for metric in metrics:
-        figures_path = hlp.OUTPUT_DIR / 'figures'
-        if not figures_path.is_dir():
-            figures_path.mkdir()
-        filename = f'{metric}.csv'
-        metric_df = pd.read_csv(hlp.OUTPUT_DIR / filename)
+        metric_filepath = metrics_dir / f'{metric}.csv'
+        metric_df = pd.read_csv(metric_filepath)
         # only keep rows that contain at least one (non-nan) value in the columns that correspond to the ledgers
         metric_df = metric_df[metric_df.iloc[:, 1:].notna().any(axis=1)]
         ledger_columns_to_keep = [col for col in metric_df.columns if col in ledgers]
@@ -233,7 +230,7 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
                     x_label='Time',
                     y_label=metric,
                     filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}",
-                    path=figures_path,
+                    path=output_dir,
                     colors=colors
                 )
             else:
@@ -242,24 +239,38 @@ def plot_comparative_metrics(ledgers, metrics, animated=False):
                     x_label='Time',
                     y_label=metric,
                     filename=f"{metric}_{'_'.join(ledger_columns_to_keep)}",
-                    path=figures_path,
+                    path=output_dir,
                     xtick_labels=metric_df['timeframe'],
                     colors=colors
                 )
 
 
-def plot(ledgers, metrics, aggregated_data_filename, animated):
+def plot(ledgers, metrics, aggregated_data_filename, animated, metrics_dir, figures_dir, plot_dynamics=False):
     logging.info("Creating plots..")
-    plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename, animated=False, legend=True)
-    plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=False)
+    if plot_dynamics:
+        plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename,
+                                 output_dir=figures_dir, animated=False, legend=True)
+    plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=False, metrics_dir=metrics_dir,
+                             output_dir=figures_dir)
     if animated:
-        plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename, animated=True)
-        plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=True)
+        if plot_dynamics:
+            plot_dynamics_per_ledger(ledgers=ledgers, aggregated_data_filename=aggregated_data_filename,
+                                     output_dir=figures_dir, animated=True)
+        plot_comparative_metrics(ledgers=ledgers, metrics=metrics, animated=True, metrics_dir=metrics_dir, output_dir=figures_dir)
 
 
 if __name__ == '__main__':
     ledgers = hlp.get_ledgers()
-    default_metrics = hlp.get_metrics_config().keys()
+
+    metrics = hlp.get_metrics_config()
+    metric_params = []
+    for key, args in metrics.items():
+        if args:
+            for val in args:
+                metric_params.append((f'{key}={val}', key, val))
+        else:
+            metric_params.append((key, key, None))
+    default_metrics = [name for name, _, _ in metric_params]
 
     default_start_date, default_end_date = hlp.get_start_end_dates()
     timeframe_start = hlp.get_timeframe_beginning(default_start_date)
@@ -296,4 +307,4 @@ if __name__ == '__main__':
         help='Flag to specify whether to also generate animated plots.'
     )
     args = parser.parse_args()
-    plot(ledgers=args.ledgers, metrics=args.metrics, aggregated_data_filename=args.filename, animated=args.animated)
+    plot(ledgers=args.ledgers, metrics=args.metrics, aggregated_data_filename=args.filename, animated=args.animated, results_dir=hlp.RESULTS_DIR)

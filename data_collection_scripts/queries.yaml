@@ -45,7 +45,6 @@ ethereum:
   AND number > {{block_number}}
   ORDER BY timestamp
 
-
 litecoin:
   SELECT block_number as number, block_timestamp as timestamp, coinbase_param as identifiers, `bigquery-public-data.crypto_litecoin.transactions`.outputs
   FROM `bigquery-public-data.crypto_litecoin.transactions`
@@ -55,7 +54,6 @@ litecoin:
   AND timestamp > '2018-01-01'
   AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
-
 
 tezos:
   SELECT level as number, timestamp, baker as reward_addresses
@@ -74,4 +72,3 @@ zcash:
   AND timestamp > '2018-01-01'
   AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
-
