@@ -121,44 +121,42 @@ also possible to execute each module individually. The following process describ
 in the <code>raw_block_data/</code> directory, each file named as <code>&lt;project_name&gt;_raw_data.json</code> (e.g., <code>bitcoin_raw_data.json</code>).
 By default,
 there is a (very small) sample input file for some supported projects; to use it, remove the prefix <code>sample_</code>.</p>
-<p>Run <code>python run.py --ledgers &lt;ledger_1&gt; &lt;ledger_n&gt; --timeframe &lt;timeframe&gt; --estimation-window &lt;days to aggregate 
-blocks by&gt; --frequency &lt;days between two data points&gt;</code> to analyze the n specified ledgers for the given timeframe, 
-aggregated using the given estimation window and frequency.
-All arguments are optional, so it's possible to omit any of them; in this case, the default values
-will be used. Specifically:</p>
+<p>Run <code>python run.py</code> to run the analysis with the parameters specified in the <code>config.yaml</code> file.</p>
+<p>The parameters that can be specified in the <code>config.yaml</code> file are:</p>
 <ul>
-<li><code>ledgers</code> accepts any number of the supported ledgers (case-insensitive). For example, <code>--ledgers bitcoin</code> 
-  would run the analysis for Bitcoin, while <code>--ledgers Bitcoin Ethereum Cardano</code> would run the analysis for Bitcoin, 
-  Ethereum and Cardano. If the <code>ledgers</code> argument is omitted, then the analysis is performed for the ledgers 
-  specified in the <code>config.yaml</code> file, which are typically all supported ledgers.</li>
-<li>The <code>timeframe</code> argument accepts one or two values of the form <code>YYYY-MM-DD</code> (month and day can be
-  omitted), which indicate the beginning and end of the time period that will be analyzed. For example, 
-  <code>--timeframe 2022</code> would run the analysis for the year 2022 (so from January 1st 2022 to 
-  December 31st 2022), while we could also get the same result using <code>--timeframe 2022-01 2022-12</code> or 
-  <code>--timeframe 2022-01-01 2022-12-31</code>. Similarly, <code>--timeframe 2022-02</code> or <code>--timeframe 2022-02-01 2022-02-28</code> would 
-  do it for the month of February 2022 (February 1st 2022 to February 28th 2022), while <code>--timeframe 2022-02-03</code> 
-  would do it for a single day (Feburary 3rd 2022). Last, <code>--timeframe 2018 2022</code> would run the analysis for the 
-  entire time period between January 1st 2018 and December 31st 2022. If the <code>timeframe</code> argument is omitted, then 
-  the start date and end dates of the time frame are sourced from the <code>config.yaml</code> file.</li>
-<li><code>estimation_window</code> corresponds to the number of days that will be used to aggregate the data. For example, 
-  <code>--estimation_window 7</code> means that every data point will use 7 days of blocks to calculate the distribution of 
-  blocks to entities. If left empty, then the entire time frame will be used (only valid when combined with empty frequency).</li>
-<li><code>frequency</code> determines how frequently to sample the data, in days. If left empty, then only one data point will be 
-  analyzed (snapshot instead of longitudinal analysis), but this is only valid when combined with an empty estimation_window.</li>
-</ul>
-<p>Additionally, there are three flags that can be used to customize an execution:</p>
-<ul>
-<li><code>--force-map</code> forces the parsing, mapping and aggregation to be performed on all data, even if the relevant output
-  files already exist. This can be useful for when mapping info is updated for some blockchain. By default, this flag is
-  set to False and the tool only performs the mapping and aggregation when the relevant output files do not exist.</li>
-<li><code>--plot</code> enables the generation of graphs at the end of the execution. Specifically, the output of each 
+<li><code>metrics</code>: a list with the metrics that will be calculated. By default, includes all implemented metrics.</li>
+<li><code>ledgers</code>: a list with the ledgers that will be analyzed. By default, includes all supported ledgers.</li>
+<li><code>force-map</code>: a flag that can force the parsing, mapping and aggregation to be performed on all data, even if the
+  relevant output files already exist. This can be useful for when mapping info is updated for some blockchain. By
+  default, this flag is set to False and the tool only performs the mapping and aggregation when the relevant output
+  files do not exist.</li>
+<li><code>clustering</code>: a flag that specifies whether block producers will be clustered based on the available mapping 
+  information. By default, this flag is set to True.</li>
+<li><code>start_date</code>: a value of the form <code>YYYY-MM-DD</code> (month and day can be omitted), which indicates the beginning of the
+  time period that will be analyzed. </li>
+<li><code>end_date</code>: a value of the form <code>YYYY-MM-DD</code> (month and day can be omitted), which indicates the end of the time
+  period that will be analyzed.</li>
+<li><code>estimation_window</code>: the number of days that will be used to aggregate the data. For example,
+  <code>estimation_window 7</code> means that every data point will use 7 days of blocks to calculate the distribution of
+  blocks to entities. If left empty, then the entire time frame will be used (only valid when combined with empty
+  frequency).</li>
+<li><code>frequency</code>: number of days that determines how frequently to sample the data. If left empty, then only one data
+  point will be analyzed (snapshot instead of longitudinal analysis), but this is only valid when combined with an 
+  empty estimation_window.</li>
+<li><code>population_windows</code>: number that defines the number of windows to look back and forward when calculating the
+  population of block producers. For example, <code>population_windows 3</code>, combined with <code>estimation_window 7</code> means that the 
+  population of block producers will be calculated using the blocks produced in the 3 weeks before and after each 
+  week under consideration. If <code>all</code> is specified, then the entire time frame will be used to determine the population.</li>
+<li><code>plot</code>: a flag that enables the generation of graphs at the end of the execution. Specifically, the output of each 
 implemented metric is plotted for the specified ledgers and timeframe, as well as the block production dynamics for each
 specified ledger. By default, this flag is set to False and no plots are generated.</li>
-<li><code>--animated</code> enables the generation of (additional) animated graphs at the end of the execution. By default, this flag
-is set to False and no animated plots are generated. Note that this flag is ignored if <code>--plot</code> is set to False.</li>
+<li><code>animated</code>: a flag that enables the generation of (additional) animated graphs at the end of the execution. By 
+  default, this flag is set to False and no animated plots are generated. Note that this flag is ignored if <code>plot</code> is
+  set to False.</li>
 </ul>
-<p>All output files can then be found under the <code>output/</code> directory, which is automatically created the first time the tool
-is run.</p>
+<p>All output files can then be found under the <code>results/</code> directory, which is automatically created the first time the 
+tool is run. Interim files that are produced by some modules and are used by others can be found under the 
+<code>processed_data/</code> directory.</p>
               
             </div>
           </div><footer>

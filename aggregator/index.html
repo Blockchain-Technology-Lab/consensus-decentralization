@@ -97,11 +97,11 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="aggregator">Aggregator</h1>
-<p>The aggregator obtains the mapped data of a ledger (from <code>output/&lt;project_name&gt;/mapped_data.json</code>) and aggregates it
-over units of time that are determined based on the given <code>timeframe</code> and <code>aggregate_by</code> parameters.
+<p>The aggregator obtains the mapped data of a ledger (from <code>processed_data/&lt;project_name&gt;/mapped_data_&lt;(non_)clustered&gt;.json</code>) 
+and aggregates it over units of time that are determined based on the given <code>timeframe</code> and <code>aggregate_by</code> parameters.
 It then outputs a <code>csv</code> file with the distribution of blocks to entities for each time unit under consideration.
-This file is saved in the directory <code>output/&lt;project name&gt;/blocks_per_entity/</code> and is named based on the <code>timeframe</code>
-and <code>aggregate_by</code> parameters.
+This file is saved in the directory <code>processed_data/&lt;project name&gt;/blocks_per_entity/</code> and is named based on the 
+<code>timeframe</code> and <code>aggregate_by</code> parameters.
 For example, if the specified timeframe is from June 2023 to September 2023 and the aggregation is by month, then
 the output file would be named <code>monthly_from_2023-06-01_to_2023-09-30.csv</code> and would be structured as follows:</p>
 <pre><code>Entity \ Time period,Jun-2023,Jul-2023,Aug-2023,Sep-2023
