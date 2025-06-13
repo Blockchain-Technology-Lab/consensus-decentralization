@@ -16,13 +16,13 @@ ledger_parser = {
 }
 
 
-def parse(project, input_dir):
+def parse(ledger, input_dirs):
     """
     Parses raw data
-    :param project: string that corresponds to the ledger whose data should be parsed
-    :param input_dir: path to the directory of the raw block data
+    :param ledger: string that corresponds to the ledger whose data should be parsed
+    :param input_dirs: list of paths that point to the directories that contain raw block data
     :returns: list of dictionaries (the parsed data of the project)
     """
-    logging.info(f'Parsing {project} data..')
-    parser = ledger_parser[project](project_name=project, input_dir=input_dir)
+    logging.info(f'Parsing {ledger} data..')
+    parser = ledger_parser[ledger](ledger=ledger, input_dirs=input_dirs)
     return parser.parse()

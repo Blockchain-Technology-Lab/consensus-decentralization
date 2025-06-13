@@ -16,13 +16,10 @@ import logging
 from yaml import safe_load
 from datetime import datetime
 
-from consensus_decentralization.helper import ROOT_DIR, RAW_DATA_DIR
+from consensus_decentralization.helper import ROOT_DIR
 
 
-def collect_data(ledgers, from_block, to_date):
-    if not RAW_DATA_DIR.is_dir():
-        RAW_DATA_DIR.mkdir()
-
+def collect_data(raw_data_dir, ledgers, from_block, to_date):
     data_collection_dir = ROOT_DIR / "data_collection_scripts"
 
     with open(data_collection_dir / "queries.yaml") as f:
@@ -31,7 +28,7 @@ def collect_data(ledgers, from_block, to_date):
     client = bq.Client.from_service_account_json(json_credentials_path=data_collection_dir / "google-service-account-key.json")
 
     for ledger in ledgers:
-        file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
+        file = raw_data_dir / f'{ledger}_raw_data.json'
         logging.info(f"Querying {ledger} from block {from_block[ledger]} until {to_date}..")
 
         query = (queries[ledger]).replace("{{block_number}}", str(from_block[ledger]) if from_block[ledger] else "-1").replace("{{timestamp}}", to_date)
@@ -56,14 +53,13 @@ def collect_data(ledgers, from_block, to_date):
         logging.info(f'Done writing {ledger} data to file.\n')
 
 
-def get_last_block_collected(ledger):
+def get_last_block_collected(file):
     """
     Get the last block collected for a ledger. This is useful for knowing where to start collecting data from.
     Assumes that the data is stored in a json lines file, ordered in increasing block number.
-    :param ledger: the ledger to get the last block collected for
-    :returns: the number of the last block collected for the specified ledger
+    :param file: the file that corresponds to the ledger to get the last block collected for
+    :returns: the number of the last ledger block collected in the file
     """
-    file = RAW_DATA_DIR / f'{ledger}_raw_data.json'
     if not file.is_file():
         return None
     with open(file) as f:
@@ -95,5 +91,8 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
-    from_block = {ledger: get_last_block_collected(ledger) for ledger in args.ledgers}
-    collect_data(ledgers=args.ledgers, from_block=from_block, to_date=args.to_date)
+    raw_data_dir = hlp.get_input_directories()[0]
+    if not raw_data_dir.is_dir():
+        raw_data_dir.mkdir()
+    from_block = {ledger: get_last_block_collected(file=raw_data_dir / f'{ledger}_raw_data.json') for ledger in args.ledgers}
+    collect_data(raw_data_dir=raw_data_dir, ledgers=args.ledgers, from_block=from_block, to_date=args.to_date)
