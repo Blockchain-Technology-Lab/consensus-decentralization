@@ -9,12 +9,13 @@ class DefaultParser:
     The default parser, used for Bitcoin, Litecoin, Zcash and others. Any project that requires different parsing
     must use a parser class that inherits from this one.
 
-    :ivar project_name: the name of the project associated with a specific parser instance
+    :ivar ledger: the name of the ledger associated with a specific parser instance
+    :ivar input_dirs: the directories where the raw block data are stored
     """
 
-    def __init__(self, project_name, input_dir):
-        self.project_name = project_name
-        self.input_dir = input_dir
+    def __init__(self, ledger, input_dirs):
+        self.ledger = ledger
+        self.input_dirs = input_dirs
 
     @staticmethod
     def parse_identifiers(block_identifiers):
@@ -26,13 +27,30 @@ class DefaultParser:
         """
         return str(codecs.decode(block_identifiers, 'hex'))
 
+    def get_input_file(self):
+        """
+        Determines the file that contains the raw data for the project. The file is expected to be named
+        <ledger>_raw_data.json and to be located in (exactly) one of the input directories.
+        :returns: a Path object that corresponds to the file containing the raw data
+        :raises FileNotFoundError: if the file does not exist in any of the input directories
+        """
+        filename = f'{self.ledger}_raw_data.json'
+        for input_dir in self.input_dirs:
+            filepath = input_dir / filename
+            if filepath.is_file():
+                return filepath
+        raise FileNotFoundError(f'File {self.ledger}_raw_data.json not found in the input directories. Skipping '
+                                f'{self.ledger}..')
+
     def read_and_sort_data(self):
         """
         Reads the "raw" block data associated with the project
         :returns: a list of dictionaries (block data) sorted by timestamp
         """
-        filename = f'{self.project_name}_raw_data.json'
-        filepath = self.input_dir / filename
+        try:
+            filepath = self.get_input_file()
+        except FileNotFoundError as e:
+            raise e
         with open(filepath) as f:
             contents = f.read()
         data = [json.loads(item) for item in contents.strip().split('\n')]
@@ -48,8 +66,8 @@ class DefaultParser:
         data = self.read_and_sort_data()
 
         for block in data:
-            block['reward_addresses'] = ','.join(sorted([tx['addresses'][0] for tx in block['outputs']
-                                                         if (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
+            block['reward_addresses'] = ','.join(sorted([tx['addresses'][0] for tx in block['outputs'] if
+                                                         (tx['addresses'] and int(tx['value']) > MIN_TX_VALUE)]))
             del block['outputs']
             block['identifiers'] = self.parse_identifiers(block['identifiers'])
         return data

@@ -7,8 +7,8 @@ class EthereumParser(DummyParser):
     Parser for Ethereum. Inherits from DummyParser class.
     """
 
-    def __init__(self, project_name, input_dir):
-        super().__init__(project_name, input_dir)
+    def __init__(self, ledger, input_dirs):
+        super().__init__(ledger, input_dirs)
 
     @staticmethod
     def parse_identifiers(block_identifiers):
@@ -29,8 +29,10 @@ class EthereumParser(DummyParser):
         Note that the current version does not sort the data (because it is too memory-intensive) but assumes that the
         data are already sorted (which is generally the case given the suggested queries).
         """
-        filename = f'{self.project_name}_raw_data.json'
-        filepath = self.input_dir / filename
+        try:
+            filepath = self.get_input_file()
+        except FileNotFoundError as e:
+            raise e
 
         def generate_data():
             with open(filepath) as f:

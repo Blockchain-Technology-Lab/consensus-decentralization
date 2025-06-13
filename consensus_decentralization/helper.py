@@ -13,7 +13,6 @@ from collections import defaultdict
 from yaml import safe_load
 
 ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
-RAW_DATA_DIR = ROOT_DIR / 'raw_block_data'
 INTERIM_DIR = ROOT_DIR / 'processed_data'
 MAPPING_INFO_DIR = ROOT_DIR / 'mapping_information'
 RESULTS_DIR = ROOT_DIR / 'results'
@@ -464,3 +463,12 @@ def get_mapped_data_filename(clustering_flag):
     :returns: str
     """
     return 'mapped_data_' + ('clustered' if clustering_flag else 'non_clustered') + '.json'
+
+
+def get_input_directories():
+    """
+    Reads the config file and retrieves the directories to look for raw block data
+    :returns: a list of directories that may contain the raw block data
+    """
+    config = get_config_data()
+    return [ROOT_DIR / input_dir for input_dir in config['input_directories']]

@@ -12,7 +12,7 @@ from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
 from consensus_decentralization.mappings.tezos_mapping import TezosMapping
-from consensus_decentralization.helper import RAW_DATA_DIR, INTERIM_DIR, get_clustering_flag
+from consensus_decentralization.helper import INTERIM_DIR, get_clustering_flag, get_input_directories
 
 
 @pytest.fixture
@@ -31,7 +31,7 @@ def setup_and_cleanup():
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
-    test_raw_data_dir = RAW_DATA_DIR
+    test_raw_data_dirs = get_input_directories()
     test_output_dir = INTERIM_DIR / "test_output"
     # Create the output directory for each project (as this is typically done in the run.py script before parsing or
     # mapping takes place)
@@ -41,7 +41,7 @@ def setup_and_cleanup():
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     # Mock return value of get_clustering_flag
     get_clustering_flag.return_value = True
-    yield mapping_info_dir, test_raw_data_dir, test_output_dir
+    yield mapping_info_dir, test_raw_data_dirs, test_output_dir
     # Clean up
     shutil.rmtree(test_output_dir)
 
@@ -95,9 +95,9 @@ def prep_sample_tezos_mapping_info():
 
 
 def test_map(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
-    mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
+    mapping_info_dir, test_raw_data_dirs, test_output_dir = setup_and_cleanup
 
-    parsed_data = parse(project='sample_bitcoin', input_dir=test_raw_data_dir)
+    parsed_data = parse(ledger='sample_bitcoin', input_dirs=test_raw_data_dirs)
     apply_mapping(project='sample_bitcoin', parsed_data=parsed_data, output_dir=test_output_dir)
 
     mapped_data_file = test_output_dir / 'sample_bitcoin/mapped_data_clustered.json'
@@ -105,14 +105,14 @@ def test_map(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
 
 
 def test_bitcoin_mapping(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
-    mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
+    mapping_info_dir, test_raw_data_dirs, test_output_dir = setup_and_cleanup
     with open(mapping_info_dir / 'addresses/sample_bitcoin.json') as f:
         pool_addresses = json.load(f)
     pool_addresses['0000000000000000000000000000000000000000'] = {'name': 'TEST2', 'source': ''}
     with open(mapping_info_dir / 'addresses/sample_bitcoin.json', 'w') as f:
         f.write(json.dumps(pool_addresses))
 
-    parsed_data = parse(project='sample_bitcoin', input_dir=test_raw_data_dir)
+    parsed_data = parse(ledger='sample_bitcoin', input_dirs=test_raw_data_dirs)
     apply_mapping(project='sample_bitcoin', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
@@ -136,7 +136,7 @@ def test_bitcoin_mapping(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
 
 
 def test_ethereum_mapping(setup_and_cleanup, prep_sample_ethereum_mapping_info):
-    mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
+    mapping_info_dir, test_raw_data_dirs, test_output_dir = setup_and_cleanup
 
     with open(mapping_info_dir / 'addresses/sample_ethereum.json') as f:
         addresses = json.load(f)
@@ -144,7 +144,7 @@ def test_ethereum_mapping(setup_and_cleanup, prep_sample_ethereum_mapping_info):
     with open(mapping_info_dir / 'addresses/sample_ethereum.json', 'w') as f:
         f.write(json.dumps(addresses))
 
-    parsed_data = parse(project='sample_ethereum', input_dir=test_raw_data_dir)
+    parsed_data = parse(ledger='sample_ethereum', input_dirs=test_raw_data_dirs)
     apply_mapping(project='sample_ethereum', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
@@ -169,9 +169,9 @@ def test_ethereum_mapping(setup_and_cleanup, prep_sample_ethereum_mapping_info):
 
 
 def test_cardano_mapping(setup_and_cleanup, prep_sample_cardano_mapping_info):
-    mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
+    mapping_info_dir, test_raw_data_dirs, test_output_dir = setup_and_cleanup
 
-    parsed_data = parse(project='sample_cardano', input_dir=test_raw_data_dir)
+    parsed_data = parse(ledger='sample_cardano', input_dirs=test_raw_data_dirs)
     apply_mapping(project='sample_cardano', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
@@ -193,9 +193,9 @@ def test_cardano_mapping(setup_and_cleanup, prep_sample_cardano_mapping_info):
 
 
 def test_tezos_mapping(setup_and_cleanup, prep_sample_tezos_mapping_info):
-    mapping_info_dir, test_raw_data_dir, test_output_dir = setup_and_cleanup
+    mapping_info_dir, test_raw_data_dirs, test_output_dir = setup_and_cleanup
 
-    parsed_data = parse(project='sample_tezos', input_dir=test_raw_data_dir)
+    parsed_data = parse(ledger='sample_tezos', input_dirs=test_raw_data_dirs)
     apply_mapping(project='sample_tezos', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {

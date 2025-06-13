@@ -58,3 +58,9 @@ population_windows: 1
 plot_parameters:
   plot: false
   animated: false
+
+# List of paths that specify where to look for raw block data. Relative to the root directory of the repository.
+# The first item in the list is the directory that is used to write newly fetched data when using the
+#  `collect_block_data` script and is also the directory where tests expect the sample data to be found.
+input_directories:
+  - raw_block_data
