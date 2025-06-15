@@ -13,7 +13,8 @@ def process_data(force_map, ledger_dir, ledger, output_dir):
     clustering_flag = hlp.get_clustering_flag()
     mapped_data_file = ledger_dir / hlp.get_mapped_data_filename(clustering_flag)
     if force_map or not mapped_data_file.is_file():
-        parsed_data = parse(ledger, input_dir=hlp.RAW_DATA_DIR)
+        raw_data_dirs = hlp.get_input_directories()
+        parsed_data = parse(ledger=ledger, input_dirs=raw_data_dirs)
         return apply_mapping(ledger, parsed_data=parsed_data, output_dir=output_dir)
     return None
 
@@ -36,11 +37,16 @@ def main(ledgers, timeframe, estimation_window, frequency, population_windows, i
 
     force_map = hlp.get_force_map_flag()
 
-    for ledger in ledgers:
+    for ledger in list(ledgers):
         ledger_dir = interim_dir / ledger
         ledger_dir.mkdir(parents=True, exist_ok=True)  # create ledger output directory if it doesn't already exist
 
-        mapped_data = process_data(force_map, ledger_dir, ledger, interim_dir)
+        try:
+            mapped_data = process_data(force_map, ledger_dir, ledger, interim_dir)
+        except FileNotFoundError as e:
+            logging.error(repr(e))
+            ledgers.remove(ledger)
+            continue
 
         aggregate(
             ledger,
@@ -52,29 +58,30 @@ def main(ledgers, timeframe, estimation_window, frequency, population_windows, i
             mapped_data=mapped_data
         )
 
-    aggregated_data_filename = hlp.get_blocks_per_entity_filename(timeframe, estimation_window, frequency)
-    metrics_dir = results_dir / 'metrics'
-    metrics_dir.mkdir(parents=True, exist_ok=True)
+    if ledgers:
+        aggregated_data_filename = hlp.get_blocks_per_entity_filename(timeframe, estimation_window, frequency)
+        metrics_dir = results_dir / 'metrics'
+        metrics_dir.mkdir(parents=True, exist_ok=True)
 
-    used_metrics = analyze(
-        projects=ledgers,
-        aggregated_data_filename=aggregated_data_filename,
-        population_windows=population_windows,
-        input_dir=interim_dir,
-        output_dir=metrics_dir
-    )
-
-    if hlp.get_plot_flag():
-        figures_dir = results_dir / 'figures'
-        figures_dir.mkdir(parents=True, exist_ok=True)
-        plot(
-            ledgers=ledgers,
-            metrics=used_metrics,
+        used_metrics = analyze(
+            projects=ledgers,
             aggregated_data_filename=aggregated_data_filename,
-            animated=hlp.get_plot_config_data()['animated'],
-            metrics_dir=metrics_dir,
-            figures_dir=figures_dir
+            population_windows=population_windows,
+            input_dir=interim_dir,
+            output_dir=metrics_dir
         )
+
+        if hlp.get_plot_flag():
+            figures_dir = results_dir / 'figures'
+            figures_dir.mkdir(parents=True, exist_ok=True)
+            plot(
+                ledgers=ledgers,
+                metrics=used_metrics,
+                aggregated_data_filename=aggregated_data_filename,
+                animated=hlp.get_plot_config_data()['animated'],
+                metrics_dir=metrics_dir,
+                figures_dir=figures_dir
+            )
 
 
 if __name__ == '__main__':

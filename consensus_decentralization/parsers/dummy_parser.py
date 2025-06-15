@@ -6,8 +6,8 @@ class DummyParser(DefaultParser):
     Dummy parser that only sorts the raw data. Used when the data are already in the required format.
     """
 
-    def __init__(self, project_name, input_dir):
-        super().__init__(project_name, input_dir)
+    def __init__(self, ledger, input_dirs):
+        super().__init__(ledger, input_dirs)
 
     @staticmethod
     def parse_identifiers(block_identifiers):
