@@ -95,12 +95,11 @@ ORDER BY timestamp
 ### Solana
 
 ```
-SELECT slot as number, block_timestamp as timestamp, leader as reward_addresses
+SELECT height as number, block_timestamp as timestamp, leader as reward_addresses
 FROM `bigquery-public-data.crypto_solana_mainnet_us.Blocks`
-WHERE timestamp > '2020-03-15'
-AND timestamp < '{{timestamp}}'
-ORDER BY timestamp
-```
+WHERE block_timestamp > '2020-03-15'
+AND block_timestamp < '{{timestamp}}'
+ORDER BY block_timestamp
 ```
 
 ## Automating the data collection process
