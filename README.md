@@ -14,6 +14,7 @@ Currently, the supported blockchains are:
 - Litecoin
 - Tezos
 - Zcash
+- Solana
 
 We intend to add more ledgers to this list in the future.
 

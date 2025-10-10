@@ -91,6 +91,16 @@ JOIN `bigquery-public-data.crypto_zcash.blocks` ON `bigquery-public-data.crypto_
 WHERE is_coinbase is TRUE
 AND timestamp > '2018-01-01'
 ORDER BY timestamp
+
+### Solana
+
+```
+SELECT slot as number, block_timestamp as timestamp, leader as reward_addresses
+FROM `bigquery-public-data.crypto_solana_mainnet_us.Blocks`
+WHERE timestamp > '2020-03-15'
+AND timestamp < '{{timestamp}}'
+ORDER BY timestamp
+```
 ```
 
 ## Automating the data collection process
