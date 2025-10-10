@@ -26,6 +26,7 @@ ledgers:
   - litecoin
   - tezos
   - zcash
+  - solana
 
 # Execution flags
 execution_flags:

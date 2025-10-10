@@ -9,6 +9,7 @@ from consensus_decentralization.parsers.dummy_parser import DummyParser
 from consensus_decentralization.parsers.ethereum_parser import EthereumParser
 from consensus_decentralization.map import apply_mapping, ledger_mapping
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
+from consensus_decentralization.mappings.dummy_mapping import DummyMapping
 from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
 from consensus_decentralization.mappings.tezos_mapping import TezosMapping
@@ -31,11 +32,14 @@ def setup_and_cleanup():
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
+    # Register sample Solana with DummyParser and DummyMapping (rows already shaped)
+    ledger_mapping['sample_solana'] = DummyMapping
+    ledger_parser['sample_solana'] = DummyParser
     test_raw_data_dirs = get_input_directories()
     test_output_dir = INTERIM_DIR / "test_output"
     # Create the output directory for each project (as this is typically done in the run.py script before parsing or
     # mapping takes place)
-    for project in ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos']:
+    for project in ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos', 'sample_solana']:
         test_project_output_dir = test_output_dir / project
         test_project_output_dir.mkdir(parents=True, exist_ok=True)
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
@@ -216,6 +220,27 @@ def test_tezos_mapping(setup_and_cleanup, prep_sample_tezos_mapping_info):
         if block['number'] in expected_block_creators:
             assert block['creator'] == expected_block_creators[block['number']]
             assert block['mapping_method'] == expected_mapping_methods[block['number']]
+
+
+def test_solana_dummy_mapping(setup_and_cleanup):
+    mapping_info_dir, test_raw_data_dirs, test_output_dir = setup_and_cleanup
+
+    # Parse using DummyParser and map using DummyMapping
+    parsed_data = parse(ledger='sample_solana', input_dirs=test_raw_data_dirs)
+    apply_mapping(project='sample_solana', parsed_data=parsed_data, output_dir=test_output_dir)
+
+    mapped_data_file = test_output_dir / 'sample_solana/mapped_data_clustered.json'
+    assert mapped_data_file.is_file()
+
+    with open(mapped_data_file) as f:
+        mapped_data = json.load(f)
+
+    # DummyMapping selects the first reward address as creator and uses mapping_method 'no_mapping'
+    for block in mapped_data:
+        if block['reward_addresses']:
+            first_addr = block['reward_addresses'].split(',')[0]
+            assert block['creator'] == first_addr
+            assert block['mapping_method'] == 'no_mapping'
 
 
 def test_get_reward_addresses():

@@ -62,6 +62,22 @@ def test_dummy_parser(setup):
     compare_parsed_samples(sample_parsed_data, parsed_data)
 
 
+def test_solana_dummy_parser(setup):
+    test_raw_data_dirs = setup
+    sample_parsed_data = [
+        {"number": "350548823", "timestamp": "2025-10-10 05:32:12.000000 UTC", "identifiers": None, "reward_addresses": "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot"},
+        {"number": "350548826", "timestamp": "2025-10-10 05:32:13.000000 UTC", "identifiers": None, "reward_addresses": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk"},
+        {"number": "350548825", "timestamp": "2025-10-10 05:32:13.000000 UTC", "identifiers": None, "reward_addresses": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk"},
+        {"number": "350548824", "timestamp": "2025-10-10 05:32:13.000000 UTC", "identifiers": None, "reward_addresses": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk"},
+        {"number": "350548827", "timestamp": "2025-10-10 05:32:14.000000 UTC", "identifiers": None, "reward_addresses": "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk"},
+    ]
+
+    # Register at runtime to ensure DummyParser is used for sample_solana
+    ledger_parser['sample_solana'] = DummyParser
+    parsed_data = parse(ledger='sample_solana', input_dirs=test_raw_data_dirs)
+    compare_parsed_samples(sample_parsed_data, parsed_data)
+
+
 def test_parse(setup):
     test_raw_data_dirs = setup
     sample_block = {"number": "682736", "timestamp": "2021-05-09 11:12:32 UTC", "identifiers": "03f06a0a202f5669614254432f4d696e6564206279206a617669647361656964373037332f2cfabe6d6d6e43ef2e06f7137b897180388403ee5019b8ff0ca4a045ea3cd82e3e41620fe91000000000000000105462a20fc21591f70e691905660b0000", "reward_addresses": "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX"}
