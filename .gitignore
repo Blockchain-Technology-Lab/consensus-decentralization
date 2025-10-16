@@ -12,3 +12,4 @@ site
 *.ipynb
 processed_data
 results
+*.env
