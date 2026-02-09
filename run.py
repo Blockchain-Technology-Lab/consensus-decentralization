@@ -19,8 +19,8 @@ def process_data(force_map, ledger_dir, ledger, output_dir):
     return None
 
 
-def main(ledgers, timeframe, estimation_window, frequency, population_windows, interim_dir=hlp.INTERIM_DIR,
-         results_dir=hlp.RESULTS_DIR):
+def main(ledgers, timeframe, estimation_window, frequency, population_windows,
+         force_map, interim_dir=hlp.INTERIM_DIR, results_dir=hlp.RESULTS_DIR):
     """
     Executes the entire pipeline (parsing, mapping, analyzing) for some projects and timeframes.
     :param ledgers: list of strings that correspond to the ledgers whose data should be analyzed
@@ -30,12 +30,17 @@ def main(ledgers, timeframe, estimation_window, frequency, population_windows, i
         timeframe will be considered.
     :param frequency: int or None. The number of days to consider for the frequency of the analysis (i.e. the number
         of days between each data point considered in the analysis). If None, only one data point will be considered,
-        spanning the entire timeframe (i.e. it needs to be combined with None estimation_window).
-    :param interim_dir: pathlib.PosixPath object of the directory where the output data will be saved
+        spanning the entire timeframe (i.e. it needs to be combined with None
+        estimation_window).
+    :param population_windows: int. The number of windows to look backwards and forwards to determine the population of
+        active block producers for a given time period.
+    :param force_map: bool. If True, then the mapping will be performed,
+        regardless of whether mapped data for the project already exist.
+    :param interim_dir: pathlib.PosixPath object of the directory where the
+        output data will be saved
+    :param results_dir: pathlib.PosixPath object of the directory where the     results will be saved
     """
     logging.info(f"The ledgers that will be analyzed are: {','.join(ledgers)}")
-
-    force_map = hlp.get_force_map_flag()
 
     for ledger in list(ledgers):
         ledger_dir = interim_dir / ledger
@@ -89,6 +94,7 @@ if __name__ == '__main__':
 
     estimation_window, frequency = hlp.get_estimation_window_and_frequency()
     population_windows = hlp.get_population_windows()
+    force_map_flag = hlp.get_force_map_flag()
 
     results_dir = hlp.get_results_dir(estimation_window, frequency, population_windows)
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -101,6 +107,7 @@ if __name__ == '__main__':
                          'the first date.')
     timeframe = (timeframe_start, timeframe_end)
 
-    main(ledgers, timeframe, estimation_window, frequency, population_windows, results_dir=results_dir)
+    main(ledgers, timeframe, estimation_window, frequency, population_windows,
+         force_map_flag, results_dir=results_dir)
 
     logging.info('Done. Please check the output directory for results.')

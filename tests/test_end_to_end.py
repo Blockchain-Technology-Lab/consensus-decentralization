@@ -28,9 +28,9 @@ def setup_and_cleanup():
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser
 
-    force_map_flag = config['execution_flags']['force_map']
-    config['execution_flags']['force_map'] = True
-    config['analyze_flags']['clustering'] = True
+    force_map_flag = config['force_map']
+    config['force_map'] = True
+    config['clustering'] = True
 
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     for project in ['bitcoin', 'cardano']:
@@ -72,7 +72,7 @@ def setup_and_cleanup():
         except FileNotFoundError:
             pass
 
-    config['execution_flags']['force_map'] = force_map_flag
+    config['force_map'] = force_map_flag
 
 
 def test_end_to_end(setup_and_cleanup):
