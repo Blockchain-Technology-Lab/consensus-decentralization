@@ -82,18 +82,15 @@ def analyze(projects, aggregated_data_filename, input_dir, output_dir, populatio
                 csv_contents[metric_name][row_index + 1].append(result)
                 aggregate_output[project][date][metric_name] = result
 
-    for metric in metric_names:
-        with open(output_dir / f'{metric}.csv', 'w') as f:
-            csv_writer = csv.writer(f)
-            csv_writer.writerows(csv_contents[metric])
-
     aggregate_csv_output = [['ledger', 'date', 'clustering'] + metric_names]
     for project, timeframes in aggregate_output.items():
         for date, results in timeframes.items():
             metric_values = [results[metric] for metric in metric_names]
             if any(metric_values):
                 aggregate_csv_output.append([project, date, clustering_flag] + metric_values)
-    with open(output_dir / 'output.csv', 'w') as f:
+
+    output_filename = hlp.get_output_filename(clustering_flag)
+    with open(output_dir / output_filename, 'w') as f:
         csv_writer = csv.writer(f)
         csv_writer.writerows(aggregate_csv_output)
 

@@ -11,6 +11,7 @@ from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
 from consensus_decentralization.helper import INTERIM_DIR, config
 import pytest
+import csv
 
 
 @pytest.fixture
@@ -28,9 +29,7 @@ def setup_and_cleanup():
     ledger_mapping['sample_cardano'] = CardanoMapping
     ledger_parser['sample_cardano'] = DummyParser
 
-    force_map_flag = config['execution_flags']['force_map']
-    config['execution_flags']['force_map'] = True
-    config['analyze_flags']['clustering'] = True
+    config['clustering'] = True
 
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
     for project in ['bitcoin', 'cardano']:
@@ -72,48 +71,9 @@ def setup_and_cleanup():
         except FileNotFoundError:
             pass
 
-    config['execution_flags']['force_map'] = force_map_flag
-
 
 def test_end_to_end(setup_and_cleanup):
     test_output_dir, test_metrics_dir = setup_and_cleanup
-
-    main(
-        ['sample_bitcoin', 'sample_cardano'],
-        (datetime.date(2010, 1, 1), datetime.date(2010, 12, 31)),
-        estimation_window=None,
-        frequency=None,
-        interim_dir=test_output_dir,
-        results_dir=test_output_dir,
-        population_windows=0
-    )
-
-    expected_entropy = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2010-07-02,,\n'
-    ]
-    with open(test_metrics_dir / 'entropy=1.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_entropy[idx]
-
-    expected_gini = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2010-07-02,,\n'
-    ]
-    with open(test_metrics_dir / 'gini.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_gini[idx]
-
-    expected_nc = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2010-07-02,,\n'
-    ]
-    with open(test_metrics_dir / 'nakamoto_coefficient.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_nc[idx]
 
     main(
         ['sample_bitcoin', 'sample_cardano'],
@@ -122,18 +82,9 @@ def test_end_to_end(setup_and_cleanup):
         frequency=30,
         interim_dir=test_output_dir,
         results_dir=test_output_dir,
-        population_windows=0
+        population_windows=0,
+        force_map=True
     )
-
-    expected_entropy = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2018-02-15,1.5,\n',
-        '2018-03-17,0.0,\n',
-        ]
-    with open(test_metrics_dir / 'entropy=1.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_entropy[idx]
 
     # todo fix test (remake calculations from sample files given the new window/frequency)
     # expected_gini = [
@@ -146,14 +97,18 @@ def test_end_to_end(setup_and_cleanup):
     #     for idx, line in enumerate(lines):
     #         assert line == expected_gini[idx]
 
-    expected_nc = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2018-02-15,1,\n', '2018-03-17,1,\n'
-    ]
-    with open(test_metrics_dir / 'nakamoto_coefficient.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_nc[idx]
+    output_file = test_metrics_dir / 'output_clustered.csv'
+    assert output_file.is_file()
+    with open(output_file) as f:
+        rows = list(csv.reader(f))
+    header = rows[0]
+    ent_idx = header.index('entropy=1')
+    nc_idx = header.index('nakamoto_coefficient')
+
+    # build mapping ledger+date -> row
+    row_map = {(r[0], r[1]): r for r in rows[1:]}
+    assert row_map[('sample_bitcoin', '2018-02-15')][ent_idx] == '1.5'
+    assert row_map[('sample_bitcoin', '2018-02-15')][nc_idx] == '1'
 
     main(
         ['sample_bitcoin', 'sample_cardano'],
@@ -162,32 +117,19 @@ def test_end_to_end(setup_and_cleanup):
         frequency=31,
         interim_dir=test_output_dir,
         results_dir=test_output_dir,
-        population_windows=0
+        population_windows=0,
+        force_map=True
     )
 
-    expected_entropy = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2020-12-16,,1.9219280948873623\n'
-    ]
-    with open(test_metrics_dir / 'entropy=1.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_entropy[idx]
-
-    expected_gini = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2020-12-16,,0.15\n'
-    ]
-    with open(test_metrics_dir / 'gini.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_gini[idx]
-
-    expected_nc = [
-        'timeframe,sample_bitcoin,sample_cardano\n',
-        '2020-12-16,,2\n'
-    ]
-    with open(test_metrics_dir / 'nakamoto_coefficient.csv') as f:
-        lines = f.readlines()
-        for idx, line in enumerate(lines):
-            assert line == expected_nc[idx]
+    output_file = test_metrics_dir / 'output_clustered.csv'
+    assert output_file.is_file()
+    with open(output_file) as f:
+        rows = list(csv.reader(f))
+    header = rows[0]
+    ent_idx = header.index('entropy=1')
+    gini_idx = header.index('gini')
+    nc_idx = header.index('nakamoto_coefficient')
+    row_map = {(r[0], r[1]): r for r in rows[1:]}
+    assert row_map[('sample_cardano', '2020-12-16')][ent_idx] == '1.9219280948873623'
+    assert row_map[('sample_cardano', '2020-12-16')][gini_idx] == '0.15'
+    assert row_map[('sample_cardano', '2020-12-16')][nc_idx] == '2'

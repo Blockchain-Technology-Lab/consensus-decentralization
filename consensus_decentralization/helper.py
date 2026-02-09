@@ -428,7 +428,7 @@ def get_force_map_flag():
     """
     config = get_config_data()
     try:
-        return config['execution_flags']['force_map']
+        return config['force_map']
     except KeyError:
         raise ValueError('Flag "force_map" missing from config file')
 
@@ -441,7 +441,7 @@ def get_clustering_flag():
     """
     config = get_config_data()
     try:
-        return config['analyze_flags']['clustering']
+        return config['clustering']
     except KeyError:
         raise ValueError('Flag "clustering" missing from config file')
 
@@ -463,6 +463,15 @@ def get_mapped_data_filename(clustering_flag):
     :returns: str
     """
     return 'mapped_data_' + ('clustered' if clustering_flag else 'non_clustered') + '.json'
+
+
+def get_output_filename(clustering_flag):
+    """
+    Retrieves the filename of the output file
+    :param clustering_flag: boolean that determines whether clustering was performed
+    :returns: str with the filename of the output file, which depends on whether clustering was performed
+    """
+    return 'output_' + ('clustered' if clustering_flag else 'non_clustered') + '.csv'
 
 
 def get_input_directories():

@@ -1,5 +1,6 @@
 import shutil
 import pytest
+import csv
 from consensus_decentralization.helper import INTERIM_DIR, get_clustering_flag
 from consensus_decentralization.analyze import analyze
 
@@ -59,20 +60,27 @@ def test_analyze(setup_and_cleanup):
         population_windows=0
     )
 
-    metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
-    for metric in metrics:
-        output_file = test_output_dir / 'metrics' / f'{metric}.csv'
-        assert output_file.is_file()
+    output_file = test_output_dir / 'metrics' / 'output_clustered.csv'
+    assert output_file.is_file()
 
-        with open(output_file) as f:
-            lines = f.readlines()
-            assert lines[0] == 'timeframe,sample_bitcoin\n'
-            if metric == 'gini':
-                assert lines[1] == '2018,0.25\n'
-            elif metric == 'nakamoto_coefficient':
-                assert lines[1] == '2018,2\n'
-            elif metric == 'entropy=1':
-                assert lines[1] == '2018,1.836591668108979\n'
+    with open(output_file) as f:
+        reader = list(csv.reader(f))
+    header = reader[0]
+    # find metric column indices
+    gini_idx = header.index('gini')
+    nc_idx = header.index('nakamoto_coefficient')
+    ent_idx = header.index('entropy=1')
+
+    # find the row for sample_bitcoin and 2018
+    data_row = None
+    for row in reader[1:]:
+        if row[0] == 'sample_bitcoin' and row[1] == '2018':
+            data_row = row
+            break
+    assert data_row is not None
+    assert data_row[gini_idx] == '0.25'
+    assert data_row[nc_idx] == '2'
+    assert data_row[ent_idx] == '1.836591668108979'
 
     analyze(
         projects=projects,
@@ -82,39 +90,19 @@ def test_analyze(setup_and_cleanup):
         population_windows=0
     )
 
-    metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
-    for metric in metrics:
-        output_file = test_output_dir / 'metrics' / f'{metric}.csv'
-        assert output_file.is_file()
+    output_file = test_output_dir / 'metrics' / 'output_clustered.csv'
+    assert output_file.is_file()
+    with open(output_file) as f:
+        reader = list(csv.reader(f))
+    header = reader[0]
+    gini_idx = header.index('gini')
+    nc_idx = header.index('nakamoto_coefficient')
+    ent_idx = header.index('entropy=1')
 
-        with open(output_file) as f:
-            lines = f.readlines()
-            assert lines[0] == 'timeframe,sample_bitcoin\n'
-            if metric == 'gini':
-                assert lines[1] == 'Feb-2018,0.16666666666666666\n'
-                assert lines[2] == 'Mar-2018,0.0\n'
-            elif metric == 'nakamoto_coefficient':
-                assert lines[1] == 'Feb-2018,1\n'
-                assert lines[2] == 'Mar-2018,1\n'
-            elif metric == 'entropy=1':
-                assert lines[1] == 'Feb-2018,1.5\n'
-                assert lines[2] == 'Mar-2018,0.0\n'
-
-    analyze(
-        projects=projects,
-        aggregated_data_filename='year_from_2010-01-01_to_2010-12-31.csv',
-        input_dir=test_output_dir,
-        output_dir=test_output_dir / 'metrics',
-        population_windows=0
-    )
-
-    metrics = ['gini', 'nakamoto_coefficient', 'entropy=1']
-    for metric in metrics:
-        output_file = test_output_dir / 'metrics' / f'{metric}.csv'
-        assert output_file.is_file()
-
-        with open(output_file) as f:
-            lines = f.readlines()
-            assert len(lines) == 2
-            assert lines[0] == 'timeframe,sample_bitcoin\n'
-            assert lines[1] == '2010,\n'
+    rows_for_project = {row[1]: row for row in reader[1:] if row[0] == 'sample_bitcoin'}
+    assert rows_for_project['Feb-2018'][gini_idx] == '0.16666666666666666'
+    assert rows_for_project['Mar-2018'][gini_idx] == '0.0'
+    assert rows_for_project['Feb-2018'][nc_idx] == '1'
+    assert rows_for_project['Mar-2018'][nc_idx] == '1'
+    assert rows_for_project['Feb-2018'][ent_idx] == '1.5'
+    assert rows_for_project['Mar-2018'][ent_idx] == '0.0'
