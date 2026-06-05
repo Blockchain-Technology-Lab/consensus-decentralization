@@ -3,13 +3,13 @@
         "name": "Switzerland Investment",
         "link": "https://ispool.live/"
     },
-    "SBWH": {
-        "name": "SBWH Pool",
-        "link": "http://sbwh.com.au"
+    "0000": {
+        "name": "INFINITY",
+        "link": "http://sbwh.com.au/infinity-pool"
     },
-    "APSP": {
-        "name": "Adaberry Pi Stake Pool",
-        "link": "https://pool.adaberrypi.com"
+    "00000": {
+        "name": "Adaberry Pi",
+        "link": "https://adaberrypi.com"
     },
     "001": {
         "name": "Cardano is the Way",
@@ -27,7 +27,7 @@
         "name": "AAAA pool",
         "link": "https://0AAAA.org"
     },
-    "ARKNO": {
+    "0AKN0": {
         "name": "Arkano Pool",
         "link": "https://arkanopool.wordpress.com/"
     },
@@ -35,7 +35,7 @@
         "name": "Cardano Digital Brain Power",
         "link": "https://cardanobrainpower.com"
     },
-    "0BoB": {
+    "0BOB": {
         "name": "BankOnBlocks",
         "link": "http://18.119.65.114/index.html"
     },
@@ -107,9 +107,9 @@
         "name": "\ud83d\ude80 0POOL-1 \ud83d\ude80",
         "link": "https://0pool.net"
     },
-    "100x": {
-        "name": "100x by Texas StakeHouse",
-        "link": "https://www.TexasStakeHouse.com"
+    "BOLT": {
+        "name": "FragMint.gg: The Spatial Gaming Club",
+        "link": "https://stakepool.fragmint.gg"
     },
     "123": {
         "name": "123Hub Stake Pool",
@@ -139,9 +139,9 @@
         "name": "focPool",
         "link": "None"
     },
-    "1VICA": {
-        "name": "First Vica Solutions",
-        "link": "https://vica-stake-pool.com/"
+    "1GURU": {
+        "name": "Stakepool Guru",
+        "link": "https://stakepool.guru"
     },
     "1JPN": {
         "name": "\u65e5\u672c\u58f1\u30d7\u30fc\u30eb",
@@ -151,9 +151,9 @@
         "name": "Lovelacepool",
         "link": "https://lovelacepool.com"
     },
-    "JUME": {
-        "name": "JUMECCI",
-        "link": "https://www.jume.com.ar"
+    "MAYZ": {
+        "name": "MAYZ",
+        "link": "https://mayz.io"
     },
     "1PC": {
         "name": "1 Percent Fee | 1% Fixed",
@@ -219,7 +219,7 @@
         "name": "2SORT",
         "link": "https://ioesi.com"
     },
-    "2six4": {
+    "2SIX4": {
         "name": "2six4",
         "link": "https://www.2six4.com"
     },
@@ -249,9 +249,9 @@
     },
     "46S": {
         "name": "46 South Stake Pool",
-        "link": "https://46s.au.ngrok.io"
+        "link": "https://46south.io"
     },
-    "47c": {
+    "47C": {
         "name": "47cloud",
         "link": "https://47cloud.com"
     },
@@ -281,7 +281,7 @@
     },
     "4WARD": {
         "name": "ADA for Warriors",
-        "link": "https://4wardpool.swiftcryptollc.com"
+        "link": "https://adaforwarriors.io"
     },
     "4WD": {
         "name": "Forward Pool",
@@ -295,7 +295,7 @@
         "name": "5ch Pool",
         "link": "https://www.5chpool.net/"
     },
-    "5Fold": {
+    "5FOLD": {
         "name": "5Fold Pool",
         "link": "https://www.5foldfinancial.com"
     },
@@ -306,10 +306,6 @@
     "5TL": {
         "name": "Steel-Server",
         "link": "https://steel-server.com"
-    },
-    "777": {
-        "name": "Kallados",
-        "link": "https://ada.kallados.com"
     },
     "78653": {
         "name": "Brotherhood of Crypto",
@@ -384,7 +380,7 @@
         "link": "https://www.A3CcryptoClub.com"
     },
     "A4G": {
-        "name": "ADA4Good",
+        "name": "ADA4Good \u2764\ufe0f ADA + WMTX + MACH + AA rewards",
         "link": "https://www.ada4good.com"
     },
     "AA1": {
@@ -396,7 +392,7 @@
         "link": "https://stakelovelace.io"
     },
     "AAA2": {
-        "name": "AAA2",
+        "name": "RETIRING IN EPOCH 309, (re)delegate to AAA",
         "link": "https://stakelovelace.io/aaa/"
     },
     "AAATO": {
@@ -436,7 +432,7 @@
         "link": "http://abepool.org"
     },
     "ABLE": {
-        "name": "Able Stake Pool",
+        "name": "ABLE Stakepool in \u269c\ufe0fQu\u00e9bec - \ud83c\udf41Canada",
         "link": "https://able-pool.io"
     },
     "ABOBO": {
@@ -467,17 +463,21 @@
         "name": "The allcha.in I pool",
         "link": "https://allcha.in"
     },
-    "ACI": {
-        "name": "Blockademia",
-        "link": "https://pool.smartcontract.hr"
+    "CLUB": {
+        "name": "Cardano Club",
+        "link": "https://Cardano.Club"
     },
     "ACID": {
         "name": "ACID Stake Pool",
         "link": "https://acidpools.com"
     },
-    "DOORK": {
-        "name": "Doork Staking",
-        "link": "https://doorkstaking.com"
+    "ACL": {
+        "name": "A CardanoLand pool ACL",
+        "link": "https://cardanoland.com"
+    },
+    "69DN": {
+        "name": "DN Staking",
+        "link": "https://www.flightaware.com/live/flight/N69DN"
     },
     "ACOL": {
         "name": "CountessOfLovelace",
@@ -513,7 +513,7 @@
     },
     "AD247": {
         "name": "ADA 24/7",
-        "link": ""
+        "link": "https://www.ada247.net/"
     },
     "ADA": {
         "name": "Cardano24",
@@ -547,6 +547,10 @@
         "name": "ADA_BPSOps",
         "link": "https://ada-bp.com"
     },
+    "ADABR": {
+        "name": "Adazul Pool",
+        "link": "https://adazulpool.com"
+    },
     "ADAC": {
         "name": "adachain",
         "link": "https://www.adachain.net/"
@@ -567,16 +571,16 @@
         "name": "Adacadabra.io",
         "link": "https://adacadabra.io"
     },
-    "SWIC": {
-        "name": "SWIC Charity Pool",
-        "link": "https://stakit.io"
+    "ADACH": {
+        "name": "ADA Swiss",
+        "link": "https://swisscryptojay.ch"
     },
     "ADACP": {
         "name": "ADA Coin Pool",
         "link": "https://adacoinpool.com"
     },
     "ADACT": {
-        "name": "ADA Capital",
+        "name": "ADA Capital\u2022\ud83c\udf0dADACT\u2022\ud83d\udc7dCardanoBI\u2022\u26a1Orcfax\u2022ADA\u2022METERA",
         "link": "https://adacapital.io"
     },
     "ADADE": {
@@ -601,7 +605,7 @@
     },
     "ADAGE": {
         "name": "ADAGE",
-        "link": "https://adage.app"
+        "link": "https://adage.adaism.uk"
     },
     "ADAGL": {
         "name": "ADA Globe Network",
@@ -609,7 +613,7 @@
     },
     "ADAGO": {
         "name": "ADAGO POOL",
-        "link": "https://www.adaspace.xyz/"
+        "link": "https://cutt.ly/ADAGO-pool"
     },
     "ADAHQ": {
         "name": "AdaHQ - Global",
@@ -624,8 +628,8 @@
         "link": "https://the.adahou.se"
     },
     "ADAIM": {
-        "name": "adaimpulse",
-        "link": "https://adaimpulse.club"
+        "name": "ADAImpulse",
+        "link": "https://impulse.expert"
     },
     "ADAIT": {
         "name": "adastakeit.io Pool",
@@ -681,7 +685,7 @@
     },
     "ADAOZ": {
         "name": "ADA Australia",
-        "link": "https://cardanode.com.au"
+        "link": "https://linktr.ee/peterbui"
     },
     "ADAPG": {
         "name": "ADAPG is an ADA Pool maintained by Poligram GmbH",
@@ -702,6 +706,10 @@
     "ADASA": {
         "name": "ADA SA POOL",
         "link": "https://twitter.com/Saudi_Ada"
+    },
+    "ADAST": {
+        "name": "Adastrong-Two",
+        "link": "https://www.adastrong.com/"
     },
     "ADATA": {
         "name": "PoolData.Live",
@@ -743,7 +751,11 @@
         "name": "ADAWAY",
         "link": "https://adawaypool.com"
     },
-    "ADAy1": {
+    "ADAXP": {
+        "name": "ADAX DEX Staking Pool",
+        "link": "https://dex.adax.pro"
+    },
+    "ADAY1": {
         "name": "ADAydin 1",
         "link": "https://github.com/ADAydin1905/adaydinPool1"
     },
@@ -751,7 +763,7 @@
         "name": "ADA doch_doch",
         "link": "https://dochdoch.gitlab.io/add/"
     },
-    "ADDig": {
+    "ADDIG": {
         "name": "ADDigital ADA Bridgeport",
         "link": "https://www.addigital.de"
     },
@@ -760,12 +772,12 @@
         "link": "https://adela.dev"
     },
     "ADEN": {
-        "name": "ADEN Pool",
-        "link": "https://twitter.com/aden_pool"
+        "name": "Cardano ADEN Stake Pool",
+        "link": "https://cardano-aden.com"
     },
     "ADI": {
         "name": "Cardanesia",
-        "link": "https://cardanesia.com"
+        "link": "https://cardanesia.com/"
     },
     "ADIZ": {
         "name": "ADIZ stakepool",
@@ -775,6 +787,10 @@
         "name": "ADALF1",
         "link": "http://www.logiforge.com/cardano1"
     },
+    "MRQR2": {
+        "name": "Mirqur.io 2",
+        "link": "https://www.mirqur.io/"
+    },
     "NERD3": {
         "name": "Nerd Stake Pool",
         "link": "https://www.stakewithnerd.com/"
@@ -783,9 +799,9 @@
         "name": "ADA Mountain",
         "link": "https://adamountain.com"
     },
-    "ADMIN": {
-        "name": "Catalyst Circle Admin Pool",
-        "link": "https://www.catalystcircle.io/"
+    "AND": {
+        "name": "Andamio Pool",
+        "link": "https://www.andamio.io/"
     },
     "ADMON": {
         "name": "ADA Money",
@@ -835,10 +851,6 @@
         "name": "The Austrians Pool",
         "link": "https://aecon-stakepool.org"
     },
-    "AEGIS": {
-        "name": "Aegis Stakepool",
-        "link": "https://aegis.eagle.fish"
-    },
     "AENS": {
         "name": "StakeChaiin - ADA staking pool",
         "link": "https://www.stakechaiin.io"
@@ -855,13 +867,13 @@
         "name": "Aerospace Stake Pool",
         "link": "https://aeropool.org"
     },
-    "EMP1": {
-        "name": "Empowa ISPO | Smiles on Africa",
-        "link": "https://empowa.io"
+    "AFCH1": {
+        "name": "African Charity Pool #1",
+        "link": "https://smilespool.com"
     },
-    "EMP2": {
-        "name": "Empowa ISPO | Proof of Africa",
-        "link": "https://empowa.io"
+    "AFCH2": {
+        "name": "African Charity Pool #2",
+        "link": "https://poapool.com"
     },
     "AFLY": {
         "name": "AlflyCademy Stake Pool",
@@ -880,12 +892,16 @@
         "link": "http://argyroscrypto.com"
     },
     "AGG1": {
-        "name": "ADAgogo1",
-        "link": "https://www.adagogo1.com"
+        "name": "AGG1 Stake Pool",
+        "link": "https://adagogo1.wixsite.com/agg1"
     },
     "AGIO": {
         "name": "Adagio Stake Pool",
         "link": "https://adagiopool.com"
+    },
+    "NETA": {
+        "name": "anetaBTC - Pool",
+        "link": "https://www.anetabtc.io/"
     },
     "AGMOS": {
         "name": "AugmosPool",
@@ -911,6 +927,10 @@
         "name": "AHA",
         "link": "https://ahaxu.com"
     },
+    "AHL": {
+        "name": "AHLNET",
+        "link": "https://ahlnet.nu"
+    },
     "AHOLY": {
         "name": "ADAholycs",
         "link": "https://adaholycs.de"
@@ -920,7 +940,7 @@
         "link": "https://aichi-stakepool.com/"
     },
     "AID1": {
-        "name": "AIDpool 1",
+        "name": "AIDpool1",
         "link": "https://cardano-stakepool-aid.amebaownd.com/"
     },
     "AIDEN": {
@@ -963,6 +983,10 @@
         "name": "JAPAN Staking Pool JP777 for Good Fortune",
         "link": "https://arthurjgoldman.com"
     },
+    "KING": {
+        "name": "Global KING Staking KING Pool by AJG",
+        "link": "https://arthurjgoldman.com"
+    },
     "UK007": {
         "name": "Global UK Staking Pool by the Three Lions",
         "link": "https://www.alizeb.com"
@@ -987,9 +1011,9 @@
         "name": "Julien Aklei",
         "link": "https://www.julienaklei.com/cardano"
     },
-    "WYAM": {
-        "name": "WYAM-StakePool",
-        "link": "https://wyam-stakepool.com"
+    "AKYO": {
+        "name": "AKYO\ud83e\udd41",
+        "link": "https://akyo.org"
     },
     "ALABS": {
         "name": "Antioch Labs",
@@ -1077,7 +1101,7 @@
     },
     "ALPS": {
         "name": "ALPS - The Alpine Stake Pool",
-        "link": "https://alps.kalu.solutions"
+        "link": "https://www.alpinestakepool.at"
     },
     "ENVIR": {
         "name": "ENVIR - The Environment Stake Pool",
@@ -1095,7 +1119,7 @@
         "name": "ALTZ1",
         "link": "https://altzpool.com"
     },
-    "ALoop": {
+    "ALOOP": {
         "name": "AdaLoop",
         "link": "https://adaloop.org"
     },
@@ -1143,9 +1167,13 @@
         "name": "ADA Moon Stake Pool",
         "link": "https://adamoon.net"
     },
-    "GIVE": {
-        "name": "TheCardanians.com",
-        "link": "https://thecardanians.com"
+    "AMOUR": {
+        "name": "Par Amour du St\u20b3ke",
+        "link": "https://poolamour.com"
+    },
+    "AMAP": {
+        "name": "AMAPools",
+        "link": "https://amapools.ir"
     },
     "AMPLE": {
         "name": "Ample Pool",
@@ -1167,9 +1195,9 @@
         "name": "Amaterasu",
         "link": "https://twitter.com/ProjectNTK"
     },
-    "HEAL": {
-        "name": "Heal the World",
-        "link": "https://adapools.org/HEAL"
+    "CUTE": {
+        "name": "Cute Pool",
+        "link": "https://adapools.org/CUTE"
     },
     "AMZ1": {
         "name": "Amazon Pool 1",
@@ -1181,7 +1209,7 @@
     },
     "ANADA": {
         "name": "We are ANADA",
-        "link": ""
+        "link": "http://anadapool.site/"
     },
     "ANCH": {
         "name": "Anchor of Hope",
@@ -1189,7 +1217,7 @@
     },
     "ANCO": {
         "name": "Love Cardano",
-        "link": ""
+        "link": "https://t.me/StakingADA"
     },
     "ANDES": {
         "name": "Andes-pool",
@@ -1204,8 +1232,8 @@
         "link": "https://adanet.io"
     },
     "ANEW": {
-        "name": "anew",
-        "link": "https://foo.com"
+        "name": "A New Pool for A New Africa",
+        "link": "https://www.anewpool.io"
     },
     "ANFRA": {
         "name": "ANFRA, The antifragile Pool",
@@ -1233,6 +1261,10 @@
     },
     "ANP": {
         "name": "ADA NORTH POOL",
+        "link": "https://www.adanorthpool.com"
+    },
+    "ANPNL": {
+        "name": "ANP NORTHERN LIGHTS",
         "link": "https://www.adanorthpool.com"
     },
     "ANSO": {
@@ -1287,8 +1319,12 @@
         "name": "ADA Pays Stake Pool",
         "link": "http://adapays.net"
     },
+    "APE": {
+        "name": "ADA Ape Pool",
+        "link": "https://www.adaape.com"
+    },
     "APEX": {
-        "name": "Apex Cardano Pool",
+        "name": "Apex Stake Pool",
         "link": "https://apexpool.info/"
     },
     "APLUS": {
@@ -1312,7 +1348,7 @@
         "link": "https://apple-staking.jimdofree.com"
     },
     "APPY": {
-        "name": " &#128579;&#128578;&#128578;&#128579; APPY",
+        "name": "&#128579;&#128578;&#128578;&#128579; APPY",
         "link": "https://appy.network"
     },
     "APULR": {
@@ -1323,13 +1359,17 @@
         "name": "Aquarius Staking",
         "link": "https://www.aquariusstaking.com"
     },
+    "AQUA": {
+        "name": "AquaPoolADA",
+        "link": "http://aquapool.io/"
+    },
     "ARARE": {
         "name": "AdaRare Stake Pool",
         "link": "https://arare.io/"
     },
     "ARAT": {
         "name": "Arratha",
-        "link": " https://www.arratha.com/adapools/"
+        "link": "https://www.arratha.com/adapools/"
     },
     "ARCH": {
         "name": "ARCH",
@@ -1371,7 +1411,7 @@
         "name": "Arigato StakePool",
         "link": "https://www.arigatopool.com/"
     },
-    "ARGsp": {
+    "ARGSP": {
         "name": "ARGstakepool",
         "link": "http://instagram.com/argstakepool"
     },
@@ -1382,10 +1422,6 @@
     "ARKA": {
         "name": "\ud83c\uddee\ud83c\uddf3 Ray of Light & Hope for the deserving",
         "link": "https://arka.techcallidus.com"
-    },
-    "ARM": {
-        "name": "Tech Donations",
-        "link": "https://www.armfunds.org"
     },
     "ARM1": {
         "name": "ArmADA StakePool",
@@ -1407,14 +1443,6 @@
         "name": "Harmonic",
         "link": "https://harmonicpool.on.fleek.co"
     },
-    "ARMY": {
-        "name": "Milpools",
-        "link": "https://milpools.com"
-    },
-    "CRMY1": {
-        "name": "CardanoRmy Stake Pool",
-        "link": "https://twitter.com/CardanoRmy"
-    },
     "AROCK": {
         "name": "ADARockPool",
         "link": "https://adarockpool.com/"
@@ -1434,14 +1462,6 @@
     "ARSA": {
         "name": "ARSA Stake Pool",
         "link": "https://twitter.com/ARSA_usui"
-    },
-    "GINGR": {
-        "name": "Ginger's Pool",
-        "link": "https://evaginger.com"
-    },
-    "ART": {
-        "name": "Artists Stakepool",
-        "link": "https://artstakepool.com"
     },
     "ARTA": {
         "name": "Artano NFT Pool",
@@ -1505,7 +1525,7 @@
     },
     "ASSET": {
         "name": "Asset Stake Pool 2% fee",
-        "link": "https://assetstakepool.wixsite.com/asset"
+        "link": "https://www.assetstakepool.com"
     },
     "ASTCH": {
         "name": "AssurancePool",
@@ -1519,8 +1539,8 @@
         "name": "Ad Astra Stake Pool",
         "link": "https://www.astra-pool.com/"
     },
-    "ATAD3": {
-        "name": "ATADA-3 Stakepool in Austria",
+    "ATAD1": {
+        "name": "ATADA-1 Stakepool in Austria",
         "link": "https://stakepool.at"
     },
     "ATAD2": {
@@ -1528,7 +1548,7 @@
         "link": "https://stakepool.at"
     },
     "ATADA": {
-        "name": "ATADA Stakepool Austria",
+        "name": "ATADA Stakepool in Austria",
         "link": "https://stakepool.at"
     },
     "ATARI": {
@@ -1559,6 +1579,10 @@
         "name": "Atlantis",
         "link": "http://www.cardano.best"
     },
+    "ATLAS": {
+        "name": "AtlasStakePool",
+        "link": "https://atlasstakepool.com"
+    },
     "ATM": {
         "name": "ATM Stake Pool",
         "link": "https://atmpool.io/"
@@ -1587,10 +1611,6 @@
         "name": "Smart Contract Audit Token",
         "link": "https://www.scatdao.com/"
     },
-    "YOUR": {
-        "name": "spacecoins",
-        "link": "https://spacecoins.io"
-    },
     "AURA": {
         "name": "AURA Pool",
         "link": "https://adapools.org/AURA"
@@ -1603,32 +1623,32 @@
         "name": "AutoCardano",
         "link": "https://autocardano.com"
     },
-    "AVA": {
-        "name": "AVA",
-        "link": "https://AVAcsp.com"
-    },
     "AVENE": {
         "name": "AVENE Pool",
         "link": "https://avenepool.com"
     },
-    "FLAT": {
-        "name": "FLAT World Stake Pool",
+    "AVN": {
+        "name": "Cardano Vietnam Stake Pool",
         "link": "https://cardano.com.vn/"
     },
     "AVOC": {
         "name": "Avocado Pool \ud83e\udd51 by Numic",
-        "link": "http://AvocPool.com"
+        "link": "http://avoc.numic.au"
     },
     "AWAKE": {
-        "name": " Awake Pool",
+        "name": "Awake Pool",
         "link": "https://poolawake.jimdosite.com/"
     },
     "AWP1": {
         "name": "Atomic Nodes #1",
         "link": "https://atomicwallet.io"
     },
+    "RAY7": {
+        "name": "Ray Network",
+        "link": "https://rraayy.com"
+    },
     "AWP2": {
-        "name": "Atomic Wallet",
+        "name": "Atomic Nodes #2",
         "link": "https://atomicwallet.io"
     },
     "AWP3": {
@@ -1667,6 +1687,10 @@
         "name": "AZ5 Stake Pool",
         "link": "https://www.az5.io"
     },
+    "AZDFM": {
+        "name": "AZDFM stake pool",
+        "link": "https://cryptoblocks.pro/azdfm"
+    },
     "AZER": {
         "name": "Azeroth",
         "link": "https://azeroth.xyz"
@@ -1687,6 +1711,10 @@
         "name": "Aztec Staking",
         "link": "https://aztecstaking.com/"
     },
+    "AZUL": {
+        "name": "AZUL - STAKE FOR FUTURE Pool",
+        "link": "https://stakeforfuture.org/"
+    },
     "AZUR": {
         "name": "AzureADA",
         "link": "https://azureada.com"
@@ -1695,15 +1723,15 @@
         "name": "AzureADA2",
         "link": "https://azureada.com"
     },
-    "TSS": {
-        "name": "Tokyo Samurai Staking",
-        "link": "https://tokyosamuraistaking.com"
+    "AZUR3": {
+        "name": "AzureADA3",
+        "link": "https://azureada.com"
     },
-    "AdaPi": {
+    "ADAPI": {
         "name": "AdaPies",
         "link": "https://DougDo.github.io/AdaPies"
     },
-    "At5": {
+    "AT5": {
         "name": "Arte5",
         "link": "https://areoz1.github.io"
     },
@@ -1727,9 +1755,9 @@
         "name": "bADAsStakePool",
         "link": "https://bada55.net"
     },
-    "BAG": {
-        "name": "The BAG",
-        "link": "https://ada.markets"
+    "PUNKR": {
+        "name": "punkr",
+        "link": "https://punkr.net"
     },
     "BAIDU": {
         "name": "baidu",
@@ -1767,12 +1795,8 @@
         "name": "banderini",
         "link": "https://banderini.net"
     },
-    "BANK": {
-        "name": "\ud83c\udfe6 Bank Pool",
-        "link": "https://bankpool.io"
-    },
     "BANTN": {
-        "name": "SisiKoin 1st Pool (BANTEN)",
+        "name": "Banten Stake Pool",
         "link": "https://adapool.sisikoin.com"
     },
     "BAR": {
@@ -1800,8 +1824,8 @@
         "link": "https://www.babelfish.gr"
     },
     "BBHMM": {
-        "name": "Blockchain Better Have My Money",
-        "link": "http://www.bbhmm.net/"
+        "name": "Blockchain Better Have My Money \ud83d\udcb0",
+        "link": "https://www.bbhmm.net/"
     },
     "BBO": {
         "name": "Tre Viet - Bamboo Pool",
@@ -1868,8 +1892,8 @@
         "link": "https://twitter.com/beachadapool"
     },
     "BEADA": {
-        "name": "BEADA Cardano stake pool",
-        "link": "www.beadapool.com"
+        "name": "BEADA Cardano stakepool",
+        "link": "https://www.beadapool.com"
     },
     "BEAM": {
         "name": "Beam Pool",
@@ -1886,6 +1910,10 @@
     "BEAR": {
         "name": "BearPool \ud83e\uddf8",
         "link": "poolbear.io"
+    },
+    "BEAST": {
+        "name": "BEAST Pool",
+        "link": "https://twitter.com/Beastlyorion"
     },
     "BEAVR": {
         "name": "Beaver Pool!",
@@ -1921,7 +1949,7 @@
     },
     "BERRY": {
         "name": "Berry",
-        "link": "https://pipool.online"
+        "link": "https://berrypool.io"
     },
     "BERTI": {
         "name": "bertinhos_pool",
@@ -1952,7 +1980,7 @@
         "link": "https://cardano.bg"
     },
     "BGOOD": {
-        "name": " BGOOD",
+        "name": "BGOOD",
         "link": "https://www.begoodpool.com"
     },
     "BGR": {
@@ -1988,8 +2016,8 @@
         "link": "http://bidu.online"
     },
     "BIKES": {
-        "name": "Pool for Bikes",
-        "link": "https://cardanochest.com"
+        "name": "BIKES Stake Pool",
+        "link": "https://www.bikestake.com"
     },
     "BIO": {
         "name": "Bio Pool",
@@ -2031,24 +2059,24 @@
         "name": "Bitterbal Pool",
         "link": "https://www.bitterbalpool.nl"
     },
-    "FORGE": {
-        "name": "FORGE",
-        "link": "https://twitter.com/ForgeBlocks"
+    "BIZAR": {
+        "name": "Bizarre Stars",
+        "link": "https://twitter.com/BizarreStarsNFT"
     },
     "BK201": {
         "name": "Contractor_Pool",
         "link": "https://contractorpool.blogspot.com"
     },
     "BKIND": {
-        "name": "BeKind",
-        "link": "https://bekindstakepools.online"
+        "name": "Smit Blockchain Operations",
+        "link": "https://smitblockchainops.nl"
     },
     "BKPP": {
         "name": "Bukele President Pool",
         "link": "https://bukelepresidentpool.blogspot.com/"
     },
     "BKV": {
-        "name": "BKV",
+        "name": "bkvpool.com | Single SPO",
         "link": "https://bkvpool.com"
     },
     "BLA": {
@@ -2059,13 +2087,13 @@
         "name": "Block Labs",
         "link": "https://www.blocklabs.info/"
     },
-    "BLACK": {
-        "name": "BLACK Rocket",
+    "BLR": {
+        "name": "BLACK ROCKET",
         "link": "https://blackrocket.space"
     },
     "BLC": {
         "name": "BigLazyCat",
-        "link": "https://ada.thenorthminer.com"
+        "link": "https://www.biglazycat.com/stake/ada/"
     },
     "BLESS": {
         "name": "God BlESS You",
@@ -2075,7 +2103,7 @@
         "name": "Belgian_Crypto_Fund",
         "link": "https://belgiancryptofund.github.io"
     },
-    "Bliss": {
+    "BLISS": {
         "name": "Bliss Staking",
         "link": "https://www.bliss-pool.net"
     },
@@ -2103,6 +2131,10 @@
         "name": "BLOC pool",
         "link": "https://blocpool.com"
     },
+    "BLOOM": {
+        "name": "Bloom Four",
+        "link": "https://bloompool.io/"
+    },
     "BLOQ": {
         "name": "BloqIncStakePool",
         "link": "https://bloq.com"
@@ -2113,7 +2145,7 @@
     },
     "BLST": {
         "name": "Blast",
-        "link": " "
+        "link": ""
     },
     "BLU": {
         "name": "ADABLUE Stake Pool",
@@ -2124,8 +2156,8 @@
         "link": "https://www.blueskystaking.com"
     },
     "SDG13": {
-        "name": "Blue Ocean",
-        "link": "https://www.blueocean.sg"
+        "name": "Blue Ocean Stake Pool",
+        "link": "https://blueocean.sg"
     },
     "BLUE2": {
         "name": "Blueskystaking 0PCT Pool",
@@ -2169,7 +2201,7 @@
     },
     "BODHI": {
         "name": "Bodhi Ada Stakepool",
-        "link": " https://bodhipool.com/"
+        "link": "https://bodhipool.com/"
     },
     "BOLA1": {
         "name": "BOL\u20b3D\u20b3 CARDANO",
@@ -2183,17 +2215,9 @@
         "name": "BONE pool",
         "link": "https://poolbone.github.io/meta/"
     },
-    "EMUSK": {
-        "name": "emusk",
-        "link": "https://www.tesla.com/"
-    },
-    "BOOBS": {
-        "name": "BoobsPool",
-        "link": "https://boobspool.com"
-    },
-    "SIMBA": {
-        "name": "\ud83e\udd81 Bring ADA to African savanna",
-        "link": "https://www.oasisgreenafrica.com"
+    "OBAMA": {
+        "name": "OBAMA 44th President pool",
+        "link": "https://barackobama.com"
     },
     "FIMI": {
         "name": "Tai Chinh - Tam An",
@@ -2203,9 +2227,9 @@
         "name": "Boom Pool 2",
         "link": "https://boomada.com"
     },
-    "CASSO": {
-        "name": "CASSO POOL",
-        "link": "https://pool.casso.io"
+    "BOOST": {
+        "name": "Ada Booster",
+        "link": "https://dbooster.io"
     },
     "BOR1": {
         "name": "Ouroboros Staking Pool",
@@ -2248,8 +2272,8 @@
         "link": "https://proficardanostaking.com"
     },
     "BPE": {
-        "name": "Best Pool Ever",
-        "link": "https://bestpoolever.com"
+        "name": "Best Pool Ever: 0.00% Fee & 100% Rewards",
+        "link": "https://www.bestpoolever.com"
     },
     "DEX": {
         "name": "Digital EXchange - DEX",
@@ -2259,8 +2283,8 @@
         "name": "BitPool",
         "link": "https://bitboycrypto.com"
     },
-    "ERE": {
-        "name": "Block Producer - Fluid Tokens Ambassador (0% fee)",
+    "BPP": {
+        "name": "Block Producer - Fluid Tokens Ambassador $FLDT",
         "link": "https://blockproducer.io/"
     },
     "BPS": {
@@ -2278,6 +2302,10 @@
     "BRAVE": {
         "name": "BraveHeartStakePool",
         "link": "https://braveheartstakepool.com"
+    },
+    "BRAVO": {
+        "name": "Bravo pool",
+        "link": "https://bravostakepool.nl"
     },
     "BRAZL": {
         "name": "Brazil Pool",
@@ -2443,7 +2471,7 @@
         "name": "Blockops Zone",
         "link": "https://www.blockops.zone"
     },
-    "Brhma": {
+    "BRHMA": {
         "name": "Brahma Pool",
         "link": "https://twitter.com/brahmapool"
     },
@@ -2466,6 +2494,10 @@
     "CAESR": {
         "name": "Caesar's Pool",
         "link": "https://alphr.finance"
+    },
+    "CAFE": {
+        "name": "CardanoCafe",
+        "link": "https://cardanocafe.org/"
     },
     "CAFE2": {
         "name": "CardanoCafe Two",
@@ -2513,7 +2545,7 @@
     },
     "CAMP": {
         "name": "CampFireStakePool",
-        "link": "https://twitter.com/tamasan_money"
+        "link": "https://campfire-stake-pool.com/"
     },
     "CAN1": {
         "name": "CanadaStakes",
@@ -2551,7 +2583,7 @@
         "name": "Capybara Stake Pool",
         "link": "https://capybara-pool.org/"
     },
-    "CAR": {
+    "CRD": {
         "name": "Cardan.io",
         "link": "http://cardan.io"
     },
@@ -2575,9 +2607,13 @@
         "name": "cardanoX",
         "link": "https://www.cardanox.info"
     },
-    "CARDs": {
+    "CARDS": {
         "name": "Cardanistas StakePool",
         "link": "https://www.cardanistas.io"
+    },
+    "CARE": {
+        "name": "StakeCare",
+        "link": "http://stake.care"
     },
     "CARE4": {
         "name": "CARDANO REPUBLIC - BY CRYPTO JEROME (FRANCE)",
@@ -2595,9 +2631,9 @@
         "name": "Swiss Staking",
         "link": "https://www.cardano-staking.ch/"
     },
-    "HOTEL": {
-        "name": "HOTEL GINEBRA BARCELONA",
-        "link": "https://www.hotelginebra.com.es"
+    "MEDIA": {
+        "name": "Media3 Stakepool",
+        "link": "https://www.media3.io"
     },
     "CASH": {
         "name": "CashPool",
@@ -2659,9 +2695,9 @@
         "name": "Benefits Stake Pool",
         "link": "https://bspdefi.com/"
     },
-    "CBFR": {
-        "name": "Baremetal French Pool",
-        "link": "https://cardanoblockchain.fr/staking/"
+    "NIXE": {
+        "name": "Nixe Stake Pool",
+        "link": "https://nixepool.com/"
     },
     "CBH": {
         "name": "Cardano Blockhouse",
@@ -2708,7 +2744,7 @@
         "link": "https://www.cardanochinese.site"
     },
     "CCDO": {
-        "name": "Chicando",
+        "name": "Chicago Cardano",
         "link": "https://chicando.net"
     },
     "CCIO": {
@@ -2774,6 +2810,14 @@
     "CCV4": {
         "name": "(Crypto Capital Venture) #Pool5",
         "link": "https://www.youtube.com/cryptocapitalventure"
+    },
+    "SAMBA": {
+        "name": "SAMBA Let's dance",
+        "link": "https://www.getsambaviva.com/"
+    },
+    "TITAN": {
+        "name": "TITANstaking #2",
+        "link": "https://www.titanstaking.io"
     },
     "PRO": {
         "name": "Profiler",
@@ -2867,13 +2911,17 @@
         "name": "Cardano Education Thailand",
         "link": "https://www.cardano-education.com/"
     },
+    "CETI": {
+        "name": "The Original Ceti Pool",
+        "link": "http://ceticompany.com"
+    },
     "CEX1": {
         "name": "CEX.IO Validator",
         "link": "https://validator.cex.io/ada"
     },
-    "CEX2": {
+    "CEX": {
         "name": "CEX.IO Validator",
-        "link": "https://validator.cex.io"
+        "link": "https://validator.cex.io/ada"
     },
     "CFC": {
         "name": "Cardano FC",
@@ -2889,7 +2937,7 @@
     },
     "CFLOW": {
         "name": "CashFlow",
-        "link": "https://www.cashflowpool.com"
+        "link": "https://www.cflowpool.com/"
     },
     "CGP": {
         "name": "CryptoGenesis",
@@ -2902,10 +2950,6 @@
     "CH4IN": {
         "name": "SOCIAL CH4IN",
         "link": "https://www.socialch4in.com"
-    },
-    "CHAIN": {
-        "name": "chain",
-        "link": "https://chainups.com"
     },
     "CHAIT": {
         "name": "CHAITEE \ud83d\ude0e Private Pool for Friends and Family",
@@ -2931,17 +2975,21 @@
         "name": "Stack Cheddar",
         "link": "https://cheddarpool.net"
     },
+    "CHEAP": {
+        "name": "CheapStaking #2 - PublicPrivate",
+        "link": "https://cheapstaking.com"
+    },
     "CHEEK": {
         "name": "CheekyCrypto",
         "link": "https://cheekycrypto.io"
     },
     "CHEF": {
         "name": "Chef Pool",
-        "link": "https://chefpool.org"
+        "link": "https://chefnode.io"
     },
     "CHESS": {
         "name": "Chess",
-        "link": "https://cardano-stakepool.net"
+        "link": "https://www.redhotpawn.com"
     },
     "CHF": {
         "name": "CHF SWISS",
@@ -2955,13 +3003,13 @@
         "name": "Child Pool",
         "link": "https://Child.Help"
     },
-    "VENT": {
-        "name": "$VENT - All In One Community Launchpad",
-        "link": "https://www.vent.finance/"
+    "ISPO2": {
+        "name": "Aada Finance 2 - Stake ADA earn AADA",
+        "link": "https://aada.finance"
     },
-    "ITC4": {
-        "name": "Into the Cryptoverse #4",
-        "link": "https://www.youtube.com/channel/UCRvqjQPSeaWn-uEx-w0XOIg"
+    "CHIMP": {
+        "name": "$CHIMPY token",
+        "link": "https://chimpy.click/"
     },
     "CHIP": {
         "name": "ada01.chip-coin.com",
@@ -3004,7 +3052,7 @@
         "link": "https://adapools.org"
     },
     "CHRTY": {
-        "name": "charity pool",
+        "name": "Charity pool",
         "link": "https://charity-pool.ro"
     },
     "CHUB": {
@@ -3025,7 +3073,7 @@
     },
     "CIEL": {
         "name": "CIEL Stake Pool",
-        "link": "https://twitter.com/CIEL_Stake_Pool"
+        "link": "https://cielstakepool.com"
     },
     "CIRCA": {
         "name": "Circa",
@@ -3046,6 +3094,10 @@
     "CLANN": {
         "name": "Cardano Clanns Stake Pool",
         "link": "https://cardanoclanns.io"
+    },
+    "CLAY": {
+        "name": "CLAY",
+        "link": "https://www.claynation.io/stake"
     },
     "CLCP": {
         "name": "Crypto Land Cardano Pool",
@@ -3144,7 +3196,7 @@
         "link": "https://encoins.io"
     },
     "CNDL": {
-        "name": "Candlestake",
+        "name": "Candlestake Pool",
         "link": "https://www.candlestake.com"
     },
     "CNFT": {
@@ -3156,11 +3208,11 @@
         "link": "https://twitter.com/AsiaCnft"
     },
     "CNL": {
-        "name": "Cardanostakepools NL - 0% Fee ",
+        "name": "Cardanostakepools NL - 0% Fee",
         "link": "http://cardanostakepools.nl/"
     },
     "CNODE": {
-        "name": "Cardanode Staking: 0.00% Fee",
+        "name": "Cardanode: 0.00% Fee & 100% Rewards Guaranteed",
         "link": "https://www.cardanode.io"
     },
     "CNT": {
@@ -3180,16 +3232,16 @@
         "link": "https://cardanus.net"
     },
     "CO2P": {
-        "name": "CO2-Pool",
-        "link": "https://co2-pool.github.io/Website"
+        "name": "CO2-Pool - eco-friendly, green and climate-action",
+        "link": "https://co2pool.com/"
     },
     "COAST": {
         "name": "Gold Coast \ud83e\udd47",
         "link": "https://www.goldcoaststaking.com"
     },
     "COCA": {
-        "name": "Cocacola Pool",
-        "link": ""
+        "name": "COCACOLA POOL",
+        "link": "https://topclick.vn"
     },
     "COCO": {
         "name": "Coconut Pool",
@@ -3218,10 +3270,6 @@
     "COFFR": {
         "name": "Jolly Roger's COFFR",
         "link": "https://coffr.info"
-    },
-    "COIN": {
-        "name": "Coin Stake Pool",
-        "link": "https://coinstakepool.com"
     },
     "COINX": {
         "name": "ADA Coinz",
@@ -3278,6 +3326,10 @@
     "COPI": {
         "name": "Cornucopias",
         "link": "https://www.cornucopias.io"
+    },
+    "SHIB": {
+        "name": "$SHIBA token",
+        "link": "https://shibatoken.com/"
     },
     "COR": {
         "name": "COR Stake Pool",
@@ -3345,7 +3397,7 @@
     },
     "CPU1": {
         "name": "Coinpayu",
-        "link": "https://www.coinpayu.com"
+        "link": "https://staking.coinpayu.com"
     },
     "CPUB": {
         "name": "CardanoPUB",
@@ -3429,11 +3481,11 @@
     },
     "CROWN": {
         "name": "CROWN Stake Pool",
-        "link": "https://StakeADAcoins.io"
+        "link": "https://www.crownstakepool.com/"
     },
     "CRPL": {
         "name": "Carden Pool",
-        "link": "https://cardenpool.org"
+        "link": "https://www.cardenpool.org"
     },
     "CRS": {
         "name": "Cardano Reserve System",
@@ -3459,13 +3511,17 @@
         "name": "CryptoPool.dev",
         "link": "https://cryptopool.dev/"
     },
+    "CRYPT": {
+        "name": "AutoStake IV",
+        "link": "https://autostake.net"
+    },
     "CRZ": {
         "name": "CRUISE",
         "link": "https:/www.facebook.com/groups/1219779591789233"
     },
     "CRZPA": {
-        "name": "The Italian Crazy Pool",
-        "link": "http://www.crzpapool.it"
+        "name": "Italian Crazy Pool",
+        "link": "https://crzpapool.it"
     },
     "GNFT": {
         "name": "Generative NFTs",
@@ -3473,7 +3529,7 @@
     },
     "CSCS": {
         "name": "CloudStruct Cardano Staking",
-        "link": "https://cardano.cloudstruct.net"
+        "link": "https://cloudstruct.net/cardano/"
     },
     "CSK": {
         "name": "cardistack",
@@ -3512,11 +3568,11 @@
         "link": "https://MintMatrix.io"
     },
     "CSWP1": {
-        "name": "**NOT YET STARTING** CSWAP 99% ISPO Pool [CSWP1]",
+        "name": "99% CSWAP DEX ISPO Pool [CSWP1]",
         "link": "https://cswap.info"
     },
     "CSWP2": {
-        "name": "**NOT YET STARTING** CSWAP 50% ISPO Pool [CSWP2]",
+        "name": "50% CSWAP DEX ISPO Pool [CSWP2]",
         "link": "https://cswap.info"
     },
     "CSYS": {
@@ -3580,12 +3636,12 @@
         "link": "https://coachellavalleystakepool.com"
     },
     "CWHP": {
-        "name": "Cardano Wheel House Performance",
+        "name": "Cardano Wheel House Preformance",
         "link": "https://cwhp.io"
     },
-    "EUCL": {
-        "name": "[EUCL] ADA Cloud HA multiregion",
-        "link": "https://adapoolcloud.com"
+    "CWRL": {
+        "name": "CardanoWorld.net Pool [EN/ES]",
+        "link": "https://cardanoworld.net"
     },
     "CWSP": {
         "name": "Cardano Welfare Stake Pool",
@@ -3611,13 +3667,17 @@
         "name": "UAE Stake Pool",
         "link": "https://thecooltank.com/mining-pool"
     },
-    "Croco": {
+    "CROCO": {
         "name": "Crocodile Cardano Pool (CrocoPool)",
         "link": "http://crocopool.tilda.ws"
     },
     "D13": {
         "name": "DREAM13",
         "link": "https://dream13.io"
+    },
+    "D360": {
+        "name": "DApp360",
+        "link": "https://dapp360.co/ada-stake-pool"
     },
     "DACH": {
         "name": "Cardano Kanal Staking Pool",
@@ -3631,9 +3691,13 @@
         "name": "DADA Pool",
         "link": "https://adadada.club"
     },
+    "DAFFY": {
+        "name": "Daffy The Duckling Pool",
+        "link": "https://www.daffytheducklingpool.com"
+    },
     "DAI": {
         "name": "Design an individual",
-        "link": "http://i-design.watson.jp/"
+        "link": "https://sites.google.com/view/cardano-i-design/"
     },
     "DALAT": {
         "name": "DAPPS LATAM",
@@ -3691,17 +3755,21 @@
         "name": "D-Day Pool",
         "link": "https://dday-pool.adamantas.io"
     },
-    "DEMON": {
-        "name": "Demon",
-        "link": "https://www.npdemons.com/"
+    "DDOS": {
+        "name": "Cardano Media Taiwan",
+        "link": "https://news.purchains.com/cardano-status"
     },
     "DDP": {
         "name": "Duck Duck Pool",
         "link": "https://butterfly.today"
     },
+    "DDWN": {
+        "name": "Dedwen Pool",
+        "link": "https://github.com/impyer/dedwen"
+    },
     "DEAD": {
         "name": "[DEAD]POOL",
-        "link": "https://www.deadpoolcrypto.com"
+        "link": "https://pooltool.io/pool/59d12b7a426724961607014aacea1e584f3ebc1196948f42a10893bc"
     },
     "DECEN": {
         "name": "Decentralized Stake Pool",
@@ -3717,7 +3785,7 @@
     },
     "DEEP": {
         "name": "DeepEnd",
-        "link": "https://www.deependpool.net"
+        "link": "https://pockettowne.io"
     },
     "DEEPP": {
         "name": "DeepPool",
@@ -3727,9 +3795,9 @@
         "name": "DEGA ISPO",
         "link": "https://dega.org"
     },
-    "F2VI": {
-        "name": "F2VI",
-        "link": "https://f2viada.wixsite.com/my-site"
+    "DEGAS": {
+        "name": "DEGAS - The Pool Fighting GHG Emissions",
+        "link": "https://degas-pool.com"
     },
     "DELTA": {
         "name": "DELTA POOL",
@@ -3805,27 +3873,27 @@
     },
     "DIGI": {
         "name": "Digital Fortress",
-        "link": "https://digitalfortress.online"
+        "link": "https://digi.pro"
     },
     "DIGI2": {
         "name": "Digital Fortress",
-        "link": "https://digitalfortress.online"
+        "link": "https://digi.pro"
     },
     "DIGI3": {
         "name": "Digital Fortress",
-        "link": "https://digitalfortress.online"
+        "link": "https://digi.pro"
     },
     "DIGI4": {
         "name": "Digital Fortress",
-        "link": "https://digitalfortress.online"
+        "link": "https://digi.pro"
     },
     "DIGI5": {
         "name": "Digital Fortress",
-        "link": "https://digitalfortress.online"
+        "link": "https://digi.pro"
     },
     "DIGI6": {
         "name": "Digital Fortress",
-        "link": "https://digitalfortress.online"
+        "link": "https://digi.pro"
     },
     "DIGI7": {
         "name": "Digital Fortress",
@@ -3836,11 +3904,11 @@
         "link": "https://digitalfortress.online"
     },
     "DIGIU": {
-        "name": "Digital underground pool",
-        "link": "https://digitalundergroundpool.com"
+        "name": "Digital Underground Pool",
+        "link": "https://www.digitalundergroundpool.com"
     },
     "DIING": {
-        "name": "Diing staking! \ud83d\udece",
+        "name": "Diing Staking! \ud83d\udece",
         "link": "https://www.diing.com"
     },
     "DINGO": {
@@ -3876,8 +3944,8 @@
         "link": "https://docs.discoin.family"
     },
     "DIVY": {
-        "name": "DISCOVERY",
-        "link": "https://discovery-pool.com/"
+        "name": "DISCO CLUB",
+        "link": "https://worldmobile.club/"
     },
     "DIYA": {
         "name": "Diya Pool",
@@ -3903,6 +3971,10 @@
         "name": "Drunken Dragon Pool",
         "link": "https://www.drunkendragon.games"
     },
+    "DNEWS": {
+        "name": "DigitalAssetNews",
+        "link": "https://danteachescrypto.com/cardano-staking-pool/"
+    },
     "DNTR": {
         "name": "DONATOR",
         "link": "https://stockconquer.com"
@@ -3913,7 +3985,7 @@
     },
     "DOD": {
         "name": "Club101",
-        "link": "https://www.club101.io/"
+        "link": "https://club101.io/"
     },
     "DODO": {
         "name": "The Dodo Pool",
@@ -3930,6 +4002,10 @@
     "DONO": {
         "name": "Dono Pool",
         "link": "https://www.dono-pool.com"
+    },
+    "DONT": {
+        "name": "Do Not Delegate Here 2",
+        "link": "https://github.com/dndhdndh/pool"
     },
     "DOOM": {
         "name": "The DOOM Pool",
@@ -3971,10 +4047,6 @@
         "name": "Adaption.us",
         "link": "https://www.adaption.us"
     },
-    "DREAM": {
-        "name": "Ada's Dream",
-        "link": "https://ada-dream-pool.webflow.io"
-    },
     "DRINK": {
         "name": "Drinks Stake Pool",
         "link": "https://drinkspool.com"
@@ -4003,8 +4075,8 @@
         "name": "DRPADAPool",
         "link": "https://drpadapool.io"
     },
-    "UNKWN": {
-        "name": "unknown",
+    "DRRS": {
+        "name": "Dead Rabbit Resurrection Society",
         "link": "https://twitter.com/DeadRabbitRS"
     },
     "DRSTK": {
@@ -4035,6 +4107,10 @@
         "name": "Disrupt Stakepool",
         "link": "https://disr.pt/pool"
     },
+    "DUBAI": {
+        "name": "ADA Dubai",
+        "link": "https://twitter.com/DubaiNumberOne"
+    },
     "DUCK": {
         "name": "\ud83e\udd86 The DUCK Pool",
         "link": "https://theduckpool.jimdofree.com"
@@ -4047,15 +4123,15 @@
         "name": "Durianpool Malaysia \u9a6c\u6765\u897f\u4e9a\u69b4\u83b2\u6c60 \u30c9\u30ea\u30a2\u30f3\u30d7\u30fc\u30eb\u30de\u30ec\u30fc\u30b7\u30a2",
         "link": "https://git.io/JEvU6"
     },
-    "VYPER": {
-        "name": "VyperLabs",
-        "link": "https://pool.vyperlabs.com"
+    "DUST": {
+        "name": "Stardust",
+        "link": "https://adastrium.io"
     },
     "DWORX": {
         "name": "DworxPool",
         "link": "https://deviceworx.com"
     },
-    "DXBs": {
+    "DXBS": {
         "name": "DubaiStakePool",
         "link": "In Process"
     },
@@ -4063,21 +4139,17 @@
         "name": "Dyno Pool",
         "link": "https://dynopool.com"
     },
-    "Drone": {
+    "DRONE": {
         "name": "Drone_Pool",
         "link": "https://github.com/drone-pool"
     },
-    "Duke1": {
+    "DUKE1": {
         "name": "Skypool1",
         "link": "https://nowebsite.com"
     },
     "EAGLE": {
-        "name": "M1 Crypto EAGLE Pool",
-        "link": "https://m1crypto.co/ada-pool"
-    },
-    "EARN": {
-        "name": "Earn Stakepool",
-        "link": "https://earningcardano.com"
+        "name": "EAGLE Pool",
+        "link": "https://cardanoeagle.com/ada-pool"
     },
     "EARTH": {
         "name": "EARTH",
@@ -4087,9 +4159,9 @@
         "name": "EAS Pool",
         "link": "https://enjoyadastaking.it"
     },
-    "SPEED": {
-        "name": "Speedwing",
-        "link": "https://www.speedwing.online"
+    "EASY1": {
+        "name": "easy1staking.com",
+        "link": "https://easy1staking.com"
     },
     "EBS": {
         "name": "EveryBlock Studio",
@@ -4111,13 +4183,13 @@
         "name": "ECX Pool",
         "link": "https://ecxtoken.io/"
     },
+    "EDEN": {
+        "name": "Garden Pool Four",
+        "link": "https://garden-pool.com"
+    },
     "EDGE": {
         "name": "EDGE | AdaNet.io",
         "link": "https://adanet.io"
-    },
-    "EDU": {
-        "name": "EduStake",
-        "link": "https://edustake.io"
     },
     "TCA": {
         "name": "The Cambridge Alliance",
@@ -4147,9 +4219,13 @@
         "name": "Elbstake Stakepool Hamburg",
         "link": "http://elbstake-hamburg.de/"
     },
-    "TROLL": {
-        "name": "Trollbitt",
-        "link": "https://trollbitt.no"
+    "ELDEN": {
+        "name": "Elden Pool",
+        "link": "https://eldenpool.com"
+    },
+    "ELEMT": {
+        "name": "ELEMENTAL Stake Pool",
+        "link": "https://www.elemt.xyz"
     },
     "ELEP\ud83d\udc18": {
         "name": "Elephant Pool",
@@ -4171,6 +4247,10 @@
         "name": "Elite ADA Stakepool",
         "link": "https://eliteADAstakepool.com"
     },
+    "ELITE": {
+        "name": "02  \u25ab  Elite Stake Pool",
+        "link": "https://elitestakepool.com"
+    },
     "ELLY7": {
         "name": "We are Grabber",
         "link": "https://fimi.vn/ada"
@@ -4179,9 +4259,9 @@
         "name": "ELMPI\ud83d\udcf6",
         "link": "https://elmpi.net/"
     },
-    "IRWT": {
-        "name": "In Russ We Trust",
-        "link": "https://www.facebook.com/groups/inrusswetrust/"
+    "ELON": {
+        "name": "Papa Elon",
+        "link": "https://www.tesla.com"
     },
     "EMMY": {
         "name": "Noether Tech Pool",
@@ -4207,24 +4287,24 @@
         "name": "Emurgo #5",
         "link": "https://emurgo.io/"
     },
-    "FLOKI": {
-        "name": "$FLOKI is the people's cryptocurrency.",
-        "link": "https://www.floki.com/"
-    },
     "EMUR6": {
         "name": "[EMUR6] Emurgo #6",
         "link": "https://emurgo.io"
     },
-    "ENACT": {
-        "name": "Enact Pool",
-        "link": "https://EnactPool.com"
+    "NARU": {
+        "name": "NARU Pool",
+        "link": "https://naru-naru.co.uk"
+    },
+    "ENDVR": {
+        "name": "Endeavor ENDVR",
+        "link": "https://endeavorstakepools.com"
     },
     "ENOV8": {
         "name": "Innovation fund Pool",
         "link": "https://antimo.io"
     },
     "ENVY": {
-        "name": "Envy Stake Pool",
+        "name": "ENVY Stake Pool",
         "link": "https://envystakepool.com"
     },
     "EPIC": {
@@ -4259,20 +4339,20 @@
         "name": "ERGO POOL",
         "link": "https://ergo-pool.com/"
     },
-    "ZZZ6": {
-        "name": "ZZZ6",
-        "link": ""
+    "ERGOX": {
+        "name": "ERGO DEX POOL",
+        "link": "https://ergo-pool.com/"
     },
     "ESG": {
         "name": "ESGpool",
         "link": "https://esgpool.co.uk"
     },
-    "EVER": {
-        "name": "Everest Pool",
+    "ESP": {
+        "name": "Everest Summit Pool - 0PCT Fee",
         "link": "https://everestada.com/"
     },
     "ESPNO": {
-        "name": "Einhorn Sirup Pool ",
+        "name": "Einhorn Sirup Pool",
         "link": "https://en.wikipedia.org/wiki/Unicorn"
     },
     "ESPR": {
@@ -4347,6 +4427,14 @@
         "name": "eToro Pool 21",
         "link": "https://etoro.com"
     },
+    "ETO3": {
+        "name": "eToro Pool 3",
+        "link": "https://etoro.com"
+    },
+    "ETO2": {
+        "name": "eToro Pool 2",
+        "link": "https://etoro.com"
+    },
     "ETO4": {
         "name": "eToro Pool 4",
         "link": "https://etoro.com"
@@ -4376,7 +4464,7 @@
         "link": "https://kunostakepool.com/"
     },
     "EU01": {
-        "name": "StakePool247 | Ardana Stake Pool Alliance member",
+        "name": "StakePool247",
         "link": "https://www.stakepool247.eu/"
     },
     "EUADA": {
@@ -4384,24 +4472,24 @@
         "link": "https://euadapool.com"
     },
     "EULP": {
-        "name": "EucalyptusPool",
+        "name": "Eucalyptus",
         "link": "https://metamorphys.github.io/EucalyptusPool/"
     },
     "EUR": {
         "name": "ADA Pool Europe",
         "link": "https://adapool-europe.com/"
     },
-    "EURO": {
-        "name": "Euro Pool",
-        "link": "http://peterspace.de/stakepool"
+    "CHIEN": {
+        "name": "Charly&Aliens Alliance",
+        "link": "https://cardano-tools.io/chien"
     },
     "EUROP": {
         "name": "The Miracle Pool",
         "link": "https://cardano.org/"
     },
     "EUSKL": {
-        "name": "EUSKAL STAKE POOL",
-        "link": "https://euskalstakepool.win"
+        "name": "EUSKL POOL",
+        "link": "https://euskl.github.io"
     },
     "EUSPF": {
         "name": "Europe Stake Pool - France",
@@ -4447,6 +4535,10 @@
         "name": "Everstake",
         "link": "https://everstake.one/cardano"
     },
+    "HOSKY": {
+        "name": "$HOSKY Token",
+        "link": "https://hosky.io/"
+    },
     "EVERS": {
         "name": "Everstake",
         "link": "https://everstake.one/cardano"
@@ -4483,7 +4575,7 @@
         "name": "EazyPeazy",
         "link": "https://ezpz-sandbox.mxapps.io"
     },
-    "EoK": {
+    "EOK": {
         "name": "EoK",
         "link": "https://eyeoftheking1.wixsite.com/eokschpool"
     },
@@ -4499,9 +4591,9 @@
         "name": "Friends4ADA",
         "link": "https://friends.staking4ADA.org"
     },
-    "WOLF2": {
-        "name": "ADAwolf 2 \ud83d\udc3a",
-        "link": "https://adafrog.io"
+    "FABLE": {
+        "name": "Fable \u5bd3\u8a71",
+        "link": "https://twitter.com/FablePool"
     },
     "FADA": {
         "name": "FortuneADA Pool",
@@ -4515,7 +4607,7 @@
         "name": "Fair Pool #01",
         "link": "https://fairpool.eu"
     },
-    "F\u20b3LCO": {
+    "FALCO": {
         "name": "Falcon Cardano Stakepool",
         "link": "https://falconstakepool.com"
     },
@@ -4573,7 +4665,7 @@
     },
     "FEEL": {
         "name": "FEEL",
-        "link": "https://www.feelstakepool.com"
+        "link": "https://www.feelstakepool.org"
     },
     "FEHU": {
         "name": "fehupool",
@@ -4621,15 +4713,15 @@
     },
     "FIALA": {
         "name": "Fialka",
-        "link": "https://bookcoin.app"
+        "link": "https://fialka.live"
     },
     "FIBOT": {
         "name": "Bots for Defi liquidation",
         "link": "http://ada.wefin.vn"
     },
     "FIDA": {
-        "name": "Staking for freedom with FIDA",
-        "link": "https://fimi.vn/ada"
+        "name": "The pool of Vietnamese",
+        "link": "t.me/StakingADA"
     },
     "FIDE": {
         "name": "Fidelio",
@@ -4641,7 +4733,7 @@
     },
     "FIKA": {
         "name": "FIKA Pool",
-        "link": "https://fikapool.com"
+        "link": "https://nihaocardano.com/staking/"
     },
     "FINE": {
         "name": "Fine Stake Pool",
@@ -4711,13 +4803,13 @@
         "name": "FLOAT_POOL",
         "link": "https://www.floatlight.com"
     },
-    "KID": {
-        "name": "\ud83d\udc76\ud83c\udffb KITCHEN for KID",
-        "link": "https://bepsechia.org/"
+    "FLOKI": {
+        "name": "$FLOKI is the people's cryptocurrency.",
+        "link": "https://www.floki.com/"
     },
     "FLOW": {
         "name": "FLOW",
-        "link": "https://theriver906928134.wordpress.com"
+        "link": "https://www.flownode.xyz"
     },
     "FLOWR": {
         "name": "FLOWR Stake Pool",
@@ -4741,7 +4833,7 @@
     },
     "FMS": {
         "name": "FMS-stakepool",
-        "link": "coming"
+        "link": "not important"
     },
     "FMSP": {
         "name": "Frontier Mining Stake Pool",
@@ -4773,22 +4865,26 @@
     },
     "FORUS": {
         "name": "For us",
-        "link": "https://blog.naver.com/kimzeus2616"
+        "link": "https://blog.naver.com/stakingpoolforus"
     },
     "FORZA": {
         "name": "FORZA",
         "link": "https://forzapool.com"
     },
+    "FOX": {
+        "name": "FOX POOL",
+        "link": "https://fox-staking.com"
+    },
     "FPOOL": {
-        "name": "Froge Pool by FrogeWorld",
-        "link": "https://www.froge.world/"
+        "name": "FrogePool by FrogeWorld",
+        "link": "https://www.frogeworld.com/"
     },
     "FRADA": {
         "name": "ADA Made in France",
         "link": "https://cardano-france-stakepool.org"
     },
     "FRCA\ud83c\udf41": {
-        "name": "0% Fees! High-Yield Canadian Pool \ud83c\udde8\ud83c\udde6",
+        "name": "0% Fees! Canadian Pool \ud83c\udde8\ud83c\udde6",
         "link": "https://www.frcan.com/"
     },
     "FREDO": {
@@ -4813,7 +4909,7 @@
     },
     "FRNTR": {
         "name": "Frontier Pool",
-        "link": "http://frontierpool.com"
+        "link": "https://frontierpool.com"
     },
     "FROG": {
         "name": "ADAfrog \ud83d\udc38",
@@ -4829,11 +4925,11 @@
     },
     "FRSC": {
         "name": "Freedom Socal",
-        "link": "http://facebook.com/Freedom.Socal"
+        "link": "http://temecula.noip.me"
     },
     "FRUIT": {
         "name": "Far Reaching Use of Information Technology",
-        "link": "https://phlovers.org/fruit"
+        "link": "https://fruitp.net"
     },
     "FRY": {
         "name": "FRY",
@@ -4875,9 +4971,9 @@
         "name": "Cardanode: 0.00% Fee & 100% Rewards Guaranteed",
         "link": "https://www.cardanode.io"
     },
-    "GOALS": {
-        "name": "ADA Goals Stake Pool",
-        "link": "https://ada-goals.com"
+    "FUNGI": {
+        "name": "FUNGI Stake Pool | Single Pool Operator",
+        "link": "https://fungi-pool.com"
     },
     "FUNKY": {
         "name": "Funky Penguin \ud83d\udc27",
@@ -4963,10 +5059,6 @@
         "name": "Not Bill's Pearly Pool",
         "link": "https://memepools.io/"
     },
-    "GCP": {
-        "name": "Gold Coast",
-        "link": "https://goldcoastpool.org"
-    },
     "GDAY1": {
         "name": "GDay Pool 1",
         "link": "https://gdaypools.com"
@@ -5003,10 +5095,6 @@
         "name": "GENKIPOOL",
         "link": "https://genkipool.com/"
     },
-    "GENS5": {
-        "name": "Genius Yield 5",
-        "link": "https://www.geniusyield.co"
-    },
     "GENS1": {
         "name": "Genius X 1",
         "link": "https://www.genius-x.co"
@@ -5022,6 +5110,10 @@
     "GENSX": {
         "name": "Genius X",
         "link": "https://www.genius-x.co"
+    },
+    "GER": {
+        "name": "German Staking",
+        "link": "https://www.germanstaking.com/"
     },
     "GERO": {
         "name": "GERO Stake Pool",
@@ -5061,7 +5153,7 @@
     },
     "GHISX": {
         "name": "GHISX POOL",
-        "link": "https://ghisx-pool.com"
+        "link": "https://x.com/ghisxpool"
     },
     "GIANG": {
         "name": "MyPoolName",
@@ -5095,9 +5187,9 @@
         "name": "GigaX",
         "link": "http://GigaX.io"
     },
-    "GIGS": {
-        "name": "GetGigs.com",
-        "link": "https://www.getgigs.com"
+    "LUNA9": {
+        "name": "Luna 9",
+        "link": "https://luna9.com"
     },
     "GINKG": {
         "name": "GINKGO",
@@ -5108,12 +5200,12 @@
         "link": "https://cardino-ada.netlify.app"
     },
     "GIV": {
-        "name": "GIV Pool Collaborative",
+        "name": "GIV Pool",
         "link": "https://www.givada.io"
     },
-    "W4ADA": {
-        "name": "Whales4ADA",
-        "link": "https://whales.staking4ADA.org"
+    "GIVE": {
+        "name": "The Giving Pool",
+        "link": "https://staking4ada.org/give"
     },
     "GIVE1": {
         "name": "Feed homeless in Phoenix Cardano Ada stake pool",
@@ -5158,6 +5250,10 @@
     "GMO1": {
         "name": "GMO Coin Staking Pool",
         "link": "https://coin.z.com/jp/"
+    },
+    "GNERD": {
+        "name": "The Groovy Nerds Pool",
+        "link": "https://thegroovynerd.com"
     },
     "GNP1": {
         "name": "GrahamsNumberPlus1",
@@ -5268,7 +5364,7 @@
         "link": "https://cardano.gratis"
     },
     "GRANA": {
-        "name": "GranADA_Staking_Pool",
+        "name": "GranADA Pool",
         "link": "https://granadapool.com"
     },
     "GRAVY": {
@@ -5359,15 +5455,15 @@
         "name": "Grow Your Stake",
         "link": "https://www.growyourstake.com"
     },
-    "GenZ": {
+    "GENZ": {
         "name": "Gen.Zaff's Pool",
         "link": "https://gen-zaff.vercel.app"
     },
-    "GmeOn": {
+    "GMEON": {
         "name": "GameOn Adalove",
         "link": "https://www.gameon.ch"
     },
-    "Gunda": {
+    "GUNDA": {
         "name": "Gundam Stake",
         "link": "https://cross.technology"
     },
@@ -5427,9 +5523,9 @@
         "name": "HAN",
         "link": "https://git.io/JPW0U"
     },
-    "MIKA": {
-        "name": "MIKA pool ",
-        "link": "mikapool.site"
+    "HANOI": {
+        "name": "The Vietnamese pool",
+        "link": "http://mikapool.site"
     },
     "RAY1": {
         "name": "Ray Network",
@@ -5439,6 +5535,10 @@
         "name": "Hari Pool",
         "link": "https://myadapoolnamerocks.com"
     },
+    "HARM": {
+        "name": "ISPO | harmlesscoin.com",
+        "link": "https://www.harmlesscoin.com"
+    },
     "HASH": {
         "name": "Hash Valley",
         "link": "https://hashvalley.github.io/"
@@ -5447,9 +5547,9 @@
         "name": "ADA Haven",
         "link": "https://cardano.org/"
     },
-    "hawak": {
-        "name": "hawak",
-        "link": "https://github.com/BRNMXR/HAWAK"
+    "HAWAK": {
+        "name": "The h\u20b3w\u20b3k Pool",
+        "link": "https://hawak.cloud"
     },
     "HAX": {
         "name": "HaxMode Pool",
@@ -5463,13 +5563,13 @@
         "name": "\ud83c\uddf0\ud83c\uddf7KOREA POOL\u327f",
         "link": "https://twitter.com/kor_pool"
     },
-    "WEPA": {
-        "name": "The Boricua Pool",
-        "link": "https://boricua-staking.com"
+    "HEAL": {
+        "name": "The Heal Pool",
+        "link": "https://thehealpool.com"
     },
-    "HEART": {
-        "name": "ADA HEART STAKE POOL",
-        "link": "https://adaheartpool.com"
+    "CRCI": {
+        "name": "CRCI",
+        "link": "https://www.crci.review/"
     },
     "HEAVN": {
         "name": "LawOfHeaven",
@@ -5498,10 +5598,6 @@
     "MAL": {
         "name": "Maladex - Research Driven Cardano DEX",
         "link": "https://maladex.com"
-    },
-    "HELP": {
-        "name": "Help Pool",
-        "link": "https://poolpeek.com/#/pool/598fc7f0a2108f952d6ee96939e7a8ecc290b69ebf62c6c0986c8e20"
     },
     "HENRY": {
         "name": "HENRY",
@@ -5580,12 +5676,12 @@
         "link": "https://hodlada.today"
     },
     "HODLR": {
-        "name": "Hodler Coalition",
+        "name": "Midnight \u25ab 0% fee",
         "link": "https://www.hodlerstaking.com"
     },
     "HODL\u20b3": {
         "name": "Hodl\u20b3da",
-        "link": "https://hodlada.com"
+        "link": "https://hodlada.today"
     },
     "HOLA": {
         "name": "HOLA Stake Pool",
@@ -5607,9 +5703,9 @@
         "name": "Hand Of Midas Pool",
         "link": "https://www.trandangquang.com"
     },
-    "HONEY": {
-        "name": "LambdaHoneypot",
-        "link": "https://www.lambda-honeypot.com"
+    "POND": {
+        "name": "The Pond",
+        "link": "https://froggiepond.com/"
     },
     "HOOAH": {
         "name": "Crayon Eater Hooah Pool",
@@ -5639,10 +5735,6 @@
         "name": "Hoskies Pool",
         "link": "https://hoskiespool.com"
     },
-    "HOSKY": {
-        "name": "$HOSKY Hosky Shill Team",
-        "link": "https://hosky.io/"
-    },
     "HOWDY": {
         "name": "Howdy Pool",
         "link": "https://howdyada.com"
@@ -5659,7 +5751,7 @@
         "name": "We are HPN Family",
         "link": "https://hpn.fimi.vn"
     },
-    "HPTes": {
+    "HPTES": {
         "name": "HPTestPool",
         "link": "https://example.com"
     },
@@ -5708,8 +5800,8 @@
         "link": "https://discord.gg/seDexvNZ"
     },
     "HUG": {
-        "name": "Happy HUG Staking",
-        "link": "https://adastaking.co.uk"
+        "name": "HUG Staking",
+        "link": "https://twitter.com/HUG_Pool"
     },
     "HUM": {
         "name": "HumanityPool",
@@ -5718,6 +5810,10 @@
     "HUNNY": {
         "name": "HUNNY pool\ud83c\udf6f",
         "link": "https://www.hunny-pool.com"
+    },
+    "HUSKY": {
+        "name": "Husky pool",
+        "link": "https://huskypool.com"
     },
     "HUTAN": {
         "name": "HUTAN Pool",
@@ -5744,8 +5840,8 @@
         "link": "https://hydrapool.io"
     },
     "HYGGE": {
-        "name": "Hygge is an art of happiness\ud83e\udd38\u200d\u2640\ufe0f",
-        "link": "https://hyggepool.com"
+        "name": "Staking Cardano with HYGGE",
+        "link": "https://staking-cardano.com"
     },
     "HYPE": {
         "name": "HYPE STAKING",
@@ -5832,7 +5928,7 @@
         "link": "https://ibrastakepool.com"
     },
     "ICORG": {
-        "name": "ICO Research Group",
+        "name": "ICO Research Group (0% fee until 5m staked)",
         "link": "https://icoresearchgroup.com/"
     },
     "ICP1": {
@@ -5903,10 +5999,6 @@
         "name": "ADA INDIA STAKE POOL",
         "link": "https://ada-india.com/"
     },
-    "INDIA": {
-        "name": "INDIA Charity Stake Pool",
-        "link": "https://stakeforindia.com"
-    },
     "INDIE": {
         "name": "INDIE",
         "link": "https://indiepool.co/"
@@ -5971,7 +6063,7 @@
         "name": "Italians Pool It Better",
         "link": "https://www.italianspib.it"
     },
-    "IPMCo": {
+    "IPMCO": {
         "name": "IPMComputers Pool",
         "link": "https://www.ipmcomputers.com"
     },
@@ -6015,17 +6107,13 @@
         "name": "Infinia Stake Pool Japan",
         "link": "https://infiniastakepool.com/"
     },
-    "ISPO2": {
-        "name": "Aada Finance 2 - Stake ADA earn AADA",
-        "link": "https://aada.finance"
-    },
     "ISPP": {
         "name": "Infinia Stake Private Pool",
         "link": "https://infiniastakepool.com/"
     },
-    "ISR": {
-        "name": "Cardano Israel",
-        "link": "https://www.cardano-israel.com"
+    "GERO2": {
+        "name": "Gero Labs",
+        "link": "https://gerowallet.io/"
     },
     "ISTAN": {
         "name": "istanpool",
@@ -6051,9 +6139,13 @@
         "name": "Into the Cryptoverse #2",
         "link": "https://www.youtube.com/channel/UCRvqjQPSeaWn-uEx-w0XOIg"
     },
-    "ITZA": {
-        "name": "Chichen Itza",
-        "link": "https://latinstakepools.com/"
+    "ITC3": {
+        "name": "Into the Cryptoverse #3",
+        "link": "https://www.youtube.com/channel/UCRvqjQPSeaWn-uEx-w0XOIg"
+    },
+    "XOXO": {
+        "name": "RETIRED",
+        "link": ""
     },
     "IVANA": {
         "name": "The Loveliest Pool",
@@ -6071,13 +6163,9 @@
         "name": "IZ POOL",
         "link": "https://facebook.com"
     },
-    "India": {
-        "name": "The Pool of India",
-        "link": "https://storage.googleapis.com/india-pool/index.html"
-    },
-    "JACK": {
-        "name": "Jack's Cardano Friends Pool",
-        "link": "https://www.youtube.com/channel/UCO_-AuhWHBUYq_eF63FS7bg"
+    "SEBA": {
+        "name": "SEBA Pool",
+        "link": "https://sebastiengllmt.com"
     },
     "JADAA": {
         "name": "Japanese ADA Stake Pool",
@@ -6105,7 +6193,7 @@
     },
     "JAZZ2": {
         "name": "JAZZ2",
-        "link": "https://jazz2.neeup.com"
+        "link": "https://jazz2.jazz-pool.com"
     },
     "JAZZ3": {
         "name": "JAZZ3",
@@ -6113,7 +6201,7 @@
     },
     "JAZZ4": {
         "name": "JAZZ4",
-        "link": "https://jazz4.neeup.com"
+        "link": "https://jazz4.jazz-pool.com"
     },
     "JBREW": {
         "name": "jbrew",
@@ -6183,14 +6271,6 @@
         "name": "JUNGLE",
         "link": "https://junglestakepool.com"
     },
-    "JOEY2": {
-        "name": "JOEYSTAKEPOOL2",
-        "link": "https://joeystakepool.s3-us-west-2.amazonaws.com/index.html"
-    },
-    "JOEY": {
-        "name": "JOEYSTAKEPOOL",
-        "link": "https://joeystakepool.s3-us-west-2.amazonaws.com/index.html"
-    },
     "JORGE": {
         "name": "JORGE",
         "link": "https://www.jorgepool.com"
@@ -6216,7 +6296,7 @@
         "link": "https://tokyostaker.com"
     },
     "JPN": {
-        "name": "0.00% Fee for the Japanese Cardano Community ",
+        "name": "0.00% Fee for the Japanese Cardano Community",
         "link": "https://en.wikipedia.org/wiki/Japan"
     },
     "JPN24": {
@@ -6236,7 +6316,7 @@
         "link": "https://gintas.dk"
     },
     "JSP": {
-        "name": "Japanese Stake Pool",
+        "name": "ADA HARVEST Staking Pool",
         "link": "https://cardano-ada-staking-pool.com"
     },
     "JSY": {
@@ -6313,10 +6393,10 @@
     },
     "KANGA": {
         "name": "Kangaroo Stake Pool",
-        "link": ""
+        "link": "https://kangaroo.onl"
     },
     "KAP": {
-        "name": "Kobe ADA POOL",
+        "name": "Kobe ADA Pool",
         "link": "https://twitter.com/kobe_ada_pool"
     },
     "KAPY": {
@@ -6349,7 +6429,7 @@
     },
     "KAYA": {
         "name": "0 % fees. Cardano Singapore Pool",
-        "link": "https://www.kayapool.com"
+        "link": "https://twitter.com/PoolKaya"
     },
     "KDK": {
         "name": "KardanoK",
@@ -6392,24 +6472,28 @@
         "link": "https://github.com/docvlad51/p.git"
     },
     "KILN0": {
-        "name": "kiln",
+        "name": "Kiln",
         "link": "https://kiln.fi"
     },
     "KILN1": {
-        "name": "kiln",
+        "name": "Kiln",
         "link": "https://kiln.fi"
     },
     "KILN2": {
-        "name": "kiln",
+        "name": "Kiln",
         "link": "https://kiln.fi"
     },
     "KILN3": {
-        "name": "kiln",
+        "name": "Kiln",
         "link": "https://kiln.fi"
     },
     "KIND": {
         "name": "KIND, The Charitable Pool",
         "link": "https://www.kindstakepool.com/"
+    },
+    "KING2": {
+        "name": "Global KING2 Staking KING Pool by AJG",
+        "link": "https://arthurjgoldman.com"
     },
     "KIRIN": {
         "name": "We are Kirin",
@@ -6423,12 +6507,8 @@
         "name": "\u30ad\u30c6\u30a3",
         "link": "https://www.cardanokitty.com"
     },
-    "TRUFL": {
-        "name": "Truffi\u00e8re by Kiwipool Staking",
-        "link": "https://www.kiwipool.org"
-    },
     "KIWI": {
-        "name": "KIWI by Kiwipool Staking",
+        "name": "KIWI\u00b9 by \ud83e\udd5dKiwipool Staking",
         "link": "https://www.kiwipool.org"
     },
     "KK01": {
@@ -6473,7 +6553,7 @@
     },
     "KOALA": {
         "name": "Koala Pool stake, earn, & save Koalas \u30b3\u30a2\u30e9\u3092\u6551\u3048",
-        "link": "https://koalapool.org"
+        "link": "https://koalako.io"
     },
     "KOBE": {
         "name": "\ud83c\udfc6Kobe Stake Pool by Kaizen Crypto",
@@ -6496,7 +6576,7 @@
         "link": "https://chilledkongs.com/pool"
     },
     "KOPI": {
-        "name": "KOPI Singapore",
+        "name": "KOPI \u5496\u5561 Singapore",
         "link": "https://kopipool.com"
     },
     "KOR": {
@@ -6512,7 +6592,7 @@
         "link": "https://kubecoin.org"
     },
     "KRAY1": {
-        "name": "Kraymerica-WA1",
+        "name": "Kraymerica-CA1",
         "link": "https://kraymerica.com"
     },
     "KREWE": {
@@ -6591,10 +6671,6 @@
         "name": "KUDOS",
         "link": "www.kudos.wiki"
     },
-    "KUMOJ": {
-        "name": "kumojoy",
-        "link": "https://www.kumojoy.com"
-    },
     "KUNI": {
         "name": "LEON POOL",
         "link": "https://twitter.com/leon_stake_pool"
@@ -6604,8 +6680,8 @@
         "link": "https://kurdopia.store"
     },
     "KURIS": {
-        "name": "KMakise",
-        "link": "https://mobile.twitter.com/hakunaCardanoS1"
+        "name": "KURIS JAPAN",
+        "link": "https://kuris.org/"
     },
     "KYBBN": {
         "name": "KentuckyBourbon",
@@ -6631,11 +6707,11 @@
         "name": "\u26a1 KysenPool Thunder 2 \u26a1",
         "link": "https://kysenpool.io"
     },
-    "Kings": {
+    "KINGS": {
         "name": "Ada Kings",
         "link": "https://ADA-Kings.com"
     },
-    "KnoX": {
+    "KNOX": {
         "name": "KnoX Protocol Stake Pool",
         "link": "https://knoxprotocol.com"
     },
@@ -6647,9 +6723,9 @@
         "name": "LabaroAdaPool",
         "link": "https://www.labaroadapool.es"
     },
-    "PAEK": {
-        "name": "PAEK ADA Pool",
-        "link": "https://prashant-labh.github.io/PAEK.io/"
+    "LABYR": {
+        "name": "LABYRINTH",
+        "link": "https://labyrinth-pool.wixsite.com/labyrinth"
     },
     "LACE": {
         "name": "Open Source Software Fund",
@@ -6683,25 +6759,25 @@
         "name": "BitLamp.ch",
         "link": "https://bitlamp.ch"
     },
+    "LAND": {
+        "name": "LANDSHARING.ORG",
+        "link": "https://www.landsharing.org/cardano"
+    },
     "LANKA": {
         "name": "Coin Ceylon",
         "link": "https://staking.coinceylon.com"
     },
     "LAPO": {
         "name": "Laponia",
-        "link": "https://twitter.com/Laponia_pool"
+        "link": "https://laponia.io"
     },
     "LAT": {
         "name": "LatamADA",
         "link": "https://latamada.com"
     },
-    "LATAM": {
-        "name": "LATAM Pool",
-        "link": "https://latampool.com"
-    },
     "LATIN": {
         "name": "Latino_Staking_Pool",
-        "link": "https://cardanolatino.com/cardanoenglish/Latino-Staking-Pool-Eng/"
+        "link": "https://cardanolatino.com/latin-pool/"
     },
     "LATSP": {
         "name": "Latin America Stake Pool",
@@ -6743,9 +6819,9 @@
         "name": "LEARN Cardano Stake Pool",
         "link": "https://ada.learnstaking.org"
     },
-    "PAC": {
-        "name": "PaC_Pool",
-        "link": "https://www.pacstakepool.com"
+    "LEAVE": {
+        "name": "Leave this pool",
+        "link": "https://leavethispool.now"
     },
     "LEENG": {
         "name": "LEENG Pool",
@@ -6791,9 +6867,9 @@
         "name": "Vode",
         "link": "https://vode.se"
     },
-    "SGCO": {
-        "name": "Singapore Cardano Official Pool #1",
-        "link": "https://www.cardano-official.sg"
+    "LIBRA": {
+        "name": "LIBRA Pool",
+        "link": "https://www.zodiacpool.io"
     },
     "LIDI": {
         "name": "LIDI Events",
@@ -6816,15 +6892,15 @@
         "link": "https://github.com/ck112358/ada"
     },
     "LION1": {
-        "name": "LIONpool \ud80c\udcec \u2665  ",
+        "name": "LIONpool \ud80c\udcec \u2665",
         "link": "https://lionpool.io"
     },
     "LION2": {
-        "name": "LIONpool \ud80c\udcec\u2665  ",
+        "name": "LIONpool \ud80c\udcec\u2665",
         "link": "https://lionpool.io"
     },
     "LION3": {
-        "name": "LIONpool \ud80c\udcec\u2665  ",
+        "name": "LIONpool \ud80c\udcec\u2665",
         "link": "https://lionpool.io"
     },
     "LIT": {
@@ -6839,9 +6915,9 @@
         "name": "\ud83d\ude80 Cardanaut's LIVE Pool \ud83c\udf0c\ud83c\udfe1",
         "link": "https://www.cardanaut.com/"
     },
-    "SMRAI": {
-        "name": "Cardano Samurais",
-        "link": "https://www.cardano-samurais.com/"
+    "LIX": {
+        "name": "Felix Pham",
+        "link": "https://www.felixpham.com/"
     },
     "LKBH": {
         "name": "LKBH POOL",
@@ -6903,6 +6979,10 @@
         "name": "The Lotus ADA Pool",
         "link": "https://lotusada.z23.web.core.windows.net/"
     },
+    "LOVE2": {
+        "name": "Love2Stake",
+        "link": "https://love2stake.com"
+    },
     "LOVLK": {
         "name": "LoveLike",
         "link": "https://lovelike.io"
@@ -6917,7 +6997,7 @@
     },
     "LSS": {
         "name": "LongShortSignal",
-        "link": "https://longshortsignal.com/cardanopool"
+        "link": "https://longshortsignal.com"
     },
     "LSSP": {
         "name": "LoneStar Staking Pool",
@@ -6931,9 +7011,9 @@
         "name": "LTTR Stakingpool",
         "link": "https://lttrstakingpool.org"
     },
-    "ROAST": {
-        "name": "Roast Pool",
-        "link": "https://shroomist.github.io/roast-pool/"
+    "LUCID": {
+        "name": "ADA LUCID",
+        "link": "https://lucid.rizome.io/"
     },
     "LUCIE": {
         "name": "Lucie's pool",
@@ -6941,7 +7021,7 @@
     },
     "LUCY": {
         "name": "Lucy_Pool",
-        "link": "https://lucy-pool.github.io/"
+        "link": "https://www.lucy-pool.com"
     },
     "LUDUS": {
         "name": "LudusMagnus",
@@ -6983,11 +7063,11 @@
         "name": "LeXeN",
         "link": "https://lexen.be"
     },
-    "LandL": {
+    "LANDL": {
         "name": "LoveandLace",
         "link": "https://LoveandLace.com"
     },
-    "LvLUp": {
+    "LVLUP": {
         "name": "Level Up!",
         "link": "https://www.lvlup-stakepool.com/"
     },
@@ -7055,12 +7135,16 @@
         "name": "mery and mak!",
         "link": "https://maklms.com"
     },
-    "MAL3": {
-        "name": "MAL(5%, 3rd) Maladex - Research Driven Cardano DEX",
+    "MAL1": {
+        "name": "[MAL] Maladex - Research Driven Cardano DEX",
         "link": "https://maladex.com"
     },
     "MAL2": {
         "name": "MAL2 - Retiring Maladex's Pool.",
+        "link": "https://maladex.com"
+    },
+    "MALX": {
+        "name": "Maladex - Research Driven Cardano DEX",
         "link": "https://maladex.com"
     },
     "MAMAK": {
@@ -7078,6 +7162,10 @@
     "MANGO": {
         "name": "MANGO FARM",
         "link": "https://sites.google.com/view/mango-staking-pool"
+    },
+    "MANT": {
+        "name": "MANTIS 1PERCENT TWO",
+        "link": "https://mantispool.net"
     },
     "MAPLE": {
         "name": "Cardano Maple Leaf",
@@ -7115,12 +7203,16 @@
         "name": "Maasai.io Cardano Stake Pool",
         "link": "https://maasai.io"
     },
+    "MASTR": {
+        "name": "Masterstake",
+        "link": "https://masterstake.com"
+    },
     "MATAK": {
         "name": "Mataka1",
         "link": "https://matakanode.io"
     },
     "MATE": {
-        "name": "Mate",
+        "name": "\ud83e\uddc9  Mateada Club  \ud83e\uddc9",
         "link": "https://www.mateada.club"
     },
     "MATRX": {
@@ -7156,8 +7248,8 @@
         "link": "https://github.com/cturba/maze"
     },
     "MBCG": {
-        "name": "Mirai BlockChain Group",
-        "link": "https://mbcg.io"
+        "name": "MBCG",
+        "link": "https://www.mbcg.io/"
     },
     "MBK": {
         "name": "MAKOTO Bangkok Community Pool",
@@ -7204,7 +7296,7 @@
         "link": "https://mediumrarestake.com"
     },
     "MDS": {
-        "name": "Medusa AdaWallet pool",
+        "name": "Medusa Development Support",
         "link": "https://adawallet.io"
     },
     "MDWST": {
@@ -7214,6 +7306,10 @@
     "MEA": {
         "name": "MEAPOOL",
         "link": "https://www.meapool.com"
+    },
+    "MED": {
+        "name": "Medical Pool",
+        "link": "https://medicalstakepool.com"
     },
     "MEDA\ud83c\udf0c": {
         "name": "\ud83c\udf0cANDROMEDA\ud83c\udf0c",
@@ -7230,6 +7326,10 @@
     "MELB": {
         "name": "Melbourne Stake Pool",
         "link": "https://melbournestakepool.com"
+    },
+    "MELD": {
+        "name": "MELD ISPO (100% MELD)",
+        "link": "https://meld.com"
     },
     "MELD4": {
         "name": "MELD4 Pool",
@@ -7251,9 +7351,9 @@
         "name": "Mercy Charity Pool",
         "link": "https://sites.google.com/view/mercy-charity-pool"
     },
-    "MERIT": {
-        "name": "Meritus Stake Pool",
-        "link": "https://meritus.work"
+    "AXO": {
+        "name": "Alpha Block",
+        "link": "https://alphablock.net"
     },
     "MERK": {
         "name": "Merkle Validator",
@@ -7275,13 +7375,13 @@
         "name": "Meta Stake Pool",
         "link": "https://twitter.com/theeccentricowl"
     },
-    "METAL": {
-        "name": "FIXION MEDI\u20b3",
-        "link": "https://fixionmedia.com/cardano/"
+    "WMTX": {
+        "name": "Blistering EarthNode",
+        "link": "https://blistering.io"
     },
     "METAX": {
-        "name": "MetaDEX",
-        "link": "https://www.metadex.fi/"
+        "name": "MetaDEX.fi",
+        "link": "https://metadex.fi"
     },
     "MGARD": {
         "name": "Midgard",
@@ -7321,7 +7421,7 @@
     },
     "MILKY": {
         "name": "MILKY Pool",
-        "link": "https://milky-pool.com/"
+        "link": "https://handle.me/julien"
     },
     "MILL": {
         "name": "Mill Stake Pool",
@@ -7348,7 +7448,7 @@
         "link": "https://coloradomint.io/"
     },
     "MIST": {
-        "name": "Operated by DEW Staking Solutions",
+        "name": "Operated by Dew Staking Solutions",
         "link": "https://www.dew-stake.com"
     },
     "MJIKT": {
@@ -7367,7 +7467,7 @@
         "name": "Mango Loco Stake Pool",
         "link": "https://www.mangolocostake.com"
     },
-    "MLabs": {
+    "MLABS": {
         "name": "MLabs stakepool",
         "link": "https://mlabs.city"
     },
@@ -7403,13 +7503,17 @@
         "name": "Coin Minter",
         "link": "https://coinminter.io"
     },
+    "PAPER": {
+        "name": "Papertopia Stake Pool",
+        "link": "https://papertopia.io"
+    },
     "MOAI": {
         "name": "Moai Stake Pool \ud83d\uddff",
         "link": "https://moaipool.com/"
     },
     "MOBC": {
-        "name": "MOBC StakePoolServer",
-        "link": "https://mobcsp.work"
+        "name": "MOBC StakePool",
+        "link": "https://mobc.work"
     },
     "MOC": {
         "name": "MonedaCloud",
@@ -7455,7 +7559,7 @@
         "name": "MONAD",
         "link": "https://www.monadpool.com"
     },
-    "Monet": {
+    "MONET": {
         "name": "Money Trees",
         "link": "https://twitter.com/adamoneytrees"
     },
@@ -7503,9 +7607,9 @@
         "name": "MOTO Stake Pool",
         "link": "https://motostakepool.com"
     },
-    "MOTON": {
-        "name": "MotonSPO",
-        "link": "https://moton.io"
+    "CHIVO": {
+        "name": "Chivo",
+        "link": "https://chivo.uno"
     },
     "MOUNT": {
         "name": "Swiss Mountains",
@@ -7535,10 +7639,6 @@
         "name": "malpertus-sg1",
         "link": "https://pool.malpertus.com"
     },
-    "NOEL": {
-        "name": "\ud83c\udf84Warm NOEL for rural kids",
-        "link": "https://facebook.com/Libraryofdream/"
-    },
     "MRSP": {
         "name": "Medium Rare Stake Pool",
         "link": "https://mediumrarestake.mitchjonesengineering.us"
@@ -7553,6 +7653,10 @@
     },
     "MS10": {
         "name": "Moonstake 10",
+        "link": "https://moonstake.io"
+    },
+    "MS11": {
+        "name": "Moonstake 11",
         "link": "https://moonstake.io"
     },
     "MS12": {
@@ -7599,6 +7703,10 @@
         "name": "Mascot",
         "link": "https://mascot.gallery"
     },
+    "MSP": {
+        "name": "Monster Stake Pool",
+        "link": "https://monsterstakepool.com"
+    },
     "MSPN": {
         "name": "metaspan",
         "link": "https://metaspan.com"
@@ -7632,7 +7740,7 @@
         "link": "https://muskada.de"
     },
     "MUEN": {
-        "name": "MUEN-StakePool",
+        "name": "MUEN-StakePool,",
         "link": "https://muen-project.com/"
     },
     "MUEN2": {
@@ -7640,8 +7748,8 @@
         "link": "https://muen-project.com"
     },
     "MUEN3": {
-        "name": "MUEN3 CharityPrivatePool",
-        "link": "https://muen-project.com"
+        "name": "MUEN3 CharityPrivatePool,",
+        "link": "https://muen-project.com/"
     },
     "MUGEN": {
         "name": "MUGEN-Pool",
@@ -7657,7 +7765,11 @@
     },
     "NEWM": {
         "name": "NEWM Stake Pool",
-        "link": "https://projectNEWM.io"
+        "link": "https://newm.io"
+    },
+    "MUSIC": {
+        "name": "Live_Music_Show_Stake_Pool",
+        "link": "https://spo.livemusic.show"
     },
     "MV100": {
         "name": "MAV100",
@@ -7687,27 +7799,27 @@
         "name": "MYTH",
         "link": "https://mythpool.com"
     },
-    "SCS": {
-        "name": "Swiss Cardano Staking",
-        "link": "https://swisscardanostaking.ch"
+    "MZS": {
+        "name": "Monozeros Staking",
+        "link": "https://staking.monozeros.ch"
     },
-    "Malu": {
+    "MALU": {
         "name": "Maluiin",
         "link": "https://maluiin.com"
     },
-    "MnM": {
+    "MNM": {
         "name": "Minimum Fees Charity Pool",
         "link": "https://mnmcharitypool.github.io"
     },
-    "Mofox": {
+    "MOFOX": {
         "name": "Mofox",
         "link": "https://ada.mofox.fit"
     },
-    "Moose": {
+    "MOOSE": {
         "name": "AdaMoose",
         "link": "https://adamoose.com"
     },
-    "MyDP3": {
+    "MYDP3": {
         "name": "My Digital Personal Privacy Protection",
         "link": "https://mydp3.com"
     },
@@ -7759,6 +7871,10 @@
         "name": "NASEC pool",
         "link": "https://nasec.co.uk/cardano"
     },
+    "NAUT": {
+        "name": "Nautilus Crypto Stake Pool",
+        "link": "http://www.nautiluscrypto.com/"
+    },
     "NAVY": {
         "name": "Milpools",
         "link": "https://milpools.com"
@@ -7774,6 +7890,10 @@
     "NCTR": {
         "name": "NECTAR POOL",
         "link": "https://nectarpool.com"
+    },
+    "NDE": {
+        "name": "Nodeasy",
+        "link": "https://www.nodeasy.com"
     },
     "NEAT": {
         "name": "Neat Stake Pool",
@@ -7819,6 +7939,10 @@
         "name": "NEPTUNE Stake Pool",
         "link": "https://neptune-pool.com/"
     },
+    "NERD": {
+        "name": "Nerd Stake Pool",
+        "link": "https://www.stakewithnerd.com/"
+    },
     "NERD2": {
         "name": "Nerd Stake Pool",
         "link": "https://www.stakewithnerd.com/"
@@ -7832,7 +7956,11 @@
         "link": "https://www.anetabtc.io/"
     },
     "NETA2": {
-        "name": "anetaBTC - LISO Pool 2",
+        "name": "anetaBTC - Pool 2",
+        "link": "https://www.anetabtc.io/"
+    },
+    "NETA3": {
+        "name": "anetaBTC - Pool 3",
         "link": "https://www.anetabtc.io/"
     },
     "NETSC": {
@@ -7879,9 +8007,9 @@
         "name": "NGS\u767a\u9054\u969c\u304c\u3044\u652f\u63f4KGSP",
         "link": "https://mobile.twitter.com/NGS_KGSP"
     },
-    "ST\u20b3R": {
-        "name": "SATOKEN ST\u20b3R POOL",
-        "link": "https://stakepool.blockchain-study-group.com/"
+    "NGY": {
+        "name": "Nagoya Stake Pool",
+        "link": "https://blockchain-study-group.com/nagoya-stake-pool/"
     },
     "NIANO": {
         "name": "Cardaniano - Criptoniano Stakepool",
@@ -7952,7 +8080,7 @@
         "link": "https://kazunaka.com/"
     },
     "NLAP": {
-        "name": "nlADAPool",
+        "name": "Norther Lights Staking",
         "link": "https://gist.github.com/urbal999"
     },
     "NLP": {
@@ -7979,6 +8107,10 @@
         "name": "NOBI",
         "link": "https://usenobi.com"
     },
+    "NOBLE": {
+        "name": "Noble Stake Pool",
+        "link": "https://stakenoble.com"
+    },
     "NOCAP": {
         "name": "No Cap Stakepool",
         "link": "https://nocapstakepool.com"
@@ -8003,9 +8135,9 @@
         "name": "New Orleans ADA Levee",
         "link": "https://instantecg.org/nola.html"
     },
-    "NOMAD": {
-        "name": "Nomad Pool",
-        "link": "https://nomadpool.io"
+    "P2PFI": {
+        "name": "P2P-DeFi Protocol Development Fund",
+        "link": "https://github.com/zhekson1/CSL-DeFi-Protocols"
     },
     "NOMS": {
         "name": "Stop Multiple Sclerosis",
@@ -8022,6 +8154,10 @@
     "NORST": {
         "name": "Nordic Staking",
         "link": "https://www.nordicstaking.se/"
+    },
+    "NORTH": {
+        "name": "#4 Nordic Pool",
+        "link": "https://nordicpool.org"
     },
     "NOSP": {
         "name": "New One Stake Pool",
@@ -8151,9 +8287,17 @@
         "name": "Nu.Fi & AdaLite J",
         "link": "https://nu.fi"
     },
+    "NUFIK": {
+        "name": "Nu.Fi & AdaLite K",
+        "link": "https://nu.fi"
+    },
+    "NUFIL": {
+        "name": "Nu.Fi & AdaLite L",
+        "link": "https://nu.fi"
+    },
     "NUKE": {
         "name": "Nuclear Stake",
-        "link": "https://nuclearstake.io"
+        "link": "https://nuclearstake.com"
     },
     "NURSE": {
         "name": "Nurse Pool",
@@ -8182,6 +8326,10 @@
     "NYORK": {
         "name": "NEW YORK",
         "link": "https://www.nycgo.com/"
+    },
+    "OANDB": {
+        "name": "OrangeAndBlue",
+        "link": "https://www.orangeandblue.io"
     },
     "OBLUE": {
         "name": "oceanblue_pool",
@@ -8244,7 +8392,7 @@
         "link": "https://octaluso.dyndns.org"
     },
     "ODA": {
-        "name": "We are ADA fans ",
+        "name": "We are ADA fans",
         "link": "https://oda.fimi.vn"
     },
     "ODIN": {
@@ -8263,7 +8411,7 @@
         "name": "OHOH7 Staking",
         "link": "https://ohoh7.github.io"
     },
-    "OKEx": {
+    "OKEX": {
         "name": "OKExPool",
         "link": "https://www.okex.win/"
     },
@@ -8291,10 +8439,6 @@
         "name": "Omega Ada Stakepool",
         "link": "https://omegastaking.wixsite.com/website"
     },
-    "OMNI": {
-        "name": "Omni Pool",
-        "link": "https://twitter.com/omnidevops?s=09"
-    },
     "OMNI1": {
         "name": "Omni Pool",
         "link": "https://twitter.com/omnidevops?s=09"
@@ -8315,9 +8459,13 @@
         "name": "ONE Pool",
         "link": "https://adapool.one"
     },
-    "ONE\u2764\ufe0f": {
-        "name": "Cardano (ADA) Staking",
-        "link": "https://www.adaxstaking.io"
+    "ADMAX": {
+        "name": "ADMAX Staking",
+        "link": "https://www.admaxstaking.io"
+    },
+    "ONYX": {
+        "name": "ONYX Stake Pool #4",
+        "link": "https://onyxstakepool.com"
     },
     "OOO": {
         "name": "ADAOOO",
@@ -8341,7 +8489,7 @@
     },
     "ORACL": {
         "name": "Oracle Stake Pool",
-        "link": "https://www.oraclestakepool.com"
+        "link": "https://www.plutusoracle.com"
     },
     "ORANG": {
         "name": "OrangeJuice",
@@ -8350,6 +8498,10 @@
     "ORBIT": {
         "name": "Orbit Pool",
         "link": "https://OrbitPool.net"
+    },
+    "ORE": {
+        "name": "ORE POOL",
+        "link": "https://orelvis15.github.io/pool/"
     },
     "ORO": {
         "name": "ORO Stake Pool with 1% fee.",
@@ -8396,8 +8548,8 @@
         "link": "https://twitter.com/N_oyaji_ada"
     },
     "OYSTR": {
-        "name": "Oyster_Pool",
-        "link": "https://twitter.com/OystrPool"
+        "name": "Oyster Pool | Midnight | Mithril | Rosen Bridge",
+        "link": "https://www.oystr.wales/"
     },
     "OZGRN": {
         "name": "Oz Green Australia \u2013 100% Renewable Energy",
@@ -8407,13 +8559,9 @@
         "name": "Ozzy pool",
         "link": "http://ozzy-pool.com/"
     },
-    "OkaNT": {
+    "OKANT": {
         "name": "OkaNET Cardano pool #1",
         "link": "https://cardanopool.okanet.cz"
-    },
-    "P2P3": {
-        "name": "P2P Validator #3",
-        "link": "https://p2p.org/"
     },
     "PPCX1": {
         "name": "P2P & CEX",
@@ -8433,7 +8581,7 @@
     },
     "P99": {
         "name": "Pool 99",
-        "link": "https://pool99.net"
+        "link": "https://discord.gg/unjj43"
     },
     "PAAS": {
         "name": "Pool as a Service",
@@ -8475,6 +8623,10 @@
         "name": "PARIS Stake Pool",
         "link": "https://parisadastakepool.fr/"
     },
+    "PARKS": {
+        "name": "Parks Pool",
+        "link": "https://parkspool.github.io"
+    },
     "PARTY": {
         "name": "Crypto Pool Party",
         "link": "https://cryptopoolparty.com"
@@ -8512,8 +8664,8 @@
         "link": "https://poolarbear.stani.se"
     },
     "PC167": {
-        "name": "PC167",
-        "link": "https://pooltool.io/"
+        "name": "Pro Clima Pool",
+        "link": "https://pool-pc167.com"
     },
     "PCPC": {
         "name": "PocaPeca",
@@ -8527,8 +8679,8 @@
         "name": "Pacific Digital Technologies",
         "link": "https://pdtpools.io"
     },
-    "\ud83d\udd05RPST": {
-        "name": "La RepsistancE",
+    "PEACE": {
+        "name": "PEACEpool Cardano ecosystem developers",
         "link": "https://twitter.com/repsistance"
     },
     "PEAK": {
@@ -8575,10 +8727,6 @@
         "name": "PETRA stakepool",
         "link": "https://git.io/JukXf"
     },
-    "YEPPL": {
-        "name": "Yepple Pool",
-        "link": "https://yepple.io"
-    },
     "PET\u2665": {
         "name": "PetLoverStake",
         "link": "https://petloverstake.com"
@@ -8590,6 +8738,10 @@
     "PFX": {
         "name": "PulseFix",
         "link": "https://pulsefix.com/ada"
+    },
+    "PGP": {
+        "name": "Pretty Good Pool",
+        "link": "https://pgpstaking.com"
     },
     "PGWAD": {
         "name": "PGWADA Stake pool",
@@ -8638,6 +8790,10 @@
     "PIGY": {
         "name": "PIGY token \ud83d\udc37",
         "link": "https://pigytoken.com/"
+    },
+    "PILOT": {
+        "name": "Pilot Pool",
+        "link": "https://www.adapilot.com"
     },
     "PIMA": {
         "name": "PIMA",
@@ -8715,9 +8871,9 @@
         "name": "Poolaris",
         "link": "http://www.poolaris.org"
     },
-    "PLUNG": {
-        "name": "Plunge",
-        "link": "https://www.theplunge.io/"
+    "REGAL": {
+        "name": "Regal Stake Pool",
+        "link": "https://www.regalnodes.com/"
     },
     "PLUS": {
         "name": "PlusLess Cardano Stake Pool",
@@ -8757,7 +8913,7 @@
     },
     "PNR39": {
         "name": "planetarium39",
-        "link": "https://twitter.com/9DDPk57qMpPeRX0?t=pAfWPMKByGAlGFFGVsI-mQ&s=06"
+        "link": "https://twitter.com/PNR39_"
     },
     "PNYX": {
         "name": "Pnyx Trading Co",
@@ -8768,7 +8924,7 @@
         "link": "https://poapool.com"
     },
     "POEM": {
-        "name": "POEM Stake Pool",
+        "name": "Poem Stake Pool",
         "link": "https://poemstakepool.com"
     },
     "POET": {
@@ -8779,13 +8935,9 @@
         "name": "Pokadax \u30d7\u30fc\u30eb",
         "link": "https://pool.pokadax.online"
     },
-    "POKEM": {
-        "name": "Pokepool",
-        "link": "https://nybitcoinacademy.com/pokepool"
-    },
-    "POKER": {
-        "name": "Global POKER Staking Pool for Poker lovers  ",
-        "link": "https://arthurjgoldman.com"
+    "CHIRO": {
+        "name": "Crypto Chiropractor",
+        "link": "https://nybitcoinacademy.com/chiropool"
     },
     "POLAR": {
         "name": "Cardano Canada",
@@ -8795,13 +8947,13 @@
         "name": "Poldi Pool",
         "link": "https://poldipool.jimdosite.com/"
     },
-    "POLY2": {
-        "name": "PolyPool#2",
+    "POLY": {
+        "name": "POLYPool",
         "link": "https://polypool.io"
     },
     "PONTA": {
         "name": "PONTA Pool",
-        "link": "https://twitter.com/LumpAHV8Lx1LGtU"
+        "link": "https://forms.gle/GjTpNToiJdUx1iUG6"
     },
     "POOL": {
         "name": "Cardano Stake Pool",
@@ -8820,8 +8972,8 @@
         "link": "https://poolg.de"
     },
     "POOLS": {
-        "name": "ADAPOOLS.ORG",
-        "link": "https://adapools.org"
+        "name": "cexplorer.io",
+        "link": "https://cexplorer.io"
     },
     "POOP": {
         "name": "PooPool",
@@ -8851,6 +9003,10 @@
         "name": "Poolailler",
         "link": "https://poolailler.xyz"
     },
+    "POWER": {
+        "name": "POWER Stake Pool 1",
+        "link": "https://powerstakepool.com"
+    },
     "PPCX3": {
         "name": "P2P & CEX",
         "link": "https://p2p.org"
@@ -8860,8 +9016,8 @@
         "link": "https://ppdac.ltd/ada"
     },
     "PPP": {
-        "name": "P\u20b3ND\u20b3 P\u20b3ND\u20b3 POOL",
-        "link": "http://pandapandapool.vvde.ch/"
+        "name": "Panda Panda Pool",
+        "link": "https://pandapandapool.net/"
     },
     "PPRO": {
         "name": "PoolPros",
@@ -8884,7 +9040,7 @@
         "link": "https://previsionz.de/staking"
     },
     "PRIDE": {
-        "name": "Stake with Pride - Ardana + Hosky ISPO",
+        "name": "Stake with Pride - Hosky ISPO",
         "link": "https://www.StakeWithPride.com"
     },
     "PRIMA": {
@@ -8903,9 +9059,9 @@
         "name": "SuomiPRKL",
         "link": "-"
     },
-    "PRO39": {
-        "name": "ProSkills 39 Team",
-        "link": "https://proskills39.com/"
+    "CASIA": {
+        "name": "Cardano Asia Team",
+        "link": "https://x.com/AsiaCnft"
     },
     "PROM": {
         "name": "Prometheus Pool",
@@ -8928,8 +9084,8 @@
         "link": "https://persimmon-pool.com"
     },
     "PSB": {
-        "name": "PSILOBYTE",
-        "link": "https://psilobyte.io"
+        "name": "PSILOBLOX",
+        "link": "https://psiloblox.io"
     },
     "PSK": {
         "name": "Premium Staking",
@@ -8941,7 +9097,7 @@
     },
     "PSPJ": {
         "name": "ProjectSupportPoolJapan",
-        "link": "https://ranket2.wordpress.com/"
+        "link": "https://japantradcraftcnft.machi-design.org/"
     },
     "PSYA": {
         "name": "PsyADA",
@@ -8965,11 +9121,11 @@
     },
     "PUB": {
         "name": "Publickey",
-        "link": "https://www.publickey.co.jp"
+        "link": "https://publickey.co.jp/files/pub.json"
     },
     "PUDIM": {
         "name": "Pudim's pool",
-        "link": "https://pudim.od.gy"
+        "link": "https://pudim.cat"
     },
     "PUFF": {
         "name": "Puffin Pool",
@@ -9015,11 +9171,11 @@
         "name": "Pyur Ada Pool",
         "link": "https://pyur.io"
     },
-    "PrepU": {
+    "PREPU": {
         "name": "Prepare U Pool",
         "link": "https://www.prepareupool.io/"
     },
-    "Px2": {
+    "PX2": {
         "name": "Px2 & Jackson private pool",
         "link": "https://cph4.noip.pl"
     },
@@ -9032,7 +9188,7 @@
         "link": "https://quality-assurance-dao.github.io/"
     },
     "QCPOL": {
-        "name": "QCPOL - HOSKY ISPO + Machiavellic Partner",
+        "name": "EN/FR community from Qu\u00e9bec\u269c\ufe0f Canada\ud83c\udf41 HOSKY ISPO",
         "link": "https://qcpol.stakepool.quebec"
     },
     "QCPRO": {
@@ -9095,9 +9251,9 @@
         "name": "R2D2",
         "link": "http://cardano-stacking-pool.s3-website.us-east-2.amazonaws.com/"
     },
-    "R89": {
-        "name": "r89.io Stake Pool",
-        "link": "https://r89.io"
+    "MRBEE": {
+        "name": "\ud83c\udf44 Mushrooms & Bees \ud83d\udc1d",
+        "link": "https://mrbee.io"
     },
     "RACEX": {
         "name": "RaceX ADA Stake Pool",
@@ -9164,20 +9320,20 @@
         "link": "https://rambopool.org"
     },
     "RAMC": {
-        "name": "Rama9 Environmental contribution",
-        "link": "https://thc-room335.com"
+        "name": "Rama DeFi Bangkok",
+        "link": "https://thc-room335.com/rama"
     },
     "RAMEN": {
-        "name": "RAMEN by Kiwipool Staking",
+        "name": "RAMEN by \ud83e\udd5dKiwipool Staking",
         "link": "https://www.kiwipool.org"
     },
     "RANKT": {
         "name": "RANKT",
-        "link": "https://ranket2.wordpress.com/"
+        "link": "https://ranket2.wordpress.com"
     },
     "RANMA": {
-        "name": "RANMA pool",
-        "link": "https://twitter.com/RANMA83054020"
+        "name": "RANMA Pool",
+        "link": "https://forms.gle/GjTpNToiJdUx1iUG6"
     },
     "RAOOL": {
         "name": "RaspberryPool",
@@ -9199,37 +9355,45 @@
         "name": "RausiPool",
         "link": "https://rausipool.fi"
     },
-    "RAY": {
+    "XRAY1": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "XRAY2": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "XRAY3": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "XRAY4": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "XRAY5": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "XRAY6": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "RAY6": {
+        "name": "Ray Network",
+        "link": "https://rraayy.com"
+    },
+    "XRAY7": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "XRAY8": {
+        "name": "XRAY | Network",
+        "link": "https://xray.app"
+    },
+    "RAY9": {
         "name": "Ray Network",
         "link": "https://raynetwork.io"
-    },
-    "RAY2": {
-        "name": "Ray Network",
-        "link": "https://raynetwork.io"
-    },
-    "RAY3": {
-        "name": "Ray Network",
-        "link": "https://raynetwork.io"
-    },
-    "RAY4": {
-        "name": "Ray Network",
-        "link": "https://raynetwork.io"
-    },
-    "RAY5": {
-        "name": "Ray Network",
-        "link": "https://raynetwork.io"
-    },
-    "SPS1": {
-        "name": "StakePool Service No.1",
-        "link": "https://stakepoolservice.com/"
-    },
-    "RAY8": {
-        "name": "Ray Network",
-        "link": "https://raynetwork.io"
-    },
-    "SAMBA": {
-        "name": "SAMBA Let's dance",
-        "link": "https://www.getsambaviva.com/"
     },
     "RAZOR": {
         "name": "RazorBlock52 Stake Pool",
@@ -9238,6 +9402,10 @@
     "RBA": {
         "name": "Red Bike",
         "link": "https://redbike.asia"
+    },
+    "RBC": {
+        "name": "RBC Stake Pool",
+        "link": "https://rbcstakepool.com"
     },
     "RBS": {
         "name": "RedBeeStakePool",
@@ -9356,7 +9524,7 @@
         "link": "https://dolcapool.eu"
     },
     "RIDGE": {
-        "name": "Ridge Line PooL",
+        "name": "Ridge Line Pool",
         "link": "https://twitter.com/pradon730"
     },
     "RIGHT": {
@@ -9373,7 +9541,7 @@
     },
     "RIOT": {
         "name": "RIOT",
-        "link": "https://riotpools.com"
+        "link": "https://t.ly/ydg4R"
     },
     "RISE": {
         "name": "RISE",
@@ -9386,10 +9554,6 @@
     "RIVER": {
         "name": "Riverpool",
         "link": "https://riverpool-crypto.com"
-    },
-    "RKD": {
-        "name": "RAKUDApool",
-        "link": "https://rakuda.noor.jp"
     },
     "RKDN": {
         "name": "Arcadian Crypto Pool 1",
@@ -9423,9 +9587,9 @@
         "name": "Rocky Mountain Pool",
         "link": "https://stakecardano.net"
     },
-    "ROG": {
-        "name": "Republic of Gamers",
-        "link": "https://rogpool.com"
+    "LLP": {
+        "name": "Lobster Larry Pool",
+        "link": "https://lobsterlarrypool.com"
     },
     "ROLL": {
         "name": "Rollway",
@@ -9433,7 +9597,7 @@
     },
     "ROMER": {
         "name": "ROMER",
-        "link": "https://viezekaasfondue.nl"
+        "link": "https://romerstakepool.io"
     },
     "RONIN": {
         "name": "R\u014dnin \u6d6a\u4eba Stake",
@@ -9475,13 +9639,17 @@
         "name": "RedPool",
         "link": "https://redpool.space"
     },
+    "RPLC": {
+        "name": "Republic_Crypto-1",
+        "link": "https://www.republiccrypto.com/"
+    },
     "RPO": {
         "name": "Rpool",
         "link": "https://cardanorpool.wordpress.com/5-2/"
     },
     "RPSP": {
         "name": "RIPI Stake Pool",
-        "link": "https://cardano-ada-staking-pool.com"
+        "link": ""
     },
     "RSTK": {
         "name": "Everstake",
@@ -9491,17 +9659,17 @@
         "name": "Restake",
         "link": "https://restake.net"
     },
-    "RSV": {
-        "name": "Reservoir Node",
+    "BURN": {
+        "name": "BURN Pool",
         "link": "https://reservoir.network"
     },
     "RTB": {
         "name": "Raison D'etre",
         "link": "https://raisondetrertb.art"
     },
-    "RTIST": {
-        "name": "RTIST Pool - NFT Raffle Pool!",
-        "link": "https://rtistpool.carrd.co/"
+    "BROCK": {
+        "name": "BROCK Pool",
+        "link": "https://brockpool.carrd.co/"
     },
     "RTR1": {
         "name": "RAPTOR",
@@ -9541,7 +9709,7 @@
     },
     "RX78": {
         "name": "RX-78",
-        "link": "https://rx78pool.wordpress.com"
+        "link": "https://twitter.com/rx78pool"
     },
     "RXD": {
         "name": "RockX Diamond",
@@ -9567,7 +9735,7 @@
         "name": "RaZZoR-Labs",
         "link": "https://razzorlabs.github.io/RzzR-Labs"
     },
-    "RfroG": {
+    "RFROG": {
         "name": "roastfrog",
         "link": "https://www.roastfrog.com"
     },
@@ -9594,10 +9762,6 @@
     "SADA": {
         "name": "SADA_POOL",
         "link": "https://sada-pool.github.io/SADA-website/"
-    },
-    "SAFE": {
-        "name": "\ud83d\udd12{SAFE}STAK",
-        "link": "https://www.safestak.com"
     },
     "SAFST": {
         "name": "Safe Stake",
@@ -9632,16 +9796,12 @@
         "link": "https://sakepool.com"
     },
     "SALT": {
-        "name": "Salt Pool",
-        "link": "https://saltnet.io"
-    },
-    "SPICE": {
-        "name": "Spice Pool",
-        "link": "https://www.spicepool.net/"
+        "name": "Salt Pool - Hosky ISPO",
+        "link": "https://saltpool.io"
     },
     "SAMON": {
-        "name": "Salmon Pool",
-        "link": "https://www.salmonpool.io/"
+        "name": "SAMON Pool",
+        "link": "https://www.sanada.eco/"
     },
     "SAND": {
         "name": "Sandstone",
@@ -9749,11 +9909,11 @@
     },
     "SCIFI": {
         "name": "SCIFI Pool",
-        "link": "https://scifipool.com"
+        "link": "https://www.scifipool.com"
     },
-    "TAILS": {
-        "name": "TAILS",
-        "link": "https://mermada.com"
+    "SLR": {
+        "name": "So Litty Records",
+        "link": "https://buynfts.exchange/"
     },
     "SCO1": {
         "name": "SCO Pool 1",
@@ -9783,7 +9943,7 @@
         "name": "THE SUPER GOOD NODE",
         "link": "https://thegoodnode.com"
     },
-    "SDGs": {
+    "SDGS": {
         "name": "UN_ADA_SDGs",
         "link": ""
     },
@@ -9804,8 +9964,12 @@
         "link": "https://adaseal.eu"
     },
     "SEAP": {
-        "name": "Sustainable energy ada pool ",
+        "name": "Sustainable energy ada pool",
         "link": "https://sustainableenergypool.eu"
+    },
+    "SECUR": {
+        "name": "THREE SecureStaking.io",
+        "link": "https://cardano.securestaking.io"
     },
     "SEEB": {
         "name": "SeeBee Stake Pool",
@@ -9843,9 +10007,9 @@
         "name": "Senti Africa Pool",
         "link": "https://www.bitdax.io/senti"
     },
-    "SEU": {
+    "SEOUL": {
         "name": "SEOUL",
-        "link": "https://blog.naver.com/shsfse"
+        "link": "https://blog.naver.com/shsfse/222301957216"
     },
     "SERPX": {
         "name": "SERPIUS",
@@ -9861,7 +10025,7 @@
     },
     "SEXY": {
         "name": "SEXY",
-        "link": "https://stakelovelace.io/"
+        "link": "https://this.pool.is.not.in.use"
     },
     "SFA": {
         "name": "Stake for Africa",
@@ -9888,12 +10052,16 @@
         "link": "https://shardstakepool.com"
     },
     "SHARE": {
-        "name": " SHARE - For a good cause & ADA rewards",
+        "name": "SHARE - For a good cause & ADA rewards",
         "link": "https://share-pool.com"
     },
     "SHARX": {
         "name": "Sharktx StakePool",
         "link": "https://sharktx.com,"
+    },
+    "SHELL": {
+        "name": "Shell",
+        "link": "https://www.shellstaking.com/"
     },
     "SHIFT": {
         "name": "SHIFT: a climate positive Cardano stake pool",
@@ -9921,14 +10089,14 @@
     },
     "SHUA": {
         "name": "SHUA Stake Pool",
-        "link": "https://www.youtube.com/channel/UCf64J3dPdVRT6OJf57m-uyw"
+        "link": "https://bitshua.com/adastaking"
     },
     "SIAM": {
         "name": "Thai Stake Pool",
         "link": "https://siam.mof.one"
     },
     "SIDAN": {
-        "name": "Sidan Stake",
+        "name": "SIDAN Lab",
         "link": "https://sidan.io"
     },
     "SIGMA": {
@@ -9939,13 +10107,13 @@
         "name": "Signal Pool",
         "link": "https://twitter.com/Signlpool"
     },
-    "SILVR": {
-        "name": "Silver City \ud83d\udddd",
-        "link": "https://silvercitystaking.com"
+    "SALUD": {
+        "name": "deepSalud Health",
+        "link": "https://www.deepsalud.ai"
     },
-    "SPIN": {
-        "name": "AdaSpin Stake Pool",
-        "link": "https://stake.adaspin.io"
+    "SIMIA": {
+        "name": "simia one stake pool",
+        "link": "https://stake.simia.one"
     },
     "SIMON": {
         "name": "Simon's Pool",
@@ -9987,13 +10155,13 @@
         "name": "SPO JAPAN GUILD POOL",
         "link": "https://spojapanguild.net/"
     },
-    "SKULL": {
-        "name": "ANTI.BIZ",
-        "link": "https://www.anti.biz/cardano"
+    "OMEN": {
+        "name": "Nemonium",
+        "link": "https://nemonium.com/"
     },
     "SKY1": {
         "name": "SkyWriter X Node",
-        "link": ""
+        "link": "https://skywriter.prototypeindustries.com/dist/blockchain.html"
     },
     "SKY2": {
         "name": "skylightpool.com",
@@ -10036,12 +10204,16 @@
         "link": "https://cryptominingsunmalaga.com"
     },
     "SMAUG": {
-        "name": "SM\u20b3UG",
+        "name": "\u7adcSM\u20b3UG",
         "link": "https://smaug.pool.pm"
     },
     "SMBU1": {
         "name": "Shambhu",
         "link": "https://myadapoolnamerocks.com"
+    },
+    "SMILE": {
+        "name": "SMILES ON AFRICA",
+        "link": "https://smilespool.com/"
     },
     "SMPL": {
         "name": "SimplePool",
@@ -10057,7 +10229,7 @@
     },
     "SNAKE": {
         "name": "SN\u20b3KE",
-        "link": "https://asnakep.github.io"
+        "link": "http://snakepool.link"
     },
     "SNDAE": {
         "name": "Ice Cream Factory",
@@ -10066,6 +10238,10 @@
     "SNDC": {
         "name": "Syndicalist",
         "link": "https://github.com/morgworth/SNDC"
+    },
+    "SNEK": {
+        "name": "Snek",
+        "link": "https://www.snekcoinada.com/"
     },
     "SNODE": {
         "name": "StakeNode.One",
@@ -10092,8 +10268,8 @@
         "link": "http://freewallet1.net/"
     },
     "SOAR": {
-        "name": "Soaring through Cloud Nine",
-        "link": "https://cloud9staking.com"
+        "name": "ADA Soar",
+        "link": "https://adasoar.com"
     },
     "SOB": {
         "name": "Sea of Bliss Stake Pool",
@@ -10113,7 +10289,7 @@
     },
     "SODM": {
         "name": "shiodome47",
-        "link": "https://twitter.com/shiodome47"
+        "link": "https://x.com/shiodome47"
     },
     "SOFIA": {
         "name": "SOFIA CARDANO POOL (SOFIA)",
@@ -10157,7 +10333,7 @@
     },
     "SONLA": {
         "name": "Decentralization for better world",
-        "link": ""
+        "link": "http://sonla.online"
     },
     "SONY": {
         "name": "SONY of Love Pool",
@@ -10172,8 +10348,8 @@
         "link": "https://adasoup.com"
     },
     "SOUR": {
-        "name": "BerryCapital",
-        "link": "https://twitter.com/Berry___Capital"
+        "name": "Berry",
+        "link": "https://twitter.com/Berry_Chann"
     },
     "SPA": {
         "name": "Cardano Spark",
@@ -10183,17 +10359,9 @@
         "name": "Stake Pool as a Service",
         "link": "https://spaas.org/"
     },
-    "SPACE": {
-        "name": "Staker Space",
-        "link": "https://staker.space"
-    },
     "SPADA": {
         "name": "Spartan's Pool",
         "link": "spadacardano.github.io"
-    },
-    "SPAIN": {
-        "name": "The Pool of SPAIN",
-        "link": "https://storage.googleapis.com/spain-pool/index.html"
     },
     "SPANE": {
         "name": "Spane",
@@ -10221,7 +10389,7 @@
     },
     "SPEC": {
         "name": "Spectrum Pool",
-        "link": "https://spectrum-pool.kind.software"
+        "link": "https://spectrum-pool.evolute.software"
     },
     "SPFR": {
         "name": "Stakepool.fr",
@@ -10243,13 +10411,13 @@
         "name": "SPICA Stake Pool",
         "link": "https://twitter.com/macne_y"
     },
-    "CEE": {
-        "name": "CEECardanoPool",
-        "link": ""
-    },
     "SPIDR": {
         "name": "SpidarPool",
         "link": "https://cardano.weebl.me"
+    },
+    "SPIRE": {
+        "name": "Spire Staking | \ud83c\udfc6 Top 10 Operator",
+        "link": "https://www.spirestaking.com"
     },
     "SPKL": {
         "name": "Sparkle",
@@ -10303,9 +10471,9 @@
         "name": "StakePool Service No.5",
         "link": "https://stakepoolservice.com/"
     },
-    "SP\u20b3CE": {
-        "name": "SPACE: Infinite Rewards",
-        "link": "https://outerspace.money"
+    "SPS6": {
+        "name": "StakePool Service No.6",
+        "link": "https://stakepoolservice.com/"
     },
     "SQRL": {
         "name": "ADASquirrel",
@@ -10351,6 +10519,10 @@
         "name": "staca.co",
         "link": "https://staca.co"
     },
+    "STACK": {
+        "name": "ADASTACK",
+        "link": "https://adastack.net"
+    },
     "STADA": {
         "name": "Staking Ada Germany",
         "link": "https://www.staking-ada.de"
@@ -10363,6 +10535,10 @@
         "name": "ADA STAK3 Pool",
         "link": "http://stak3pool.com"
     },
+    "STAKE": {
+        "name": "\ud83c\udf0d PLANETSTAKE 2",
+        "link": "https://planetstake.com"
+    },
     "STAKR": {
         "name": "stakr_nl",
         "link": "https://stakr.nl"
@@ -10370,10 +10546,6 @@
     "STALE": {
         "name": "Stale Pool",
         "link": "https://discord.com/invite/yA9cAtD3et"
-    },
-    "STARS": {
-        "name": "Start Trading ADA Rewards Safe",
-        "link": "https://stars-pool.com"
     },
     "STASH": {
         "name": "Cardano STASH Pool",
@@ -10411,13 +10583,17 @@
         "name": "StakeBowl5",
         "link": "https://www.stakebowl.io"
     },
+    "STCRP": {
+        "name": "Stake-Crypto",
+        "link": "https://stake-crypto.co.uk"
+    },
     "STDN": {
         "name": "Standardize Network",
         "link": "https://www.standardize.network"
     },
     "STEEL": {
         "name": "STEEL-STAKING",
-        "link": "https://steelstaking.com"
+        "link": "https://steelstaking.eu"
     },
     "STEL": {
         "name": "Stellence.com",
@@ -10452,15 +10628,15 @@
         "link": "https://stakit.io"
     },
     "STKCH": {
-        "name": "Stake Pool in Geneva",
-        "link": "https://cardanoadapool.wixsite.com/pvtstakepool"
+        "name": "STKCH",
+        "link": "https://fenixjunior6.wixsite.com/pvtstakepool"
     },
     "STKD": {
         "name": "Staked",
         "link": "https://staked.us"
     },
     "STKGR": {
-        "name": "Stake Green",
+        "name": "Stake Green \ud83c\udf33 0% Fee - Max Rewards",
         "link": "https://www.stakegreen.com"
     },
     "STKH1": {
@@ -10472,7 +10648,7 @@
         "link": "https://www.stakehub.app"
     },
     "STKME": {
-        "name": "StakPoolMe",
+        "name": "Stake-Me",
         "link": "https://stakepool.me"
     },
     "STKMN": {
@@ -10506,6 +10682,10 @@
     "STORK": {
         "name": "Stork Pool",
         "link": "https://www.storkpool.com"
+    },
+    "STORM": {
+        "name": "STORM POOL",
+        "link": "https://stormpool.blogspot.com"
     },
     "STPZ1": {
         "name": "STacking_PiZza",
@@ -10549,14 +10729,14 @@
     },
     "SUDTI": {
         "name": "Southtyrol",
-        "link": "https://southtyrolpool.it"
+        "link": "https://sudti.it"
     },
     "SUGAR": {
         "name": "Sugar Stake Pool",
-        "link": "https://sugarstakepool.jp"
+        "link": "https://twitter.com/cardano_sugar"
     },
     "SUI": {
-        "name": "ADA Suisse",
+        "name": "ADA Suisse \ud83c\udde8\ud83c\udded",
         "link": "https://adasuisse.io"
     },
     "SUMN": {
@@ -10570,6 +10750,10 @@
     "SUNNE": {
         "name": "Sunner",
         "link": "https://sunner.org"
+    },
+    "SUNNY": {
+        "name": "Sunshine Stake Pool",
+        "link": "https://sunnyada.io"
     },
     "SUNO": {
         "name": "Super Nova",
@@ -10613,15 +10797,15 @@
     },
     "SWARM": {
         "name": "Community driven grassroot network of visionairs",
-        "link": "https://catalystswarm.com/"
+        "link": "https://intro.theswarmproject.com/"
     },
     "SWEEP": {
         "name": "SweepStakePool",
         "link": "https://sweepstakepool.io"
     },
     "SWEET": {
-        "name": "Berry Capital",
-        "link": "https://twitter.com/Berry__Capital"
+        "name": "Berry",
+        "link": "https://twitter.com/Berry_Chann"
     },
     "WATER": {
         "name": "The WaterBear Pool",
@@ -10630,10 +10814,6 @@
     "SWELL": {
         "name": "Swell Pool",
         "link": "https://swell-pool.com"
-    },
-    "SWIFT": {
-        "name": "Swift",
-        "link": "https://adapools.org"
     },
     "SWIM": {
         "name": "The Swimming Pool",
@@ -10646,10 +10826,6 @@
     "SWING": {
         "name": "Ada Swing",
         "link": "https://ada-swing.net"
-    },
-    "SWISS": {
-        "name": "Cardano Swiss",
-        "link": "https://cardano-swiss.ch"
     },
     "SWM01": {
         "name": "SwimmingPool01",
@@ -10703,29 +10879,29 @@
         "name": "SwimmingPool13",
         "link": "https://swimmingpoolop.github.io/pools/"
     },
-    "SWM14": {
-        "name": "SwimmingPool14",
-        "link": "https://swimmingpoolop.github.io/pools/"
+    "EMURA": {
+        "name": "Emurgo A",
+        "link": "https://www.emurgo.io/"
     },
-    "SWM15": {
-        "name": "SwimmingPool15",
-        "link": "https://swimmingpoolop.github.io/pools/"
+    "EMURB": {
+        "name": "Emurgo B",
+        "link": "https://www.emurgo.io/"
     },
-    "SWM16": {
-        "name": "SwimmingPool16",
-        "link": "https://swimmingpoolop.github.io/pools/"
+    "YORO1": {
+        "name": "Yoroi pool 1",
+        "link": "https://www.emurgo.io/"
     },
-    "SWM17": {
-        "name": "SwimmingPool17",
-        "link": "https://swimmingpoolop.github.io/pools/"
+    "YORO2": {
+        "name": "Yoroi pool 2",
+        "link": "https://www.emurgo.io/"
     },
-    "SWM18": {
-        "name": "SwimmingPool18",
-        "link": "https://swimmingpoolop.github.io/pools/"
+    "EMUR7": {
+        "name": "Emurgo #7",
+        "link": "https://www.emurgo.io/"
     },
-    "SWM19": {
-        "name": "SwimmingPool19",
-        "link": "https://swimmingpoolop.github.io/pools/"
+    "EMUR8": {
+        "name": "Emurgo #8",
+        "link": "https://www.emurgo.io/"
     },
     "SWOOP": {
         "name": "SwoopStakePool",
@@ -10759,25 +10935,17 @@
         "name": "SUBZERO",
         "link": "https://szero.us"
     },
-    "Saar": {
+    "SAAR": {
         "name": "Saarland Pool",
         "link": "https://adasaar.de"
     },
-    "Safe": {
-        "name": "SafeStakela",
-        "link": "https://Safestakela.com"
-    },
-    "SoPHi": {
+    "SOPHI": {
         "name": "\ud83d\udcb0  Sophia's ZERO Margin Pool",
         "link": "https://stackblock.github.io/"
     },
-    "Swink": {
+    "SWINK": {
         "name": "Swinkels_pool",
         "link": "www.probablyAnInvalidURL.maja"
-    },
-    "Swiss": {
-        "name": "SwissQpool",
-        "link": "https://www.swissqa.com"
     },
     "T1DEX": {
         "name": "T1DEXI",
@@ -10829,7 +10997,7 @@
     },
     "TAPSY": {
         "name": "TapTap Vienna",
-        "link": "https://tap-ada.at"
+        "link": "https://tap-ada.github.io"
     },
     "TAROT": {
         "name": "Read Thy Self",
@@ -10864,16 +11032,16 @@
         "link": "https://www.tca.io/"
     },
     "TCATL": {
-        "name": "Atocatl Stake Pool",
-        "link": "https://atocatl.github.io"
+        "name": "ATOCATL Stake Pool",
+        "link": "https://twitter.com/atocatl"
     },
     "TCF1": {
         "name": "The Cardano Forge (pool 1)",
         "link": "https://cardanoforge.io"
     },
-    "TCHP": {
+    "TPOOL": {
         "name": "TricahuePool",
-        "link": "https://eztero.github.io/TricahuePool/index.html"
+        "link": "https://eztero.github.io/TricahuePool/index_en.html"
     },
     "TCI": {
         "name": "The Cardano Initiative",
@@ -10917,6 +11085,10 @@
     },
     "TERA2": {
         "name": "\u26a1TERA #2\u26a1",
+        "link": "https://git.io/JItdr"
+    },
+    "TERA3": {
+        "name": "\ud83c\udf1eTERA #3\ud83c\udf1e",
         "link": "https://git.io/JItdr"
     },
     "TERM": {
@@ -10965,26 +11137,34 @@
     },
     "TGEM": {
         "name": "tk-gems",
-        "link": "https://twitter.com/tk_gems"
+        "link": "https://tkgems.com/"
     },
     "TGN": {
         "name": "THE OLD GOOD NODE",
         "link": "https://thegoodnode.com"
     },
-    "THC": {
+    "LABO": {
+        "name": "ADA Labo",
+        "link": "https://thc-room335.com"
+    },
+    "THC2": {
         "name": "THC Cardano Stake World",
         "link": "https://thc-room335.com"
     },
-    "THC3": {
-        "name": "THC Cardano Stake World",
-        "link": "https://thc-room335.com"
+    "RAMA": {
+        "name": "Rama DeFi Bangkok",
+        "link": "https://thc-room335.com/rama"
+    },
+    "THCA": {
+        "name": "THC-Asia Consulting",
+        "link": "https://stake.love"
     },
     "THCB": {
         "name": "THC-Asia Consulting",
         "link": "https://stake.love"
     },
-    "THCP": {
-        "name": "THC-Asia Consulting",
+    "RAMB": {
+        "name": "Rama DeFi Bangkok",
         "link": "https://thc-room335.com/rama"
     },
     "THCS": {
@@ -10992,8 +11172,8 @@
         "link": "https://stake.love"
     },
     "THCV": {
-        "name": "THC-Asia Consulting",
-        "link": "https://stake.love"
+        "name": "THC Cardano Stake World",
+        "link": "https://thc-room335.com"
     },
     "THETA": {
         "name": "Theta Staking Pool",
@@ -11015,9 +11195,9 @@
         "name": "THOR - The Viking Pool",
         "link": "https://thevikingpool.com"
     },
-    "THRVD": {
-        "name": "TheravADA",
-        "link": "https://sites.google.com/view/thrvdada/home"
+    "BUDDA": {
+        "name": "Buddhism, Meditation & Mental Health",
+        "link": "https://sites.google.com/view/buddapool"
     },
     "THREE": {
         "name": "THREE Pool",
@@ -11043,10 +11223,6 @@
         "name": "TIGER team",
         "link": "https://t.me/TIGERpool"
     },
-    "TIGR": {
-        "name": "Holy Tiger",
-        "link": "https://adapools.org/pool/726f46e3179898154ef9cfbd0fdf5f0bf70b53aabcbc642f05e8b3d7"
-    },
     "TIGR1": {
         "name": "Tigrpool.com",
         "link": "https://www.tigrpool.com"
@@ -11060,8 +11236,8 @@
         "link": "https://tkcoin.org/tikpool"
     },
     "TIKI": {
-        "name": "TIKI",
-        "link": "http://tiki.swebe.vn/"
+        "name": "TIKI of Love Pool",
+        "link": "https://www.tikipool.net/"
     },
     "TILIA": {
         "name": "Tilia IO",
@@ -11133,7 +11309,7 @@
     },
     "TMS": {
         "name": "Tempus",
-        "link": "https://www.tempus-stakepool.ch"
+        "link": "https://x.com/tempusstakepool"
     },
     "TNTM": {
         "name": "TANTUM",
@@ -11229,11 +11405,11 @@
     },
     "TREE": {
         "name": "ADATree.io",
-        "link": "http://ADATREE.IO"
+        "link": "https://adatree.io"
     },
     "TREK": {
-        "name": "Star Trek Pool",
-        "link": "https://startrekstakepool.com/"
+        "name": "stakeTREK.io",
+        "link": "https://stakeTREK.io"
     },
     "TREND": {
         "name": "Trend-Eleven",
@@ -11257,6 +11433,10 @@
     },
     "TRIO2": {
         "name": "TRIONT2",
+        "link": "http://triont.com"
+    },
+    "TRION": {
+        "name": "TRIONT",
         "link": "http://triont.com"
     },
     "TROFI": {
@@ -11284,20 +11464,16 @@
         "link": "https://dawnstarcorporation.com"
     },
     "TRUE": {
-        "name": "TRUE",
+        "name": "TRUE Staking Pool",
         "link": "https://7ru3.com"
     },
     "TRUEC": {
         "name": "Adopt_Pool",
         "link": "https://freerangehumanity.com"
     },
-    "TRUMP": {
-        "name": "TRUMP",
-        "link": "https://t.me/TRUMP_stake_pool"
-    },
     "TRUST": {
         "name": "TRUST Pool",
-        "link": "https://adatrust.space"
+        "link": "https://tourdewest.com"
     },
     "TS1TA": {
         "name": "Teshita",
@@ -11339,6 +11515,10 @@
         "name": "Turbo",
         "link": "https://www.turbocookie.com"
     },
+    "TURIN": {
+        "name": "Turing Pool One",
+        "link": "https://cardano.turingpool.io"
+    },
     "TURK": {
         "name": "Cardano Turkiye \ud83c\uddf9\ud83c\uddf7",
         "link": "https://cardanoturkiye.org"
@@ -11362,10 +11542,6 @@
     "TYGAR": {
         "name": "Tygar",
         "link": "https://tygar-pool.com"
-    },
-    "Trump": {
-        "name": "Trump Fan",
-        "link": "https://trumpfanpool.github.io/"
     },
     "U0001": {
         "name": "U0001",
@@ -11402,6 +11578,10 @@
     "UK01": {
         "name": "Enterprise Level Stake Pool",
         "link": "https://github.com/abracadaniel/cardano-node-docker"
+    },
+    "UKADA": {
+        "name": "UKADA",
+        "link": "https://ukada.godaddysites.com/"
     },
     "UKPL": {
         "name": "The UK Pool",
@@ -11462,6 +11642,10 @@
     "UNV25": {
         "name": "Universe 25",
         "link": "https://www.universe25.io/"
+    },
+    "UPBIT": {
+        "name": "Upbit Staking",
+        "link": "https://upbit.com"
     },
     "UPLAY": {
         "name": "UPLAY POOL",
@@ -11567,6 +11751,10 @@
         "name": "Vega",
         "link": "https://vegapool.tech"
     },
+    "VEGAN": {
+        "name": "VeganPool",
+        "link": "http://www.veganpool.org"
+    },
     "VELA": {
         "name": "VELA Pool",
         "link": "https://adacardano.cl/"
@@ -11633,7 +11821,7 @@
     },
     "VICIS": {
         "name": "VICISpool",
-        "link": "https://www.vicispool.com"
+        "link": "https://vicispool.com"
     },
     "VIET": {
         "name": "VietCore Pool",
@@ -11659,6 +11847,14 @@
         "name": "Da VINCI pool",
         "link": "https://www.vincepool.com"
     },
+    "VIPER": {
+        "name": "\ud83d\udc0dViper Stake Pool #2",
+        "link": "https://viperstaking.com/ada-pools/adder-pool/"
+    },
+    "VIRGO": {
+        "name": "Virgo",
+        "link": "https://tetrahapps.com"
+    },
     "VITAL": {
         "name": "Responsible Staking",
         "link": "https://responsible-staking.at"
@@ -11680,8 +11876,8 @@
         "link": "https://www.vivacardano.com"
     },
     "VIVID": {
-        "name": "Vivid Stake Pool",
-        "link": "https://vividpool.io"
+        "name": "Vivid Cardano",
+        "link": ""
     },
     "VJRAS": {
         "name": "Love_over_Gold",
@@ -11732,16 +11928,16 @@
         "link": "https://vogue-pool.com"
     },
     "VOLCY": {
-        "name": "ITN Certified/Ardana Stake Pool Alliance(ASPA)",
-        "link": "https://www.volcyada.com"
+        "name": "VOLCY \ud83e\udd81 - Elite Multi-Chain Infrastructure",
+        "link": "https://www.volcyada.com/"
     },
     "VOLT": {
-        "name": "Voltairera VoltPool",
-        "link": "https://Voltairera.com"
+        "name": "VoltPool",
+        "link": "https://x.com/Volt_Pool"
     },
     "VOLT2": {
         "name": "VoltPool 2",
-        "link": "https://voltairera.com"
+        "link": "https://voltpool.io"
     },
     "VOLVO": {
         "name": "Lovelace' VOLVO",
@@ -11751,7 +11947,7 @@
         "name": "VRITS",
         "link": "http://vrits.nl"
     },
-    "VROOM": {
+    "CAR": {
         "name": "CarPool",
         "link": "https://carpoolcrypto.com/"
     },
@@ -11779,7 +11975,7 @@
         "name": "Verified Ventures Mark 1",
         "link": "https://verified.ventures/staking/1"
     },
-    "VapE": {
+    "VAPE": {
         "name": "Vape Avenue",
         "link": "https://vapeavenue.info"
     },
@@ -11793,11 +11989,11 @@
     },
     "WAAUS": {
         "name": "WAAUS",
-        "link": "https://www.wastaking.xyz"
+        "link": "https://t.me/WAStaking"
     },
-    "WADA1": {
-        "name": "The WADA Pool #1",
-        "link": "https://wada.cash"
+    "NUT1": {
+        "name": "Nut Pool #1",
+        "link": "https://nuthosting.com"
     },
     "WADA2": {
         "name": "The WADA Pool #2",
@@ -11832,12 +12028,16 @@
         "link": "https://angkorwatstakepool.net"
     },
     "WAV1": {
-        "name": "WAVE-1",
-        "link": "https://wavegp.com"
+        "name": "wavepool.digital",
+        "link": "https://wavepool.digital"
+    },
+    "WAV10": {
+        "name": "wavepool.digital",
+        "link": "https://wavepool.digital"
     },
     "WAV11": {
-        "name": "WAVE-11",
-        "link": "https://wavegp.com"
+        "name": "wavepool.digital",
+        "link": "https://wavepool.digital"
     },
     "WAV12": {
         "name": "wavepool.digital",
@@ -11852,8 +12052,8 @@
         "link": "https://wavegp.com"
     },
     "WAV2": {
-        "name": "WAVE-2",
-        "link": "https://wavegp.com"
+        "name": "wavepool.digital",
+        "link": "https://wavepool.digital"
     },
     "WAV4": {
         "name": "WAVE-4",
@@ -11864,8 +12064,8 @@
         "link": "https://wavegp.com"
     },
     "WAV7": {
-        "name": "Wave-7",
-        "link": "https://wavegp.com"
+        "name": "wavepool.digital",
+        "link": "https://wavepool.digital"
     },
     "WAV8": {
         "name": "Wave-8",
@@ -11912,7 +12112,7 @@
         "link": "https://wafflepool.org"
     },
     "WHITE": {
-        "name": "The White Project",
+        "name": "The WHITE Project",
         "link": "https://white.topopool.com"
     },
     "WHIZ": {
@@ -11936,7 +12136,7 @@
         "link": "https://adawingman.com/"
     },
     "WINGS": {
-        "name": "WINGSTAKE",
+        "name": "WINGS",
         "link": "https://wingstake.com"
     },
     "WIRA": {
@@ -11976,7 +12176,7 @@
         "link": "https://whimsy.tech"
     },
     "WOLF": {
-        "name": "ADAwolf \ud83d\udc3a",
+        "name": "AdaWolf \ud83d\udc3a",
         "link": "https://adafrog.io"
     },
     "WOLV": {
@@ -11999,10 +12199,6 @@
         "name": "Wookie Nation",
         "link": "https://wookie-nation.com"
     },
-    "WORLD": {
-        "name": "ADA World",
-        "link": "https://adaworld.io"
-    },
     "WOT": {
         "name": "Wottlenft",
         "link": "https://wottlenft.com"
@@ -12019,7 +12215,7 @@
         "name": "WPBJ",
         "link": "https://www.bitpoint.co.jp"
     },
-    "WPool": {
+    "WPOOL": {
         "name": "WINPool",
         "link": "http://www.adawinpool.com"
     },
@@ -12063,17 +12259,17 @@
         "name": "Waya Collective Stake Pool",
         "link": "https://wayacollective.com/"
     },
-    "Wecan": {
+    "WECAN": {
         "name": "Wecan",
         "link": "https://wecan-group.com/ada"
     },
-    "WizOz": {
+    "WIZOZ": {
         "name": "WizOz",
         "link": "https://git.io/JU5Hg"
     },
     "XC0DE": {
-        "name": "xc0de pool",
-        "link": "https://xc0de.io"
+        "name": "xc0de",
+        "link": "http://xc0de.io"
     },
     "XERSA": {
         "name": "Xerberus",
@@ -12096,7 +12292,7 @@
         "link": "https://xmexicostakepool.com"
     },
     "XMOO": {
-        "name": "Marty Moose  ",
+        "name": "Marty Moose",
         "link": "https://gist.github.com/5dd3fd1c9305ee8da5a4b0e0c7c6c764.git"
     },
     "XN0D3": {
@@ -12129,7 +12325,7 @@
     },
     "XSEC": {
         "name": "XSEC Cardano ADA Pool",
-        "link": "https://ada.xsec.es"
+        "link": "https://ada.allxsec.com"
     },
     "XSP": {
         "name": "X-StakePool",
@@ -12145,7 +12341,7 @@
     },
     "XSTAR": {
         "name": "Enterprise level Cloud Infrastructure",
-        "link": "https://www.xstar-pool.com"
+        "link": "https://twitter.com/infinitypooI"
     },
     "XSY": {
         "name": "xsyfr",
@@ -12162,10 +12358,6 @@
     "YASMP": {
         "name": "Yet Another Self-Made Pool",
         "link": "https://woellchen.github.io/poolMetaData.json"
-    },
-    "YASP": {
-        "name": "Yet Another Stake Pool",
-        "link": "https://yasp1.github.io/YASP"
     },
     "YETI": {
         "name": "Yeti-Pool",
@@ -12188,7 +12380,7 @@
         "link": "https://ynms.io"
     },
     "YOADA": {
-        "name": "ASTARTER ISPO MERGE POOL",
+        "name": "May the stake be with you !",
         "link": "https://www.yoada.fr"
     },
     "YOGI": {
@@ -12250,6 +12442,10 @@
     "ZAM": {
         "name": "Mission Zambia Stake Pool",
         "link": "https://missionzambia.org"
+    },
+    "ZAZEN": {
+        "name": "ZenPool",
+        "link": "http://zenen.space"
     },
     "ZBP": {
         "name": "ZB_Pool",
@@ -12327,6 +12523,10 @@
         "name": "The Greek Pool",
         "link": "https://www.zorbapool.com"
     },
+    "ZPCT": {
+        "name": "Midnight! \u2705 \u00b7 0% Fees! \u2705",
+        "link": "https://zeropercentstaking.com"
+    },
     "ZPNG1": {
         "name": "Zipang Stake Pool 1",
         "link": "https://zpngstakepool.com/"
@@ -12343,13 +12543,9 @@
         "name": "Not Marky Mark's Meta Pool",
         "link": "https://memepools.io/"
     },
-    "ZUND": {
-        "name": "Z\u00fcnder",
-        "link": "https://zunderpool.io"
-    },
     "ZW3RK": {
         "name": "Haskell CI Support Pool",
-        "link": "https://pools.zw3rk.com"
+        "link": "https://zw3rkpool.com"
     },
     "ZXC": {
         "name": "Star Pool",
@@ -12379,101 +12575,81 @@
         "name": "Q - Multiowners",
         "link": "https://sites.google.com/view/mango-staking-pool"
     },
-    "adacn": {
+    "ADACN": {
         "name": "adacn pool",
-        "link": " "
+        "link": ""
     },
-    "ayame": {
+    "AYAME": {
         "name": "ayame",
         "link": "https://twitter.com/marikoono2"
     },
-    "btcs": {
+    "BTCS": {
         "name": "BitcoinSuisse01",
         "link": "https://bitcoinsuisse.com"
     },
-    "cBTC": {
+    "CBTC": {
         "name": "Cardano BTC Pool",
         "link": "http://www.cardanobtc.com"
     },
-    "caraz": {
+    "CARAZ": {
         "name": "\u20b3ZUR\u20ac",
         "link": "http://www.cardano-azure.com"
     },
-    "dave": {
-        "name": "Daves Big Stakes Pool Party",
-        "link": "https://github.com/jkerivan/cardano"
-    },
-    "deci": {
+    "DECI": {
         "name": "decentral.iced",
         "link": "https://www.decentral-iced.ch"
     },
-    "dtDn": {
+    "DTDN": {
         "name": "dataDyne.earth",
         "link": "http://dataDyne.earth/cardano"
     },
-    "edu": {
-        "name": "Education Pool",
-        "link": "https://www.cardano-education.com/"
-    },
-    "help": {
-        "name": "Ada Charity Pool",
-        "link": "https://www.adacharitypool.com/"
-    },
-    "horca": {
+    "HORCA": {
         "name": "Orca Hub",
         "link": "https://www.orcahub.net"
     },
-    "htkp": {
+    "HTKP": {
         "name": "HTK-P",
         "link": "https://htkp.tokenchain.network"
     },
-    "knx": {
+    "KNX": {
         "name": "CryptoKnox",
         "link": "https://cryptoknox.github.io/cryptoknox/"
     },
-    "kowln": {
+    "KOWLN": {
         "name": "Kowloon Cardano Stake Pool",
         "link": "https://kowloon-central.github.io/kowln"
     },
-    "ktut": {
+    "KTUT": {
         "name": "King Tut StakePool",
         "link": "https://twitter.com/ktutstakepool?s=21"
     },
-    "latam": {
-        "name": "LATAM",
-        "link": "https://cardano.org/"
-    },
-    "lowIQ": {
+    "LOWIQ": {
         "name": "lowIQ",
         "link": "https://lowIQ.rocks/lowIQ.metadata.json"
     },
-    "one": {
+    "ONE": {
         "name": "EnigmA",
         "link": "https://red-sky.one"
     },
-    "pOCC": {
+    "POCC": {
         "name": "OccamFi",
         "link": "https://occam-x.fi"
     },
-    "pOCC2": {
+    "POCC2": {
         "name": "OccamFi",
         "link": "https://occam-x.fi"
     },
-    "ska1": {
+    "SKA1": {
         "name": "SKADEA",
         "link": "https://skadea.de"
     },
-    "yabak": {
+    "YABAK": {
         "name": "Dr Meow Cardano Stake Pool",
         "link": "https://hysleeper.github.io/meow"
     },
-    "ycp1": {
+    "YCP1": {
         "name": "poolOwner#1",
         "link": "https://127.0.0.1"
-    },
-    "your": {
-        "name": "Your Ada Pool",
-        "link": "http://youradapool.com/"
     },
     "\u2764AUS\u2764": {
         "name": "\u2665WE LOVE AUSTRALIA\u2665",
@@ -12494,6 +12670,10 @@
     "\ud83d\udc08NNSP": {
         "name": "\ud83d\udc08Nora Neko Stake Pool\ud83c\udf0f",
         "link": "https://twitter.com/7nekonymous"
+    },
+    "WILD": {
+        "name": "World National Parks",
+        "link": ""
     },
     "2401": {
         "name": "2401bps",
@@ -12717,7 +12897,7 @@
     },
     "OGAM": {
         "name": "Ogam Pool",
-        "link": ""
+        "link": "https://ogampool.co.uk/"
     },
     "OOH": {
         "name": "Optimistic Olive Hypatia",
@@ -12880,7 +13060,7 @@
         "link": ""
     },
     "YOGA": {
-        "name": "We are YOGA ",
+        "name": "We are YOGA",
         "link": ""
     },
     "ZDUH": {
@@ -12963,6 +13143,10 @@
         "name": "Input Output Global (IOHK) - 19",
         "link": "https://iohk.io"
     },
+    "IOG2": {
+        "name": "Input Output Global (IOHK) - 2",
+        "link": "https://iohk.io"
+    },
     "IOG20": {
         "name": "Input Output Global (IOHK) - 20",
         "link": "https://iohk.io"
@@ -12995,8 +13179,1392 @@
         "name": "Input Output Global (IOHK) - 9",
         "link": "https://iohk.io"
     },
+    "IOGP": {
+        "name": "Input Output Global (IOHK) - Private",
+        "link": "https://iohk.io"
+    },
+    "1PCT0": {
+        "name": "1 Percent Pool #0 (v1)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT1": {
+        "name": "1 Percent Pool #1 (v1)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT2": {
+        "name": "1 Percent Pool #2 (v1)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT3": {
+        "name": "1 Percent Pool #3 (v2)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT4": {
+        "name": "1 Percent Pool #4 (v1)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT5": {
+        "name": "1 Percent Pool #5 (v1)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT6": {
+        "name": "1 Percent Pool #6 (v3)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT7": {
+        "name": "1 Percent Pool #7 (v1)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT8": {
+        "name": "1 Percent Pool #8 (v2)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "1PCT9": {
+        "name": "1 Percent Pool #9 (v2)",
+        "link": "https://www.1percentpool.eu"
+    },
+    "BNP": {
+        "name": "Binance Staking - 59",
+        "link": "https://www.binance.com"
+    },
     "GETLO": {
         "name": "Get Lovelace",
         "link": "n/a"
+    },
+    "LOVE": {
+        "name": "StakeLove",
+        "link": "https://pooltool.io/about"
+    },
+    "2PCT": {
+        "name": "2 Percent Pool",
+        "link": "https://2percentpools.live"
+    },
+    "GOD": {
+        "name": "GOD",
+        "link": "https://godpool.ddnsgeek.com"
+    },
+    "PEGA": {
+        "name": "Pegasus",
+        "link": "https://pegasuspool.info"
+    },
+    "TOKYO": {
+        "name": "TOKYO",
+        "link": "https://tokyo-pool.com"
+    },
+    "2PCT1": {
+        "name": "2 Percent Pool - #1",
+        "link": "https://2percentpools.live"
+    },
+    "NLD": {
+        "name": "DutchPool NLD",
+        "link": "https://www.dutchpool.eu"
+    },
+    "2PCT2": {
+        "name": "2 Percent Pool - #2",
+        "link": "https://2percentpools.live"
+    },
+    "1PP01": {
+        "name": "One Percent Pool! #1",
+        "link": "https://www.facebook.com/1-Percent-Pool-105924914554984"
+    },
+    "TOBG": {
+        "name": "TOBG Community Pool",
+        "link": "https://www.tobg.com.de/crypto/cardano/"
+    },
+    "PDX": {
+        "name": "StumptownADApool",
+        "link": "https://stumptownadapool.xyz"
+    },
+    "SIGN": {
+        "name": "Signature Staking",
+        "link": "https://signaturestaking.com/"
+    },
+    "KUBE": {
+        "name": "The Kube Room",
+        "link": "https://www.thekuberoom.com/cardano-kube/"
+    },
+    "ADV": {
+        "name": "ADAvault",
+        "link": "https://adavault.com"
+    },
+    "UNIQ": {
+        "name": "Unique",
+        "link": "https://www.uniquestaking.com"
+    },
+    "JOY": {
+        "name": "JOY",
+        "link": "https://cardano.ipclub29.com/"
+    },
+    "LUCKY": {
+        "name": "Lucky Pool",
+        "link": "https://lucky-pool.com"
+    },
+    "LUCK2": {
+        "name": "Lucky Pool 2",
+        "link": "https://lucky-pool.com"
+    },
+    "DAVID": {
+        "name": "David Likes Crypto ADA Stakepool",
+        "link": "http://www.davidlikescrypto.com"
+    },
+    "MOST": {
+        "name": "MOStaking",
+        "link": "https://www.mostaking.com"
+    },
+    "SAVVY": {
+        "name": "The Savvy Pool",
+        "link": "http://www.thesavvyadapool.com"
+    },
+    "ZAZA": {
+        "name": "ZAZA Cocktail Pool",
+        "link": "https://zazapool.com"
+    },
+    "LINUX": {
+        "name": "LINUX Pool \ud83d\udc27",
+        "link": "http://linuxpool.io/"
+    },
+    "ABI": {
+        "name": "Abiola",
+        "link": "https://www.abiolapool.com/"
+    },
+    "WIN": {
+        "name": "Winner",
+        "link": "https://cardanostaking.live"
+    },
+    "TRUX": {
+        "name": "FintruX Staked Financing",
+        "link": "https://staked.finance"
+    },
+    "JSTK": {
+        "name": "JustStack",
+        "link": "https://just-stack.com"
+    },
+    "JAVA": {
+        "name": "Javapool",
+        "link": "https://javapool.site"
+    },
+    "DPOOL": {
+        "name": "DaPool",
+        "link": "https://da-pool.web.app"
+    },
+    "DJED1": {
+        "name": "Djed Alliance | Stablecoins",
+        "link": "https://djed.one"
+    },
+    "RDP": {
+        "name": "RubberDuckyPool",
+        "link": ""
+    },
+    "TOAST": {
+        "name": "TOASTY POOL",
+        "link": "https://toast-pool.us"
+    },
+    "OTORO": {
+        "name": "Ada Otoro One",
+        "link": "https://solxjon.wixsite.com/otoro"
+    },
+    "HAUS": {
+        "name": "Stakehaus.ca",
+        "link": "https://stakehaus.ca"
+    },
+    "PHNX": {
+        "name": "PHOENIX",
+        "link": "http://www.ada-stakingpool.com"
+    },
+    "OWL": {
+        "name": "OWL ADA POOL",
+        "link": "https://iacode.net"
+    },
+    "TORO": {
+        "name": "Cryptoro",
+        "link": "https://CryptoroPools.com"
+    },
+    "MYC": {
+        "name": "MyCointainer.com",
+        "link": "https://www.mycointainer.com/assets/cardano"
+    },
+    "STFU": {
+        "name": "stake.fun",
+        "link": "https://stake.fun"
+    },
+    "TOAS2": {
+        "name": "Toasty Too",
+        "link": "https://toast-pool.us"
+    },
+    "YORK": {
+        "name": "Free York",
+        "link": "https://free-york.com"
+    },
+    "ADV2": {
+        "name": "ADAvault Stake Pool 2",
+        "link": "https://adavault.com"
+    },
+    "LOCK": {
+        "name": "adaLOCK",
+        "link": "https://www.adalock.net/"
+    },
+    "BLNC": {
+        "name": "Balance",
+        "link": "under_construction"
+    },
+    "BUZZ": {
+        "name": "CardanoBuzz",
+        "link": "https://www.cardano.buzz"
+    },
+    "WALDO": {
+        "name": "WALDOpools",
+        "link": "https://www.waldopools.org"
+    },
+    "GDAD": {
+        "name": "GiantDad",
+        "link": "https://staking.secretcastlegames.com"
+    },
+    "FOG": {
+        "name": "Operated by Dew Staking Solutions",
+        "link": "https://dew-stake.com"
+    },
+    "UNIFY": {
+        "name": "Unify",
+        "link": "https://unifypool.com"
+    },
+    "DANK": {
+        "name": "Dank Central",
+        "link": "https://jr8974.wixsite.com/dankcentral"
+    },
+    "ADV3": {
+        "name": "ADAvault Stake Pool 3",
+        "link": "https://adavault.com"
+    },
+    "VRIJ": {
+        "name": "Vrijstaat",
+        "link": "https://vrijstaat.net"
+    },
+    "CRFN": {
+        "name": "Crypto Functional",
+        "link": "https://cryptofunctional.com"
+    },
+    "VPOOL": {
+        "name": "vipool nz",
+        "link": "https://vipulkane.com"
+    },
+    "DCT": {
+        "name": "Decentra Pool",
+        "link": "https://decentrapool.webnode.cz/"
+    },
+    "MGC8": {
+        "name": "Magic_8_Pool",
+        "link": "https://magic8ball.app"
+    },
+    "ROT": {
+        "name": "Rotapool",
+        "link": "https://rotapool.flazio.com/"
+    },
+    "SPRO": {
+        "name": "Sprout Pool",
+        "link": "https://sproutpool.ca"
+    },
+    "HIGH": {
+        "name": "The HIGH Pool",
+        "link": "http://high-pool.atwebpages.com"
+    },
+    "BANC": {
+        "name": "banC StakePool",
+        "link": "https://bancpool.com"
+    },
+    "OBRP": {
+        "name": "Obrovac.xyz Pool",
+        "link": "https://adapool.obrovac.xyz"
+    },
+    "ALLEY": {
+        "name": "Alleycat Stake Pool",
+        "link": "http://alleycatmining.com"
+    },
+    "CTL": {
+        "name": "Cardano Stake Pool by CHAINOMETRY",
+        "link": "https://cointradeledger.com/cardano"
+    },
+    "ELLIP": {
+        "name": "Ellipal wallet",
+        "link": "https://www.ellipal.com/pages/ellipal-staking"
+    },
+    "ZOO": {
+        "name": "ADAZOO",
+        "link": "https://adazoo.com"
+    },
+    "TEN": {
+        "name": "CARDANO STAKEPOOL TAIWAN | \u53f0\u7063 ADA \u6b0a\u76ca\u6c60",
+        "link": "https://cardano.tw"
+    },
+    "MTMA": {
+        "name": "mtma",
+        "link": "http://www.ayame3.com"
+    },
+    "CRYL": {
+        "name": "CryptYoLo",
+        "link": "https://www.cryptyolo.com"
+    },
+    "NOAH": {
+        "name": "[Noah]'s Ark Foundation",
+        "link": "https://NoahsArk.foundation"
+    },
+    "4ITS": {
+        "name": "4itsPool",
+        "link": "https://ada.4its.ru"
+    },
+    "ALAM0": {
+        "name": "Alamo Stakepool",
+        "link": "https://alamopool.io"
+    },
+    "C3ETH": {
+        "name": "Support our eastern Cardano Community Network",
+        "link": "https://easterntownhall.com/"
+    },
+    "FUNON": {
+        "name": "Fun On the Ride - 0% Fees - Only 270 Fixed cost",
+        "link": "https://www.funontheride.com/pool-cardano"
+    },
+    "ZACS": {
+        "name": "ZACS Staking",
+        "link": "https://staking.zacsmarket.com"
+    },
+    "ZZCF1": {
+        "name": "zzcf1",
+        "link": ""
+    },
+    "COOLP": {
+        "name": "Coollaunch_Pool",
+        "link": "https://foo.com"
+    },
+    "ZEBRA": {
+        "name": "Zebra Staking",
+        "link": "https://zebrastaking.com/"
+    },
+    "SYS76": {
+        "name": "System76 Cardano Pool",
+        "link": "https://system76-server.encyclopedia.tw/crypto/cardano"
+    },
+    "GADA1": {
+        "name": "Green Pool ADA",
+        "link": "https://greenpoolada.com"
+    },
+    "LBF1": {
+        "name": "Ledger by Figment 1",
+        "link": "https://www.ledger.com/coin/staking/cardano"
+    },
+    "BLIFI": {
+        "name": "BLIFIX Cardano Stake Pool",
+        "link": "http://blifix.com/"
+    },
+    "RXR": {
+        "name": "RockX Ruby",
+        "link": "https://rockx.com"
+    },
+    "DGAF": {
+        "name": "DGAF",
+        "link": "https://dgafcoin.io"
+    },
+    "RXE": {
+        "name": "RockX Emerald",
+        "link": "https://rockx.com"
+    },
+    "RXG": {
+        "name": "RockX Garnet",
+        "link": "https://rockx.com"
+    },
+    "RXC": {
+        "name": "RockX Citrine",
+        "link": "https://rockx.com"
+    },
+    "RXO": {
+        "name": "RockX Opal",
+        "link": "https://rockx.com"
+    },
+    "RXP": {
+        "name": "RockX Peridot",
+        "link": "https://rockx.com"
+    },
+    "4FREE": {
+        "name": "4FREEDOM",
+        "link": "https://4freedomstakepool.wixsite.com/4freedom-stake-pool"
+    },
+    "TREFI": {
+        "name": "TreFi_Capital",
+        "link": ""
+    },
+    "SOLCY": {
+        "name": "Solar Cyprus",
+        "link": "https://www.sol.cy"
+    },
+    "CAG": {
+        "name": "Cardano AG Pool - Private",
+        "link": "https://cardano.services"
+    },
+    "MARY": {
+        "name": "Mary",
+        "link": "https://twitter.com/TMICardano"
+    },
+    "CESS": {
+        "name": "Cesspool",
+        "link": "https://cesspool.cc"
+    },
+    "NACHO": {
+        "name": "NACHO_STAKE_POOL",
+        "link": "https://nachostakepool.com"
+    },
+    "ITRG": {
+        "name": "ItrgPool",
+        "link": "https://cardano.itrg.jp"
+    },
+    "OGRE": {
+        "name": "Ogre Pool",
+        "link": "https://ogrepool.com"
+    },
+    "AVALO": {
+        "name": "AVALONIA_Student_Stake_Pool_Alliance_Pool",
+        "link": "https://www.mav100.org/avalonia"
+    },
+    "SPF0": {
+        "name": "\ud83d\udfe3 Spectrum Finance | 5% Project Support Pool",
+        "link": "https://spectrum.fi"
+    },
+    "LSPF0": {
+        "name": "\ud83d\udfe3 Spectrum Finance | LBSP x2.25",
+        "link": "https://spectrum.fi"
+    },
+    "LSPF1": {
+        "name": "\ud83d\udfe3 Spectrum Finance | LBSP x3.5",
+        "link": "https://spectrum.fi"
+    },
+    "XAT1": {
+        "name": "Xat Stake Pool",
+        "link": "https://bit.ly/xatpool"
+    },
+    "VIP": {
+        "name": "Very Important Pool",
+        "link": "http://www.cardano.vip"
+    },
+    "DCONE": {
+        "name": "DCOne Crypto Pool",
+        "link": "https://dconecrypto.finance/"
+    },
+    "GCHO": {
+        "name": "Gaucho Quest",
+        "link": "https://gaucho.quest"
+    },
+    "COP1": {
+        "name": "Copper Stake Pool 1",
+        "link": "https://copper.co"
+    },
+    "COP2": {
+        "name": "Copper Stake Pool 2",
+        "link": "https://copper.co"
+    },
+    "COP3": {
+        "name": "Copper Stake Pool 3",
+        "link": "https://copper.co"
+    },
+    "COP4": {
+        "name": "Copper Stake Pool 4",
+        "link": "https://copper.co"
+    },
+    "COP5": {
+        "name": "Copper Stake Pool 5",
+        "link": "https://copper.co"
+    },
+    "COP6": {
+        "name": "Copper Stake Pool 6",
+        "link": "https://copper.co"
+    },
+    "COP8": {
+        "name": "Copper Stake Pool 8",
+        "link": "https://copper.co"
+    },
+    "COP9": {
+        "name": "Copper Stake Pool 9",
+        "link": "https://copper.co"
+    },
+    "COP10": {
+        "name": "Copper Stake Pool 10",
+        "link": "https://copper.co"
+    },
+    "KILN4": {
+        "name": "kiln",
+        "link": "https://kiln.fi"
+    },
+    "TW001": {
+        "name": "Trust Nodes",
+        "link": "https://trustwallet.com/"
+    },
+    "MKM": {
+        "name": "Milkomeda",
+        "link": "https://milkomeda.com/"
+    },
+    "FRN": {
+        "name": "Foreon Stake Pool",
+        "link": "https://foreon.network/"
+    },
+    "SPF1": {
+        "name": "\ud83d\udfe3 Spectrum Finance | 10% Project Support Pool",
+        "link": "https://spectrum.fi"
+    },
+    "ADAFS": {
+        "name": "ADAForgeServices",
+        "link": "https://adaforgeservices.com/"
+    },
+    "RUMOR": {
+        "name": "RUMOR \u2022 Single Stakepool in Europe, Croatia",
+        "link": "https://rumorpool.com"
+    },
+    "ADASC": {
+        "name": "ADASTATS StakePool",
+        "link": "https://adastats.info"
+    },
+    "ZMT": {
+        "name": "zoomout",
+        "link": ""
+    },
+    "SOCIO": {
+        "name": "Socious StakePool",
+        "link": "https://socious.io/stakepool"
+    },
+    "RICK": {
+        "name": "The Citadel Of RICKS",
+        "link": "https://www.rickada.com"
+    },
+    "ROBOT": {
+        "name": "Stake with Robot",
+        "link": "https://stakewithrobot.com"
+    },
+    "KISSA": {
+        "name": "CardanoKissa\u2615\ufe0f",
+        "link": "https://coffeepool.jp"
+    },
+    "WSP": {
+        "name": "White Shark Pool (WSP)",
+        "link": "https://twitter.com/aadashark88"
+    },
+    "TOOL": {
+        "name": "Tool",
+        "link": "https://cnft.tools"
+    },
+    "BOOTY": {
+        "name": "BootyPool",
+        "link": "https://bootypool.com"
+    },
+    "TSP": {
+        "name": "Tide Stake Pool",
+        "link": "https://staketide.xyz"
+    },
+    "ASY": {
+        "name": "AshiyaPool",
+        "link": "https://www.ashiyapool.com"
+    },
+    "FRIES": {
+        "name": "Stake with FRIES",
+        "link": "https://stakewithfries.com"
+    },
+    "NECTO": {
+        "name": "Necto Pool",
+        "link": "https://necto.earth/"
+    },
+    "AA2": {
+        "name": "AstarterPool2",
+        "link": "https://astarter.io/"
+    },
+    "WPBJ3": {
+        "name": "WPBJ",
+        "link": "https://www.bitpoint.co.jp"
+    },
+    "LQWD": {
+        "name": "Liqwid",
+        "link": "https://liqwid.finance"
+    },
+    "MAKE": {
+        "name": "Make Cardano Journey!",
+        "link": "https://twitter.com/MakeCardanoPool"
+    },
+    "KSP": {
+        "name": "Kool Stake Pool",
+        "link": "https://twitter.com/KSP144927"
+    },
+    "TTSP1": {
+        "name": "Trading Tools Software Pool",
+        "link": "https://tradingtools.software"
+    },
+    "SKYS": {
+        "name": "Skyskipper",
+        "link": "https://skyskipper.eu"
+    },
+    "HUADA": {
+        "name": "HUNADA Pool",
+        "link": "https://www.hunadapool.com"
+    },
+    "ISH": {
+        "name": "IndieStakeHub",
+        "link": "https://indiestakehub.com"
+    },
+    "REPUT": {
+        "name": "Reputano_ISPO_Pool_1",
+        "link": "https://reputano.com/"
+    },
+    "PRX": {
+        "name": "Proxima",
+        "link": "https://twitter.com/ProximaPRX"
+    },
+    "JVNP": {
+        "name": "John Von Neumann Pool",
+        "link": "https://jvneumannp.github.io/JohnVonNeumannPool"
+    },
+    "1112": {
+        "name": "KOG 01",
+        "link": "https://twitter.com/6iEtbL6FNLNnY1s"
+    },
+    "CETF": {
+        "name": "CETF Pool",
+        "link": "https://cardanoetf.io/"
+    },
+    "SIMBA": {
+        "name": "Simba Pool",
+        "link": "https://simbapool.io"
+    },
+    "MOVE": {
+        "name": "MOVE",
+        "link": ""
+    },
+    "MAYO": {
+        "name": "Mayo",
+        "link": "https://docs.platypuscyberpunks.com/"
+    },
+    "MTERA": {
+        "name": "MeteraProtocol",
+        "link": "https://metera.io/"
+    },
+    "CRASH": {
+        "name": "CRASHR ISPO",
+        "link": "https://crashr.io/"
+    },
+    "ASC": {
+        "name": "ASCENDANT",
+        "link": ""
+    },
+    "DC5": {
+        "name": "DC5 FUN",
+        "link": "-"
+    },
+    "HKCLD": {
+        "name": "HashKey Cloud",
+        "link": "https://www.hashkey.cloud/"
+    },
+    "PALM1": {
+        "name": "PALM token 1",
+        "link": "https://palmeconomy.io/"
+    },
+    "PALM2": {
+        "name": "PALM token 2",
+        "link": "https://palmtoken.net/"
+    },
+    "ETH2S": {
+        "name": "eth2.0s-1",
+        "link": "https://cardanoscan.io"
+    },
+    "BM1": {
+        "name": "bitManna",
+        "link": "https://bitManna.com"
+    },
+    "LIMO": {
+        "name": "0% Fee + 170ADA\u2b50LIMO\u2b50Staking\u2b50Welcome",
+        "link": "https://limo-staking.com"
+    },
+    "GGMC": {
+        "name": "GGMC Wilton's Well",
+        "link": "https://ggmc.io/"
+    },
+    "SMB": {
+        "name": "\u8d85\u7ea7\u739b\u4e3d\u5144\u5f1f",
+        "link": "https://ada.hopsum.com"
+    },
+    "LBF2": {
+        "name": "Ledger by Figment 2",
+        "link": "https://www.ledger.com/coin/staking/cardano"
+    },
+    "BTV2": {
+        "name": "BTV2",
+        "link": ""
+    },
+    "BTV3": {
+        "name": "BTV3",
+        "link": ""
+    },
+    "IAGL2": {
+        "name": "Iagon liquidity stake pool 2",
+        "link": "https://www.iagon.com"
+    },
+    "NOVAF": {
+        "name": "Nova Finance",
+        "link": "https://novafinance.io/"
+    },
+    "AFICA": {
+        "name": "AFICA Stakepool",
+        "link": "https://afica.io/"
+    },
+    "CSPHD": {
+        "name": "Premium ADA Stake Pool",
+        "link": "https://calmepro777.github.io/"
+    },
+    "RIZIN": {
+        "name": "RIZIN",
+        "link": "https://"
+    },
+    "ETRN": {
+        "name": "Uneternal",
+        "link": "https://uneternal.com"
+    },
+    "BPT": {
+        "name": "Blueprint",
+        "link": "https://theblueprint.xyz"
+    },
+    "CST": {
+        "name": "Cryptostake.com \ud83c\udde8\ud83c\udded\ud83c\uddfa\ud83c\udde6",
+        "link": "https://cryptostake.com/"
+    },
+    "GEMZ": {
+        "name": "Gemz Staking Pool",
+        "link": "https://gemzpool.io"
+    },
+    "SNIPE": {
+        "name": "SNIPE",
+        "link": "https://snipepool.com"
+    },
+    "STUFF": {
+        "name": "Stuff.io Stake Pool",
+        "link": "https://stuff.io"
+    },
+    "TPS": {
+        "name": "TestPool",
+        "link": "https://twitter.com/Student__888"
+    },
+    "STRIP": {
+        "name": "StripperCoin Stake Pool",
+        "link": "https://www.strippercoin.io/"
+    },
+    "EMGHW": {
+        "name": "Emurgo-Huawei Cloud pool",
+        "link": "https://www.emurgo.io/"
+    },
+    "CASL": {
+        "name": "CASL",
+        "link": "https://casl"
+    },
+    "SORA": {
+        "name": "sora",
+        "link": "https://twitter.com/sora_882323"
+    },
+    "ASTRL": {
+        "name": "AstralStake",
+        "link": "http://6781230.xyz"
+    },
+    "COSMV": {
+        "name": "CosmicValidator",
+        "link": "http://6781231.xyz/"
+    },
+    "NBLRN": {
+        "name": "NebulaEarn",
+        "link": "http://6781232.xyz/"
+    },
+    "GALGD": {
+        "name": "GalacticGuard",
+        "link": "http://6781233.xyz/"
+    },
+    "ORBST": {
+        "name": "OrbitStakes",
+        "link": "http://6781234.xyz/"
+    },
+    "ECOST": {
+        "name": "EcoStakes",
+        "link": "http://0774625.xyz/"
+    },
+    "ARTSA": {
+        "name": "ArtisanStake",
+        "link": "http://1450746.xyz/"
+    },
+    "MYTHX": {
+        "name": "MythosPool",
+        "link": "http://2430957.xyz/"
+    },
+    "QTMPL": {
+        "name": "QuantumPools",
+        "link": "http://2898158.xyz/"
+    },
+    "AUROR": {
+        "name": "AuroraPool",
+        "link": "http://7472869.xyz/"
+    },
+    "MIMSA": {
+        "name": "mimosa",
+        "link": "https://twitter.com/mimosastakepool"
+    },
+    "SDCE": {
+        "name": "SDCE",
+        "link": "https://sdceinvestments.com"
+    },
+    "GSG": {
+        "name": "CardanoStaker",
+        "link": "https://cardanostaker.de"
+    },
+    "CERRA": {
+        "name": "CERRA ISPO",
+        "link": "https://cerra.io/"
+    },
+    "MYR": {
+        "name": "Myrmidon",
+        "link": "https://myrmidonstaking.com"
+    },
+    "MLMA": {
+        "name": "Malama",
+        "link": "https://www.malamacarbon.com/"
+    },
+    "VCC": {
+        "name": "Viet Cardano Community",
+        "link": "cardanolibrary.net"
+    },
+    "1AAA": {
+        "name": "1AAA",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "2BBB": {
+        "name": "2BBB",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "NMK": {
+        "name": "Namiki-Associates Cardano Pool",
+        "link": "https://namiki-associates.co.jp/"
+    },
+    "3CCC": {
+        "name": "3CCC",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "4DDD": {
+        "name": "4DDD",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "5EEE": {
+        "name": "5EEE",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "6FFF": {
+        "name": "6FFF",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "7GGG": {
+        "name": "7GGG",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "8HHH": {
+        "name": "8HHH",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "9III": {
+        "name": "9III",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "10JJJ": {
+        "name": "10JJJ",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "11KKK": {
+        "name": "11KKK",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "13MMM": {
+        "name": "13MMM",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "12LLL": {
+        "name": "12LLL",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "14NNN": {
+        "name": "14NNN",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "15OOO": {
+        "name": "15OOO",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "16PPP": {
+        "name": "16PPP",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "17QQQ": {
+        "name": "17QQQ",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "18RRR": {
+        "name": "18RRR",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "19SSS": {
+        "name": "19SSS",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "BREAD": {
+        "name": "Stake Pool Bread",
+        "link": "https://www.youtube.com/@jgsp_cardano"
+    },
+    "COPIC": {
+        "name": "Cornucopias 2",
+        "link": "https://cornucopias.io/cornucopias-stake-pools"
+    },
+    "LIBE": {
+        "name": "Linkberry",
+        "link": "https://linkberry.info"
+    },
+    "AIRX": {
+        "name": "AIRX Stake Pool",
+        "link": "https://twitter.com/taichiyokoyama_"
+    },
+    "CAPY": {
+        "name": "Capybara Pool",
+        "link": "https://capycoincapers.xyz"
+    },
+    "20TTT": {
+        "name": "20TTT",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "21UUU": {
+        "name": "21UUU",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "22VVV": {
+        "name": "22VVV",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "23WWW": {
+        "name": "23WWW",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "24XXX": {
+        "name": "24XXX",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "PRFLA": {
+        "name": "Profila",
+        "link": "https://profila.com/"
+    },
+    "SBX": {
+        "name": "SBX",
+        "link": "https://www.santanderbank.com/"
+    },
+    "25YYY": {
+        "name": "25YYY",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "EMGAL": {
+        "name": "Emurgo-Alibaba Cloud pool",
+        "link": "https://www.emurgo.io/"
+    },
+    "26ZZZ": {
+        "name": "26ZZZ",
+        "link": "https://pihole-safeguarding.com"
+    },
+    "27SKR": {
+        "name": "27STKR",
+        "link": "https://stakr.club"
+    },
+    "HUMAN": {
+        "name": "Humans Not Required",
+        "link": "https://humansnotrequired.com"
+    },
+    "NVL": {
+        "name": "Nuvola Digital",
+        "link": "https://nuvoladigital.io"
+    },
+    "TOKE": {
+        "name": "Tokeo ISPO",
+        "link": "https://tokeopay.io/"
+    },
+    "THNDR": {
+        "name": "Thunderstruck",
+        "link": "void();"
+    },
+    "KILN6": {
+        "name": "Kiln",
+        "link": "https://kiln.fi"
+    },
+    "CHPL": {
+        "name": "ChainPool",
+        "link": "https://www.chainpool.co.kr"
+    },
+    "CLYST": {
+        "name": "CATALYST POOL",
+        "link": "https://catalystpool.com"
+    },
+    "FLAT": {
+        "name": "Flat Earth",
+        "link": "https://www.theflatearthpodcast.com/"
+    },
+    "BOREA": {
+        "name": "BOREALpool",
+        "link": "https://borealpool.io"
+    },
+    "QZSBU": {
+        "name": "qzsbu",
+        "link": ""
+    },
+    "UNITE": {
+        "name": "and transform the planet",
+        "link": "https://storage.googleapis.com/unite-pool/index.html"
+    },
+    "KILN7": {
+        "name": "Kiln",
+        "link": "https://kiln.fi"
+    },
+    "8964": {
+        "name": "A Cardano Pool Named 8964",
+        "link": "https://x.com/cardano8964"
+    },
+    "KILN8": {
+        "name": "Kiln",
+        "link": "https://kiln.fi"
+    },
+    "BRIAN": {
+        "name": "BRI\u20b3N",
+        "link": "https://www.tickerbrian.com/"
+    },
+    "LBF3": {
+        "name": "Ledger by Figment 3",
+        "link": "https://www.ledger.com/coin/staking/cardano"
+    },
+    "BICKS": {
+        "name": "RareEvo",
+        "link": "https://rareevo.io"
+    },
+    "SSX": {
+        "name": "Stealth_Syntax",
+        "link": "https://github.com/SyntaxStealth/"
+    },
+    "MARAC": {
+        "name": "Maracuja-Pool",
+        "link": "https://maracuja-pool.com"
+    },
+    "0%!": {
+        "name": "0% Pool",
+        "link": "https://adastat.net/pools/eb3b0c284e1a63b80d5aaff48ccad542b46591962c935471fa117919"
+    },
+    "EMILY": {
+        "name": "Invest in me. Join decentralized finance's future!",
+        "link": "https://storage.googleapis.com/emily-pool/index.html"
+    },
+    "JADE": {
+        "name": "Jade Pool",
+        "link": "http://www.jadepools.net"
+    },
+    "TAMED": {
+        "name": "Domesticated",
+        "link": "https://tamedstakepool.netlify.app"
+    },
+    "PAVIA": {
+        "name": "Pavia Community",
+        "link": "https://pavia.io"
+    },
+    "TCSP1": {
+        "name": "TCSP1",
+        "link": "https://poolmeta.tcrs.co.jp/"
+    },
+    "FNX": {
+        "name": "FNX Stake Pool",
+        "link": "https://fnxtoken.com"
+    },
+    "PAO": {
+        "name": "Pao Pool",
+        "link": "https://www.bubble-studio.xyz/"
+    },
+    "A2A": {
+        "name": "ADA 2 ALL",
+        "link": "."
+    },
+    "AT1": {
+        "name": "Cardano Austria",
+        "link": "https://cardanoaustria.com"
+    },
+    "PRAY": {
+        "name": "Support charity and help donate to a good cause",
+        "link": "http://praypool.com"
+    },
+    "CET": {
+        "name": "CoinEx Pool",
+        "link": "www.coinex.com"
+    },
+    "MIMIC": {
+        "name": "MIMICPool",
+        "link": ""
+    },
+    "AMILK": {
+        "name": "adaMilk",
+        "link": "https://www.youtube.com/@adamilk2024"
+    },
+    "C3L1": {
+        "name": "CHARLI3",
+        "link": "https://charli3.io/"
+    },
+    "MANAT": {
+        "name": "Manatee Stake Pool \u2022 Florida Based",
+        "link": "https://manatee-pool.com"
+    },
+    "BBWP": {
+        "name": "BigBlueWhalePool",
+        "link": "http://bbwp.tpbpt.com/"
+    },
+    "NOMAD": {
+        "name": "Nomad Station - Asia",
+        "link": "https://cardano.nomadstation.com"
+    },
+    "LEAP": {
+        "name": "Frogs on Cardano",
+        "link": "https://frogs-mining.gitbook.io/"
+    },
+    "0DD1": {
+        "name": "0dd1",
+        "link": "https://libraryofbabel.info"
+    },
+    "JGP": {
+        "name": "JGPOOL",
+        "link": "https://jgraca.com/pool"
+    },
+    "ODABC": {
+        "name": "OdaBC Stake Pool",
+        "link": "https://odabc.com"
+    },
+    "BKRY": {
+        "name": "Bakery",
+        "link": "https://cardano.tmikey.tech/"
+    },
+    "ALRES": {
+        "name": "Alrescha StakePool",
+        "link": "https://twitter.com/nvetech"
+    },
+    "VERD": {
+        "name": "Verdant Stake Pool",
+        "link": "https://verdantpool.com"
+    },
+    "OVO": {
+        "name": "OvO Stake Pool",
+        "link": "https://cardano-ovo.carrd.co"
+    },
+    "LOHAN": {
+        "name": "LOHAN",
+        "link": "https://c-lohan.com/"
+    },
+    "MINGS": {
+        "name": "mingster",
+        "link": "https://cardano.mingster.com"
+    },
+    "SQQQ": {
+        "name": "SQQQ Stake Pool",
+        "link": "https://sqqq.work/"
+    },
+    "FLR2": {
+        "name": "FlairStaking II",
+        "link": "http://flairstaking.io"
+    },
+    "CAHLI": {
+        "name": "Cahli Pool",
+        "link": "https://www.cpoolsunited.com/pool?id=CAHLI"
+    },
+    "NORBY": {
+        "name": "NORBY",
+        "link": "https://norby.io/"
+    },
+    "SASA2": {
+        "name": "SASA Stake Pool2",
+        "link": "https://www.youtube.com/@sasastakepool"
+    },
+    "CPTN": {
+        "name": "Cryptopian",
+        "link": "https://cryptopian.world"
+    },
+    "TDSP": {
+        "name": "The Dutch Stake Pool",
+        "link": "https://thedutchstakepool.com/"
+    },
+    "TOIRO": {
+        "name": "TOIRO Pool",
+        "link": "https://forms.gle/MwW8qSvj6JKn7NUEA"
+    },
+    "TIPFS": {
+        "name": "TIPFS - Tokens for IPFS storage",
+        "link": "https://tipfs.io"
+    },
+    "LGC": {
+        "name": "Late Game Crypto",
+        "link": "https://www.youtube.com/@LateGameCrypto"
+    },
+    "GUAVA": {
+        "name": "Guava Pool",
+        "link": "https://lacryptoria.com/guavapool"
+    },
+    "APL": {
+        "name": "APL",
+        "link": "https://aplpool.org"
+    },
+    "GEEKY": {
+        "name": "GeekyD",
+        "link": "https://geekyd.net"
+    },
+    "VHOSS": {
+        "name": "ViHorsePool",
+        "link": "https://www.vhoss.com"
+    },
+    "TALOS": {
+        "name": "Talos Stake Pool",
+        "link": "https://fluxpointstudios.com"
+    },
+    "MAXC": {
+        "name": "MaxCardano\ud83d\ude80\ud83d\ude800% Fees\ud83d\ude80\ud83d\ude80",
+        "link": "https://maxruas.github.io/max.crypto/"
+    },
+    "GMO2": {
+        "name": "GMO Coin Staking Pool",
+        "link": "https://coin.z.com/jp/"
+    },
+    "NRVN": {
+        "name": "Nirvana",
+        "link": ""
+    },
+    "RDB": {
+        "name": "Rama DeFi Bangkok",
+        "link": "https://thc-room335.com/rama"
+    },
+    "SAMOS": {
+        "name": "Samos Staking",
+        "link": "https://samos-staking.github.io/samos/"
+    },
+    "ALAB": {
+        "name": "ADA Labo",
+        "link": "https://thc-room335.com"
+    },
+    "AID": {
+        "name": "AID POOL",
+        "link": ""
+    },
+    "NEZHA": {
+        "name": "\u54ea\u5412\u77ff\u6c60",
+        "link": "https://nezha.ybxjhjy.com"
+    },
+    "LILIE": {
+        "name": "LILIE Stake Pool",
+        "link": "https://no-tax.biz/"
+    },
+    "MOLEH": {
+        "name": "MOLEHOLE",
+        "link": "https://tinyurl.com/3e344r9y"
+    },
+    "LBAI": {
+        "name": "LaoBai \u8001\u767d- 0% fee",
+        "link": "https://laobai.io"
+    },
+    "FORGE": {
+        "name": "Ada-Forge",
+        "link": "www.ada-forge.com"
+    },
+    "BYE03": {
+        "name": "BYE03",
+        "link": ""
+    },
+    "BLC2": {
+        "name": "BigLazyCat2",
+        "link": "https://www.biglazycat.com/stake/ada/"
+    },
+    "SEBI": {
+        "name": "SEBI",
+        "link": "https://x.com/Av_Sebastian"
+    },
+    "MERIA": {
+        "name": "Meria",
+        "link": "https://meria.com"
+    },
+    "THANK": {
+        "name": "Socious THANK Pool",
+        "link": "https://socious.io/stakepool"
+    },
+    "CTAX": {
+        "name": "COINTAX",
+        "link": "https://coin-tax.net/"
+    },
+    "MYUJK": {
+        "name": "MYUJK Pool",
+        "link": ""
+    },
+    "HYVEN": {
+        "name": "HyvenBlock",
+        "link": "https://hyvenblock.com"
+    },
+    "NIGHT": {
+        "name": "Midnight \u00b7 0% Fees \u2713",
+        "link": "https://midnight.network"
+    },
+    "BNB": {
+        "name": "Bids n Buys [BNB] Stake Pool",
+        "link": "https://dev.bidsnbuys.net"
+    },
+    "YAM": {
+        "name": "YAM Pool",
+        "link": "https://yampool.giiyotech.com"
+    },
+    "BTV4": {
+        "name": "Bitvavo by Figment 4",
+        "link": "https://bitvavo.com"
+    },
+    "FLUFF": {
+        "name": "FluffPool",
+        "link": "https://fluffpool.com"
+    },
+    "MANDA": {
+        "name": "Cardano Yoda Pool",
+        "link": "https://cardanoyoda.com"
+    },
+    "PORTO": {
+        "name": "Porto Cripto Pool \ud83c\udde7\ud83c\uddf7 \ud83c\uddf5\ud83c\uddf9",
+        "link": "https://www.portocripto.io"
+    },
+    "WPBJ5": {
+        "name": "WPBJ",
+        "link": "https://www.bitpoint.co.jp/"
+    },
+    "LBF4": {
+        "name": "Ledger by Figment 4",
+        "link": "https://www.ledger.com/coin/staking/cardano"
+    },
+    "PIER2": {
+        "name": "Pier Two",
+        "link": "https://piertwo.com/"
+    },
+    "NBD": {
+        "name": "NEW BREED POOL",
+        "link": "https://x.com/New_Breed_1"
+    },
+    "LIVIN": {
+        "name": "LivingInn Stake Pool",
+        "link": "https://adapies.com"
+    },
+    "300": {
+        "name": "300",
+        "link": "https://shorturl.at/OBnhB"
+    },
+    "BAT": {
+        "name": "BAT Community Stake Pool",
+        "link": "https://x.com/aranyaka_"
+    },
+    "DEVFO": {
+        "name": "DEVFOG",
+        "link": "https://github.com/devfog2100?tab=repositories"
+    },
+    "0\ufe0f\u20e3%": {
+        "name": "0\ufe0f\u20e3% Fees \ud83d\udcb0 Pool \ud83d\udd25",
+        "link": "https://adastat.net/pools/bcb952671f992942868e1cc2808ef08b8019e4e241d1fdad3baef8ec"
+    },
+    "PPTG1": {
+        "name": "P2P & Tangem",
+        "link": "https://tangem.com/"
     }
 }
