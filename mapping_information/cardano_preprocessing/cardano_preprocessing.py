@@ -47,7 +47,7 @@ def get_pool_data_BQ(force_query):
 
 def get_pool_data_node():
     """
-    Gets pool data that has been fetched from a Cardano node. 
+    Gets pool data that has been fetched from a Cardano node.
     :returns: dictionary, where each key is a pool's hash and the corresponding value is a dictionary with the
     pool's metadata (name, ticker, homepage, description)
     """
@@ -67,8 +67,9 @@ def merge_pool_data(pool_data_BQ, pool_data_node):
     pool's metadata (name, ticker, homepage, description).
     """
     logging.info("Merging pool data sources..")
-    merged = pool_data_BQ | pool_data_node 
+    merged = pool_data_BQ | pool_data_node
     return merged
+
 
 def parse_pool_identifiers(pool_data):
     """
@@ -140,7 +141,7 @@ def score_same_entity(p1, p2):
     t1 = p1.get('ticker', '').strip().upper()
     t2 = p2.get('ticker', '').strip().upper()
     tickers_match = bool(t1 and t2 and t1 == t2)
- 
+
     if domains_match:
         score += 3
     if tickers_match:
@@ -165,7 +166,7 @@ def score_same_entity(p1, p2):
 
 def parse_pool_clusters(pool_data, score_threshold=3):
     """
-    Clusters pools by operator entity. 
+    Clusters pools by operator entity.
     Step 1: group pools that share the same valid domain (strong anchor).
     Step 2: merge any two domain-groups that share a ticker AND score >= threshold
             (catches operators with different domains but same ticker/name).
@@ -176,7 +177,7 @@ def parse_pool_clusters(pool_data, score_threshold=3):
     :returns: dictionary, where each key is a pool's hash and the corresponding value is a dictionary with the pool's name, the name of the cluster it belongs to and the source of the clustering information
     """
     logging.info("Clustering pools by operator entity..")
-    
+
     pool_hashes = list(pool_data.keys())
     pools = list(pool_data.values())
 
@@ -186,13 +187,13 @@ def parse_pool_clusters(pool_data, score_threshold=3):
         domain = get_domain(pool.get('homepage', ''))
         if domain and filter_homepage(pool.get('homepage', '')):
             domain_to_indices[domain].append(i)
- 
+
     # Each cluster is a set of pool indices. Start one cluster per shared domain.
     # Pools with unique/no domain each get their own singleton cluster.
     clusters = []
     index_to_cluster = {}   # pool index -> cluster list index
     index_to_source = {}    # pool index -> how it was clustered
- 
+
     for domain, indices in domain_to_indices.items():
         if len(indices) > 1:
             cluster_id = len(clusters)
@@ -200,21 +201,21 @@ def parse_pool_clusters(pool_data, score_threshold=3):
             for i in indices:
                 index_to_cluster[i] = cluster_id
                 index_to_source[i] = 'homepage'
- 
+
     for i in range(len(pools)):
         if i not in index_to_cluster:
             cluster_id = len(clusters)
             clusters.append({i})
             index_to_cluster[i] = cluster_id
             index_to_source[i] = None
- 
+
     # --- Step 2: merge clusters that share a ticker and score >= threshold
     ticker_to_cluster_ids = defaultdict(set)
     for i, pool in enumerate(pools):
         ticker = pool.get('ticker', '').strip().upper()
         if ticker:
             ticker_to_cluster_ids[ticker].add(index_to_cluster[i])
- 
+
     def merge_clusters(id_a, id_b):
         """Merge cluster id_b into cluster id_a, updating index_to_cluster.
         Pools moving from id_b get source 'multi_signal' unless they already
@@ -227,7 +228,7 @@ def parse_pool_clusters(pool_data, score_threshold=3):
                 index_to_source[i] = 'multi_signal'
         clusters[id_a].update(clusters[id_b])
         clusters[id_b] = set()
- 
+
     for ticker, cluster_ids in ticker_to_cluster_ids.items():
         cluster_ids = list(cluster_ids)
         for a in range(len(cluster_ids)):
@@ -245,7 +246,7 @@ def parse_pool_clusters(pool_data, score_threshold=3):
                         if index_to_source[i] is None:
                             index_to_source[i] = 'multi_signal'
                     merge_clusters(id_a, id_b)
- 
+
     # --- Step 3: build output ---
     output = {}
     for cluster in clusters:
@@ -260,20 +261,23 @@ def parse_pool_clusters(pool_data, score_threshold=3):
                 'pool': pools[i].get('name', ''),
                 'source': index_to_source[i] if index_to_source[i] is not None else 'singleton'
             }
- 
+
     return output
+
 
 def get_domain(url):
     """Extracts the domain from a URL, stripping www."""
     try:
         domain = urlparse(url).netloc.lower()
         return re.sub(r'^www\.', '', domain)
-    except:
+    except Exception:
         return ''
-    
+
+
 def name_similarity(a, b):
     """Returns similarity ratio between two strings."""
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+
 
 def filter_homepage(homepage):
     """
@@ -287,9 +291,9 @@ def filter_homepage(homepage):
     homepage = homepage.strip()
     if not homepage:
         return None
-    
+
     homepage_lower = homepage.lower()
-    
+
     INVALID_EXACT = {
         'https://', 'http://', 'n/a', 'na', '-', '--', '---', '....', '...',
         'tbd', 'coming', 'coming soon', 'in process', 'no webside', 'no website',
@@ -297,7 +301,7 @@ def filter_homepage(homepage):
     }
     if homepage_lower in INVALID_EXACT:
         return None
-    
+
     INVALID_SUBSTRINGS = [
         'foo.com', 'example.com', 'invalidurl', 'test.com',
         'localhost', '127.0.0.1', 'yourdomain', 'yoursite',
@@ -306,7 +310,7 @@ def filter_homepage(homepage):
 
     if any(kw in homepage_lower for kw in INVALID_SUBSTRINGS):
         return None
-    
+
     return homepage
 
 
@@ -320,7 +324,7 @@ def determine_cluster_name(pool_names):
     :returns: the name of the cluster
     """
     # make sure pool names have consistent case and filter out empty names
-    pool_names = [pool_name.title() for pool_name in pool_names if pool_name]  
+    pool_names = [pool_name.title() for pool_name in pool_names if pool_name]
     if not pool_names:
         return ''
     common_prefix = os.path.commonprefix(pool_names)

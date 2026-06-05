@@ -2,7 +2,6 @@ import pytest
 from cardano_preprocessing import (
     filter_homepage,
     get_domain,
-    name_similarity,
     determine_cluster_name,
     merge_pool_data,
     parse_pool_identifiers,
@@ -108,11 +107,11 @@ class TestMergePoolData:
     def test_matched_pool_present(self):
         result = merge_pool_data(self._bq(), self._node())
         assert 'hash_abc' in result
- 
+
     def test_bq_only_pool_present(self):
         result = merge_pool_data(self._bq(), self._node())
         assert 'hash_xyz' in result
- 
+
     def test_node_only_pool_present(self):
         result = merge_pool_data(self._bq(), self._node())
         assert 'hash_new' in result
@@ -124,7 +123,7 @@ class TestMergePoolData:
 
 class TestParsePoolIdentifiers:
     def test_unique_tickers_all_present(self):
-        pool_data = { 
+        pool_data = {
             'hash1': {'ticker': 'AAA', 'name': 'Alpha', 'homepage': 'https://alpha.io'},
             'hash2': {'ticker': 'BBB', 'name': 'Beta', 'homepage': 'https://beta.io'}
         }
@@ -247,7 +246,7 @@ class TestParsePoolClusters:
         assert clusters['hash1']['cluster'] != clusters['hash2']['cluster']
         assert clusters['hash1']['source'] == 'singleton'
         assert clusters['hash2']['source'] == 'singleton'
- 
+
     def test_na_homepage_not_clustered_together(self):
         pools = {
             'hash1': {'ticker': 'NA1', 'name': 'Pool NA 1', 'homepage': 'n/a', 'description': ''},
@@ -257,7 +256,7 @@ class TestParsePoolClusters:
         assert clusters['hash1']['source'] == 'singleton'
         assert clusters['hash2']['source'] == 'singleton'
         assert clusters['hash1']['cluster'] != clusters['hash2']['cluster']
- 
+
     def test_cluster_name_uses_common_prefix(self):
         pools = {
             'hash1': {'ticker': 'RAY1', 'name': 'Ray Network 1', 'homepage': 'https://ray.io', 'description': ''},
@@ -266,7 +265,7 @@ class TestParsePoolClusters:
         }
         clusters = parse_pool_clusters(pools)
         assert 'Ray Network' in clusters['hash1']['cluster']
- 
+
     def test_multi_signal_source_when_no_shared_domain(self):
         pools = {
             'hash1': {'ticker': 'LOVE', 'name': 'Love Pool 1', 'homepage': 'https://love1.io', 'description': 'shared desc'},
@@ -278,7 +277,7 @@ class TestParsePoolClusters:
         assert clusters['hash1']['source'] == 'multi_signal'
         assert clusters['hash2']['source'] == 'multi_signal'
         assert clusters['hash1']['cluster'] == clusters['hash2']['cluster']
- 
+
     def test_mixed_source_homepage_pool_keeps_homepage_source(self):
         pools = {
             'hash1': {'ticker': 'RAY', 'name': 'Ray Network 1', 'homepage': 'https://ray.io', 'description': 'Ray pool'},
@@ -290,7 +289,6 @@ class TestParsePoolClusters:
         assert clusters.get('hash2', {}).get('source') == 'homepage'
         assert clusters['hash3']['source'] == 'multi_signal'
         assert clusters['hash1']['cluster'] == clusters['hash3']['cluster']
-
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
