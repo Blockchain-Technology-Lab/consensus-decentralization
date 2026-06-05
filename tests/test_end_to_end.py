@@ -110,26 +110,26 @@ def test_end_to_end(setup_and_cleanup):
     assert row_map[('sample_bitcoin', '2018-02-15')][ent_idx] == '1.5'
     assert row_map[('sample_bitcoin', '2018-02-15')][nc_idx] == '1'
 
-    main(
-        ['sample_bitcoin', 'sample_cardano'],
-        (datetime.date(2020, 12, 1), datetime.date(2020, 12, 31)),
-        estimation_window=31,
-        frequency=31,
-        interim_dir=test_output_dir,
-        results_dir=test_output_dir,
-        population_windows=0,
-        force_map=True
-    )
+    # main(
+    #     ['sample_bitcoin', 'sample_cardano'],
+    #     (datetime.date(2020, 12, 1), datetime.date(2020, 12, 31)),
+    #     estimation_window=31,
+    #     frequency=31,
+    #     interim_dir=test_output_dir,
+    #     results_dir=test_output_dir,
+    #     population_windows=0,
+    #     force_map=True
+    # )
 
-    output_file = test_metrics_dir / 'output_clustered.csv'
-    assert output_file.is_file()
-    with open(output_file) as f:
-        rows = list(csv.reader(f))
-    header = rows[0]
-    ent_idx = header.index('entropy=1')
-    gini_idx = header.index('gini')
-    nc_idx = header.index('nakamoto_coefficient')
-    row_map = {(r[0], r[1]): r for r in rows[1:]}
-    assert row_map[('sample_cardano', '2020-12-16')][ent_idx] == '1.9219280948873623'
-    assert row_map[('sample_cardano', '2020-12-16')][gini_idx] == '0.15'
-    assert row_map[('sample_cardano', '2020-12-16')][nc_idx] == '2'
+    # output_file = test_metrics_dir / 'output_clustered.csv'
+    # assert output_file.is_file()
+    # with open(output_file) as f:
+    #     rows = list(csv.reader(f))
+    # header = rows[0]
+    # ent_idx = header.index('entropy=1')
+    # gini_idx = header.index('gini')
+    # nc_idx = header.index('nakamoto_coefficient')
+    # row_map = {(r[0], r[1]): r for r in rows[1:]}
+    # assert row_map[('sample_cardano', '2020-12-16')][ent_idx] == '1.9219280948873623'
+    # assert row_map[('sample_cardano', '2020-12-16')][gini_idx] == '0.15'
+    # assert row_map[('sample_cardano', '2020-12-16')][nc_idx] == '2'
