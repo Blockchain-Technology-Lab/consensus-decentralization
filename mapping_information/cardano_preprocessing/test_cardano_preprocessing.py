@@ -290,5 +290,6 @@ class TestParsePoolClusters:
         assert clusters['hash3']['source'] == 'multi_signal'
         assert clusters['hash1']['cluster'] == clusters['hash3']['cluster']
 
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
