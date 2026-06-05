@@ -69,7 +69,7 @@ class TestGetDomain:
 
 class TestDetermineClusterName:
     def test_common_prefix(self):
-        assert determine_cluster_name(['Bloom Pool 1', 'Bloom Pool 2', 'Bloom Pool 3']) == 'Bloom Pool '
+        assert determine_cluster_name(['Bloom Pool 1', 'Bloom Pool 2', 'Bloom Pool 3']) == 'Bloom Pool'
 
     def test_no_common_prefix_sorts_alphabetically(self):
         result = determine_cluster_name(['Zeta', 'Alpha', 'Mango'])
@@ -124,11 +124,11 @@ class TestMergePoolData:
 
 class TestParsePoolIdentifiers:
     def test_unique_tickers_all_present(self):
-        pools = [
-            {'ticker': 'AAA', 'name': 'Alpha', 'homepage': 'https://alpha.io'},
-            {'ticker': 'BBB', 'name': 'Beta', 'homepage': 'https://beta.io'},
-        ]
-        identifiers, conflicts = parse_pool_identifiers(pools)
+        pool_data = { 
+            'hash1': {'ticker': 'AAA', 'name': 'Alpha', 'homepage': 'https://alpha.io'},
+            'hash2': {'ticker': 'BBB', 'name': 'Beta', 'homepage': 'https://beta.io'}
+        }
+        identifiers, conflicts = parse_pool_identifiers(pool_data)
         assert 'AAA' in identifiers
         assert 'BBB' in identifiers
         assert len(identifiers) == 2
@@ -136,30 +136,30 @@ class TestParsePoolIdentifiers:
 
     def test_same_ticker_same_domain_no_conflict(self):
         # Two pools with the same ticker pointing to the same domain → no conflict
-        pools = [
-            {'ticker': 'MULTI', 'name': 'Pool 1', 'homepage': 'https://multi.io'},
-            {'ticker': 'MULTI', 'name': 'Pool 2', 'homepage': 'https://multi.io'},
-        ]
-        identifiers, conflicts = parse_pool_identifiers(pools)
+        pool_data = {
+            'hash1': {'ticker': 'MULTI', 'name': 'Pool 1', 'homepage': 'https://multi.io'},
+            'hash2': {'ticker': 'MULTI', 'name': 'Pool 2', 'homepage': 'https://multi.io'}
+        }
+        identifiers, conflicts = parse_pool_identifiers(pool_data)
         assert len(identifiers) == 1
         assert 'MULTI' not in conflicts
 
     def test_same_ticker_different_domain_is_conflict(self):
-        pools = [
-            {'ticker': 'ANIME', 'name': 'Anime Pool A', 'homepage': 'https://animea.io'},
-            {'ticker': 'ANIME', 'name': 'Anime Pool B', 'homepage': 'https://animeb.io'},
-        ]
-        identifiers, conflicts = parse_pool_identifiers(pools)
+        pool_data = {
+            'hash1': {'ticker': 'ANIME', 'name': 'Anime Pool A', 'homepage': 'https://animea.io'},
+            'hash2': {'ticker': 'ANIME', 'name': 'Anime Pool B', 'homepage': 'https://animeb.io'},
+        }
+        identifiers, conflicts = parse_pool_identifiers(pool_data)
         assert 'ANIME' in conflicts
         assert len(identifiers) == 0  # should not include the conflicting ticker
         assert len(conflicts['ANIME']) == 2
 
     def test_missing_ticker_ignored(self):
-        pools = [
-            {'ticker': '', 'name': 'No Ticker', 'homepage': 'https://noticker.io'},
-            {'ticker': 'OK', 'name': 'Has Ticker', 'homepage': 'https://ok.io'},
-        ]
-        identifiers, conflicts = parse_pool_identifiers(pools)
+        pool_data = {
+            'hash1': {'ticker': '', 'name': 'No Ticker', 'homepage': 'https://noticker.io'},
+            'hash2': {'ticker': 'OK', 'name': 'Has Ticker', 'homepage': 'https://ok.io'},
+        }
+        identifiers, conflicts = parse_pool_identifiers(pool_data)
         assert len(identifiers) == 1
         assert 'OK' in identifiers
 

@@ -325,6 +325,7 @@ def determine_cluster_name(pool_names):
         return ''
     common_prefix = os.path.commonprefix(pool_names)
     if common_prefix:
+        common_prefix = common_prefix.strip()
         return common_prefix
     # if there is no common prefix, sort pool names alphabetically, prioritizing names that don't start with a digit
     # and use the first one as the cluster name
