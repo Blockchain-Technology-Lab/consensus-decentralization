@@ -278,10 +278,10 @@ class TestParsePoolClusters:
         assert 'hash1' in clusters
         assert 'hash2' in clusters
         assert clusters['hash1']['cluster'] == clusters['hash2']['cluster']
-        assert clusters['hash1']['source'] == 'homepage'
-        assert clusters['hash2']['source'] == 'homepage'
+        assert clusters['hash1']['source'] == ['homepage', 'ticker', 'name']
+        assert clusters['hash2']['source'] == ['homepage', 'ticker', 'name']
         assert 'hash3' in clusters
-        assert clusters['hash3']['source'] == 'singleton'
+        assert clusters['hash3']['source'] == ['singleton']
 
     def test_different_domains_same_ticker_included_as_singletons(self):
         pools = {
@@ -292,17 +292,17 @@ class TestParsePoolClusters:
         assert 'hash1' in clusters
         assert 'hash2' in clusters
         assert clusters['hash1']['cluster'] != clusters['hash2']['cluster']
-        assert clusters['hash1']['source'] == 'singleton'
-        assert clusters['hash2']['source'] == 'singleton'
+        assert clusters['hash1']['source'] == ['singleton']
+        assert clusters['hash2']['source'] == ['singleton']
 
     def test_na_homepage_not_clustered_together(self):
         pools = {
-            'hash1': {'ticker': 'NA1', 'name': 'Pool NA 1', 'homepage': 'n/a', 'description': ''},
-            'hash2': {'ticker': 'NA2', 'name': 'Pool NA 2', 'homepage': 'n/a', 'description': ''},
+            'hash1': {'ticker': 'POOL', 'name': 'Pool', 'homepage': 'n/a', 'description': ''},
+            'hash2': {'ticker': 'PEEL', 'name': 'Peel', 'homepage': 'n/a', 'description': ''},
         }
         clusters = parse_pool_clusters(pools)
-        assert clusters['hash1']['source'] == 'singleton'
-        assert clusters['hash2']['source'] == 'singleton'
+        assert clusters['hash1']['source'] == ['singleton']
+        assert clusters['hash2']['source'] == ['singleton']
         assert clusters['hash1']['cluster'] != clusters['hash2']['cluster']
 
     def test_cluster_name_uses_common_prefix(self):
