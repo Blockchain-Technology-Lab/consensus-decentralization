@@ -7,6 +7,8 @@ from cardano_preprocessing import (
     parse_pool_identifiers,
     score_same_entity,
     parse_pool_clusters,
+    normalise_ticker,
+    normalise_name
 )
 
 
@@ -183,10 +185,16 @@ class TestScoreSameEntity:
         assert score == 3
 
     def test_same_ticker_contributes_2(self):
-        p1 = self._pool(ticker='SAME', homepage='https://pool1.io')
-        p2 = self._pool(ticker='SAME', name='Other Pool', homepage='https://pool2.io', description='different')
+        p1 = self._pool(ticker='SAME')
+        p2 = self._pool(ticker='SAME')
         score = score_same_entity(p1, p2)
-        assert score == 1
+        assert score == 2
+
+    def test_similar_ticker_contributes_2(self):
+        p1 = self._pool(ticker='SAME1')
+        p2 = self._pool(ticker='SAME2')
+        score = score_same_entity(p1, p2)
+        assert score == 2
 
     def test_same_ticker_different_real_domains_penalised(self):
         p1 = self._pool(ticker='ANIME', name='Tokyo Stake House', homepage='https://animea.io', description='')
@@ -203,16 +211,34 @@ class TestScoreSameEntity:
         assert score == 2
 
     def test_similar_names_contribute(self):
-        p1 = self._pool(name='Bloom Pool 1', ticker='BLM1', homepage='https://bloom1.io')
-        p2 = self._pool(name='Bloom Pool 2', ticker='BLM2', homepage='https://bloom2.io')
+        p1 = self._pool(name='Bloom Pool 1')
+        p2 = self._pool(name='Bloom Pool 2')
         score = score_same_entity(p1, p2)
         assert score == 2
 
+    def test_similar_names_and_tickers_contribute(self):
+        p1 = self._pool(name='Bloom Pool 1', ticker='BLM1')
+        p2 = self._pool(name='Bloom Pool 2', ticker='BLM2')
+        score = score_same_entity(p1, p2)
+        assert score == 4
+
+    def test_similar_names_and_tickers_but_homepage_penalty(self):
+        p1 = self._pool(name='Bloom Pool 1', ticker='BLM1', homepage='https://bloom1.io')
+        p2 = self._pool(name='Bloom Pool 2', ticker='BLM2', homepage='https://bloom2.io')
+        score = score_same_entity(p1, p2)
+        assert score == 3
+
     def test_same_description_contributes_1(self):
-        p1 = self._pool(ticker='X1', name='Pool X1', homepage='https://x1.io', description='shared desc')
-        p2 = self._pool(ticker='X2', name='Pool Y2', homepage='https://x2.io', description='shared desc')
+        p1 = self._pool(ticker='X', description='shared desc')
+        p2 = self._pool(ticker='Y', description='shared desc')
         score = score_same_entity(p1, p2)
         assert score == 1
+
+    def test_no_homepage_penalty_if_one_is_dummy(self):
+        p1 = self._pool(ticker='X', homepage='n/a')
+        p2 = self._pool(ticker='X', homepage='https://valid.io')
+        score = score_same_entity(p1, p2)
+        assert score == 2
 
 
 # ---------------------------------------------------------------------------
@@ -289,6 +315,67 @@ class TestParsePoolClusters:
         assert clusters.get('hash2', {}).get('source') == 'homepage'
         assert clusters['hash3']['source'] == 'multi_signal'
         assert clusters['hash1']['cluster'] == clusters['hash3']['cluster']
+
+
+# ---------------------------------------------------------------------------
+# normalise_ticker
+# ---------------------------------------------------------------------------
+
+
+class TestNormaliseTicker:
+    def test_strips_trailing_digits(self):
+        assert normalise_ticker('RAY1') == 'RAY'
+        assert normalise_ticker('BLOOM42') == 'BLOOM'
+
+    def test_no_digits_unchanged(self):
+        assert normalise_ticker('RAY') == 'RAY'
+
+    def test_uppercases(self):
+        assert normalise_ticker('ray1') == 'RAY'
+
+    def test_strips_whitespace(self):
+        assert normalise_ticker('  RAY1  ') == 'RAY'
+
+    def test_only_digits_unchanged(self):
+        assert normalise_ticker('123') == '123'
+
+    def test_digits_in_middle_unchanged(self):
+        # digits not at the end should not be stripped
+        assert normalise_ticker('R4Y') == 'R4Y'
+
+
+# ---------------------------------------------------------------------------
+# normalise_name
+# ---------------------------------------------------------------------------
+
+class TestNormaliseName:
+    def test_strips_trailing_digits(self):
+        assert normalise_name('Ray Network 1') == 'ray network'
+        assert normalise_name('Bloom Pool 42') == 'bloom pool'
+
+    def test_lowercases(self):
+        assert normalise_name('RAY NETWORK') == 'ray network'
+
+    def test_strips_whitespace(self):
+        assert normalise_name('  Ray Network 1  ') == 'ray network'
+
+    def test_no_digits_lowercased(self):
+        assert normalise_name('Ray Network') == 'ray network'
+
+    def test_plural_not_stripped(self):
+        # 'Ray Network' and 'Ray Networks' should NOT normalise to the same value
+        assert normalise_name('Ray Network') != normalise_name('Ray Networks')
+
+    def test_digits_in_middle_not_stripped(self):
+        assert normalise_name('Pool 4 You') == 'pool 4 you'
+
+    def test_numbered_variants_match(self):
+        assert normalise_name('Ray Network 1') == normalise_name('Ray Network 2')
+        assert normalise_name('ATADA Stakepool Austria 1') == normalise_name('ATADA Stakepool Austria 2')
+
+    def test_different_names_do_not_match(self):
+        assert normalise_name('Cardano Pool 1') != normalise_name('Cardano Stake 1')
+        assert normalise_name('Tokyo Stake House') != normalise_name('Osaka Block Forge')
 
 
 if __name__ == '__main__':

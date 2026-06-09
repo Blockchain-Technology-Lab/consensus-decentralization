@@ -7,7 +7,6 @@ import logging
 import os
 import re
 from urllib.parse import urlparse
-from difflib import SequenceMatcher
 
 
 def get_pool_data_BQ(force_query):
@@ -115,6 +114,19 @@ def parse_pool_identifiers(pool_data):
     return identifiers, conflicts
 
 
+def normalise_ticker(ticker):
+    """Strips trailing digits from a ticker for fuzzy matching, e.g. RAY1 -> RAY.
+    If the ticker is entirely numeric, it's left unchanged."""
+    stripped = re.sub(r'\d+$', '', ticker.strip().upper())
+    return stripped if stripped else ticker.strip().upper()
+
+
+def normalise_name(name):
+    """Lowercases, strips trailing digits and whitespace for fuzzy name matching,
+    e.g. 'Ray Network 1' -> 'ray network'."""
+    return re.sub(r'\s*\d+$', '', name.strip().lower()).strip()
+
+
 def score_same_entity(p1, p2):
     """
     Scores how likely two pools belong to the same operator entity.
@@ -122,10 +134,10 @@ def score_same_entity(p1, p2):
 
     Scoring:
       +3  same non-trivial domain
-      +2  same ticker
-      +2  name similarity > 0.85 (after stripping trailing digits)
-      +1  same description
-      -1  same ticker but different non-trivial domains (conflict signal)
+      +2  same ticker (after stripping trailing digits)
+      +2  same name (after stripping trailing digits)
+      +1  same (non-empty) description
+      -1  different non-trivial domains (conflict signal)
     """
     score = 0
 
@@ -135,24 +147,21 @@ def score_same_entity(p1, p2):
     filtered_d1 = filter_homepage(p1.get('homepage', ''))
     filtered_d2 = filter_homepage(p2.get('homepage', ''))
     domains_valid = bool(filtered_d1 and filtered_d2 and d1 and d2)
-    domains_match = domains_valid and d1 == d2
-
-    # Ticker match
-    t1 = p1.get('ticker', '').strip().upper()
-    t2 = p2.get('ticker', '').strip().upper()
-    tickers_match = bool(t1 and t2 and t1 == t2)
-
-    if domains_match:
+    if domains_valid and d1 == d2:
         score += 3
-    if tickers_match:
+    elif domains_valid:
+        score -= 1
+
+    # Ticker match after normalisation (i.e. removing trailing digits, which often indicate different pools of the same operator)
+    t1 = normalise_ticker(p1.get('ticker', ''))
+    t2 = normalise_ticker(p2.get('ticker', ''))
+    if bool(t1 and t2 and t1 == t2):
         score += 2
-        if domains_valid and not domains_match:
-            score -= 1  # same ticker, different real domains → possibly different entities
 
     # Name similarity (strip trailing digits to catch "Pool1" vs "Pool2")
-    n1 = re.sub(r'\s*\d+$', '', p1.get('name', '').strip().lower())
-    n2 = re.sub(r'\s*\d+$', '', p2.get('name', '').strip().lower())
-    if n1 and n2 and name_similarity(n1, n2) > 0.85:
+    n1 = normalise_name(p1.get('name', ''))
+    n2 = normalise_name(p2.get('name', ''))
+    if n1 and n2 and n1 == n2:
         score += 2
 
     # Description match
@@ -272,11 +281,6 @@ def get_domain(url):
         return re.sub(r'^www\.', '', domain)
     except Exception:
         return ''
-
-
-def name_similarity(a, b):
-    """Returns similarity ratio between two strings."""
-    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 
 def filter_homepage(homepage):
