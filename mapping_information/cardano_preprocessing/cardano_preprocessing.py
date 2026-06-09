@@ -130,7 +130,8 @@ def normalise_name(name):
 def score_same_entity(p1, p2):
     """
     Scores how likely two pools belong to the same operator entity.
-    Returns an integer score; higher = more likely same entity.
+    Returns a (score, signals) tuple where signals is a list of the signal
+    names that contributed positively to the score (excluding penalties).
 
     Scoring:
       +3  same non-trivial domain
@@ -140,6 +141,7 @@ def score_same_entity(p1, p2):
       -1  different non-trivial domains (conflict signal)
     """
     score = 0
+    signals = []
 
     # Domain match
     d1 = get_domain(p1.get('homepage', ''))
@@ -149,6 +151,7 @@ def score_same_entity(p1, p2):
     domains_valid = bool(filtered_d1 and filtered_d2 and d1 and d2)
     if domains_valid and d1 == d2:
         score += 3
+        signals.append('homepage')
     elif domains_valid:
         score -= 1
 
@@ -157,28 +160,30 @@ def score_same_entity(p1, p2):
     t2 = normalise_ticker(p2.get('ticker', ''))
     if bool(t1 and t2 and t1 == t2):
         score += 2
+        signals.append('ticker')
 
     # Name similarity (strip trailing digits to catch "Pool1" vs "Pool2")
     n1 = normalise_name(p1.get('name', ''))
     n2 = normalise_name(p2.get('name', ''))
     if n1 and n2 and n1 == n2:
         score += 2
+        signals.append('name')
 
     # Description match
     desc1 = p1.get('description', '').strip()
     desc2 = p2.get('description', '').strip()
     if desc1 and desc2 and desc1 == desc2:
         score += 1
+        signals.append('description')
 
-    return score
+    return score, signals
 
 
 def parse_pool_clusters(pool_data, score_threshold=3):
     """
     Clusters pools by operator entity.
     Step 1: group pools that share the same valid domain (strong anchor).
-    Step 2: merge any two domain-groups that share a ticker AND score >= threshold
-            (catches operators with different domains but same ticker/name).
+    Step 2: merge any two domain-groups that share a ticker AND score >= threshold.
     Step 3: assign cluster names and return.
     :param pool_data: dictionary, where each key is a pool's hash and the corresponding value is a dictionary with the
     pool's metadata (name, ticker, homepage, description)
@@ -226,15 +231,13 @@ def parse_pool_clusters(pool_data, score_threshold=3):
             ticker_to_cluster_ids[ticker].add(index_to_cluster[i])
 
     def merge_clusters(id_a, id_b):
-        """Merge cluster id_b into cluster id_a, updating index_to_cluster.
-        Pools moving from id_b get source 'multi_signal' unless they already
-        had a more specific source (e.g. 'homepage') assigned in Step 1."""
+        """Merge cluster id_b into cluster id_a, updating index_to_cluster."""
         if id_a == id_b:
             return
         for i in clusters[id_b]:
             index_to_cluster[i] = id_a
             if index_to_source[i] is None:
-                index_to_source[i] = 'multi_signal'
+                index_to_source[i] = signals or []
         clusters[id_a].update(clusters[id_b])
         clusters[id_b] = set()
 
@@ -250,10 +253,11 @@ def parse_pool_clusters(pool_data, score_threshold=3):
                     continue
                 rep_a = pools[next(iter(clusters[id_a]))]
                 rep_b = pools[next(iter(clusters[id_b]))]
-                if score_same_entity(rep_a, rep_b) >= score_threshold:
+                score, signals = score_same_entity(rep_a, rep_b)
+                if score >= score_threshold:
                     for i in clusters[id_a]:
                         if index_to_source[i] is None:
-                            index_to_source[i] = 'multi_signal'
+                            index_to_source[i] = signals
                     merge_clusters(id_a, id_b)
 
     # --- Step 3: build output ---
@@ -265,10 +269,12 @@ def parse_pool_clusters(pool_data, score_threshold=3):
         cluster_name = determine_cluster_name(pool_names)
         for i in cluster:
             pool_hash = pool_hashes[i]
+            pool_name = pools[i].get('name', '')
+            source = index_to_source[i] if index_to_source[i] is not None else 'singleton'
             output[pool_hash] = {
                 'cluster': cluster_name,
-                'pool': pools[i].get('name', ''),
-                'source': index_to_source[i] if index_to_source[i] is not None else 'singleton'
+                'pool': pool_name,
+                'source': source
             }
 
     return output

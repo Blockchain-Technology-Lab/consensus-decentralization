@@ -176,69 +176,91 @@ class TestScoreSameEntity:
     def test_identical_pools_score_high(self):
         p1 = self._pool(ticker='SAME', name='Same Pool', homepage='https://same.io', description='A pool')
         p2 = self._pool(ticker='SAME', name='Same Pool', homepage='https://same.io', description='A pool')
-        assert score_same_entity(p1, p2) == 8
+        score, signals = score_same_entity(p1, p2)
+        assert score == 8
+        assert [signal in signals for signal in ['ticker', 'name', 'homepage', 'description']]
+        assert len(signals) == 4
 
     def test_same_domain_contributes_3(self):
         p1 = self._pool(ticker='AAA', homepage='https://mypool.io')
         p2 = self._pool(ticker='BBB', name='Other Pool', homepage='https://mypool.io', description='different')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 3
+        assert 'homepage' in signals
+        assert len(signals) == 1
 
     def test_same_ticker_contributes_2(self):
         p1 = self._pool(ticker='SAME')
         p2 = self._pool(ticker='SAME')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 2
+        assert 'ticker' in signals
+        assert len(signals) == 1
 
     def test_similar_ticker_contributes_2(self):
         p1 = self._pool(ticker='SAME1')
         p2 = self._pool(ticker='SAME2')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 2
+        assert 'ticker' in signals
+        assert len(signals) == 1
 
     def test_same_ticker_different_real_domains_penalised(self):
         p1 = self._pool(ticker='ANIME', name='Tokyo Stake House', homepage='https://animea.io', description='')
         p2 = self._pool(ticker='ANIME', name='Osaka Block Forge', homepage='https://animeb.io', description='')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 1
+
 
     def test_dummy_homepage_no_domain_penalty(self):
         # If one pool has n/a homepage, domain penalty should not apply.
         # Use distinct names so name similarity doesn't contribute.
         p1 = self._pool(ticker='LOVE', name='Stakehouse Alpha', homepage='n/a', description='')
         p2 = self._pool(ticker='LOVE', name='Riverfront Beta', homepage='https://love.io', description='')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 2
+        assert 'ticker' in signals
+        assert len(signals) == 1
 
     def test_similar_names_contribute(self):
         p1 = self._pool(name='Bloom Pool 1')
         p2 = self._pool(name='Bloom Pool 2')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 2
+        assert 'name' in signals
+        assert len(signals) == 1
 
     def test_similar_names_and_tickers_contribute(self):
         p1 = self._pool(name='Bloom Pool 1', ticker='BLM1')
         p2 = self._pool(name='Bloom Pool 2', ticker='BLM2')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 4
+        assert 'name' in signals and 'ticker' in signals
+        assert len(signals) == 2
 
     def test_similar_names_and_tickers_but_homepage_penalty(self):
         p1 = self._pool(name='Bloom Pool 1', ticker='BLM1', homepage='https://bloom1.io')
         p2 = self._pool(name='Bloom Pool 2', ticker='BLM2', homepage='https://bloom2.io')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 3
+        assert 'name' in signals and 'ticker' in signals
+        assert len(signals) == 2
 
     def test_same_description_contributes_1(self):
         p1 = self._pool(ticker='X', description='shared desc')
         p2 = self._pool(ticker='Y', description='shared desc')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 1
+        assert 'description' in signals
+        assert len(signals) == 1
 
     def test_no_homepage_penalty_if_one_is_dummy(self):
         p1 = self._pool(ticker='X', homepage='n/a')
         p2 = self._pool(ticker='X', homepage='https://valid.io')
-        score = score_same_entity(p1, p2)
+        score, signals = score_same_entity(p1, p2)
         assert score == 2
+        assert 'ticker' in signals
+        assert len(signals) == 1
 
 
 # ---------------------------------------------------------------------------
@@ -300,8 +322,8 @@ class TestParsePoolClusters:
         clusters = parse_pool_clusters(pools)
         assert 'hash1' in clusters
         assert 'hash2' in clusters
-        assert clusters['hash1']['source'] == 'multi_signal'
-        assert clusters['hash2']['source'] == 'multi_signal'
+        assert clusters['hash1']['source'] == ['ticker', 'name', 'description']
+        assert clusters['hash2']['source'] == ['ticker', 'name', 'description']
         assert clusters['hash1']['cluster'] == clusters['hash2']['cluster']
 
     def test_mixed_source_homepage_pool_keeps_homepage_source(self):
@@ -311,9 +333,9 @@ class TestParsePoolClusters:
             'hash3': {'ticker': 'RAY', 'name': 'Ray Network 3', 'homepage': 'https://ray-extra.io', 'description': 'Ray pool'},
         }
         clusters = parse_pool_clusters(pools)
-        assert clusters.get('hash1', {}).get('source') == 'homepage'
-        assert clusters.get('hash2', {}).get('source') == 'homepage'
-        assert clusters['hash3']['source'] == 'multi_signal'
+        assert clusters.get('hash1', {}).get('source') == ['homepage', 'ticker', 'name', 'description']        
+        assert clusters.get('hash2', {}).get('source') == ['homepage', 'ticker', 'name', 'description']
+        assert clusters['hash3']['source'] == ['ticker', 'name', 'description']
         assert clusters['hash1']['cluster'] == clusters['hash3']['cluster']
 
 
