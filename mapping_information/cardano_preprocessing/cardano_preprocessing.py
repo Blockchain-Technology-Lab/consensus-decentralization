@@ -195,6 +195,7 @@ def parse_pool_clusters(pool_data, score_threshold=3):
     Source for each pool reflects the signals from the comparison that first
     caused it to be clustered, or ['singleton'] if it was never grouped.
     """
+    logging.info("Parsing pool clusters..")
 
     pool_hashes = list(pool_data.keys())
     pools = list(pool_data.values())
@@ -347,4 +348,4 @@ if __name__ == '__main__':
     with open(mapping_info_dir / 'cardano_preprocessing' / 'ticker_conflicts.json', 'w') as f:
         json.dump(conflicts, f, indent=4)
 
-    logging.info(f"Done. {len(identifiers)} identifiers, {len(clusters)} clustered pools, {len(conflicts)} conflicts.")
+    logging.info(f"Done. {len(identifiers)} identifiers, {len(clusters)} clustered pools, {len(conflicts)} ticker conflicts.")
