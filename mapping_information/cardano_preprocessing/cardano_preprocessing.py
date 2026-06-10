@@ -36,7 +36,7 @@ def get_pool_data_BQ(force_query):
     except Exception as e:
         logging.info(f'The following exception was raised: {repr(e)}')
         return None
-    pool_data = {row[0]: eval(row[1]) for row in rows}
+    pool_data = {row[0]: json.loads(row[1]) for row in rows}
     # write json to file
     with open(file, 'w') as f:
         json.dump(pool_data, f, indent=4)
@@ -66,6 +66,10 @@ def merge_pool_data(pool_data_BQ, pool_data_node):
     pool's metadata (name, ticker, homepage, description).
     """
     logging.info("Merging pool data sources..")
+    if pool_data_BQ is None:
+        return pool_data_node
+    if pool_data_node is None:
+        return pool_data_BQ
     merged = pool_data_BQ | pool_data_node
     return merged
 
