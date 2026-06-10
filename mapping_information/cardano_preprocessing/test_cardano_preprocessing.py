@@ -211,7 +211,6 @@ class TestScoreSameEntity:
         score, signals = score_same_entity(p1, p2)
         assert score == 1
 
-
     def test_dummy_homepage_no_domain_penalty(self):
         # If one pool has n/a homepage, domain penalty should not apply.
         # Use distinct names so name similarity doesn't contribute.
@@ -333,7 +332,7 @@ class TestParsePoolClusters:
             'hash3': {'ticker': 'RAY', 'name': 'Ray Network 3', 'homepage': 'https://ray-extra.io', 'description': 'Ray pool'},
         }
         clusters = parse_pool_clusters(pools)
-        assert clusters.get('hash1', {}).get('source') == ['homepage', 'ticker', 'name', 'description']        
+        assert clusters.get('hash1', {}).get('source') == ['homepage', 'ticker', 'name', 'description']
         assert clusters.get('hash2', {}).get('source') == ['homepage', 'ticker', 'name', 'description']
         assert clusters['hash3']['source'] == ['ticker', 'name', 'description']
         assert clusters['hash1']['cluster'] == clusters['hash3']['cluster']

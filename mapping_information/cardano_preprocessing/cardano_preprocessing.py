@@ -184,37 +184,37 @@ def parse_pool_clusters(pool_data, score_threshold=3):
     Clusters pools by operator entity using a multi-signal scoring approach.
     All pools are included in the output keyed by pool hash, since
     map_from_known_clusters looks up by reward address (pool hash).
- 
+
     Any two pools that score >= score_threshold are placed in the same cluster.
     Transitivity is handled via union-find: if A clusters with B and B with C,
     all three end up in the same cluster.
- 
+
     All pairs of pools are compared, which means that the complexity is O(n^2)
     but should be fine since it only runs once as a preprocessing step.
- 
+
     Source for each pool reflects the signals from the comparison that first
     caused it to be clustered, or ['singleton'] if it was never grouped.
     """
- 
+
     pool_hashes = list(pool_data.keys())
     pools = list(pool_data.values())
     n = len(pools)
- 
+
     # --- Union-Find ---
     parent = list(range(n))
- 
+
     def find(x):
         while parent[x] != x:
             parent[x] = parent[parent[x]]  # path compression
             x = parent[x]
         return x
- 
+
     def union(x, y):
         parent[find(x)] = find(y)
- 
+
     # source[i] = signals that caused pool i to be clustered, or None if not yet
     source = [None] * n
- 
+
     # --- Compare all pairs and merge if above threshold ---
     for i in range(n):
         for j in range(i + 1, n):
@@ -225,12 +225,12 @@ def parse_pool_clusters(pool_data, score_threshold=3):
                     for idx in [i, j]:
                         if source[idx] is None:
                             source[idx] = signals
- 
+
     # --- Build clusters ---
     clusters = defaultdict(list)
     for i in range(n):
         clusters[find(i)].append(i)
- 
+
     # --- Build output ---
     output = {}
     for members in clusters.values():
@@ -242,7 +242,7 @@ def parse_pool_clusters(pool_data, score_threshold=3):
                 'pool': pools[i].get('name', ''),
                 'source': source[i] if source[i] is not None else ['singleton']
             }
- 
+
     return output
 
 
