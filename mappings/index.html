@@ -74,6 +74,12 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#mapping-process-implementation">Mapping process implementation</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cardano-specific-mapping">Cardano-specific mapping</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#cardano-pool-data-preprocessing">Cardano pool data preprocessing</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -113,9 +119,12 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="mappings">Mappings</h1>
-<p>A mapping is responsible for linking blocks to the entities that created them. While the parsed data contains
-information about the addresses that received rewards for producing some block or identifiers that are related to them,
-it does not contain information about the entities that control these addresses, which is where the mapping comes in.</p>
+<p>A mapping is responsible for linking blocks to the entities that created them. 
+While the parsed data contains
+information about the addresses that received rewards for producing some block
+or identifiers that are related to them,
+it does not contain information about the entities that control these addresses,
+which is where the mapping comes in.</p>
 <p>The mapping takes as input the parsed data and outputs a file (<code>processed_data/&lt;project_name&gt;/mapped_data.json</code>), 
 which is structured as follows:</p>
 <pre><code>[
@@ -131,7 +140,8 @@ which is structured as follows:</p>
 <h2 id="mapping-information">Mapping Information</h2>
 <p>To assist the mapping process, the directory <code>mapping_information/</code> contains
 mapping information about the supported projects.</p>
-<p>There exist three subdirectories and two additional files. In each subdirectory there exists a file for
+<p>There exist three subdirectories and two additional files. In each subdirectory
+there exists a file for
 the corresponding ledger data, if such data exists.</p>
 <h4 id="identifiers">Identifiers</h4>
 <p>The files under <code>identifiers</code> define information about block creators. Each key
@@ -151,36 +161,50 @@ structure is as follows:</p>
 }
 </code></pre>
 <h4 id="clusters">Clusters</h4>
-<p>The files under <code>clusters</code> define information about pool clusters. Each key corresponds to a
-unique pool id (e.g. pool hash in Cardano). The value for each key is a dictionary including
-the cluster to which the pool belongs, the pool's name, and the source of information about
-the cluster. When the source is set to "homepage", it means that the pool was clustered together
-with some other pool(s) because they share the same webpage.
-Each file's structure is as follows:</p>
+<p>The files under <code>clusters</code> define information about pool clusters.
+Each key corresponds to a unique pool id (e.g. pool hash in Cardano).
+The value for each key is a dictionary including
+the cluster to which the pool belongs, the pool's name, and the source of 
+information about the cluster. The source field is a list of the signals that
+caused the pool to be grouped,
+and can contain any combination of the following values:</p>
+<ul>
+<li>"homepage": the pools share the same homepage.</li>
+<li>"ticker": the pools share the same ticker (after stripping trailing digits).</li>
+<li>"name": the pools share the same name (after lowercasing and stripping 
+trailing digits).</li>
+<li>"description": the pools share the same description.</li>
+<li>"singleton": the pool could not be grouped with any other pool; the cluster
+name is the pool's own name. Singleton entries are included so that all pools
+can be looked up by their pool id, even if they are not part of a multi-pool
+cluster.</li>
+</ul>
+<p>Each file's structure is as follows:</p>
 <pre><code>{
   &quot;pool id 1&quot;: {
       &quot;cluster&quot;: &quot;cluster A&quot;,
       &quot;pool&quot;: &quot;Pool P1&quot;,
-      &quot;source&quot;: &quot;homepage&quot;
+      &quot;source&quot;: [&quot;homepage&quot;, &quot;ticker&quot;]
   },
   &quot;pool id 2&quot;: {
       &quot;cluster&quot;: &quot;cluster B&quot;,
       &quot;pool&quot;: &quot;--P2--&quot;,
-      &quot;source&quot;: &quot;example_url.com&quot;
+      &quot;source&quot;: [&quot;singleton&quot;]
   }
 }
 </code></pre>
 <h4 id="addresses">Addresses</h4>
-<p>The files under <code>addresses</code> define ownership information about addresses. As with
-clusters, for each address the pool ownership information defines the pool's
-name and a public source of information about the ownership.  Each file's
-structure is as follows:</p>
+<p>The files under <code>addresses</code> define ownership information about addresses. As
+with clusters, for each address the pool ownership information defines the
+pool's name and a public source of information about the ownership.
+Each file's structure is as follows:</p>
 <pre><code>{
   &quot;address1&quot;: {&quot;name&quot;: &quot;Pool P2&quot;, &quot;source&quot;: &quot;example.com&quot;},
 }
 </code></pre>
 <h4 id="legal-links">Legal links</h4>
-<p>The file <code>legal_links.json</code> defines legal links between pools and companies, based on off-chain information.
+<p>The file <code>legal_links.json</code> defines legal links between pools and companies,
+based on off-chain information.
 For example, it defines ownership information of a pool by a company.
 The structure of the file is as follows:</p>
 <pre><code>{
@@ -189,10 +213,13 @@ The structure of the file is as follows:</p>
   ]
 }
 </code></pre>
-<p>The values for each entry are the same as <code>clusters</code> in the above pool information.</p>
+<p>The values for each entry are the same as <code>clusters</code> in the above pool
+information.</p>
 <h4 id="special-addresses">Special addresses</h4>
-<p>The file <code>special_addresses.json</code> defines per-project information about addresses that are not related to some entity 
-but are used for protocol-specific reasons (e.g. treasury address). The format of the file is the following:</p>
+<p>The file <code>special_addresses.json</code> defines per-project information about
+addresses that are not related to some entity but are used for
+protocol-specific reasons (e.g. treasury address). 
+The format of the file is the following:</p>
 <pre><code>{
   &quot;Project A&quot;: [
       {&quot;address&quot;: &quot;A special address 1&quot;, &quot;source&quot;: &quot;some.public.source&quot;},
@@ -204,13 +231,17 @@ but are used for protocol-specific reasons (e.g. treasury address). The format o
 }
 </code></pre>
 <h2 id="mapping-process-implementation">Mapping process implementation</h2>
-<p>In our implementation, the mapping of a block uses the auxiliary information as follows.</p>
-<p>First, it iterates over all known identifiers and compares each one with the identifiers of the block.
-If a known identifier is a substring of the block's identifier, then a match is found.</p>
-<p>If the first step fails, we compare the block's reward addresses with known pool addresses (including special 
-addresses that exist for some blockchains) and again look for a match.</p>
-<p>Following, we check if the entity that created the block belongs to a known pool cluster, and
-if so, we map the block to the cluster.</p>
+<p>In our implementation, the mapping of a block uses the auxiliary information as
+follows.</p>
+<p>First, it iterates over all known identifiers and compares each one with the
+identifiers of the block.
+If a known identifier is a substring of the block's identifier, then a match is
+found.</p>
+<p>If no identifier match is found, the block's reward addresses are compared
+against known pool addresses (including special addresses). If a match is found,
+the block is mapped to that pool.</p>
+<p>Following, we check if the entity that created the block belongs to a known pool
+cluster, and if so, we re-map the block to the cluster.</p>
 <p>In all cases, if there is a match, then:</p>
 <ol>
 <li>We map the block to the matched pool.</li>
@@ -219,10 +250,51 @@ the matched pool.</li>
 <li>We record the mapping method that was used to obtain the mapping (<code>known_identifiers</code>, <code>known_addresses</code> or
 <code>known_clusters</code>).</li>
 </ol>
-<p>If there is a match, we also parse information about pool ownership / legal links, in order to assign the
-block to the top level entity, e.g., the pool's parent company. If a match is found this way, we update
+<p>If there is a match, we also parse information about pool ownership / legal
+links, in order to assign the block to the top level entity, e.g., the pool's
+parent company. If a match is found this way, we update
 the mapping method to <code>known_legal_links</code>.</p>
-<p>If all mechanisms fail, then no match is found. In this case, we assign the reward addresses as the block's entity.</p>
+<p>If all mechanisms fail, the block is assigned to its reward address(es) as a
+fallback (mapping_method: fallback_mapping).</p>
+<h2 id="cardano-specific-mapping">Cardano-specific mapping</h2>
+<p>Cardano's mapping inherits from the default mapping described above but differs
+in the following ways.</p>
+<p><strong>Identifier lookup</strong> is an exact match on the block's pool hash rather than a
+substring search, since each Cardano block carries a single unambiguous pool
+identifier.</p>
+<p><strong>Address lookup</strong> uses the block's reward address (pool hash) rather than a
+general address set. Blocks produced before Cardano's decentralisation event
+carry no reward address; these are attributed to
+Input Output (IOHK), the entity responsible for producing all blocks during that
+period.</p>
+<p><strong>Cluster lookup</strong> is also performed via the reward address (pool hash), which
+is used as the key for the clusters file. This means that even pools excluded
+from the identifiers file due to ticker
+conflicts can still be correctly mapped at the cluster level.</p>
+<h3 id="cardano-pool-data-preprocessing">Cardano pool data preprocessing</h3>
+<p>The clusters and identifiers files for Cardano are generated automatically from
+pool metadata sourced from two places: a BigQuery dataset and a Cardano node
+(via db-sync). The two sources are merged on
+pool hash, with node data taking priority for fields present in both.</p>
+<p><strong>Identifiers</strong> are keyed by ticker. Tickers used by more than one pool pointing
+to a different homepage domain are considered conflicting and excluded, to avoid
+false mappings.</p>
+<p><strong>Clusters</strong> are built by scoring every pair of pools and merging those that
+score at or above a threshold. Scoring works as follows:</p>
+<ul>
+<li>Same homepage domain: +3</li>
+<li>Same ticker (after stripping trailing digits, e.g. <code>RAY1</code> and <code>RAY2</code> both
+normalise to <code>RAY</code>): +2</li>
+<li>Same name (after lowercasing and stripping trailing digits): +2</li>
+<li>Same description: +1</li>
+<li>Both pools have valid but different domains: −1 penalty</li>
+</ul>
+<p>The default threshold is 3. A homepage match alone is sufficient signal to
+cluster two pools together, but, for example, a ticker match alone is not. 
+This is intentional, as tickers are not required to be unique in Cardano,
+therefore at least one additional corroborating signal is required.</p>
+<p>Transitivity is handled automatically: if A clusters with B and B clusters with
+C, all three end up in the same cluster.</p>
               
             </div>
           </div><footer>
