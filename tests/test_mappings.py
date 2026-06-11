@@ -175,12 +175,12 @@ def test_cardano_mapping(setup_and_cleanup, prep_sample_cardano_mapping_info):
     apply_mapping(project='sample_cardano', parsed_data=parsed_data, output_dir=test_output_dir)
 
     expected_block_creators = {
-        '17809932': 'CashFlow',
+        '17809932': 'Cashflow',
         '66666666666': '1 Percent Pool',
         '00000000001': 'Input Output (iohk.io)'
     }
     expected_mapping_methods = {
-        '17809932': 'known_identifiers',
+        '17809932': 'known_clusters',
         '66666666666': 'known_clusters',
         '00000000001': 'known_addresses'
     }

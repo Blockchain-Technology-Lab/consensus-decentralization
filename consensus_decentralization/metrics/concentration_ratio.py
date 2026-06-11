@@ -1,6 +1,6 @@
 def compute_concentration_ratio(block_distribution, topn):
     """
-    Calculates the n-concentration ratio of a distribution of balances
+    Calculates the n-concentration ratio of a distribution of blocks
     :param block_distribution: a list of integers, each being the blocks that an entity has produced, sorted in descending order
     :param topn: the number of top block producers to consider
     :returns: float that represents the ratio of blocks produced by the top n block producers (0 if there weren't any)
