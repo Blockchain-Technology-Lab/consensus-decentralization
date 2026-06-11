@@ -9,6 +9,19 @@ import re
 from urllib.parse import urlparse
 
 
+INVALID_HOMEPAGES = {
+    'https://', 'http://', 'n/a', 'na', '-', '--', '---', '....', '...',
+    'tbd', 'coming', 'coming soon', 'in process', 'no webside', 'no website',
+    'none', 'null', 'undefined', 'unknown'
+}
+
+INVALID_HOMEPAGE_SUBSTRINGS = [
+    'foo.com', 'example.com', 'invalidurl', 'test.com',
+    'localhost', '127.0.0.1', 'yourdomain', 'yoursite',
+    'mysite.com', 'mypool.com', 'poolname.com'
+]
+
+
 def get_pool_data_BQ(force_query):
     """
     Queries the BigQuery database for pool data and writes it to a json file.
@@ -269,27 +282,17 @@ def filter_homepage(homepage):
     """
     if not homepage:
         return None
+
     homepage = homepage.strip()
     if not homepage:
         return None
 
     homepage_lower = homepage.lower()
 
-    INVALID_EXACT = {
-        'https://', 'http://', 'n/a', 'na', '-', '--', '---', '....', '...',
-        'tbd', 'coming', 'coming soon', 'in process', 'no webside', 'no website',
-        'none', 'null', 'undefined', 'unknown'
-    }
-    if homepage_lower in INVALID_EXACT:
+    if homepage_lower in INVALID_HOMEPAGES:
         return None
 
-    INVALID_SUBSTRINGS = [
-        'foo.com', 'example.com', 'invalidurl', 'test.com',
-        'localhost', '127.0.0.1', 'yourdomain', 'yoursite',
-        'mysite.com', 'mypool.com', 'poolname.com'
-    ]
-
-    if any(kw in homepage_lower for kw in INVALID_SUBSTRINGS):
+    if any(kw in homepage_lower for kw in INVALID_HOMEPAGE_SUBSTRINGS):
         return None
 
     return homepage
