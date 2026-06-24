@@ -1,0 +1,232 @@
+{
+    "A4hyMd3FyvUJSRafDUSwtLLaQcxRP4r1BRC9w2AJ1to2": {
+        "cluster": "Jito",
+        "pool": "Jito2",
+        "source": "https://jito.wtf"
+    },
+    "CXPeim1wQMkcTvEHx9QdhgKREYYJD8bnaCCqPRwJ1to1": {
+        "cluster": "Jito",
+        "pool": "Jito1",
+        "source": "https://jito.wtf"
+    },
+    "Xoir1BnQX9TbEvon9HRbD8tkjcD9dorsxmNjZAV64Re": {
+        "cluster": "Moutai Validator \ud83d\ude80 Performant, Secure And No Fees",
+        "pool": "YYDS Validator \ud83d\ude80 Performant, Secure and NO Fees",
+        "source": "https://site-et7.pages.dev"
+    },
+    "8nbE53mcKhy74HLiGZ1q5HRocwiCvgh49csSaHSdtukr": {
+        "cluster": "Moutai Validator \ud83d\ude80 Performant, Secure And No Fees",
+        "pool": "Moutai Validator \ud83d\ude80 Performant, Secure and NO Fees",
+        "source": "https://site-et7.pages.dev"
+    },
+    "2Le6TjeEescF87qDA8Ftdz6U8Kq6SNVwoLJLhzBCHUr5": {
+        "cluster": "Moutai Validator \ud83d\ude80 Performant, Secure And No Fees",
+        "pool": "U1S1 Validator \ud83d\ude80 Performant, Secure and NO Fees",
+        "source": "https://site-et7.pages.dev"
+    },
+    "FNKgX9dYUhYQFRTM9bkeKoRpsyEtZGNMxbdQLDzfqB8a": {
+        "cluster": "Coinbase",
+        "pool": "Coinbase 04",
+        "source": "https://coinbase.com/staking"
+    },
+    "9W3QTgBhkU4Bwg6cwnDJo6eGZ9BtZafSdu1Lo9JmWws7": {
+        "cluster": "Coinbase",
+        "pool": "Coinbase 03",
+        "source": "https://coinbase.com/staking"
+    },
+    "XkCriyrNwS3G4rzAXtG5B1nnvb5Ka1JtCku93VqeKAr": {
+        "cluster": "Coinbase",
+        "pool": "Coinbase",
+        "source": "https://coinbase.com/staking"
+    },
+    "CW9C7HBwAMgqNdXkNgFg9Ujr3edR2Ab9ymEuQnVacd1A": {
+        "cluster": "Coinbase",
+        "pool": "Coinbase 02",
+        "source": "https://coinbase.com/staking"
+    },
+    "2m1A2WM1vte7RWz5xTTw4i1SiXmngVtXhqFERaUjoAAb": {
+        "cluster": "Valigator",
+        "pool": "2m1A2WM1vte7RWz5xTTw4i1SiXmngVtXhqFERaUjoAAb",
+        "source": "http://www.valigator.tech"
+    },
+    "vALigXFg9wnnhVHN16vNxHxXtAXiBv5QjAE6udoniBY": {
+        "cluster": "Valigator",
+        "pool": "Valigator",
+        "source": "http://www.valigator.tech"
+    },
+    "5pPRHniefFjkiaArbGX3Y8NUysJmQ9tMZg3FrFGwHzSm": {
+        "cluster": "Kiln",
+        "pool": "Kiln1",
+        "source": "https://kiln.fi"
+    },
+    "ACvL73V4GNnxPVfZ7K89jCrYurLyzpEuE9qirjvh2Xmi": {
+        "cluster": "Kiln",
+        "pool": "Kiln2",
+        "source": "https://kiln.fi"
+    },
+    "C2ocKwTTZCDpwuyZuem7hih2pkpataAx21P5KHkKboko": {
+        "cluster": "Overclock",
+        "pool": "Overclock Diablo",
+        "source": "https://overclock.one/"
+    },
+    "C1ocKDYMCm2ooWptMMnpd5VEB2Nx4UMJgRuYofysyzcA": {
+        "cluster": "Overclock",
+        "pool": "Overclock",
+        "source": "https://overclock.one/"
+    },
+    "9q16BB7WGmBxf1nJTdxH5zPnBUhtHqdqXqRFjSjuM4k7": {
+        "cluster": "Jb273 Solana Validator",
+        "pool": "JB273 Solana Validator",
+        "source": "https://pops.one"
+    },
+    "popscoyTKVksa4TyTXw488b3vvFxM7qQEyTBeMQopKu": {
+        "cluster": "Jb273 Solana Validator",
+        "pool": "P-OPS Team",
+        "source": "https://pops.one"
+    },
+    "9jnYKtJoHKsR5XudQnvR9cXTxeorQf8C1wqZvU79govG": {
+        "cluster": "Lemon Tree \ud83c\udf4b [0% Fee]",
+        "pool": "\ud83c\udf68 Ice Cream | 0% fee",
+        "source": "https://mevsol.io/"
+    },
+    "Bat6DHawBwy8k4fqsrgkSMb33UWWCDyiXH9AUQBrWiGX": {
+        "cluster": "Lemon Tree \ud83c\udf4b [0% Fee]",
+        "pool": "Lemon Tree \ud83c\udf4b [0% fee]",
+        "source": "https://mevsol.io/"
+    },
+    "5yRbBQY5ZKe7VcuuwCS8wVvMfcq41gNctbdhK781Joep": {
+        "cluster": "Lemon Tree \ud83c\udf4b [0% Fee]",
+        "pool": "\ud83d\udc3e RED FOX \ud83d\udc3e +MEV",
+        "source": "https://mevsol.io/"
+    },
+    "G1bLKfyNm7zsmmYEL9dyxBvMtxpFcwy2s84bHDj2ZFUY": {
+        "cluster": "P2P.Org",
+        "pool": "P2P.org Palidator",
+        "source": "https://p2p.org"
+    },
+    "8ZQg3K1V1Z2BVJkjmnxpi43WKhjPGXphzu5QmBkJibSP": {
+        "cluster": "P2P.Org",
+        "pool": "P2P.org Labs",
+        "source": "https://p2p.org"
+    },
+    "DWvDTSh3qfn88UoQTEKRV2JnLt5jtJAVoiCo3ivtMwXP": {
+        "cluster": "P2P.Org",
+        "pool": "P2P.org",
+        "source": "https://p2p.org"
+    },
+    "STaKesuXJH6UGRizuEVSWG1tyLu5ycKgWj3i1HUdvs5": {
+        "cluster": "Mainnet_Mhs_Validator",
+        "pool": "Private",
+        "source": "https://solana.org"
+    },
+    "4guS5XP2wgDWecZGgvN5UQmV8iywTrKGaA7kv9hj3tk7": {
+        "cluster": "Mainnet_Mhs_Validator",
+        "pool": "mainnet_MHS_validator",
+        "source": "https://solana.org"
+    },
+    "HcZvwZ83PfjrQDiq3GLHxisTs17aGURs6bJ2LwtmL4qv": {
+        "cluster": "Mightymoosevalidator",
+        "pool": "SolGuardian",
+        "source": "http://www.retsinasoftware.com"
+    },
+    "8Yq98CFAorqAc3CN7XtMVgKLrBc78wsBvjhAbFr4sNQ5": {
+        "cluster": "Mightymoosevalidator",
+        "pool": "MightyMooseValidator",
+        "source": "http://www.retsinasoftware.com"
+    },
+    "DZVySotZvrvJyVAcgjFtUDm93zoCaq9wBruMAUz83CWW": {
+        "cluster": "Doublezero X ",
+        "pool": "DoubleZero x Asymmetric Research",
+        "source": "https://doublezero.xyz"
+    },
+    "DZVqmD4QqSWM2gUyEXdQhvt4u3NZtCRxdsn2n2nNiBRL": {
+        "cluster": "Doublezero X ",
+        "pool": "DoubleZero x RockawayX",
+        "source": "https://doublezero.xyz"
+    },
+    "mrgn4sJJu5GBa5wbKyjuASzhyCifvcedGoLtpKjB3Wf": {
+        "cluster": "Project 0 ",
+        "pool": "Project 0 Meridian",
+        "source": "https://www.0.xyz"
+    },
+    "mrgn28BhocwdAUEenen3Sw2MR9cPKDpLkDvzDdR7DBD": {
+        "cluster": "Project 0 ",
+        "pool": "Project 0 Horizon",
+        "source": "https://www.0.xyz"
+    },
+    "EAW9vxqogvdPNapq7QTDpiVTHK6o7begUhPVnf854VTc": {
+        "cluster": "Cube-M",
+        "pool": "CuBe-M",
+        "source": "https://solana.com/"
+    },
+    "uEhHSnCXvWgtgvVaYscPHjG13G3peMmngQQ2ghC54i3": {
+        "cluster": "Cube-M",
+        "pool": "Satellite Staking",
+        "source": "https://solana.com/"
+    },
+    "LeDbQ99QT342j9S5YdyXLrsq2Gu3T3dMGajExdAuE3V": {
+        "cluster": "Ledger By ",
+        "pool": "Ledger by Chorus One",
+        "source": "https://www.ledger.com/staking"
+    },
+    "q9XWcZ7T1wP4bW9SB4XgNNwjnFEJ982nE8aVbbNuwot": {
+        "cluster": "Ledger By ",
+        "pool": "Ledger by Figment",
+        "source": "https://www.ledger.com/staking"
+    },
+    "FugJZepeGfh1Ruunhep19JC4F3Hr2FL3oKUMezoK8ajp": {
+        "cluster": "Temporal ",
+        "pool": "Temporal Topaz",
+        "source": "https://temporal.xyz"
+    },
+    "DTSUkYHd2e9P2HLyZfbLarsbDdPhQUhZnWjRYuJZQRC8": {
+        "cluster": "Temporal ",
+        "pool": "Temporal Emerald",
+        "source": "https://temporal.xyz"
+    },
+    "rubyWZkfnjG716rx69n2oCAhevVZaMRQunir9VQcY2E": {
+        "cluster": "Temporal ",
+        "pool": "Temporal Ruby",
+        "source": "https://temporal.xyz"
+    },
+    "HwRia5HUmQcvundpC6iFqwfK4iVNKRSmYm1NKsrMkZBC": {
+        "cluster": "Figment",
+        "pool": "Figment | Firedancer",
+        "source": "https://figment.io"
+    },
+    "Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk": {
+        "cluster": "Figment",
+        "pool": "Figment",
+        "source": "https://figment.io"
+    },
+    "2abwQG3v2xRemFxRszVHSfnjJNe9zu5X8duKgxjyLeaK": {
+        "cluster": "Chorus One",
+        "pool": "Chorus One Research",
+        "source": "https://chorus.one"
+    },
+    "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n": {
+        "cluster": "Chorus One",
+        "pool": "Chorus One",
+        "source": "https://chorus.one"
+    },
+    "krakeNd6ednDPEXxHAmoBs1qKVM8kLg79PvWF2mhXV1": {
+        "cluster": "Kraken",
+        "pool": "Kraken",
+        "source": "https://www.kraken.com/"
+    },
+    "CAo1dCGYrB6NhHh5xb1cGjUiu86iyCfMTENxgHumSve4": {
+        "cluster": "Kraken",
+        "pool": "Kraken 2",
+        "source": "https://www.kraken.com/"
+    },
+    "bxrAptB5ZpZBhoLedJpoGWY5hBjjt3zvVBr2323Rrq6": {
+        "cluster": "Bloxroute ",
+        "pool": "bloXroute EU",
+        "source": "https://bloxroute.com"
+    },
+    "DCdTPyDbXNHrmdv4ZyPPzEfY4mPAqH4hDPtowAteoNgv": {
+        "cluster": "Bloxroute ",
+        "pool": "bloXroute US",
+        "source": "https://bloxroute.com"
+    }
+}

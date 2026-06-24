@@ -13,6 +13,7 @@ ledger_parser = {
     'litecoin': DefaultParser,
     'zcash': DefaultParser,
     'tezos': DummyParser,
+    'solana': DummyParser,
 }
 
 

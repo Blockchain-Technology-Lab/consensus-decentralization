@@ -26,6 +26,7 @@ ledgers:
   - litecoin
   - tezos
   - zcash
+  - solana
 
 # Flag that controls whether to force mapping or use already processed data
 # when available.

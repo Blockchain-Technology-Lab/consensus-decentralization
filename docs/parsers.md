@@ -27,6 +27,7 @@ Specifically, `reward_addresses` corresponds to:
 - `Ethereum`: the block's `miner` field
 - `Cardano`: the hash of the pool that created the data, if defined, otherwise the empty string
 - `Tezos`: the block's `baker` field
+- `Solana`: the block's `leader` account
 
 The field `identifiers` corresponds to:
 
@@ -34,6 +35,7 @@ The field `identifiers` corresponds to:
 - `Ethereum`: the block's `extra_data` field
 - `Cardano`: the ticker name of the pool that created the block, if defined, otherwise an empty string
 - `Tezos`: there is no such field
+- `Solana`: there is no such field
 
 If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash (see [Data Collection](data.md))
 return data that are parsed with the `default_parser` module in `parsers`.

@@ -72,3 +72,12 @@ zcash:
   AND timestamp > '2018-01-01'
   AND timestamp < '{{timestamp}}'
   ORDER BY timestamp
+
+solana:
+  SELECT height as number, block_timestamp as timestamp, leader as reward_addresses
+  FROM `bigquery-public-data.crypto_solana_mainnet_us.Blocks`
+  -- Reference for timestamp floor at https://explorer.solana.com/block/0/accounts
+  WHERE block_timestamp > '2020-03-15' 
+  AND block_timestamp < '{{timestamp}}'
+  AND height > {{block_number}}
+  ORDER BY block_timestamp
