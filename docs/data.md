@@ -129,13 +129,12 @@ There are also two command line arguments that can be used to customize the data
 
 ## Solana
 
-Unlike the other supported ledgers, Solana data is not available through Google
-BigQuery. Instead, it is collected directly from a Solana RPC node using a
-dedicated tool ([solana-block-harvester](https://github.com/josephinney/solana-block-harvester)),
-which produces the same NDJSON block format used by the rest of the pipeline.
-For each block it records the slot number, the timestamp, the producing
-validator's vote account (as `identifiers`) and the validator's identity account
-(as `reward_addresses`).
+Solana data can be collected in more than one way. This project uses a dedicated
+tool ([solana-block-harvester](https://github.com/josephinney/solana-block-harvester))
+that reads blocks directly from a Solana RPC node and writes them in the same
+NDJSON block format used by the rest of the pipeline. For each block it records
+the slot number, the timestamp, the producing validator's vote account (as
+`identifiers`) and the validator's identity account (as `reward_addresses`).
 
 The same tool also produces the `identifiers/solana.json` mapping file, keyed by
 vote account, with each validator's published `name` and `homepage` sourced from
