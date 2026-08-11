@@ -3,6 +3,7 @@ from consensus_decentralization.mappings.default_mapping import DefaultMapping
 from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
 from consensus_decentralization.mappings.tezos_mapping import TezosMapping
+from consensus_decentralization.mappings.solana_mapping import SolanaMapping
 
 ledger_mapping = {
     'bitcoin': DefaultMapping,
@@ -13,6 +14,8 @@ ledger_mapping = {
     'litecoin': DefaultMapping,
     'zcash': DefaultMapping,
     'tezos': TezosMapping,
+    'solana': SolanaMapping
+    
 }
 
 
