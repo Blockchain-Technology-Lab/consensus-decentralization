@@ -98,6 +98,12 @@ class DefaultMapping:
         """
         reward_addresses = block['reward_addresses']
         if reward_addresses:
+            if isinstance(reward_addresses, list):
+                # Per the EDI data-format spec, reward_addresses may be a list of
+                # (possibly comma-separated) address strings. Join them so the
+                # existing comma-split logic works for both the new (list, e.g.
+                # ["a,b"] or ["a", "b"]) and the old (plain string "a,b") shapes.
+                reward_addresses = ','.join(reward_addresses)
             return list(set(reward_addresses.split(',')) - self.special_addresses)
         return None
 
