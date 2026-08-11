@@ -24,6 +24,7 @@ ledgers:
   - dogecoin
   - ethereum
   - litecoin
+  - solana
   - tezos
   - zcash
 

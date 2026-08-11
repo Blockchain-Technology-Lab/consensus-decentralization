@@ -101,3 +101,20 @@ def test_default_parse_identifiers():
 def test_ethereum_parse_identifiers():
     parsed_identifiers = EthereumParser.parse_identifiers('0x657a696c2e6d65')
     assert parsed_identifiers == 'ezil.me'
+    
+def test_solana_parser(setup):
+    test_raw_data_dirs = setup
+    sample_parsed_data = [
+        {"number": "437783806", "timestamp": "2026-08-07 11:57:27 UTC", "identifiers": "Haz7b47sZBpxh9SwggGndN3fAyNQ1S949BPdxWXS3ab6", "reward_addresses": ["DTSUkYHd2e9P2HLyZfbLarsbDdPhQUhZnWjRYuJZQRC8"]},
+        {"number": "437783803", "timestamp": "2026-08-07 11:57:26 UTC", "identifiers": "9QU2QSxhb24FUX3Tu2FpczXjpK3VYrvRudywSZaM29mF", "reward_addresses": ["EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4"]},
+    ]
+    
+    parser = DummyParser(ledger='sample_solana', input_dirs=test_raw_data_dirs)
+    parsed_data = list(parser.parse())
+
+    for sample in sample_parsed_data:
+        for item in parsed_data:
+            if item['number'] == sample['number']:
+                assert item['timestamp'] == sample['timestamp']
+                assert item['identifiers'] == sample['identifiers']
+                assert item['reward_addresses'] == sample['reward_addresses']
