@@ -12,6 +12,7 @@ Currently, the supported blockchains are:
 - Dogecoin
 - Ethereum
 - Litecoin
+- Solana
 - Tezos
 - Zcash
 

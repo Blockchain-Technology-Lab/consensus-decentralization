@@ -217,3 +217,30 @@ therefore at least one additional corroborating signal is required.
 
 Transitivity is handled automatically: if A clusters with B and B clusters with
 C, all three end up in the same cluster.
+
+## Solana-specific mapping
+
+Solana's mapping inherits from the default mapping described above but differs
+in the following ways.
+
+**Identifier lookup** is an exact match on the block's vote account rather than
+a substring search, since each Solana block carries a single unambiguous
+identifier.
+
+**Address lookup** uses the block's single reward address (the validator's
+identity account) rather than a general address set, since each Solana block
+has exactly one reward address.
+
+Note that, unlike Cardano where the pool hash serves as both the identifier and
+the reward address, in Solana the identifier (vote account) and the reward
+address (identity account) are distinct values. The vote account is used for
+identifier lookup, while the identity account is used for address lookup (and,
+in the future, cluster lookup).
+
+The vote account is chosen as the identifier because it is a stable, permanent
+value, whereas a validator's identity account can be rotated over time. As a
+result, the reliable attribution path is identifier lookup via the vote account:
+validators that publish metadata are consistently grouped under their name. The
+fallback path, which attributes a block to its identity account when no name is
+known, is less robust, as a validator that rotates its identity account may
+appear as more than one entity.
