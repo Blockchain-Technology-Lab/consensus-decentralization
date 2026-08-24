@@ -1,5 +1,6 @@
 from consensus_decentralization.mappings.default_mapping import DefaultMapping
 
+
 class SolanaMapping(DefaultMapping):
     """
     Mapping class tailored to Solana data. Inherits from DefaultMapping.
@@ -13,10 +14,10 @@ class SolanaMapping(DefaultMapping):
     Note that in Solana the identifier (vote account) and the reward address (identity account) are distinct values, 
     unlike Cardano where the pool hash serves as both.
     """
-    
+
     def __init__(self, project_name, output_dir, data_to_map):
         super().__init__(project_name, output_dir, data_to_map)
-        
+
     def map_from_known_identifiers(self, block):
         """
         Maps one block to its block producer (validator) based on known identifiers.
@@ -30,7 +31,7 @@ class SolanaMapping(DefaultMapping):
         if block_identifier in self.known_identifiers.keys():
             return self.known_identifiers[block_identifier]['name']
         return None
-    
+
     def map_from_known_addresses(self, block):
         """
         Maps one block to its block producer (validator) based on known addresses.

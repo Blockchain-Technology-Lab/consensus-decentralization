@@ -95,7 +95,7 @@ def prep_sample_tezos_mapping_info():
     yield
     # Remove temp mapping info files
     os.remove(str(mapping_info_dir / 'addresses/sample_tezos.json'))
-    
+
 
 @pytest.fixture
 def prep_sample_solana_mapping_info():

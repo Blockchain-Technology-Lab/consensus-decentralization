@@ -15,7 +15,7 @@ ledger_mapping = {
     'zcash': DefaultMapping,
     'tezos': TezosMapping,
     'solana': SolanaMapping
-    
+
 }
 
 
