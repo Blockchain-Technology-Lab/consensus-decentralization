@@ -118,6 +118,7 @@ It parses the data into a list of entries (dictionaries), each entry correspondi
 <li><code>Ethereum</code>: the block's <code>miner</code> field</li>
 <li><code>Cardano</code>: the hash of the pool that created the data, if defined, otherwise the empty string</li>
 <li><code>Tezos</code>: the block's <code>baker</code> field</li>
+<li><code>Solana</code>: the validator's identity account (the address that received the block reward)</li>
 </ul>
 <p>The field <code>identifiers</code> corresponds to:</p>
 <ul>
@@ -125,12 +126,14 @@ It parses the data into a list of entries (dictionaries), each entry correspondi
 <li><code>Ethereum</code>: the block's <code>extra_data</code> field</li>
 <li><code>Cardano</code>: the ticker name of the pool that created the block, if defined, otherwise an empty string</li>
 <li><code>Tezos</code>: there is no such field</li>
+<li><code>Solana</code>: the validator's vote account (a stable, unique identifier for the validator)</li>
 </ul>
 <p>If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash (see <a href="../data/">Data Collection</a>)
 return data that are parsed with the <code>default_parser</code> module in <code>parsers</code>.
 The query for Ethereum returns data that is parsed using the <code>ethereum_parser</code> module in <code>parsers</code>.
 All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser that
 only sorts the blocks.</p>
+<p>Solana data is not obtained through BigQuery but is already in the necessary parsed form (see <a href="../data/">Data Collection</a>), so it is also parsed using the "dummy" parser.</p>
               
             </div>
           </div><footer>

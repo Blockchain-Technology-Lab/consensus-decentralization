@@ -72,6 +72,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#automating-the-data-collection-process">Automating the data collection process</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#solana">Solana</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -212,6 +214,19 @@ directory to retrieve data for all supported blockchains:</p>
   exist. By default, this flag is set to False and the script only fetches block data for some blockchain if the
   corresponding file does not already exist.</li>
 </ul>
+<h2 id="solana">Solana</h2>
+<p>Solana data can be collected in more than one way. This project uses a dedicated
+tool (<a href="https://github.com/josephinney/solana-block-harvester">solana-block-harvester</a>)
+that reads blocks directly from a Solana RPC node and writes them in the same
+NDJSON block format used by the rest of the pipeline. For each block it records
+the slot number, the timestamp, the producing validator's vote account (as
+<code>identifiers</code>) and the validator's identity account (as <code>reward_addresses</code>).</p>
+<p>The same tool also produces the <code>identifiers/solana.json</code> mapping file, keyed by
+vote account, with each validator's published <code>name</code> and <code>homepage</code> sourced from
+Solana's on-chain Config program. Only validators that publish metadata are
+included, so this file can be reused as a reference across any range of blocks.
+Since validators can update their metadata over time, this file should ideally
+be regenerated periodically to stay current.</p>
               
             </div>
           </div><footer>
