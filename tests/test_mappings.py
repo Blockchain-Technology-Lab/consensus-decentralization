@@ -13,6 +13,7 @@ from consensus_decentralization.mappings.ethereum_mapping import EthereumMapping
 from consensus_decentralization.mappings.cardano_mapping import CardanoMapping
 from consensus_decentralization.mappings.tezos_mapping import TezosMapping
 from consensus_decentralization.helper import INTERIM_DIR, get_clustering_flag, get_input_directories
+from consensus_decentralization.mappings.solana_mapping import SolanaMapping
 
 
 @pytest.fixture
@@ -31,11 +32,13 @@ def setup_and_cleanup():
     ledger_parser['sample_cardano'] = DummyParser
     ledger_mapping['sample_tezos'] = TezosMapping
     ledger_parser['sample_tezos'] = DummyParser
+    ledger_mapping['sample_solana'] = SolanaMapping
+    ledger_parser['sample_solana'] = DummyParser
     test_raw_data_dirs = get_input_directories()
     test_output_dir = INTERIM_DIR / "test_output"
     # Create the output directory for each project (as this is typically done in the run.py script before parsing or
     # mapping takes place)
-    for project in ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos']:
+    for project in ['sample_bitcoin', 'sample_ethereum', 'sample_cardano', 'sample_tezos', 'sample_solana']:
         test_project_output_dir = test_output_dir / project
         test_project_output_dir.mkdir(parents=True, exist_ok=True)
     mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
@@ -92,6 +95,16 @@ def prep_sample_tezos_mapping_info():
     yield
     # Remove temp mapping info files
     os.remove(str(mapping_info_dir / 'addresses/sample_tezos.json'))
+
+
+@pytest.fixture
+def prep_sample_solana_mapping_info():
+    mapping_info_dir = pathlib.Path(__file__).resolve().parent.parent / 'mapping_information'
+    # Create temp mapping info files for sample project
+    shutil.copy2(mapping_info_dir / 'identifiers/solana.json', mapping_info_dir / 'identifiers/sample_solana.json')
+    yield
+    # Remove temp mapping info files
+    os.remove(mapping_info_dir / 'identifiers/sample_solana.json')
 
 
 def test_map(setup_and_cleanup, prep_sample_bitcoin_mapping_info):
@@ -295,3 +308,31 @@ def test_cardano_map_from_known_addresses():
     }
     entity = cardano_mapping.map_from_known_addresses(block)
     assert entity == "----- SPECIAL ADDRESS -----"
+
+
+def test_solana_mapping(setup_and_cleanup, prep_sample_solana_mapping_info):
+    mapping_info_dir, test_raw_data_dirs, test_output_dir = setup_and_cleanup
+
+    parsed_data = parse(ledger='sample_solana', input_dirs=test_raw_data_dirs)
+    apply_mapping(project='sample_solana', parsed_data=parsed_data, output_dir=test_output_dir)
+
+    expected_block_creators = {
+        '437783806': 'Temporal Emerald',
+        '437783795': 'binance staking',
+        '437783783': 'Coinbase 05',
+        '437783803': 'EvnRmnMrd69kFdbLMxWkTn1icZ7DCceRhvmb2SJXqDo4',
+        '437783799': 'DP9SwUE9Wi4NijWxgKDmmVsqGtQ597AKKmDBwzpt8GgZ',
+    }
+    expected_mapping_methods = {
+        '437783806': 'known_identifiers',
+        '437783795': 'known_identifiers',
+        '437783783': 'known_identifiers',
+        '437783803': 'fallback_mapping',
+        '437783799': 'fallback_mapping',
+    }
+    with open(test_output_dir / 'sample_solana/mapped_data_clustered.json') as f:
+        mapped_data = json.load(f)
+    for block in mapped_data:
+        if block['number'] in expected_block_creators:
+            assert block['creator'] == expected_block_creators[block['number']]
+            assert block['mapping_method'] == expected_mapping_methods[block['number']]

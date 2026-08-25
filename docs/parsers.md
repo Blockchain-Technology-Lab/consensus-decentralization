@@ -27,6 +27,7 @@ Specifically, `reward_addresses` corresponds to:
 - `Ethereum`: the block's `miner` field
 - `Cardano`: the hash of the pool that created the data, if defined, otherwise the empty string
 - `Tezos`: the block's `baker` field
+- `Solana`: the validator's identity account (the address that received the block reward)
 
 The field `identifiers` corresponds to:
 
@@ -34,9 +35,12 @@ The field `identifiers` corresponds to:
 - `Ethereum`: the block's `extra_data` field
 - `Cardano`: the ticker name of the pool that created the block, if defined, otherwise an empty string
 - `Tezos`: there is no such field
+- `Solana`: the validator's vote account (a stable, unique identifier for the validator)
 
 If using BigQuery, the queries for Bitcoin, Bitcoin Cash, Dogecoin, Litecoin, Zcash (see [Data Collection](data.md))
 return data that are parsed with the `default_parser` module in `parsers`.
 The query for Ethereum returns data that is parsed using the `ethereum_parser` module in `parsers`.
 All other queries return data already in the necessary parsed form, so they are parsed using a "dummy" parser that
 only sorts the blocks.
+
+Solana data is not obtained through BigQuery but is already in the necessary parsed form (see [Data Collection](data.md)), so it is also parsed using the "dummy" parser.

@@ -40,6 +40,7 @@ Currently, the supported ledgers are:
 - Dogecoin
 - Ethereum 
 - Litecoin
+- Solana
 - Tezos
 - Zcash
 
