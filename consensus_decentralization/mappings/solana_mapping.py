@@ -4,14 +4,14 @@ from consensus_decentralization.mappings.default_mapping import DefaultMapping
 class SolanaMapping(DefaultMapping):
     """
     Mapping class tailored to Solana data. Inherits from DefaultMapping.
-    
+
     Solana differs from the default (Bitcoin-style) mapping in two ways, both reflected in the overriden methods below:
-        - the identifier is the producing validator's vote account, a unique and permanent value, 
+        - the identifier is the producing validator's vote account, a unique and permanent value,
         so it is matched exactly rather than as a substring
-        - each block has exactly one reward address, the validator's identity account, so there 
+        - each block has exactly one reward address, the validator's identity account, so there
         is no need to iterate over multiple addresses.
 
-    Note that in Solana the identifier (vote account) and the reward address (identity account) are distinct values, 
+    Note that in Solana the identifier (vote account) and the reward address (identity account) are distinct values,
     unlike Cardano where the pool hash serves as both.
     """
 
